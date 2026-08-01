@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🏆 مليون مربع</title>
     <style>
+        /* ===== التنسيقات ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             background: #0A0E1A;
             color: #E8EDF5;
             min-height: 100vh;
@@ -19,8 +20,9 @@
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             z-index: 9999;
+            transition: opacity 0.5s;
         }
-        .loading-screen.hidden { opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+        .loading-screen.hidden { opacity: 0; pointer-events: none; }
         .loader {
             width: 60px; height: 60px;
             border: 4px solid #2A3A5C;
@@ -37,30 +39,33 @@
             border-bottom: 2px solid #00D4FF;
             position: sticky; top: 0; z-index: 1000;
         }
-        .banner-content { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; }
+        .banner-content { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 14px; }
         
-        .main-header {
+        .header {
             background: #111827;
             border-bottom: 1px solid #2A3A5C;
             padding: 12px 20px;
         }
         .header-content {
             display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 15px; max-width: 1400px; margin: 0 auto;
+            flex-wrap: wrap; gap: 10px; max-width: 1400px; margin: 0 auto;
         }
-        .logo h1 { font-size: 1.8rem; font-weight: 800; }
+        .logo h1 { font-size: 1.6rem; font-weight: 800; }
         .gradient-text {
             background: linear-gradient(135deg, #00D4FF, #8B6BE8, #FFD700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .header-stats { display: flex; gap: 20px; font-size: 14px; }
+        .header-stats span { color: #00D4FF; font-weight: 700; }
         
         .book-section { padding: 10px 20px; background: #1A2236; text-align: center; border-bottom: 1px solid #2A3A5C; }
         .book-btn {
             background: linear-gradient(135deg, #6C3CE1, #00D4FF);
             border: none; color: white;
             padding: 12px 35px; border-radius: 50px;
-            font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: transform 0.3s;
         }
         .book-btn:hover { transform: scale(1.05); }
         
@@ -115,8 +120,7 @@
             font-size: 0.4rem;
             position: absolute; top: 2px; right: 3px;
             background: rgba(0,0,0,0.8);
-            padding: 0 6px;
-            border-radius: 10px;
+            padding: 0 6px; border-radius: 10px;
             font-weight: 700;
             z-index: 2;
         }
@@ -130,6 +134,7 @@
             color: #8899BB;
             font-size: 1.2rem;
         }
+        .pixel-cell:hover { transform: scale(1.1); z-index: 10; border-color: #00D4FF; }
         
         .admin-section { padding: 10px 20px; text-align: center; border-top: 1px solid #2A3A5C; }
         .admin-panel.hidden { display: none; }
@@ -173,54 +178,54 @@
     </style>
 </head>
 <body>
-    <!-- شاشة التحميل -->
+    <!-- ===== شاشة التحميل ===== -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
         <p style="margin-top:20px;color:#8899BB;">⏳ جاري تحميل مليون مربع...</p>
     </div>
 
-    <!-- الشريط العلوي -->
+    <!-- ===== الشريط العلوي ===== -->
     <div class="top-banner">
         <div class="banner-content">
             <span>🚀 انضم الآن واحجز مربعك المميز</span>
-            <span>📊 المربعات المتاحة: <strong id="availableSquares">0</strong></span>
+            <span>📊 المتاحة: <strong id="availableSquares">0</strong></span>
             <span>🕐 <span id="liveClock">00:00:00</span></span>
             <span>👥 <strong id="totalMembersDisplay">0</strong> مشترك</span>
         </div>
     </div>
 
-    <!-- الهيدر -->
-    <header class="main-header">
+    <!-- ===== الهيدر ===== -->
+    <header class="header">
         <div class="header-content">
             <div class="logo"><h1>🏆 <span class="gradient-text">مليون مربع</span></h1></div>
-            <div>
-                <span id="totalMembers" style="font-weight:700;color:#00D4FF;">0</span> مشترك |
-                <span id="totalRevenue" style="font-weight:700;color:#00D4FF;">$0</span> إيرادات
+            <div class="header-stats">
+                <div><span id="totalMembers">0</span> مشترك</div>
+                <div><span id="totalRevenue">$0</span> إيرادات</div>
             </div>
         </div>
     </header>
 
-    <!-- زر الحجز -->
+    <!-- ===== زر الحجز ===== -->
     <div class="book-section">
         <button class="book-btn" id="bookSquareBtn">➕ احجز مربعك الآن</button>
     </div>
 
-    <!-- الجريد -->
+    <!-- ===== الجريد ===== -->
     <div class="grid-container">
         <div class="grid-wrapper">
             <div class="grid-canvas" id="gridCanvas"></div>
         </div>
     </div>
 
-    <!-- لوحة التحكم -->
+    <!-- ===== لوحة التحكم ===== -->
     <div class="admin-section">
         <button id="adminSecretBtn" class="admin-secret-btn">🔐</button>
         <span class="admin-hint">انقر مرتين للدخول</span>
         <div id="adminPanel" class="admin-panel hidden">
             <div class="admin-login">
                 <h3>🔐 الدخول إلى لوحة التحكم</h3>
-                <input type="text" id="adminEmail" placeholder="اسم المستخدم" value="">
-                <input type="password" id="adminPassword" placeholder="كلمة السر" value="">
+                <input type="text" id="adminEmail" placeholder="اسم المستخدم">
+                <input type="password" id="adminPassword" placeholder="كلمة السر">
                 <button id="adminLoginBtn">دخول</button>
                 <div id="loginError" class="login-error hidden">❌ اسم المستخدم أو كلمة السر غير صحيحة</div>
             </div>
@@ -257,16 +262,18 @@
         </div>
     </div>
 
+    <!-- ===== الفوتر ===== -->
     <div class="footer">
         <p>© 2026 مليون مربع - جميع الحقوق محفوظة</p>
     </div>
 
+    <!-- ===== جافا سكريبت ===== -->
     <script>
         // ============================================================
-        // ===== كود JavaScript المدمج (يعمل 100%) =====
+        // ===== كود JavaScript (مبسط جداً) =====
         // ============================================================
         
-        // ===== بيانات المستويات =====
+        // بيانات المستويات
         var TIERS = {
             normal: { name: 'عادي', price: 1, color: '#4A90D9', label: '💎' },
             silver: { name: 'فضي', price: 5, color: '#C0C0C0', label: '⭐' },
@@ -274,39 +281,26 @@
             royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
         };
 
-        // ===== بيانات افتراضية =====
+        // بيانات وهمية
         var NAMES = ['أحمد محمد', 'محمد العمري', 'سارة الخالدي', 'نورة الحربي', 'علي الشمري', 'فاطمة الزهراء'];
         var LOCATIONS = ['الرياض', 'جدة', 'مكة', 'المدينة', 'الدمام', 'دبي'];
 
-        // ===== المتغيرات العامة =====
+        // المتغيرات العامة
         var members = [];
         var totalRevenue = 0;
         var virtualRevenue = 0;
-        var currentZoom = 1;
         var adminClickCount = 0;
         var adminClickTimer = null;
 
-        // ===== عناصر DOM =====
-        var gridCanvas, liveClock;
+        // عناصر الصفحة
+        var gridCanvas, membersTableBody, loadingScreen;
         var totalMembersDisplay, totalMembers, totalRevenueEl, availableSquares;
-        var membersTableBody, loginError, loadingScreen;
 
-        // ===== حساب الإيرادات =====
-        function calculateRevenue() {
-            var real = 0, virtual = 0;
-            for (var i = 0; i < members.length; i++) {
-                var price = TIERS[members[i].tier].price;
-                if (members[i].isVirtual) virtual += price;
-                else real += price;
-            }
-            return { real: real, virtual: virtual, total: real + virtual };
-        }
-
-        // ===== إنشاء مشتركين افتراضيين =====
-        function generateVirtualMembers(count) {
+        // ===== إنشاء مشتركين وهميين =====
+        function createMembers() {
             var result = [];
             var tierKeys = ['normal', 'silver', 'gold', 'royal'];
-            for (var i = 0; i < count; i++) {
+            for (var i = 0; i < 30; i++) {
                 var tier = tierKeys[i % tierKeys.length];
                 var nameIndex = i % NAMES.length;
                 var locIndex = i % LOCATIONS.length;
@@ -316,13 +310,8 @@
                     email: NAMES[nameIndex].replace(/ /g, '').toLowerCase() + i + '@example.com',
                     location: LOCATIONS[locIndex],
                     tier: tier,
-                    website: 'https://' + NAMES[nameIndex].replace(/ /g, '').toLowerCase() + '.com',
-                    message: 'مرحباً، أنا ' + NAMES[nameIndex],
                     image: 'https://picsum.photos/seed/' + (i + 100) + '/100/100',
-                    isRoyal: tier === 'royal',
                     isVirtual: true,
-                    position: i,
-                    joinDate: new Date().toLocaleDateString('ar-EG'),
                     rating: Math.floor(Math.random() * 5) + 1,
                     votes: Math.floor(Math.random() * 50) + 1
                 });
@@ -330,20 +319,20 @@
             return result;
         }
 
-        // ===== التخزين المحلي =====
+        // ===== حفظ البيانات =====
         function saveData() {
-            var data = { members: members, totalRevenue: totalRevenue, virtualRevenue: virtualRevenue };
-            try { localStorage.setItem('millionSquaresData', JSON.stringify(data)); } catch(e) {}
+            try {
+                localStorage.setItem('millionSquaresData', JSON.stringify({ members: members }));
+            } catch(e) {}
         }
 
+        // ===== تحميل البيانات =====
         function loadData() {
             try {
                 var saved = localStorage.getItem('millionSquaresData');
                 if (saved) {
                     var data = JSON.parse(saved);
                     members = data.members || [];
-                    totalRevenue = data.totalRevenue || 0;
-                    virtualRevenue = data.virtualRevenue || 0;
                     return true;
                 }
             } catch(e) {}
@@ -352,10 +341,7 @@
 
         // ===== تهيئة البيانات =====
         if (!loadData() || members.length === 0) {
-            members = generateVirtualMembers(30);
-            var rev = calculateRevenue();
-            totalRevenue = rev.real;
-            virtualRevenue = rev.virtual;
+            members = createMembers();
             saveData();
         }
 
@@ -364,7 +350,6 @@
             if (!gridCanvas) return;
             
             gridCanvas.innerHTML = '';
-            var fragment = document.createDocumentFragment();
             var totalCells = 500;
             var memberCount = members.length;
             
@@ -378,89 +363,45 @@
                     var tierInfo = TIERS[member.tier];
                     var stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
                     cell.className = 'pixel-cell tier-' + member.tier;
-                    
                     cell.innerHTML = 
                         (member.image ? '<img src="' + member.image + '" class="cell-image" loading="lazy">' : '') +
                         '<div class="cell-name">' + member.name + '</div>' +
-                        '<div class="cell-tier">' + tierInfo.label + '</div>' +
-                        (member.isVirtual ? '<div style="position:absolute;bottom:2px;right:2px;font-size:0.3rem;background:rgba(245,158,11,0.3);color:#F59E0B;padding:1px 4px;border-radius:4px;">افتراضي</div>' : '') +
-                        '<div style="position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-size:0.35rem;background:rgba(0,0,0,0.7);padding:1px 6px;border-radius:10px;white-space:nowrap;"><span style="color:#FFD700;">' + stars + '</span> <span style="color:#8899BB;">(' + (member.votes || 0) + ')</span></div>';
+                        '<div class="cell-tier">' + tierInfo.label + '</div>';
                     
-                    (function(m) {
-                        cell.addEventListener('click', function() {
-                            alert('👤 ' + m.name + '\n📧 ' + m.email + '\n📍 ' + m.location + '\n🏷️ ' + TIERS[m.tier].label + ' ' + TIERS[m.tier].name + '\n💰 $' + TIERS[m.tier].price + '/سنة');
-                        });
-                    })(member);
+                    cell.addEventListener('click', (function(m) {
+                        return function() {
+                            alert('👤 ' + m.name + '\n📧 ' + m.email + '\n📍 ' + m.location + '\n🏷️ ' + TIERS[m.tier].label + ' ' + TIERS[m.tier].name);
+                        };
+                    })(member));
                 } else {
                     cell.className = 'pixel-cell empty';
                     cell.textContent = '+';
-                    cell.addEventListener('click', bookSquare);
+                    cell.addEventListener('click', function() {
+                        alert('💳 هذا المربع فارغ! اختر مستوى اشتراكك.');
+                    });
                 }
-                fragment.appendChild(cell);
+                gridCanvas.appendChild(cell);
             }
-            gridCanvas.appendChild(fragment);
-            applyZoom();
+            
             updateStats();
         }
 
         // ===== تحديث الإحصائيات =====
         function updateStats() {
-            var totalCount = members.length;
-            var rev = calculateRevenue();
-            totalRevenue = rev.real;
-            virtualRevenue = rev.virtual;
-            
-            if (totalMembers) totalMembers.textContent = totalCount;
-            if (totalMembersDisplay) totalMembersDisplay.textContent = totalCount;
-            if (availableSquares) availableSquares.textContent = (1000000 - totalCount).toLocaleString();
-            if (totalRevenueEl) totalRevenueEl.textContent = '$' + (totalRevenue + virtualRevenue).toFixed(0);
-        }
-
-        // ===== دالة الحجز =====
-        function bookSquare() {
-            var options = '';
-            for (var key in TIERS) {
-                options += key + ': ' + TIERS[key].label + ' ' + TIERS[key].name + ' - $' + TIERS[key].price + '/سنة\n';
+            var count = members.length;
+            if (totalMembers) totalMembers.textContent = count;
+            if (totalMembersDisplay) totalMembersDisplay.textContent = count;
+            if (availableSquares) availableSquares.textContent = (1000000 - count).toLocaleString();
+            if (totalRevenueEl) {
+                var rev = 0;
+                for (var i = 0; i < members.length; i++) {
+                    rev += TIERS[members[i].tier].price;
+                }
+                totalRevenueEl.textContent = '$' + rev.toFixed(0);
             }
-            var choice = prompt('💳 اختر مستوى الاشتراك:\n' + options + '\nأدخل نوع المستوى (normal, silver, gold, royal):');
-            if (!choice || !TIERS[choice]) { alert('❌ مستوى غير صحيح'); return; }
-
-            var tierInfo = TIERS[choice];
-            var name = prompt('👤 أدخل اسمك الكامل:');
-            if (!name) return;
-            var email = prompt('✉️ أدخل بريدك الإلكتروني:');
-            if (!email) return;
-            var location = prompt('📍 أدخل موقعك:') || 'غير محدد';
-            var website = prompt('🔗 رابط موقعك (اختياري):') || '';
-            var image = prompt('🖼️ رابط الصورة (اختياري):') || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
-
-            var newMember = {
-                id: 'm' + Date.now(),
-                name: name,
-                email: email,
-                location: location,
-                tier: choice,
-                website: website,
-                image: image,
-                message: 'مرحباً، أنا ' + name,
-                isRoyal: choice === 'royal',
-                isVirtual: false,
-                position: members.length,
-                rating: 0,
-                votes: 0,
-                joinDate: new Date().toLocaleDateString('ar-EG')
-            };
-            
-            members.push(newMember);
-            totalRevenue += tierInfo.price;
-            saveData();
-            renderGrid();
-            renderMembersTable();
-            updateStats();
-            alert('🎉 تم الاشتراك بنجاح!');
         }
 
-        // ===== لوحة التحكم =====
+        // ===== عرض جدول المشتركين =====
         function renderMembersTable() {
             if (!membersTableBody) return;
             membersTableBody.innerHTML = '';
@@ -478,14 +419,13 @@
                 var tr = document.createElement('tr');
                 var tierInfo = TIERS[m.tier];
                 var typeBadge = m.isVirtual ? 
-                    '<span style="color:#F59E0B;font-weight:700;">🔄 افتراضي</span>' : 
-                    '<span style="color:#10B981;font-weight:700;">✅ حقيقي</span>';
+                    '<span style="color:#F59E0B;">🔄 افتراضي</span>' : 
+                    '<span style="color:#10B981;">✅ حقيقي</span>';
                 var index = members.indexOf(m);
-                
                 tr.innerHTML = 
-                    '<td><strong>' + m.name + '</strong></td>' +
+                    '<td>' + m.name + '</td>' +
                     '<td>' + m.email + '</td>' +
-                    '<td><span style="color:' + tierInfo.color + ';font-weight:700;">' + tierInfo.label + ' ' + tierInfo.name + '</span></td>' +
+                    '<td><span style="color:' + tierInfo.color + ';">' + tierInfo.label + ' ' + tierInfo.name + '</span></td>' +
                     '<td>' + m.location + '</td>' +
                     '<td>' + typeBadge + '</td>' +
                     '<td><button class="delete-btn" data-index="' + index + '">🗑️ حذف</button></td>';
@@ -495,58 +435,65 @@
             document.querySelectorAll('.delete-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     var index = parseInt(this.dataset.index);
-                    deleteMember(index);
+                    if (confirm('هل أنت متأكد من حذف هذا المشترك؟')) {
+                        members.splice(index, 1);
+                        saveData();
+                        renderMembersTable();
+                        renderGrid();
+                        updateStats();
+                    }
                 });
             });
         }
 
-        function deleteMember(index) {
-            var member = members[index];
-            if (!member) return;
-            if (!confirm('هل أنت متأكد من حذف هذا المشترك؟')) return;
-            if (member.isVirtual) virtualRevenue -= TIERS[member.tier].price;
-            else totalRevenue -= TIERS[member.tier].price;
-            members.splice(index, 1);
+        // ===== الحجز =====
+        function bookSquare() {
+            var name = prompt('👤 أدخل اسمك الكامل:');
+            if (!name) return;
+            var email = prompt('✉️ أدخل بريدك الإلكتروني:');
+            if (!email) return;
+            var location = prompt('📍 أدخل موقعك:') || 'غير محدد';
+            
+            var tier = prompt('🏷️ اختر المستوى (normal, silver, gold, royal):');
+            if (!tier || !TIERS[tier]) {
+                alert('❌ مستوى غير صحيح');
+                return;
+            }
+            
+            var image = prompt('🖼️ رابط الصورة (اختياري):') || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
+            
+            members.push({
+                id: 'm' + Date.now(),
+                name: name,
+                email: email,
+                location: location,
+                tier: tier,
+                image: image,
+                isVirtual: false,
+                rating: 0,
+                votes: 0
+            });
+            
             saveData();
-            renderMembersTable();
             renderGrid();
+            renderMembersTable();
             updateStats();
+            alert('🎉 تم الاشتراك بنجاح!');
         }
 
-        // ===== تطبيق الزوم =====
-        function applyZoom() {
-            var size = Math.max(30, 60 * currentZoom);
-            document.querySelectorAll('.pixel-cell').forEach(function(cell) {
-                cell.style.minHeight = size + 'px';
-                cell.style.fontSize = (size * 0.015) + 'rem';
-            });
-        }
-
-        // ===== البحث =====
-        function filterGrid() {
-            if (!searchInput || !gridCanvas) return;
-            var text = searchInput.value.toLowerCase();
-            document.querySelectorAll('.pixel-cell .cell-name').forEach(function(el) {
-                var cell = el.closest('.pixel-cell');
-                if (cell) {
-                    cell.style.display = el.textContent.toLowerCase().includes(text) ? 'block' : 'none';
-                }
-            });
-        }
-
-        // ===== تهيئة الموقع =====
+        // ===== تشغيل الموقع =====
         document.addEventListener('DOMContentLoaded', function() {
+            // تهيئة العناصر
             gridCanvas = document.getElementById('gridCanvas');
-            searchInput = document.getElementById('searchInput');
-            liveClock = document.getElementById('liveClock');
+            membersTableBody = document.getElementById('membersTableBody');
+            loadingScreen = document.getElementById('loadingScreen');
             totalMembersDisplay = document.getElementById('totalMembersDisplay');
             totalMembers = document.getElementById('totalMembers');
             totalRevenueEl = document.getElementById('totalRevenue');
             availableSquares = document.getElementById('availableSquares');
-            membersTableBody = document.getElementById('membersTableBody');
-            loginError = document.getElementById('loginError');
-            loadingScreen = document.getElementById('loadingScreen');
-
+            
+            var liveClock = document.getElementById('liveClock');
+            
             // الساعة
             setInterval(function() {
                 if (liveClock) {
@@ -554,19 +501,17 @@
                     liveClock.textContent = now.toLocaleTimeString('ar-EG');
                 }
             }, 1000);
-
+            
             // عرض المربعات
             renderGrid();
-
+            
+            // عرض الجدول
+            renderMembersTable();
+            
             // زر الحجز
             document.getElementById('bookSquareBtn').addEventListener('click', bookSquare);
-
-            // البحث
-            if (searchInput) {
-                searchInput.addEventListener('input', filterGrid);
-            }
-
-            // لوحة التحكم
+            
+            // زر الدخول المخفي للوحة التحكم
             document.getElementById('adminSecretBtn').addEventListener('click', function() {
                 adminClickCount++;
                 if (adminClickCount === 1) {
@@ -580,29 +525,31 @@
                         if (!panel.classList.contains('hidden')) {
                             document.getElementById('adminEmail').value = '';
                             document.getElementById('adminPassword').value = '';
-                            if (loginError) loginError.classList.add('hidden');
+                            document.getElementById('loginError').classList.add('hidden');
                         }
                     }
                 }
             });
-
+            
+            // تسجيل الدخول للوحة التحكم
             document.getElementById('adminLoginBtn').addEventListener('click', function() {
                 var email = document.getElementById('adminEmail').value;
                 var password = document.getElementById('adminPassword').value;
                 var storedEmail = localStorage.getItem('adminEmail') || 'fedaaali';
                 var storedPassword = localStorage.getItem('adminPassword') || 'fida1271980';
+                
                 if (email === storedEmail && password === storedPassword) {
                     document.getElementById('adminContent').classList.remove('hidden');
                     document.querySelector('.admin-login').style.display = 'none';
                     renderMembersTable();
                     alert('✅ تم الدخول إلى لوحة التحكم');
                 } else {
-                    if (loginError) loginError.classList.remove('hidden');
+                    document.getElementById('loginError').classList.remove('hidden');
                     document.getElementById('adminPassword').value = '';
-                    document.getElementById('adminPassword').focus();
                 }
             });
-
+            
+            // تبويبات
             document.querySelectorAll('.tab-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -611,67 +558,69 @@
                     document.getElementById(this.dataset.tab).classList.add('active');
                 });
             });
-
+            
+            // البحث في لوحة التحكم
             document.getElementById('adminSearchInput').addEventListener('input', renderMembersTable);
-
+            
+            // إضافة مشترك
             document.getElementById('addMemberBtn').addEventListener('click', function() {
-                var name = prompt('👤 اسم المشترك الكامل:');
+                var name = prompt('👤 اسم المشترك:');
                 if (!name) return;
                 var email = prompt('✉️ البريد:');
                 if (!email) return;
                 var location = prompt('📍 الموقع:') || 'غير محدد';
                 var tier = prompt('🏷️ المستوى (normal/silver/gold/royal):') || 'normal';
                 if (!TIERS[tier]) { alert('❌ مستوى غير صحيح'); return; }
-                var image = prompt('🖼️ رابط الصورة:') || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
-
+                
                 members.push({
                     id: 'm' + Date.now(),
                     name: name,
                     email: email,
                     location: location,
                     tier: tier,
-                    image: image,
-                    website: '',
-                    message: 'مرحباً، أنا ' + name,
-                    isRoyal: tier === 'royal',
+                    image: 'https://picsum.photos/seed/' + Date.now() + '/100/100',
                     isVirtual: false,
-                    position: members.length,
                     rating: 0,
-                    votes: 0,
-                    joinDate: new Date().toLocaleDateString('ar-EG')
+                    votes: 0
                 });
-                totalRevenue += TIERS[tier].price;
                 saveData();
-                renderMembersTable();
                 renderGrid();
+                renderMembersTable();
                 updateStats();
                 alert('✅ تم إضافة المشترك');
             });
-
+            
+            // تحديث الجدول
             document.getElementById('refreshMembersBtn').addEventListener('click', function() {
                 renderMembersTable();
                 updateStats();
                 alert('✅ تم تحديث البيانات');
             });
-
+            
+            // حفظ إعدادات المدير
             document.getElementById('saveSettingsBtn').addEventListener('click', function() {
-                localStorage.setItem('adminEmail', document.getElementById('adminEmailSetting').value);
+                var email = document.getElementById('adminEmailSetting').value;
+                if (email) localStorage.setItem('adminEmail', email);
                 alert('✅ تم حفظ الإعدادات');
             });
-
+            
+            // تغيير كلمة السر
             document.getElementById('changePasswordBtn').addEventListener('click', function() {
                 var pass = document.getElementById('newPassword').value.trim();
-                if (pass.length < 4) { alert('❌ 4 أحرف على الأقل'); return; }
+                if (pass.length < 4) {
+                    alert('❌ 4 أحرف على الأقل');
+                    return;
+                }
                 localStorage.setItem('adminPassword', pass);
                 alert('✅ تم تغيير كلمة السر');
                 document.getElementById('newPassword').value = '';
             });
-
+            
             // إخفاء شاشة التحميل
             setTimeout(function() {
                 if (loadingScreen) loadingScreen.classList.add('hidden');
             }, 800);
-
+            
             console.log('🚀 مليون مربع - تم التحميل بنجاح');
             console.log('👥 المشتركين: ' + members.length);
         });
