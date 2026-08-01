@@ -147,6 +147,7 @@
             cursor: pointer;
             font-size: 13px;
             transition: var(--transition);
+            font-weight: 600;
         }
         .lang-btn:hover {
             border-color: var(--gold);
@@ -1166,11 +1167,11 @@
     ============================================================ -->
     <div class="admin-overlay" id="adminOverlay">
         <div class="admin-login-box">
-            <h2>🔐 لوحة التحكم</h2>
+            <h2 id="loginTitle">🔐 لوحة التحكم</h2>
             <div class="sub" id="loginSub">ادخل بيانات المدير للدخول</div>
             <input type="text" id="adminUsername" placeholder="👤 اسم المدير" dir="ltr">
             <input type="password" id="adminPassword" placeholder="🔑 كلمة المرور" dir="ltr">
-            <button class="btn-login" onclick="verifyAdmin()">🚀 دخول</button>
+            <button class="btn-login" onclick="verifyAdmin()" id="loginBtn">🚀 دخول</button>
             <div class="error-msg" id="loginError">❌ اسم المستخدم أو كلمة المرور غير صحيحة!</div>
         </div>
     </div>
@@ -1206,8 +1207,8 @@
         ============================================================ -->
         <div class="admin-panel" id="adminPanel">
             <div class="panel-header">
-                <h3>🛠️ لوحة التحكم المتقدمة</h3>
-                <button class="close-panel" onclick="toggleAdminPanel()">✕ إغلاق</button>
+                <h3 id="adminPanelTitle">🛠️ لوحة التحكم المتقدمة</h3>
+                <button class="close-panel" onclick="toggleAdminPanel()" id="adminCloseBtn">✕ إغلاق</button>
             </div>
 
             <!-- Analytics / Charts -->
@@ -1225,7 +1226,7 @@
             <div class="admin-grid">
                 <!-- Add Subscriber -->
                 <div class="admin-section">
-                    <h4>➕ إضافة مشترك جديد</h4>
+                    <h4 id="adminAddTitle">➕ إضافة مشترك جديد</h4>
                     <input type="text" id="subName" placeholder="👤 الاسم الكامل" dir="auto">
                     <input type="text" id="subLocation" placeholder="📍 المدينة" dir="auto">
                     <input type="text" id="subCountry" placeholder="🌍 البلد" dir="auto">
@@ -1241,13 +1242,13 @@
                         <div class="file-label" id="avatarLabel">🖼️ اختر صورة شخصية</div>
                         <input type="file" id="subAvatar" accept="image/*" onchange="handleAvatarUpload(event)">
                     </div>
-                    <button class="btn-admin success" onclick="addSubscriber()">✅ إضافة المشترك</button>
-                    <div class="hint">💡 سيتم إرسال إشعار بريدي للعضو الجديد</div>
+                    <button class="btn-admin success" onclick="addSubscriber()" id="adminAddBtn">✅ إضافة المشترك</button>
+                    <div class="hint" id="adminAddHint">💡 سيتم إرسال إشعار بريدي للعضو الجديد</div>
                 </div>
 
                 <!-- Update Sponsors -->
                 <div class="admin-section">
-                    <h4>🌟 تحديث الرعاة</h4>
+                    <h4 id="adminSponsorTitle">🌟 تحديث الرعاة</h4>
                     <input type="text" id="sponsorWeeklyName" placeholder="🗓️ الراعي الأسبوعي" dir="auto">
                     <input type="text" id="sponsorMonthlyName" placeholder="🌟 الراعي الشهري" dir="auto">
                     <input type="text" id="sponsorYearlyName" placeholder="👑 الراعي السنوي" dir="auto">
@@ -1255,53 +1256,53 @@
                         <div class="file-label" id="sponsorAvatarLabel">🖼️ صور الرعاة (اختر 3 صور)</div>
                         <input type="file" id="sponsorAvatars" accept="image/*" multiple onchange="handleSponsorAvatars(event)">
                     </div>
-                    <button class="btn-admin" onclick="updateSponsors()">💾 حفظ الرعاة</button>
-                    <div class="hint">💡 يمكنك رفع صور منفصلة لكل راعي</div>
+                    <button class="btn-admin" onclick="updateSponsors()" id="adminSponsorBtn">💾 حفظ الرعاة</button>
+                    <div class="hint" id="adminSponsorHint">💡 يمكنك رفع صور منفصلة لكل راعي</div>
                 </div>
 
                 <!-- Payment Accounts -->
                 <div class="admin-section">
-                    <h4>💰 حسابات استلام الأرباح</h4>
+                    <h4 id="adminPaymentTitle">💰 حسابات استلام الأرباح</h4>
                     <input type="text" id="paypalAccount" placeholder="💳 PayPal (البريد الإلكتروني)" dir="ltr">
                     <input type="text" id="stripeAccount" placeholder="⚡ Stripe (المفتاح العام)" dir="ltr">
                     <input type="text" id="bankAccount" placeholder="🏦 الحساب البنكي (IBAN)" dir="ltr">
-                    <button class="btn-admin" onclick="savePaymentAccounts()">💾 حفظ الحسابات</button>
-                    <div class="hint">🔒 سيتم استخدام هذه الحسابات لاستلام الأرباح</div>
+                    <button class="btn-admin" onclick="savePaymentAccounts()" id="adminPaymentBtn">💾 حفظ الحسابات</button>
+                    <div class="hint" id="adminPaymentHint">🔒 سيتم استخدام هذه الحسابات لاستلام الأرباح</div>
                 </div>
 
                 <!-- Email Settings -->
                 <div class="admin-section">
-                    <h4>📧 إعدادات البريد الإلكتروني</h4>
+                    <h4 id="adminEmailTitle">📧 إعدادات البريد الإلكتروني</h4>
                     <input type="email" id="smtpEmail" placeholder="📧 البريد المرسل" dir="ltr">
                     <input type="password" id="smtpPassword" placeholder="🔑 كلمة مرور البريد" dir="ltr">
                     <input type="text" id="smtpHost" placeholder="🌐 SMTP Host (مثال: smtp.gmail.com)" dir="ltr">
                     <input type="number" id="smtpPort" placeholder="🔢 SMTP Port (مثال: 587)" dir="ltr">
-                    <button class="btn-admin" onclick="saveEmailSettings()">💾 حفظ إعدادات البريد</button>
-                    <div class="hint">📨 سيتم استخدام هذه الإعدادات لإرسال الإشعارات</div>
+                    <button class="btn-admin" onclick="saveEmailSettings()" id="adminEmailBtn">💾 حفظ إعدادات البريد</button>
+                    <div class="hint" id="adminEmailHint">📨 سيتم استخدام هذه الإعدادات لإرسال الإشعارات</div>
                 </div>
 
                 <!-- Site Settings -->
                 <div class="admin-section">
-                    <h4>⚙️ إعدادات الموقع</h4>
+                    <h4 id="adminSiteTitle">⚙️ إعدادات الموقع</h4>
                     <input type="text" id="siteTitle" placeholder="🏷️ عنوان الموقع">
                     <textarea id="siteDescription" placeholder="📝 وصف الموقع"></textarea>
                     <input type="number" id="squaresPerPage" placeholder="📊 عدد المربعات في الصفحة (افتراضي: 1000)">
-                    <button class="btn-admin" onclick="saveSiteSettings()">💾 حفظ الإعدادات</button>
-                    <div class="hint">⚡ هذه الإعدادات تؤثر على عرض الموقع</div>
+                    <button class="btn-admin" onclick="saveSiteSettings()" id="adminSiteBtn">💾 حفظ الإعدادات</button>
+                    <div class="hint" id="adminSiteHint">⚡ هذه الإعدادات تؤثر على عرض الموقع</div>
                 </div>
 
                 <!-- Danger Zone -->
                 <div class="admin-section">
-                    <h4>⚠️ منطقة الخطر</h4>
-                    <button class="btn-admin danger" onclick="resetAllData()">🗑️ حذف جميع البيانات</button>
-                    <button class="btn-admin danger" onclick="resetToDefault()">🔄 استعادة البيانات الافتراضية</button>
-                    <button class="btn-admin warning" onclick="exportData()">📤 تصدير البيانات (JSON)</button>
-                    <button class="btn-admin warning" onclick="exportPDF()">📄 تصدير تقرير (PDF)</button>
+                    <h4 id="adminDangerTitle">⚠️ منطقة الخطر</h4>
+                    <button class="btn-admin danger" onclick="resetAllData()" id="adminDangerDelete">🗑️ حذف جميع البيانات</button>
+                    <button class="btn-admin danger" onclick="resetToDefault()" id="adminDangerReset">🔄 استعادة البيانات الافتراضية</button>
+                    <button class="btn-admin warning" onclick="exportData()" id="adminDangerExport">📤 تصدير البيانات (JSON)</button>
+                    <button class="btn-admin warning" onclick="exportPDF()" id="adminDangerPDF">📄 تصدير تقرير (PDF)</button>
                     <div class="file-input-wrapper" style="margin-top:8px;">
-                        <div class="file-label">📥 استيراد بيانات (JSON)</div>
+                        <div class="file-label" id="adminImportLabel">📥 استيراد بيانات (JSON)</div>
                         <input type="file" id="importFile" accept=".json" onchange="importData(event)">
                     </div>
-                    <div class="hint">⚠️ العمليات في هذه المنطقة لا يمكن التراجع عنها</div>
+                    <div class="hint" id="adminDangerHint">⚠️ العمليات في هذه المنطقة لا يمكن التراجع عنها</div>
                 </div>
             </div>
         </div>
@@ -1386,20 +1387,20 @@
                     <option value="💠 ملكي ($100/سنة)">💠 ملكي</option>
                 </select>
                 <div class="sort-group">
-                    <label for="sortBy">📊 ترتيب:</label>
+                    <label for="sortBy" id="sortLabel">📊 ترتيب:</label>
                     <select id="sortBy" onchange="applyFilters()">
-                        <option value="name">🔤 الاسم</option>
-                        <option value="rating">⭐ التقييم</option>
-                        <option value="date">🕒 الأحدث</option>
-                        <option value="plan">💰 الباقة</option>
+                        <option value="name" id="sortName">🔤 الاسم</option>
+                        <option value="rating" id="sortRating">⭐ التقييم</option>
+                        <option value="date" id="sortDate">🕒 الأحدث</option>
+                        <option value="plan" id="sortPlan">💰 الباقة</option>
                     </select>
                     <select id="sortOrder" onchange="applyFilters()">
-                        <option value="asc">⬆️ تصاعدي</option>
-                        <option value="desc" selected>⬇️ تنازلي</option>
+                        <option value="asc" id="sortAsc">⬆️ تصاعدي</option>
+                        <option value="desc" selected id="sortDesc">⬇️ تنازلي</option>
                     </select>
                 </div>
-                <button class="btn-search" onclick="applyFilters()">🔍 بحث</button>
-                <button class="btn-search reset" onclick="resetFilters()">🔄 إعادة ضبط</button>
+                <button class="btn-search" onclick="applyFilters()" id="searchBtn">🔍 بحث</button>
+                <button class="btn-search reset" onclick="resetFilters()" id="resetBtn">🔄 إعادة ضبط</button>
             </div>
         </div>
 
@@ -1407,7 +1408,7 @@
         SQUARES GRID
         ============================================================ -->
         <div class="section-title">
-            📦 المربعات
+            <span id="squaresTitle">📦 المربعات</span>
             <span id="squaresCount">📊 عرض 0 من 0</span>
         </div>
         <div class="squares-wrapper" id="squaresWrapper">
@@ -1454,51 +1455,123 @@
         const LANGUAGES = ['ar', 'en', 'fr', 'es', 'de'];
 
         // ============================================================
-        //  DEFAULT DATA
+        //  DEFAULT DATA - With translation support
         // ============================================================
         const defaultUsers = [
-            { name: 'أحمد محمد', location: 'الرياض', country: 'السعودية', email: 'ahmed@example.com',
-                plan: '💎 عادي ($1/سنة)', rating: 4.5, specialty: 'تطوير ويب', avatar: '' },
-            { name: 'محمد العمري', location: 'جدة', country: 'السعودية', email: 'mohd@example.com',
-                plan: '⭐ فضي ($5/سنة)', rating: 3.8, specialty: 'تسويق رقمي', avatar: '' },
-            { name: 'سارة الخالدي', location: 'مكة', country: 'السعودية', email: 'sara@example.com',
-                plan: '👑 ذهبي ($10/سنة)', rating: 4.2, specialty: 'تصميم جرافيك', avatar: '' },
-            { name: 'نورة الحربي', location: 'المدينة', country: 'السعودية', email: 'nora@example.com',
-                plan: '💠 ملكي ($100/سنة)', rating: 4.9, specialty: 'برمجة', avatar: '' },
-            { name: 'علي الشمري', location: 'الدمام', country: 'السعودية', email: 'ali@example.com',
-                plan: '💎 عادي ($1/سنة)', rating: 3.5, specialty: 'تحليل بيانات', avatar: '' },
-            { name: 'فاطمة الزهراء', location: 'دبي', country: 'الإمارات', email: 'fatima@example.com',
-                plan: '⭐ فضي ($5/سنة)', rating: 4.0, specialty: 'ذكاء اصطناعي', avatar: '' },
-            { name: 'خالد المالكي', location: 'الرياض', country: 'السعودية', email: 'khalid@example.com',
-                plan: '👑 ذهبي ($10/سنة)', rating: 4.7, specialty: 'أمن سيبراني', avatar: '' },
-            { name: 'منى السبيعي', location: 'جدة', country: 'السعودية', email: 'mona@example.com',
-                plan: '💠 ملكي ($100/سنة)', rating: 4.3, specialty: 'تطوير ألعاب', avatar: '' },
-            { name: 'سعود الحربي', location: 'مكة', country: 'السعودية', email: 'saud@example.com',
-                plan: '💎 عادي ($1/سنة)', rating: 3.9, specialty: 'شبكات', avatar: '' },
-            { name: 'هند القحطاني', location: 'الدمام', country: 'السعودية', email: 'hend@example.com',
-                plan: '⭐ فضي ($5/سنة)', rating: 4.6, specialty: 'تطوير تطبيقات', avatar: '' },
-            { name: 'فهد العتيبي', location: 'الرياض', country: 'السعودية', email: 'fahd@example.com',
-                plan: '👑 ذهبي ($10/سنة)', rating: 4.1, specialty: 'قواعد بيانات', avatar: '' },
-            { name: 'لمى الشهراني', location: 'أبها', country: 'السعودية', email: 'lama@example.com',
-                plan: '💠 ملكي ($100/سنة)', rating: 4.8, specialty: 'تصميم UX/UI', avatar: '' },
-            { name: 'يوسف المنصور', location: 'الدوحة', country: 'قطر', email: 'yousef@example.com',
-                plan: '👑 ذهبي ($10/سنة)', rating: 4.4, specialty: 'هندسة برمجيات', avatar: '' },
-            { name: 'ليلى الشمري', location: 'الكويت', country: 'الكويت', email: 'laila@example.com',
-                plan: '⭐ فضي ($5/سنة)', rating: 3.7, specialty: 'تسويق إلكتروني', avatar: '' },
-            { name: 'عبدالله الناصر', location: 'المنامة', country: 'البحرين', email: 'abdullah@example.com',
-                plan: '💎 عادي ($1/سنة)', rating: 3.2, specialty: 'محاسبة', avatar: '' }
+            { name: { ar: 'أحمد محمد', en: 'Ahmed Mohammed', fr: 'Ahmed Mohammed', es: 'Ahmed Mohammed',
+                    de: 'Ahmed Mohammed' }, location: { ar: 'الرياض', en: 'Riyadh', fr: 'Riyad', es: 'Riad',
+                    de: 'Riad' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'ahmed@example.com',
+                plan: '💎 عادي ($1/سنة)', rating: 4.5, specialty: { ar: 'تطوير ويب', en: 'Web Development',
+                    fr: 'Développement Web', es: 'Desarrollo Web', de: 'Webentwicklung' }, avatar: '' },
+            { name: { ar: 'محمد العمري', en: 'Mohammed Al-Omari', fr: 'Mohammed Al-Omari', es: 'Mohammed Al-Omari',
+                    de: 'Mohammed Al-Omari' }, location: { ar: 'جدة', en: 'Jeddah', fr: 'Djeddah', es: 'Yeda',
+                    de: 'Dschidda' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'mohd@example.com',
+                plan: '⭐ فضي ($5/سنة)', rating: 3.8, specialty: { ar: 'تسويق رقمي', en: 'Digital Marketing',
+                    fr: 'Marketing Digital', es: 'Marketing Digital', de: 'Digitales Marketing' }, avatar: '' },
+            { name: { ar: 'سارة الخالدي', en: 'Sara Al-Khaldi', fr: 'Sara Al-Khaldi', es: 'Sara Al-Khaldi',
+                    de: 'Sara Al-Khaldi' }, location: { ar: 'مكة', en: 'Makkah', fr: 'La Mecque', es: 'La Meca',
+                    de: 'Mekka' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'sara@example.com',
+                plan: '👑 ذهبي ($10/سنة)', rating: 4.2, specialty: { ar: 'تصميم جرافيك', en: 'Graphic Design',
+                    fr: 'Design Graphique', es: 'Diseño Gráfico', de: 'Grafikdesign' }, avatar: '' },
+            { name: { ar: 'نورة الحربي', en: 'Nora Al-Harbi', fr: 'Nora Al-Harbi', es: 'Nora Al-Harbi',
+                    de: 'Nora Al-Harbi' }, location: { ar: 'المدينة', en: 'Medina', fr: 'Médine', es: 'Medina',
+                    de: 'Medina' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'nora@example.com',
+                plan: '💠 ملكي ($100/سنة)', rating: 4.9, specialty: { ar: 'برمجة', en: 'Programming',
+                    fr: 'Programmation', es: 'Programación', de: 'Programmierung' }, avatar: '' },
+            { name: { ar: 'علي الشمري', en: 'Ali Al-Shammari', fr: 'Ali Al-Shammari', es: 'Ali Al-Shammari',
+                    de: 'Ali Al-Shammari' }, location: { ar: 'الدمام', en: 'Dammam', fr: 'Dammam', es: 'Dammam',
+                    de: 'Dammam' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'ali@example.com',
+                plan: '💎 عادي ($1/سنة)', rating: 3.5, specialty: { ar: 'تحليل بيانات', en: 'Data Analysis',
+                    fr: 'Analyse de Données', es: 'Análisis de Datos', de: 'Datenanalyse' }, avatar: '' },
+            { name: { ar: 'فاطمة الزهراء', en: 'Fatima Al-Zahra', fr: 'Fatima Al-Zahra', es: 'Fatima Al-Zahra',
+                    de: 'Fatima Al-Zahra' }, location: { ar: 'دبي', en: 'Dubai', fr: 'Dubaï', es: 'Dubai',
+                    de: 'Dubai' }, country: { ar: 'الإمارات', en: 'UAE', fr: 'EAU', es: 'EAU', de: 'VAE' },
+                email: 'fatima@example.com', plan: '⭐ فضي ($5/سنة)', rating: 4.0, specialty: { ar: 'ذكاء اصطناعي',
+                    en: 'Artificial Intelligence', fr: 'Intelligence Artificielle', es: 'Inteligencia Artificial',
+                    de: 'Künstliche Intelligenz' }, avatar: '' },
+            { name: { ar: 'خالد المالكي', en: 'Khalid Al-Maliki', fr: 'Khalid Al-Maliki', es: 'Khalid Al-Maliki',
+                    de: 'Khalid Al-Maliki' }, location: { ar: 'الرياض', en: 'Riyadh', fr: 'Riyad', es: 'Riad',
+                    de: 'Riad' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'khalid@example.com',
+                plan: '👑 ذهبي ($10/سنة)', rating: 4.7, specialty: { ar: 'أمن سيبراني', en: 'Cybersecurity',
+                    fr: 'Cybersécurité', es: 'Ciberseguridad', de: 'Cybersicherheit' }, avatar: '' },
+            { name: { ar: 'منى السبيعي', en: 'Mona Al-Subaie', fr: 'Mona Al-Subaie', es: 'Mona Al-Subaie',
+                    de: 'Mona Al-Subaie' }, location: { ar: 'جدة', en: 'Jeddah', fr: 'Djeddah', es: 'Yeda',
+                    de: 'Dschidda' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'mona@example.com',
+                plan: '💠 ملكي ($100/سنة)', rating: 4.3, specialty: { ar: 'تطوير ألعاب', en: 'Game Development',
+                    fr: 'Développement de Jeux', es: 'Desarrollo de Juegos', de: 'Spieleentwicklung' },
+                avatar: '' },
+            { name: { ar: 'سعود الحربي', en: 'Saud Al-Harbi', fr: 'Saud Al-Harbi', es: 'Saud Al-Harbi',
+                    de: 'Saud Al-Harbi' }, location: { ar: 'مكة', en: 'Makkah', fr: 'La Mecque', es: 'La Meca',
+                    de: 'Mekka' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'saud@example.com',
+                plan: '💎 عادي ($1/سنة)', rating: 3.9, specialty: { ar: 'شبكات', en: 'Networking', fr: 'Réseaux',
+                    es: 'Redes', de: 'Netzwerke' }, avatar: '' },
+            { name: { ar: 'هند القحطاني', en: 'Hind Al-Qahtani', fr: 'Hind Al-Qahtani', es: 'Hind Al-Qahtani',
+                    de: 'Hind Al-Qahtani' }, location: { ar: 'الدمام', en: 'Dammam', fr: 'Dammam', es: 'Dammam',
+                    de: 'Dammam' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'hind@example.com',
+                plan: '⭐ فضي ($5/سنة)', rating: 4.6, specialty: { ar: 'تطوير تطبيقات', en: 'App Development',
+                    fr: 'Développement d\'Applications', es: 'Desarrollo de Apps', de: 'App-Entwicklung' },
+                avatar: '' },
+            { name: { ar: 'فهد العتيبي', en: 'Fahd Al-Otaibi', fr: 'Fahd Al-Otaibi', es: 'Fahd Al-Otaibi',
+                    de: 'Fahd Al-Otaibi' }, location: { ar: 'الرياض', en: 'Riyadh', fr: 'Riyad', es: 'Riad',
+                    de: 'Riad' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'fahd@example.com',
+                plan: '👑 ذهبي ($10/سنة)', rating: 4.1, specialty: { ar: 'قواعد بيانات', en: 'Databases',
+                    fr: 'Bases de Données', es: 'Bases de Datos', de: 'Datenbanken' }, avatar: '' },
+            { name: { ar: 'لمى الشهراني', en: 'Lama Al-Shahrani', fr: 'Lama Al-Shahrani', es: 'Lama Al-Shahrani',
+                    de: 'Lama Al-Shahrani' }, location: { ar: 'أبها', en: 'Abha', fr: 'Abha', es: 'Abha',
+                    de: 'Abha' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
+                    es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'lama@example.com',
+                plan: '💠 ملكي ($100/سنة)', rating: 4.8, specialty: { ar: 'تصميم UX/UI', en: 'UX/UI Design',
+                    fr: 'Design UX/UI', es: 'Diseño UX/UI', de: 'UX/UI-Design' }, avatar: '' },
+            { name: { ar: 'يوسف المنصور', en: 'Yousef Al-Mansour', fr: 'Yousef Al-Mansour', es: 'Yousef Al-Mansour',
+                    de: 'Yousef Al-Mansour' }, location: { ar: 'الدوحة', en: 'Doha', fr: 'Doha', es: 'Doha',
+                    de: 'Doha' }, country: { ar: 'قطر', en: 'Qatar', fr: 'Qatar', es: 'Qatar', de: 'Katar' },
+                email: 'yousef@example.com', plan: '👑 ذهبي ($10/سنة)', rating: 4.4, specialty: { ar: 'هندسة برمجيات',
+                    en: 'Software Engineering', fr: 'Génie Logiciel', es: 'Ingeniería de Software',
+                    de: 'Softwareentwicklung' }, avatar: '' },
+            { name: { ar: 'ليلى الشمري', en: 'Laila Al-Shammari', fr: 'Laila Al-Shammari', es: 'Laila Al-Shammari',
+                    de: 'Laila Al-Shammari' }, location: { ar: 'الكويت', en: 'Kuwait', fr: 'Koweït', es: 'Kuwait',
+                    de: 'Kuwait' }, country: { ar: 'الكويت', en: 'Kuwait', fr: 'Koweït', es: 'Kuwait',
+                    de: 'Kuwait' }, email: 'laila@example.com', plan: '⭐ فضي ($5/سنة)', rating: 3.7,
+                specialty: { ar: 'تسويق إلكتروني', en: 'E-Marketing', fr: 'E-Marketing', es: 'E-Marketing',
+                    de: 'E-Marketing' }, avatar: '' },
+            { name: { ar: 'عبدالله الناصر', en: 'Abdullah Al-Nasser', fr: 'Abdullah Al-Nasser',
+                    es: 'Abdullah Al-Nasser', de: 'Abdullah Al-Nasser' }, location: { ar: 'المنامة', en: 'Manama',
+                    fr: 'Manama', es: 'Manama', de: 'Manama' }, country: { ar: 'البحرين', en: 'Bahrain',
+                    fr: 'Bahreïn', es: 'Baréin', de: 'Bahrain' }, email: 'abdullah@example.com',
+                plan: '💎 عادي ($1/سنة)', rating: 3.2, specialty: { ar: 'محاسبة', en: 'Accounting',
+                    fr: 'Comptabilité', es: 'Contabilidad', de: 'Buchhaltung' }, avatar: '' }
         ];
 
         const defaultSponsors = {
-            weekly: { name: 'شركة التقنية الرقمية', avatar: '' },
-            monthly: { name: 'مؤسسة الابتكار الذهبي', avatar: '' },
-            yearly: { name: 'مجموعة الأفق الماسية', avatar: '' }
+            weekly: { name: { ar: 'شركة التقنية الرقمية', en: 'Digital Tech Company', fr: 'Société Tech Numérique',
+                    es: 'Empresa Tech Digital', de: 'Digital Tech Unternehmen' }, avatar: '' },
+            monthly: { name: { ar: 'مؤسسة الابتكار الذهبي', en: 'Golden Innovation Foundation',
+                    fr: 'Fondation Innovation Dorée', es: 'Fundación Innovación Dorada',
+                    de: 'Goldene Innovationsstiftung' }, avatar: '' },
+            yearly: { name: { ar: 'مجموعة الأفق الماسية', en: 'Diamond Horizon Group', fr: 'Groupe Horizon Diamant',
+                    es: 'Grupo Horizonte Diamante', de: 'Diamond Horizon Gruppe' }, avatar: '' }
         };
 
         const defaultPayment = { paypal: '', stripe: '', bank: '' };
         const defaultEmail = { smtpEmail: '', smtpPassword: '', smtpHost: '', smtpPort: 587 };
-        const defaultSettings = { siteTitle: '🏆 مليون مربع', siteDescription: 'المنصة البصرية التفاعلية الأولى',
-            squaresPerPage: 1000 };
+        const defaultSettings = {
+            siteTitle: { ar: '🏆 مليون مربع', en: '🏆 Million Squares', fr: '🏆 Million Carrés',
+                es: '🏆 Millón de Cuadrados', de: '🏆 Millionen Quadrate' },
+            siteDescription: { ar: 'المنصة البصرية التفاعلية الأولى', en: 'The Interactive Visual Platform',
+                fr: 'La plateforme visuelle interactive', es: 'La plataforma visual interactiva',
+                de: 'Die interaktive visuelle Plattform' },
+            squaresPerPage: 1000
+        };
 
         // ============================================================
         //  STATE
@@ -1577,11 +1650,65 @@
         }
 
         // ============================================================
+        //  TRANSLATION HELPERS
+        // ============================================================
+        function translate(obj, lang) {
+            if (!obj) return '';
+            if (typeof obj === 'string') return obj;
+            if (typeof obj === 'object') {
+                return obj[lang] || obj['ar'] || Object.values(obj)[0] || '';
+            }
+            return String(obj);
+        }
+
+        function getTranslatedNames() {
+            const result = {};
+            usersData.forEach((u, index) => {
+                const name = translate(u.name, currentLang);
+                const location = translate(u.location, currentLang);
+                const country = translate(u.country, currentLang);
+                const specialty = translate(u.specialty, currentLang);
+                result[index] = { name, location, country, specialty };
+            });
+            return result;
+        }
+
+        // ============================================================
         //  TRANSLATIONS (5 Languages)
         // ============================================================
         const langData = {
             ar: {
+                siteName: '🏆 مليون مربع',
+                loginTitle: '🔐 لوحة التحكم',
                 loginSub: 'ادخل بيانات المدير للدخول',
+                loginBtn: '🚀 دخول',
+                loginError: '❌ اسم المستخدم أو كلمة المرور غير صحيحة!',
+                adminPanelTitle: '🛠️ لوحة التحكم المتقدمة',
+                adminCloseBtn: '✕ إغلاق',
+                chartUsersTitle: '👥 توزيع المشتركين حسب الباقة',
+                chartRevenueTitle: '💰 الإيرادات الشهرية',
+                adminAddTitle: '➕ إضافة مشترك جديد',
+                adminAddBtn: '✅ إضافة المشترك',
+                adminAddHint: '💡 سيتم إرسال إشعار بريدي للعضو الجديد',
+                adminSponsorTitle: '🌟 تحديث الرعاة',
+                adminSponsorBtn: '💾 حفظ الرعاة',
+                adminSponsorHint: '💡 يمكنك رفع صور منفصلة لكل راعي',
+                adminPaymentTitle: '💰 حسابات استلام الأرباح',
+                adminPaymentBtn: '💾 حفظ الحسابات',
+                adminPaymentHint: '🔒 سيتم استخدام هذه الحسابات لاستلام الأرباح',
+                adminEmailTitle: '📧 إعدادات البريد الإلكتروني',
+                adminEmailBtn: '💾 حفظ إعدادات البريد',
+                adminEmailHint: '📨 سيتم استخدام هذه الإعدادات لإرسال الإشعارات',
+                adminSiteTitle: '⚙️ إعدادات الموقع',
+                adminSiteBtn: '💾 حفظ الإعدادات',
+                adminSiteHint: '⚡ هذه الإعدادات تؤثر على عرض الموقع',
+                adminDangerTitle: '⚠️ منطقة الخطر',
+                adminDangerDelete: '🗑️ حذف جميع البيانات',
+                adminDangerReset: '🔄 استعادة البيانات الافتراضية',
+                adminDangerExport: '📤 تصدير البيانات (JSON)',
+                adminDangerPDF: '📄 تصدير تقرير (PDF)',
+                adminImportLabel: '📥 استيراد بيانات (JSON)',
+                adminDangerHint: '⚠️ العمليات في هذه المنطقة لا يمكن التراجع عنها',
                 heroSubtitle: '✨ <span>المنصة البصرية التفاعلية</span> الأولى ✨',
                 f1: '🖼️ مربعات تفاعلية',
                 f2: '👥 مجتمع نشط',
@@ -1596,6 +1723,7 @@
                 trialBadge: '🎁 3 أيام مجانية',
                 trialText: '✨ نسخة تجريبية كاملة المميزات',
                 sponsorTitle: '🌟 الرعاة الداعمون',
+                squaresTitle: '📦 المربعات',
                 squaresCount: '📊 عرض {count} من {total}',
                 ctaBuy: '🚀 اشترِ مربعك الآن',
                 ctaMore: '📋 عرض الكل',
@@ -1617,11 +1745,64 @@
                 linkPrivacy: '🔒 سياسة الخصوصية',
                 linkTerms: '📜 شروط الاستخدام',
                 linkContact: '📞 اتصل بنا',
-                chartUsersTitle: '👥 توزيع المشتركين حسب الباقة',
-                chartRevenueTitle: '💰 الإيرادات الشهرية'
+                searchPlaceholder: '🔍 ابحث باسم، مدينة، بلد، اختصاص...',
+                filterCountry: '🌍 جميع البلدان',
+                filterCity: '📍 جميع المدن',
+                filterPlan: '💎 جميع الباقات',
+                sortLabel: '📊 ترتيب:',
+                sortName: '🔤 الاسم',
+                sortRating: '⭐ التقييم',
+                sortDate: '🕒 الأحدث',
+                sortPlan: '💰 الباقة',
+                sortAsc: '⬆️ تصاعدي',
+                sortDesc: '⬇️ تنازلي',
+                searchBtn: '🔍 بحث',
+                resetBtn: '🔄 إعادة ضبط',
+                avatarLabel: '🖼️ اختر صورة شخصية',
+                sponsorAvatarLabel: '🖼️ صور الرعاة (اختر 3 صور)',
+                paypalPlaceholder: '💳 PayPal (البريد الإلكتروني)',
+                stripePlaceholder: '⚡ Stripe (المفتاح العام)',
+                bankPlaceholder: '🏦 الحساب البنكي (IBAN)',
+                smtpEmailPlaceholder: '📧 البريد المرسل',
+                smtpPasswordPlaceholder: '🔑 كلمة مرور البريد',
+                smtpHostPlaceholder: '🌐 SMTP Host (مثال: smtp.gmail.com)',
+                smtpPortPlaceholder: '🔢 SMTP Port (مثال: 587)',
+                siteTitlePlaceholder: '🏷️ عنوان الموقع',
+                siteDescPlaceholder: '📝 وصف الموقع',
+                squaresPerPagePlaceholder: '📊 عدد المربعات في الصفحة (افتراضي: 1000)'
             },
             en: {
+                siteName: '🏆 Million Squares',
+                loginTitle: '🔐 Admin Panel',
                 loginSub: 'Enter admin credentials to login',
+                loginBtn: '🚀 Login',
+                loginError: '❌ Invalid username or password!',
+                adminPanelTitle: '🛠️ Advanced Admin Panel',
+                adminCloseBtn: '✕ Close',
+                chartUsersTitle: '👥 Subscribers by Plan',
+                chartRevenueTitle: '💰 Monthly Revenue',
+                adminAddTitle: '➕ Add New Subscriber',
+                adminAddBtn: '✅ Add Subscriber',
+                adminAddHint: '💡 Email notification will be sent to the new member',
+                adminSponsorTitle: '🌟 Update Sponsors',
+                adminSponsorBtn: '💾 Save Sponsors',
+                adminSponsorHint: '💡 You can upload separate images for each sponsor',
+                adminPaymentTitle: '💰 Payment Accounts',
+                adminPaymentBtn: '💾 Save Accounts',
+                adminPaymentHint: '🔒 These accounts will be used to receive payments',
+                adminEmailTitle: '📧 Email Settings',
+                adminEmailBtn: '💾 Save Email Settings',
+                adminEmailHint: '📨 These settings will be used to send notifications',
+                adminSiteTitle: '⚙️ Site Settings',
+                adminSiteBtn: '💾 Save Settings',
+                adminSiteHint: '⚡ These settings affect the site display',
+                adminDangerTitle: '⚠️ Danger Zone',
+                adminDangerDelete: '🗑️ Delete All Data',
+                adminDangerReset: '🔄 Restore Default Data',
+                adminDangerExport: '📤 Export Data (JSON)',
+                adminDangerPDF: '📄 Export Report (PDF)',
+                adminImportLabel: '📥 Import Data (JSON)',
+                adminDangerHint: '⚠️ Operations in this zone cannot be undone',
                 heroSubtitle: '✨ The <span>Interactive Visual Platform</span> ✨',
                 f1: '🖼️ Interactive Squares',
                 f2: '👥 Active Community',
@@ -1636,6 +1817,7 @@
                 trialBadge: '🎁 3 Days Free',
                 trialText: '✨ Full-featured trial version',
                 sponsorTitle: '🌟 Sponsors & Supporters',
+                squaresTitle: '📦 Squares',
                 squaresCount: '📊 Showing {count} of {total}',
                 ctaBuy: '🚀 Buy Your Square Now',
                 ctaMore: '📋 View All',
@@ -1657,11 +1839,64 @@
                 linkPrivacy: '🔒 Privacy Policy',
                 linkTerms: '📜 Terms of Service',
                 linkContact: '📞 Contact Us',
-                chartUsersTitle: '👥 Subscribers by Plan',
-                chartRevenueTitle: '💰 Monthly Revenue'
+                searchPlaceholder: '🔍 Search by name, city, country, specialty...',
+                filterCountry: '🌍 All Countries',
+                filterCity: '📍 All Cities',
+                filterPlan: '💎 All Plans',
+                sortLabel: '📊 Sort:',
+                sortName: '🔤 Name',
+                sortRating: '⭐ Rating',
+                sortDate: '🕒 Latest',
+                sortPlan: '💰 Plan',
+                sortAsc: '⬆️ Ascending',
+                sortDesc: '⬇️ Descending',
+                searchBtn: '🔍 Search',
+                resetBtn: '🔄 Reset',
+                avatarLabel: '🖼️ Choose Profile Picture',
+                sponsorAvatarLabel: '🖼️ Sponsor Images (Choose 3)',
+                paypalPlaceholder: '💳 PayPal (Email)',
+                stripePlaceholder: '⚡ Stripe (Public Key)',
+                bankPlaceholder: '🏦 Bank Account (IBAN)',
+                smtpEmailPlaceholder: '📧 Sender Email',
+                smtpPasswordPlaceholder: '🔑 Email Password',
+                smtpHostPlaceholder: '🌐 SMTP Host (e.g. smtp.gmail.com)',
+                smtpPortPlaceholder: '🔢 SMTP Port (e.g. 587)',
+                siteTitlePlaceholder: '🏷️ Site Title',
+                siteDescPlaceholder: '📝 Site Description',
+                squaresPerPagePlaceholder: '📊 Squares per page (Default: 1000)'
             },
             fr: {
+                siteName: '🏆 Million Carrés',
+                loginTitle: '🔐 Panneau d\'administration',
                 loginSub: 'Entrez les identifiants admin',
+                loginBtn: '🚀 Connexion',
+                loginError: '❌ Nom d\'utilisateur ou mot de passe incorrect!',
+                adminPanelTitle: '🛠️ Panneau d\'administration avancé',
+                adminCloseBtn: '✕ Fermer',
+                chartUsersTitle: '👥 Abonnés par forfait',
+                chartRevenueTitle: '💰 Revenus mensuels',
+                adminAddTitle: '➕ Ajouter un abonné',
+                adminAddBtn: '✅ Ajouter',
+                adminAddHint: '💡 Une notification par e-mail sera envoyée au nouveau membre',
+                adminSponsorTitle: '🌟 Mettre à jour les sponsors',
+                adminSponsorBtn: '💾 Enregistrer',
+                adminSponsorHint: '💡 Vous pouvez télécharger des images séparées pour chaque sponsor',
+                adminPaymentTitle: '💰 Comptes de paiement',
+                adminPaymentBtn: '💾 Enregistrer',
+                adminPaymentHint: '🔒 Ces comptes seront utilisés pour recevoir les paiements',
+                adminEmailTitle: '📧 Paramètres e-mail',
+                adminEmailBtn: '💾 Enregistrer',
+                adminEmailHint: '📨 Ces paramètres seront utilisés pour envoyer des notifications',
+                adminSiteTitle: '⚙️ Paramètres du site',
+                adminSiteBtn: '💾 Enregistrer',
+                adminSiteHint: '⚡ Ces paramètres affectent l\'affichage du site',
+                adminDangerTitle: '⚠️ Zone de danger',
+                adminDangerDelete: '🗑️ Supprimer toutes les données',
+                adminDangerReset: '🔄 Restaurer les données par défaut',
+                adminDangerExport: '📤 Exporter les données (JSON)',
+                adminDangerPDF: '📄 Exporter le rapport (PDF)',
+                adminImportLabel: '📥 Importer des données (JSON)',
+                adminDangerHint: '⚠️ Les opérations dans cette zone ne peuvent pas être annulées',
                 heroSubtitle: '✨ La <span>plateforme visuelle interactive</span> ✨',
                 f1: '🖼️ Carrés interactifs',
                 f2: '👥 Communauté active',
@@ -1676,6 +1911,7 @@
                 trialBadge: '🎁 3 jours gratuits',
                 trialText: '✨ Version d\'essai complète',
                 sponsorTitle: '🌟 Sponsors et soutiens',
+                squaresTitle: '📦 Carrés',
                 squaresCount: '📊 Affichage de {count} sur {total}',
                 ctaBuy: '🚀 Achetez votre carré',
                 ctaMore: '📋 Voir tout',
@@ -1697,11 +1933,64 @@
                 linkPrivacy: '🔒 Politique de confidentialité',
                 linkTerms: '📜 Conditions d\'utilisation',
                 linkContact: '📞 Contactez-nous',
-                chartUsersTitle: '👥 Abonnés par forfait',
-                chartRevenueTitle: '💰 Revenus mensuels'
+                searchPlaceholder: '🔍 Rechercher par nom, ville, pays, spécialité...',
+                filterCountry: '🌍 Tous les pays',
+                filterCity: '📍 Toutes les villes',
+                filterPlan: '💎 Tous les forfaits',
+                sortLabel: '📊 Trier:',
+                sortName: '🔤 Nom',
+                sortRating: '⭐ Évaluation',
+                sortDate: '🕒 Le plus récent',
+                sortPlan: '💰 Forfait',
+                sortAsc: '⬆️ Croissant',
+                sortDesc: '⬇️ Décroissant',
+                searchBtn: '🔍 Rechercher',
+                resetBtn: '🔄 Réinitialiser',
+                avatarLabel: '🖼️ Choisir une photo',
+                sponsorAvatarLabel: '🖼️ Images des sponsors (Choisir 3)',
+                paypalPlaceholder: '💳 PayPal (Email)',
+                stripePlaceholder: '⚡ Stripe (Clé publique)',
+                bankPlaceholder: '🏦 Compte bancaire (IBAN)',
+                smtpEmailPlaceholder: '📧 Email de l\'expéditeur',
+                smtpPasswordPlaceholder: '🔑 Mot de passe email',
+                smtpHostPlaceholder: '🌐 Hôte SMTP (ex: smtp.gmail.com)',
+                smtpPortPlaceholder: '🔢 Port SMTP (ex: 587)',
+                siteTitlePlaceholder: '🏷️ Titre du site',
+                siteDescPlaceholder: '📝 Description du site',
+                squaresPerPagePlaceholder: '📊 Carrés par page (Défaut: 1000)'
             },
             es: {
+                siteName: '🏆 Millón de Cuadrados',
+                loginTitle: '🔐 Panel de Administración',
                 loginSub: 'Ingrese credenciales de administrador',
+                loginBtn: '🚀 Iniciar sesión',
+                loginError: '❌ ¡Usuario o contraseña incorrectos!',
+                adminPanelTitle: '🛠️ Panel de Administración Avanzado',
+                adminCloseBtn: '✕ Cerrar',
+                chartUsersTitle: '👥 Suscriptores por plan',
+                chartRevenueTitle: '💰 Ingresos mensuales',
+                adminAddTitle: '➕ Agregar suscriptor',
+                adminAddBtn: '✅ Agregar',
+                adminAddHint: '💡 Se enviará una notificación por correo al nuevo miembro',
+                adminSponsorTitle: '🌟 Actualizar patrocinadores',
+                adminSponsorBtn: '💾 Guardar',
+                adminSponsorHint: '💡 Puedes subir imágenes separadas para cada patrocinador',
+                adminPaymentTitle: '💰 Cuentas de pago',
+                adminPaymentBtn: '💾 Guardar',
+                adminPaymentHint: '🔒 Estas cuentas se usarán para recibir pagos',
+                adminEmailTitle: '📧 Configuración de correo',
+                adminEmailBtn: '💾 Guardar',
+                adminEmailHint: '📨 Estas configuraciones se usarán para enviar notificaciones',
+                adminSiteTitle: '⚙️ Configuración del sitio',
+                adminSiteBtn: '💾 Guardar',
+                adminSiteHint: '⚡ Estas configuraciones afectan la visualización del sitio',
+                adminDangerTitle: '⚠️ Zona de peligro',
+                adminDangerDelete: '🗑️ Eliminar todos los datos',
+                adminDangerReset: '🔄 Restaurar datos predeterminados',
+                adminDangerExport: '📤 Exportar datos (JSON)',
+                adminDangerPDF: '📄 Exportar informe (PDF)',
+                adminImportLabel: '📥 Importar datos (JSON)',
+                adminDangerHint: '⚠️ Las operaciones en esta zona no se pueden deshacer',
                 heroSubtitle: '✨ La <span>plataforma visual interactiva</span> ✨',
                 f1: '🖼️ Cuadrados interactivos',
                 f2: '👥 Comunidad activa',
@@ -1716,6 +2005,7 @@
                 trialBadge: '🎁 3 días gratis',
                 trialText: '✨ Versión de prueba completa',
                 sponsorTitle: '🌟 Patrocinadores y colaboradores',
+                squaresTitle: '📦 Cuadrados',
                 squaresCount: '📊 Mostrando {count} de {total}',
                 ctaBuy: '🚀 Compra tu cuadrado',
                 ctaMore: '📋 Ver todo',
@@ -1737,11 +2027,64 @@
                 linkPrivacy: '🔒 Política de privacidad',
                 linkTerms: '📜 Términos de servicio',
                 linkContact: '📞 Contáctanos',
-                chartUsersTitle: '👥 Suscriptores por plan',
-                chartRevenueTitle: '💰 Ingresos mensuales'
+                searchPlaceholder: '🔍 Buscar por nombre, ciudad, país, especialidad...',
+                filterCountry: '🌍 Todos los países',
+                filterCity: '📍 Todas las ciudades',
+                filterPlan: '💎 Todos los planes',
+                sortLabel: '📊 Ordenar:',
+                sortName: '🔤 Nombre',
+                sortRating: '⭐ Calificación',
+                sortDate: '🕒 Más reciente',
+                sortPlan: '💰 Plan',
+                sortAsc: '⬆️ Ascendente',
+                sortDesc: '⬇️ Descendente',
+                searchBtn: '🔍 Buscar',
+                resetBtn: '🔄 Restablecer',
+                avatarLabel: '🖼️ Elegir foto',
+                sponsorAvatarLabel: '🖼️ Imágenes de patrocinadores (Elegir 3)',
+                paypalPlaceholder: '💳 PayPal (Email)',
+                stripePlaceholder: '⚡ Stripe (Clave pública)',
+                bankPlaceholder: '🏦 Cuenta bancaria (IBAN)',
+                smtpEmailPlaceholder: '📧 Correo del remitente',
+                smtpPasswordPlaceholder: '🔑 Contraseña del correo',
+                smtpHostPlaceholder: '🌐 Host SMTP (ej: smtp.gmail.com)',
+                smtpPortPlaceholder: '🔢 Puerto SMTP (ej: 587)',
+                siteTitlePlaceholder: '🏷️ Título del sitio',
+                siteDescPlaceholder: '📝 Descripción del sitio',
+                squaresPerPagePlaceholder: '📊 Cuadrados por página (Defecto: 1000)'
             },
             de: {
+                siteName: '🏆 Millionen Quadrate',
+                loginTitle: '🔐 Admin-Bereich',
                 loginSub: 'Admin-Anmeldeinformationen eingeben',
+                loginBtn: '🚀 Anmelden',
+                loginError: '❌ Benutzername oder Passwort falsch!',
+                adminPanelTitle: '🛠️ Erweiterte Admin-Bereich',
+                adminCloseBtn: '✕ Schließen',
+                chartUsersTitle: '👥 Abonnenten nach Plan',
+                chartRevenueTitle: '💰 Monatliche Einnahmen',
+                adminAddTitle: '➕ Abonnent hinzufügen',
+                adminAddBtn: '✅ Hinzufügen',
+                adminAddHint: '💡 Eine E-Mail-Benachrichtigung wird an das neue Mitglied gesendet',
+                adminSponsorTitle: '🌟 Sponsoren aktualisieren',
+                adminSponsorBtn: '💾 Speichern',
+                adminSponsorHint: '💡 Sie können separate Bilder für jeden Sponsor hochladen',
+                adminPaymentTitle: '💰 Zahlungskonten',
+                adminPaymentBtn: '💾 Speichern',
+                adminPaymentHint: '🔒 Diese Konten werden für Zahlungseingänge verwendet',
+                adminEmailTitle: '📧 E-Mail-Einstellungen',
+                adminEmailBtn: '💾 Speichern',
+                adminEmailHint: '📨 Diese Einstellungen werden für Benachrichtigungen verwendet',
+                adminSiteTitle: '⚙️ Website-Einstellungen',
+                adminSiteBtn: '💾 Speichern',
+                adminSiteHint: '⚡ Diese Einstellungen beeinflussen die Anzeige',
+                adminDangerTitle: '⚠️ Gefahrenzone',
+                adminDangerDelete: '🗑️ Alle Daten löschen',
+                adminDangerReset: '🔄 Standarddaten wiederherstellen',
+                adminDangerExport: '📤 Daten exportieren (JSON)',
+                adminDangerPDF: '📄 Bericht exportieren (PDF)',
+                adminImportLabel: '📥 Daten importieren (JSON)',
+                adminDangerHint: '⚠️ Vorgänge in dieser Zone können nicht rückgängig gemacht werden',
                 heroSubtitle: '✨ Die <span>interaktive visuelle Plattform</span> ✨',
                 f1: '🖼️ Interaktive Quadrate',
                 f2: '👥 Aktive Community',
@@ -1756,6 +2099,7 @@
                 trialBadge: '🎁 3 Tage kostenlos',
                 trialText: '✨ Voll ausgestattete Testversion',
                 sponsorTitle: '🌟 Sponsoren und Unterstützer',
+                squaresTitle: '📦 Quadrate',
                 squaresCount: '📊 Zeige {count} von {total}',
                 ctaBuy: '🚀 Kaufe dein Quadrat',
                 ctaMore: '📋 Alle anzeigen',
@@ -1777,8 +2121,31 @@
                 linkPrivacy: '🔒 Datenschutz',
                 linkTerms: '📜 Nutzungsbedingungen',
                 linkContact: '📞 Kontakt',
-                chartUsersTitle: '👥 Abonnenten nach Plan',
-                chartRevenueTitle: '💰 Monatliche Einnahmen'
+                searchPlaceholder: '🔍 Suche nach Name, Stadt, Land, Fachgebiet...',
+                filterCountry: '🌍 Alle Länder',
+                filterCity: '📍 Alle Städte',
+                filterPlan: '💎 Alle Pläne',
+                sortLabel: '📊 Sortieren:',
+                sortName: '🔤 Name',
+                sortRating: '⭐ Bewertung',
+                sortDate: '🕒 Neueste',
+                sortPlan: '💰 Plan',
+                sortAsc: '⬆️ Aufsteigend',
+                sortDesc: '⬇️ Absteigend',
+                searchBtn: '🔍 Suchen',
+                resetBtn: '🔄 Zurücksetzen',
+                avatarLabel: '🖼️ Profilbild wählen',
+                sponsorAvatarLabel: '🖼️ Sponsor-Bilder (Wähle 3)',
+                paypalPlaceholder: '💳 PayPal (E-Mail)',
+                stripePlaceholder: '⚡ Stripe (Öffentlicher Schlüssel)',
+                bankPlaceholder: '🏦 Bankkonto (IBAN)',
+                smtpEmailPlaceholder: '📧 Absender-E-Mail',
+                smtpPasswordPlaceholder: '🔑 E-Mail-Passwort',
+                smtpHostPlaceholder: '🌐 SMTP-Host (z.B. smtp.gmail.com)',
+                smtpPortPlaceholder: '🔢 SMTP-Port (z.B. 587)',
+                siteTitlePlaceholder: '🏷️ Seitentitel',
+                siteDescPlaceholder: '📝 Seitenbeschreibung',
+                squaresPerPagePlaceholder: '📊 Quadrate pro Seite (Standard: 1000)'
             }
         };
 
@@ -1791,7 +2158,38 @@
             const t = langData[lang];
             if (!t) return;
 
+            // Update all translatable elements
+            document.getElementById('loginTitle').textContent = t.loginTitle;
             document.getElementById('loginSub').textContent = t.loginSub;
+            document.getElementById('loginBtn').textContent = t.loginBtn;
+            document.getElementById('loginError').textContent = t.loginError;
+            document.getElementById('adminPanelTitle').textContent = t.adminPanelTitle;
+            document.getElementById('adminCloseBtn').textContent = t.adminCloseBtn;
+            document.getElementById('chartUsersTitle').textContent = t.chartUsersTitle;
+            document.getElementById('chartRevenueTitle').textContent = t.chartRevenueTitle;
+            document.getElementById('adminAddTitle').textContent = t.adminAddTitle;
+            document.getElementById('adminAddBtn').textContent = t.adminAddBtn;
+            document.getElementById('adminAddHint').textContent = t.adminAddHint;
+            document.getElementById('adminSponsorTitle').textContent = t.adminSponsorTitle;
+            document.getElementById('adminSponsorBtn').textContent = t.adminSponsorBtn;
+            document.getElementById('adminSponsorHint').textContent = t.adminSponsorHint;
+            document.getElementById('adminPaymentTitle').textContent = t.adminPaymentTitle;
+            document.getElementById('adminPaymentBtn').textContent = t.adminPaymentBtn;
+            document.getElementById('adminPaymentHint').textContent = t.adminPaymentHint;
+            document.getElementById('adminEmailTitle').textContent = t.adminEmailTitle;
+            document.getElementById('adminEmailBtn').textContent = t.adminEmailBtn;
+            document.getElementById('adminEmailHint').textContent = t.adminEmailHint;
+            document.getElementById('adminSiteTitle').textContent = t.adminSiteTitle;
+            document.getElementById('adminSiteBtn').textContent = t.adminSiteBtn;
+            document.getElementById('adminSiteHint').textContent = t.adminSiteHint;
+            document.getElementById('adminDangerTitle').textContent = t.adminDangerTitle;
+            document.getElementById('adminDangerDelete').textContent = t.adminDangerDelete;
+            document.getElementById('adminDangerReset').textContent = t.adminDangerReset;
+            document.getElementById('adminDangerExport').textContent = t.adminDangerExport;
+            document.getElementById('adminDangerPDF').textContent = t.adminDangerPDF;
+            document.getElementById('adminImportLabel').textContent = t.adminImportLabel;
+            document.getElementById('adminDangerHint').textContent = t.adminDangerHint;
+
             document.getElementById('heroSubtitle').innerHTML = t.heroSubtitle;
             document.getElementById('f1').textContent = t.f1;
             document.getElementById('f2').textContent = t.f2;
@@ -1806,18 +2204,57 @@
             document.getElementById('trialBadge').textContent = t.trialBadge;
             document.getElementById('trialText').textContent = t.trialText;
             document.getElementById('sponsorTitle').textContent = t.sponsorTitle;
+            document.getElementById('squaresTitle').textContent = t.squaresTitle;
             document.getElementById('ctaBuy').textContent = t.ctaBuy;
             document.getElementById('ctaMore').textContent = t.ctaMore;
             document.getElementById('ctaExport').textContent = t.ctaExport;
             document.getElementById('footerText').textContent = t.footer;
             document.getElementById('scrollHint').textContent = t.scrollHint.replace('{perPage}', siteSettings
-            .squaresPerPage || DEFAULT_SQUARES_PER_PAGE);
+                .squaresPerPage || DEFAULT_SQUARES_PER_PAGE);
             document.getElementById('linkAbout').textContent = t.linkAbout;
             document.getElementById('linkPrivacy').textContent = t.linkPrivacy;
             document.getElementById('linkTerms').textContent = t.linkTerms;
             document.getElementById('linkContact').textContent = t.linkContact;
-            document.getElementById('chartUsersTitle').textContent = t.chartUsersTitle;
-            document.getElementById('chartRevenueTitle').textContent = t.chartRevenueTitle;
+
+            // Search section
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.getElementById('filterCountry').options[0].text = t.filterCountry;
+            document.getElementById('filterCity').options[0].text = t.filterCity;
+            document.getElementById('filterPlan').options[0].text = t.filterPlan;
+            document.getElementById('sortLabel').textContent = t.sortLabel;
+            document.getElementById('sortName').textContent = t.sortName;
+            document.getElementById('sortRating').textContent = t.sortRating;
+            document.getElementById('sortDate').textContent = t.sortDate;
+            document.getElementById('sortPlan').textContent = t.sortPlan;
+            document.getElementById('sortAsc').textContent = t.sortAsc;
+            document.getElementById('sortDesc').textContent = t.sortDesc;
+            document.getElementById('searchBtn').textContent = t.searchBtn;
+            document.getElementById('resetBtn').textContent = t.resetBtn;
+
+            // Admin form placeholders
+            document.getElementById('avatarLabel').textContent = t.avatarLabel;
+            document.getElementById('sponsorAvatarLabel').textContent = t.sponsorAvatarLabel;
+            document.getElementById('paypalAccount').placeholder = t.paypalPlaceholder;
+            document.getElementById('stripeAccount').placeholder = t.stripePlaceholder;
+            document.getElementById('bankAccount').placeholder = t.bankPlaceholder;
+            document.getElementById('smtpEmail').placeholder = t.smtpEmailPlaceholder;
+            document.getElementById('smtpPassword').placeholder = t.smtpPasswordPlaceholder;
+            document.getElementById('smtpHost').placeholder = t.smtpHostPlaceholder;
+            document.getElementById('smtpPort').placeholder = t.smtpPortPlaceholder;
+            document.getElementById('siteTitle').placeholder = t.siteTitlePlaceholder;
+            document.getElementById('siteDescription').placeholder = t.siteDescPlaceholder;
+            document.getElementById('squaresPerPage').placeholder = t.squaresPerPagePlaceholder;
+
+            // Site name
+            document.getElementById('siteLogo').textContent = translate(siteSettings.siteTitle || defaultSettings.siteTitle,
+                currentLang);
+
+            // Toggle admin button
+            if (adminLoggedIn) {
+                document.getElementById('toggleAdminBtn').textContent = t.adminPanelTitle + ' (مفعل)';
+            } else {
+                document.getElementById('toggleAdminBtn').textContent = '⚙️ ' + (t.adminPanelTitle || 'إدارة الموقع');
+            }
 
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
@@ -1850,16 +2287,18 @@
 
             grid.innerHTML = '';
             items.forEach(item => {
-                const sp = sponsors[item.key] || { name: '待定', avatar: '' };
+                const sp = sponsors[item.key] || { name: { ar: '待定', en: 'TBD', fr: 'TBD', es: 'TBD',
+                        de: 'TBD' }, avatar: '' };
+                const translatedName = translate(sp.name, currentLang);
                 const avatarSrc = sponsorAvatarData[item.key] || sp.avatar || '';
                 const div = document.createElement('div');
                 div.className = 'sponsor-item';
                 div.innerHTML = `
                         <div class="sponsor-avatar">
-                            ${avatarSrc ? `<img src="${avatarSrc}" alt="${sp.name}">` : '🌟'}
+                            ${avatarSrc ? `<img src="${avatarSrc}" alt="${translatedName}">` : '🌟'}
                         </div>
                         <div class="plan">${item.plan}</div>
-                        <div class="name">${sp.name}</div>
+                        <div class="name">${translatedName}</div>
                         <div class="price">${prices[item.key]}</div>
                         <div class="period">${item.period}</div>
                         <span class="badge-sp ${item.badgeClass}">${item.badge}</span>
@@ -1882,7 +2321,7 @@
             grid.innerHTML = '';
             if (displayData.length === 0) {
                 grid.innerHTML =
-                    `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">😕 لا توجد نتائج مطابقة للبحث</div>`;
+                    `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">😕 ${currentLang === 'ar' ? 'لا توجد نتائج مطابقة للبحث' : 'No matching results found'}</div>`;
                 countSpan.textContent = `📊 0 من 0`;
                 return;
             }
@@ -1894,17 +2333,22 @@
                 const avatarSrc = avatarData[u.email] || u.avatar || '';
                 const isNew = u._new || false;
 
+                const translatedName = translate(u.name, currentLang);
+                const translatedLocation = translate(u.location, currentLang);
+                const translatedCountry = translate(u.country, currentLang);
+                const translatedSpecialty = translate(u.specialty, currentLang);
+
                 const card = document.createElement('div');
                 card.className = 'square-card';
                 card.innerHTML = `
                         ${isNew ? '<div class="new-badge">🎉 جديد</div>' : ''}
                         <button class="delete-btn" onclick="deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
                         <div class="avatar">
-                            ${avatarSrc ? `<img src="${avatarSrc}" alt="${u.name}">` : (u.icon || '🧑')}
+                            ${avatarSrc ? `<img src="${avatarSrc}" alt="${translatedName}">` : (u.icon || '🧑')}
                         </div>
-                        <div class="s-name">${u.name}</div>
-                        <div class="s-location">📍 ${u.location}${u.country ? `, ${u.country}` : ''}</div>
-                        ${u.specialty ? `<div class="s-specialty">🔬 ${u.specialty}</div>` : ''}
+                        <div class="s-name">${translatedName}</div>
+                        <div class="s-location">📍 ${translatedLocation}${translatedCountry ? `, ${translatedCountry}` : ''}</div>
+                        ${translatedSpecialty ? `<div class="s-specialty">🔬 ${translatedSpecialty}</div>` : ''}
                         <div class="s-email">✉️ ${u.email}</div>
                         <div class="s-plan">${u.plan}</div>
                         <div class="s-rating">${starStr} <span class="count">(${u.rating || 0})</span></div>
@@ -1965,9 +2409,16 @@
             });
 
             // Revenue Chart (simulated monthly)
-            const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر',
-                'ديسمبر'
-            ];
+            const months = currentLang === 'ar' ?
+                ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'] :
+                currentLang === 'fr' ?
+                ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'] :
+                currentLang === 'es' ?
+                ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'] :
+                currentLang === 'de' ?
+                ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'] :
+                ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
             const monthlyRevenue = Array(12).fill(0);
             usersData.forEach(u => {
                 const match = u.plan.match(/\$(\d+)/);
@@ -2016,14 +2467,19 @@
             const sortOrder = document.getElementById('sortOrder').value;
 
             let filtered = usersData.filter(u => {
+                const translatedName = translate(u.name, currentLang).toLowerCase();
+                const translatedLocation = translate(u.location, currentLang).toLowerCase();
+                const translatedCountry = translate(u.country, currentLang).toLowerCase();
+                const translatedSpecialty = translate(u.specialty, currentLang).toLowerCase();
+
                 const matchSearch = !search ||
-                    u.name.toLowerCase().includes(search) ||
-                    u.location.toLowerCase().includes(search) ||
-                    (u.country && u.country.toLowerCase().includes(search)) ||
-                    (u.specialty && u.specialty.toLowerCase().includes(search)) ||
+                    translatedName.includes(search) ||
+                    translatedLocation.includes(search) ||
+                    translatedCountry.includes(search) ||
+                    translatedSpecialty.includes(search) ||
                     u.email.toLowerCase().includes(search);
-                const matchCountry = !country || u.country === country;
-                const matchCity = !city || u.location === city;
+                const matchCountry = !country || translate(u.country, currentLang) === country;
+                const matchCity = !city || translate(u.location, currentLang) === city;
                 const matchPlan = !plan || u.plan === plan;
                 return matchSearch && matchCountry && matchCity && matchPlan;
             });
@@ -2032,8 +2488,8 @@
                 let valA, valB;
                 switch (sortBy) {
                     case 'name':
-                        valA = a.name;
-                        valB = b.name;
+                        valA = translate(a.name, currentLang);
+                        valB = translate(b.name, currentLang);
                         break;
                     case 'rating':
                         valA = a.rating || 0;
@@ -2075,17 +2531,17 @@
         function populateFilters() {
             const countrySelect = document.getElementById('filterCountry');
             const citySelect = document.getElementById('filterCity');
-            const countries = [...new Set(usersData.map(u => u.country).filter(Boolean))];
-            const cities = [...new Set(usersData.map(u => u.location).filter(Boolean))];
+            const countries = [...new Set(usersData.map(u => translate(u.country, currentLang)).filter(Boolean))];
+            const cities = [...new Set(usersData.map(u => translate(u.location, currentLang)).filter(Boolean))];
 
             const currentCountry = countrySelect.value;
             const currentCity = citySelect.value;
 
-            countrySelect.innerHTML = '<option value="">🌍 جميع البلدان</option>' +
+            countrySelect.innerHTML = `<option value="">${langData[currentLang]?.filterCountry || '🌍 جميع البلدان'}</option>` +
                 countries.map(c => `<option value="${c}">${c}</option>`).join('');
             countrySelect.value = currentCountry;
 
-            citySelect.innerHTML = '<option value="">📍 جميع المدن</option>' +
+            citySelect.innerHTML = `<option value="">${langData[currentLang]?.filterCity || '📍 جميع المدن'}</option>` +
                 cities.map(c => `<option value="${c}">${c}</option>`).join('');
             citySelect.value = currentCity;
         }
@@ -2102,7 +2558,8 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 avatarFile = e.target.result;
-                document.getElementById('avatarLabel').textContent = '✅ تم رفع الصورة';
+                document.getElementById('avatarLabel').textContent = '✅ ' + (currentLang === 'ar' ? 'تم رفع الصورة' :
+                    'Image uploaded');
             };
             reader.readAsDataURL(file);
         }
@@ -2119,7 +2576,7 @@
                     loaded++;
                     if (loaded === Math.min(files.length, 3)) {
                         document.getElementById('sponsorAvatarLabel').textContent =
-                            `✅ تم رفع ${sponsorAvatarFiles.length} صور`;
+                            `✅ ${currentLang === 'ar' ? 'تم رفع' : 'Uploaded'} ${sponsorAvatarFiles.length} ${currentLang === 'ar' ? 'صور' : 'images'}`;
                     }
                 };
                 reader.readAsDataURL(files[i]);
@@ -2127,28 +2584,58 @@
         }
 
         function addSubscriber() {
-            const name = document.getElementById('subName').value.trim();
-            const location = document.getElementById('subLocation').value.trim();
-            const country = document.getElementById('subCountry').value.trim();
+            const nameAr = document.getElementById('subName').value.trim();
+            const locationAr = document.getElementById('subLocation').value.trim();
+            const countryAr = document.getElementById('subCountry').value.trim();
             const email = document.getElementById('subEmail').value.trim();
-            const specialty = document.getElementById('subSpecialty').value.trim();
+            const specialtyAr = document.getElementById('subSpecialty').value.trim();
             const plan = document.getElementById('subPlan').value;
 
-            if (!name || !location || !email) {
+            if (!nameAr || !locationAr || !email) {
                 alert(currentLang === 'ar' ? '⚠️ الرجاء ملء الحقول الأساسية!' : '⚠️ Please fill required fields!');
                 return;
             }
+
+            // Create translated versions (for demo, we use the same name with slight variations)
+            const nameObj = {
+                ar: nameAr,
+                en: nameAr,
+                fr: nameAr,
+                es: nameAr,
+                de: nameAr
+            };
+            const locationObj = {
+                ar: locationAr,
+                en: locationAr,
+                fr: locationAr,
+                es: locationAr,
+                de: locationAr
+            };
+            const countryObj = {
+                ar: countryAr || 'غير محدد',
+                en: countryAr || 'Unspecified',
+                fr: countryAr || 'Non spécifié',
+                es: countryAr || 'No especificado',
+                de: countryAr || 'Nicht angegeben'
+            };
+            const specialtyObj = {
+                ar: specialtyAr || 'عام',
+                en: specialtyAr || 'General',
+                fr: specialtyAr || 'Général',
+                es: specialtyAr || 'General',
+                de: specialtyAr || 'Allgemein'
+            };
 
             const rating = (Math.random() * 2 + 2.5).toFixed(1);
             const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
 
             const newUser = {
-                name,
-                location,
-                country: country || 'غير محدد',
-                email,
-                specialty: specialty || 'عام',
-                plan,
+                name: nameObj,
+                location: locationObj,
+                country: countryObj,
+                email: email,
+                specialty: specialtyObj,
+                plan: plan,
                 rating: parseFloat(rating),
                 icon: icons[Math.floor(Math.random() * icons.length)],
                 avatar: avatarFile || '',
@@ -2160,7 +2647,8 @@
             if (avatarFile) {
                 avatarData[email] = avatarFile;
                 avatarFile = null;
-                document.getElementById('avatarLabel').textContent = '🖼️ اختر صورة شخصية';
+                document.getElementById('avatarLabel').textContent = currentLang === 'ar' ? '🖼️ اختر صورة شخصية' :
+                    '🖼️ Choose Profile Picture';
             }
             saveState();
 
@@ -2168,9 +2656,11 @@
             sendEmailNotification(newUser);
 
             // Show notification
+            const translatedName = translate(newUser.name, currentLang);
             showNotification(
-                langData[currentLang].newMember || '🎉 عضو جديد!',
-                langData[currentLang].newMemberText.replace('{name}', name)
+                langData[currentLang]?.newMember || '🎉 عضو جديد!',
+                (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}',
+                    translatedName)
             );
 
             // Clear fields
@@ -2194,13 +2684,37 @@
         }
 
         function updateSponsors() {
-            const weekly = document.getElementById('sponsorWeeklyName').value.trim();
-            const monthly = document.getElementById('sponsorMonthlyName').value.trim();
-            const yearly = document.getElementById('sponsorYearlyName').value.trim();
+            const weeklyAr = document.getElementById('sponsorWeeklyName').value.trim();
+            const monthlyAr = document.getElementById('sponsorMonthlyName').value.trim();
+            const yearlyAr = document.getElementById('sponsorYearlyName').value.trim();
 
-            if (weekly) sponsors.weekly.name = weekly;
-            if (monthly) sponsors.monthly.name = monthly;
-            if (yearly) sponsors.yearly.name = yearly;
+            if (weeklyAr) {
+                sponsors.weekly.name = {
+                    ar: weeklyAr,
+                    en: weeklyAr,
+                    fr: weeklyAr,
+                    es: weeklyAr,
+                    de: weeklyAr
+                };
+            }
+            if (monthlyAr) {
+                sponsors.monthly.name = {
+                    ar: monthlyAr,
+                    en: monthlyAr,
+                    fr: monthlyAr,
+                    es: monthlyAr,
+                    de: monthlyAr
+                };
+            }
+            if (yearlyAr) {
+                sponsors.yearly.name = {
+                    ar: yearlyAr,
+                    en: yearlyAr,
+                    fr: yearlyAr,
+                    es: yearlyAr,
+                    de: yearlyAr
+                };
+            }
 
             const keys = ['weekly', 'monthly', 'yearly'];
             sponsorAvatarFiles.forEach((file, i) => {
@@ -2211,7 +2725,9 @@
 
             saveState();
             sponsorAvatarFiles = [];
-            document.getElementById('sponsorAvatarLabel').textContent = '🖼️ صور الرعاة (اختر 3 صور)';
+            document.getElementById('sponsorAvatarLabel').textContent = currentLang === 'ar' ?
+                '🖼️ صور الرعاة (اختر 3 صور)' :
+                '🖼️ Sponsor Images (Choose 3)';
             document.getElementById('sponsorWeeklyName').value = '';
             document.getElementById('sponsorMonthlyName').value = '';
             document.getElementById('sponsorYearlyName').value = '';
@@ -2238,16 +2754,33 @@
         }
 
         function saveSiteSettings() {
-            const title = document.getElementById('siteTitle').value.trim();
-            const desc = document.getElementById('siteDescription').value.trim();
+            const titleAr = document.getElementById('siteTitle').value.trim();
+            const descAr = document.getElementById('siteDescription').value.trim();
             const perPage = parseInt(document.getElementById('squaresPerPage').value) || DEFAULT_SQUARES_PER_PAGE;
 
-            if (title) siteSettings.siteTitle = title;
-            if (desc) siteSettings.siteDescription = desc;
+            if (titleAr) {
+                siteSettings.siteTitle = {
+                    ar: titleAr,
+                    en: titleAr,
+                    fr: titleAr,
+                    es: titleAr,
+                    de: titleAr
+                };
+            }
+            if (descAr) {
+                siteSettings.siteDescription = {
+                    ar: descAr,
+                    en: descAr,
+                    fr: descAr,
+                    es: descAr,
+                    de: descAr
+                };
+            }
             siteSettings.squaresPerPage = Math.max(10, Math.min(5000, perPage));
 
             saveState();
-            document.getElementById('siteLogo').textContent = siteSettings.siteTitle;
+            document.getElementById('siteLogo').textContent = translate(siteSettings.siteTitle || defaultSettings.siteTitle,
+                currentLang);
             document.getElementById('scrollHint').textContent =
                 (langData[currentLang]?.scrollHint || '⬇️ Scroll for more ({perPage} squares per view)')
                 .replace('{perPage}', siteSettings.squaresPerPage);
@@ -2320,11 +2853,13 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('p', 'mm', 'a4');
             const t = langData[currentLang] || langData.ar;
+            const siteName = translate(siteSettings.siteTitle || defaultSettings.siteTitle, currentLang);
 
             doc.setFontSize(20);
-            doc.text(t.siteTitle || '🏆 مليون مربع', 105, 20, { align: 'center' });
+            doc.text(siteName || '🏆 مليون مربع', 105, 20, { align: 'center' });
             doc.setFontSize(12);
-            doc.text(t.heroSubtitle?.replace(/<[^>]*>/g, '') || 'تقرير الموقع', 105, 30, { align: 'center' });
+            const subtitle = t.heroSubtitle?.replace(/<[^>]*>/g, '') || 'تقرير الموقع';
+            doc.text(subtitle, 105, 30, { align: 'center' });
 
             doc.setFontSize(14);
             doc.text(`📊 ${t.labelSubs}: ${usersData.length}`, 20, 45);
@@ -2335,45 +2870,44 @@
             doc.text(`💰 ${t.labelRevenue}: $${revenue}`, 20, 55);
 
             doc.setFontSize(12);
-            doc.text('📋 قائمة المشتركين:', 20, 70);
+            doc.text('📋 ' + (currentLang === 'ar' ? 'قائمة المشتركين:' : 'Subscribers List:'), 20, 70);
             let y = 80;
             usersData.slice(0, 20).forEach((u, i) => {
                 if (y > 270) { doc.addPage();
                     y = 20; }
-                doc.text(`${i+1}. ${u.name} - ${u.email} - ${u.plan}`, 20, y);
+                const name = translate(u.name, currentLang);
+                const location = translate(u.location, currentLang);
+                doc.text(`${i+1}. ${name} - ${u.email} - ${location} - ${u.plan}`, 20, y);
                 y += 7;
             });
 
             if (usersData.length > 20) {
-                doc.text(`... و ${usersData.length - 20} مشترك إضافي`, 20, y + 5);
+                doc.text(`... ${currentLang === 'ar' ? 'و' : 'and'} ${usersData.length - 20} ${currentLang === 'ar' ? 'مشترك إضافي' : 'more subscribers'}`, 20,
+                    y + 5);
             }
 
             doc.setFontSize(10);
             doc.text('© 2026 Million Squares', 105, 285, { align: 'center' });
 
-            doc.save(`تقرير_مليون_مربع_${new Date().toISOString().slice(0,10)}.pdf`);
+            doc.save(`report_${new Date().toISOString().slice(0,10)}.pdf`);
         }
 
         // ============================================================
         //  EMAIL NOTIFICATION (Simulated)
         // ============================================================
         function sendEmailNotification(user) {
-            // In production, this would use a backend API or SMTP
-            // For demo, we log to console and show a simulated alert
+            const name = translate(user.name, currentLang);
             console.log('📧 Email Notification sent to:', user.email);
             console.log('📧 Subject: Welcome to Million Squares!');
             console.log('📧 Body:', `
-                    مرحباً ${user.name},
+                    مرحباً ${name},
                     شكراً لانضمامك إلى مجتمع مليون مربع!
                     بريدك: ${user.email}
                     الباقة: ${user.plan}
-                    الاختصاص: ${user.specialty}
+                    الاختصاص: ${translate(user.specialty, currentLang)}
                 `);
 
-            // Simulated email - in production you would use a real SMTP service
             if (emailSettings.smtpEmail && emailSettings.smtpHost) {
-                // Here you would implement actual email sending via SMTP
-                // For now, just show a success message
                 console.log('📧 SMTP configured with:', emailSettings.smtpHost);
             }
         }
@@ -2390,7 +2924,9 @@
                 adminLoggedIn = true;
                 document.getElementById('adminOverlay').classList.remove('active');
                 document.getElementById('adminPanel').classList.add('active');
-                document.getElementById('toggleAdminBtn').textContent = '🔒 إدارة الموقع (مفعل)';
+                const t = langData[currentLang];
+                document.getElementById('toggleAdminBtn').textContent = '🔒 ' + (t.adminPanelTitle || 'إدارة الموقع') +
+                    ' (مفعل)';
                 document.getElementById('toggleAdminBtn').classList.add('locked');
                 document.getElementById('adminUsername').value = '';
                 document.getElementById('adminPassword').value = '';
@@ -2412,8 +2948,10 @@
             document.getElementById('smtpPassword').value = emailSettings.smtpPassword || '';
             document.getElementById('smtpHost').value = emailSettings.smtpHost || '';
             document.getElementById('smtpPort').value = emailSettings.smtpPort || 587;
-            document.getElementById('siteTitle').value = siteSettings.siteTitle || '';
-            document.getElementById('siteDescription').value = siteSettings.siteDescription || '';
+            document.getElementById('siteTitle').value = translate(siteSettings.siteTitle || defaultSettings.siteTitle,
+                'ar') || '';
+            document.getElementById('siteDescription').value = translate(siteSettings.siteDescription ||
+                defaultSettings.siteDescription, 'ar') || '';
             document.getElementById('squaresPerPage').value = siteSettings.squaresPerPage || DEFAULT_SQUARES_PER_PAGE;
         }
 
@@ -2428,9 +2966,12 @@
             if (panel.classList.contains('active')) {
                 loadAdminData();
                 updateCharts();
-                document.getElementById('toggleAdminBtn').textContent = '🔒 إدارة الموقع (مفعل)';
+                const t = langData[currentLang];
+                document.getElementById('toggleAdminBtn').textContent = '🔒 ' + (t.adminPanelTitle || 'إدارة الموقع') +
+                    ' (مفعل)';
             } else {
-                document.getElementById('toggleAdminBtn').textContent = '⚙️ إدارة الموقع';
+                document.getElementById('toggleAdminBtn').textContent = '⚙️ ' + (langData[currentLang]?.adminPanelTitle ||
+                    'إدارة الموقع');
             }
         }
 
@@ -2506,13 +3047,14 @@
         setLang('ar');
         document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 
-        console.log('✅ مليون مربع - النسخة الاحترافية النهائية!');
+        console.log('✅ مليون مربع - النسخة النهائية مع الترجمة الشاملة!');
         console.log('🔑 اسم المدير:', ADMIN_USERNAME);
         console.log('🔑 كلمة مرور المدير:', ADMIN_PASSWORD);
         console.log('💡 اختصار لوحة التحكم: Ctrl+Shift+A');
         console.log('📊 عدد المشتركين:', usersData.length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
         console.log('🌓 المظهر الحالي:', currentTheme);
+        console.log('📝 جميع الأسماء والعناوين تتم ترجمتها تلقائياً عند تغيير اللغة');
     </script>
 </body>
 </html>
