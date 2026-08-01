@@ -1230,4 +1230,117 @@ function updateSuggestions() {
             <p>${s.text}</p>
         </div>
     `).join('');
+    // ===== شاشة الترحيب =====
+document.addEventListener('DOMContentLoaded', function() {
+    const welcomePopup = document.getElementById('welcomePopup');
+    const welcomeBookBtn = document.getElementById('welcomeBookBtn');
+    const welcomeCloseBtn = document.getElementById('welcomeCloseBtn');
+    const welcomeMemberCount = document.getElementById('welcomeMemberCount');
+
+    // عرض عدد المشتركين في شاشة الترحيب
+    if (welcomeMemberCount) {
+        welcomeMemberCount.textContent = members.length || 0;
+    }
+
+    // إخفاء شاشة الترحيب بعد 5 ثوانٍ أو عند الضغط على زر
+    setTimeout(() => {
+        if (welcomePopup) welcomePopup.classList.add('hidden');
+    }, 5000);
+
+    if (welcomeBookBtn) {
+        welcomeBookBtn.addEventListener('click', function() {
+            welcomePopup.classList.add('hidden');
+            bookSquare(); // استدعاء دالة الحجز
+        });
+    }
+
+    if (welcomeCloseBtn) {
+        welcomeCloseBtn.addEventListener('click', function() {
+            welcomePopup.classList.add('hidden');
+        });
+    }
+});
+
+// ===== CTA الثابت =====
+const stickyCTA = document.getElementById('stickyCTA');
+let lastScrollY = window.scrollY;
+
+window.addEventListener('scroll', function() {
+    if (!stickyCTA) return;
+    if (window.scrollY > 300 && window.scrollY < document.body.scrollHeight - 800) {
+        stickyCTA.classList.add('visible');
+    } else {
+        stickyCTA.classList.remove('visible');
+    }
+});
+
+document.getElementById('stickyBookBtn')?.addEventListener('click', bookSquare);
+
+// ===== الإشعارات الفورية =====
+function showNotification(message, type = 'info') {
+    const container = document.getElementById('notificationContainer');
+    if (!container) return;
+    const item = document.createElement('div');
+    item.className = 'notification-item';
+    item.innerHTML = message;
+    container.appendChild(item);
+    setTimeout(() => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(120%)';
+        setTimeout(() => item.remove(), 500);
+    }, 4000);
+}
+
+// محاكاة إشعار عند حجز مربع جديد
+function notifyNewBooking(memberName) {
+    showNotification(`🎉 <span class="highlight">${memberName}</span> انضم للتو!`);
+}
+
+// ===== نظام الإحالات =====
+document.getElementById('copyReferralLink')?.addEventListener('click', function() {
+    const input = document.getElementById('referralLink');
+    if (!input) return;
+    input.select();
+    document.execCommand('copy');
+    showNotification('✅ تم نسخ رابط الإحالة!', 'success');
+});
+
+// ===== تأثير الندرة (عداد تنازلي) =====
+function createScarcityCounter() {
+    const counterDiv = document.createElement('div');
+    counterDiv.className = 'scarcity-counter';
+    counterDiv.innerHTML = `
+        <span>🔥 العرض محدود: <span id="scarcityTimer">00:00:00</span></span>
+    `;
+    document.querySelector('.book-section')?.appendChild(counterDiv);
+
+    let timeLeft = 3600; // ساعة واحدة
+    const timerEl = document.getElementById('scarcityTimer');
+    if (!timerEl) return;
+
+    setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) timeLeft = 3600;
+        const hours = String(Math.floor(timeLeft / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, '0');
+        const seconds = String(timeLeft % 60).padStart(2, '0');
+        timerEl.textContent = `${hours}:${minutes}:${seconds}`;
+    }, 1000);
+}
+// استدعاء الدالة عند تحميل الصفحة
+createScarcityCounter();
+
+// ===== إحصائيات ديناميكية =====
+function updateDynamicStats() {
+    const total = members.length;
+    const real = members.filter(m => !m.isVirtual).length;
+    const virtual = members.filter(m => m.isVirtual).length;
+    const revenue = members.reduce((sum, m) => sum + TIERS[m.tier].price, 0);
+
+    document.querySelector('.stat-total-members')?.textContent = total;
+    document.querySelector('.stat-real-members')?.textContent = real;
+    document.querySelector('.stat-virtual-members')?.textContent = virtual;
+    document.querySelector('.stat-total-revenue')?.textContent = `$${revenue}`;
+}
+// استدعاء بعد كل تغيير في البيانات
 }
