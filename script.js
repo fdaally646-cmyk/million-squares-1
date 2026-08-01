@@ -67,7 +67,13 @@ function generateVirtualMembers(count) {
 
 // ===== التخزين المحلي =====
 function saveData() {
-    var data = { members: members, sponsors: sponsors, suggestions: suggestions, totalRevenue: totalRevenue, virtualRevenue: virtualRevenue };
+    var data = { 
+        members: members, 
+        sponsors: sponsors, 
+        suggestions: suggestions, 
+        totalRevenue: totalRevenue, 
+        virtualRevenue: virtualRevenue 
+    };
     try { localStorage.setItem('millionSquaresData', JSON.stringify(data)); } catch(e) {}
 }
 
@@ -287,10 +293,9 @@ function renderMembersTable() {
     filtered.forEach(function(m) {
         var tr = document.createElement('tr');
         var tierInfo = TIERS[m.tier];
-        tr.className = m.isVirtual ? 'virtual-member' : 'real-member';
         var typeBadge = m.isVirtual ? 
-            '<span class="member-type-badge virtual">🔄 افتراضي</span>' : 
-            '<span class="member-type-badge real">✅ حقيقي</span>';
+            '<span style="color:#F59E0B;font-weight:700">🔄 افتراضي</span>' : 
+            '<span style="color:#10B981;font-weight:700">✅ حقيقي</span>';
         var index = members.indexOf(m);
         
         tr.innerHTML = 
@@ -378,7 +383,6 @@ function setLanguage(lang) {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
     
-    // ترجمة النصوص الأساسية
     var translations = {
         ar: {
             banner: '🚀 انضم الآن واحجز مربعك المميز',
@@ -401,7 +405,46 @@ function setLanguage(lang) {
             online: 'متصلون',
             today: 'جديد اليوم',
             book_square: 'احجز مربعك الآن',
-            book_hint: '🎁 3 أيام تجريبية مجانية'
+            book_hint: '🎁 3 أيام تجريبية مجانية',
+            sponsors: 'الرعاة',
+            sponsor_cta: 'كن راعياً',
+            admin_hint: 'انقر مرتين للدخول',
+            admin_login: 'الدخول إلى لوحة التحكم',
+            login: 'دخول',
+            login_error: 'اسم المستخدم أو كلمة السر غير صحيحة',
+            username: 'اسم المستخدم',
+            password: 'كلمة السر',
+            settings: 'الإعدادات',
+            add: 'إضافة',
+            refresh: 'تحديث',
+            name: 'الاسم',
+            email: 'البريد',
+            tier: 'المستوى',
+            location: 'الموقع',
+            type: 'النوع',
+            actions: 'الإجراءات',
+            delete: 'حذف',
+            settings_title: 'الإعدادات',
+            admin_email: 'بريد المدير:',
+            admin_email_placeholder: 'بريد المدير',
+            change_password: 'تغيير كلمة السر',
+            new_password: 'كلمة سر جديدة',
+            change: 'تغيير',
+            save: 'حفظ',
+            suggest_idea: '💡 شاركنا اقتراحك',
+            send: 'إرسال',
+            your_name: 'اسمك',
+            your_email: 'بريدك',
+            your_suggestion: 'فكرتك لتطوير الموقع',
+            contact_us: '📧 تواصل معنا',
+            about_us: '📍 عن الموقع',
+            about_text: 'منصة مليون مربع',
+            follow_us: '📱 تابعنا',
+            rights: 'جميع الحقوق محفوظة',
+            badge_normal: 'مبتدئ',
+            badge_silver: 'شائع',
+            badge_gold: 'مميز',
+            badge_royal: 'VIP'
         },
         en: {
             banner: '🚀 Join now and book your special square',
@@ -424,7 +467,46 @@ function setLanguage(lang) {
             online: 'Online',
             today: 'Today',
             book_square: 'Book Your Square Now',
-            book_hint: '🎁 3 days free trial'
+            book_hint: '🎁 3 days free trial',
+            sponsors: 'Sponsors',
+            sponsor_cta: 'Sponsor',
+            admin_hint: 'Double click to access',
+            admin_login: 'Login to Dashboard',
+            login: 'Login',
+            login_error: 'Invalid username or password',
+            username: 'Username',
+            password: 'Password',
+            settings: 'Settings',
+            add: 'Add',
+            refresh: 'Refresh',
+            name: 'Name',
+            email: 'Email',
+            tier: 'Tier',
+            location: 'Location',
+            type: 'Type',
+            actions: 'Actions',
+            delete: 'Delete',
+            settings_title: 'Settings',
+            admin_email: 'Admin Email:',
+            admin_email_placeholder: 'Admin email',
+            change_password: 'Change Password',
+            new_password: 'New password',
+            change: 'Change',
+            save: 'Save',
+            suggest_idea: '💡 Share Your Suggestion',
+            send: 'Send',
+            your_name: 'Your name',
+            your_email: 'Your email',
+            your_suggestion: 'Your idea to improve',
+            contact_us: '📧 Contact Us',
+            about_us: '📍 About Us',
+            about_text: 'Million Squares Platform',
+            follow_us: '📱 Follow Us',
+            rights: 'All Rights Reserved',
+            badge_normal: 'Beginner',
+            badge_silver: 'Popular',
+            badge_gold: 'Featured',
+            badge_royal: 'VIP'
         }
     };
     
@@ -435,29 +517,67 @@ function setLanguage(lang) {
     document.querySelector('.banner-text').textContent = t.banner;
     document.querySelector('.banner-counter:nth-child(2)').innerHTML = '📊 ' + t.available + ': <strong id="availableSquares">0</strong>';
     document.querySelector('.banner-counter:last-child').innerHTML = '👥 <strong id="totalMembersDisplay">0</strong> ' + t.members;
-    document.querySelector('.logo-section h1 .gradient-text').textContent = t.site_title;
-    document.querySelector('.subtitle').textContent = t.subtitle;
-    document.querySelector('#searchInput').placeholder = t.search;
-    document.querySelector('#filterTier option[value="all"]').textContent = t.all_tiers;
-    document.querySelector('#filterTier option[value="normal"]').textContent = '💎 ' + t.normal;
-    document.querySelector('#filterTier option[value="silver"]').textContent = '⭐ ' + t.silver;
-    document.querySelector('#filterTier option[value="gold"]').textContent = '👑 ' + t.gold;
-    document.querySelector('#filterTier option[value="royal"]').textContent = '💠 ' + t.royal;
+    document.getElementById('siteTitle').textContent = t.site_title;
+    document.getElementById('siteSubtitle').textContent = t.subtitle;
+    document.getElementById('searchInput').placeholder = t.search;
+    document.getElementById('filterTier').options[0].text = t.all_tiers;
+    document.getElementById('filterTier').options[1].text = '💎 ' + t.normal;
+    document.getElementById('filterTier').options[2].text = '⭐ ' + t.silver;
+    document.getElementById('filterTier').options[3].text = '👑 ' + t.gold;
+    document.getElementById('filterTier').options[4].text = '💠 ' + t.royal;
+    document.getElementById('bookBtnText').textContent = t.book_square;
+    document.getElementById('bookHint').textContent = t.book_hint;
+    document.getElementById('sponsorsTitle').textContent = '🌟 ' + t.sponsors;
+    document.getElementById('sponsorCta').textContent = t.sponsor_cta;
+    document.getElementById('adminHint').textContent = t.admin_hint;
+    document.getElementById('adminLoginTitle').textContent = '🔐 ' + t.admin_login;
+    document.getElementById('loginBtnText').textContent = t.login;
+    document.getElementById('membersLabel').textContent = t.members;
+    document.getElementById('revenueLabel').textContent = t.revenue;
+    document.getElementById('totalSquaresLabel').innerHTML = '📊 ' + t.total_squares + ': <strong>1,000,000</strong>';
+    document.getElementById('gridMembersLabel').innerHTML = '👥 ' + t.members + ': <strong id="gridMemberCount">0</strong>';
+    document.getElementById('gridAvailableLabel').innerHTML = '📦 ' + t.available + ': <strong id="gridAvailableCount">0</strong>';
+    document.getElementById('whatIsTitle').textContent = '🎯 ' + (lang === 'ar' ? 'ما هو مليون مربع؟' : 'What is Million Squares?');
+    document.getElementById('whatIsDesc').textContent = lang === 'ar' ? 'منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.' : 'A revolutionary platform for interactive digital space.';
+    document.getElementById('stepsTitle').textContent = '📋 ' + (lang === 'ar' ? 'خطوات الاشتراك' : 'Subscription Steps');
+    document.getElementById('trialBanner').textContent = '🎁 ' + t.book_hint;
+    document.getElementById('adminLoginTitle').textContent = '🔐 ' + t.admin_login;
     
-    var bookBtn = document.querySelector('.book-btn');
-    if (bookBtn) bookBtn.innerHTML = '<i class="fas fa-plus-circle"></i> ' + t.book_square;
-    document.querySelector('.book-hint').textContent = t.book_hint;
+    document.getElementById('membersTab').textContent = t.members;
+    document.getElementById('settingsTab').textContent = t.settings;
+    document.getElementById('addBtnText').textContent = t.add;
+    document.getElementById('refreshBtnText').textContent = t.refresh;
+    document.getElementById('thName').textContent = t.name;
+    document.getElementById('thEmail').textContent = t.email;
+    document.getElementById('thTier').textContent = t.tier;
+    document.getElementById('thLocation').textContent = t.location;
+    document.getElementById('thType').textContent = t.type;
+    document.getElementById('thActions').textContent = t.actions;
+    document.getElementById('settingsTitle').textContent = t.settings_title;
+    document.getElementById('adminEmailLabel').textContent = t.admin_email;
+    document.getElementById('adminEmailSetting').placeholder = t.admin_email_placeholder;
+    document.getElementById('changePassTitle').textContent = t.change_password;
+    document.getElementById('newPassword').placeholder = t.new_password;
+    document.getElementById('changeBtnText').textContent = t.change;
+    document.getElementById('saveBtnText').textContent = t.save;
+    document.getElementById('suggestionTitle').textContent = t.suggest_idea;
+    document.getElementById('sendBtnText').textContent = t.send;
+    document.getElementById('suggesterName').placeholder = t.your_name;
+    document.getElementById('suggesterEmail').placeholder = t.your_email;
+    document.getElementById('suggestionText').placeholder = t.your_suggestion;
+    document.getElementById('contactTitle').textContent = t.contact_us;
+    document.getElementById('aboutTitle').textContent = t.about_us;
+    document.getElementById('aboutText').textContent = t.about_text;
+    document.getElementById('footerRights').textContent = '© 2026 ' + t.site_title + ' - ' + t.rights;
     
-    var loadingText = document.querySelector('.loading-screen p');
-    if (loadingText) loadingText.textContent = t.loading;
-    document.querySelector('#loadingIndicator span').textContent = t.loading_grid;
-    
-    document.querySelector('.grid-stats-bar span:nth-child(1)').innerHTML = '📊 ' + t.total_squares + ': <strong>1,000,000</strong>';
-    document.querySelector('.grid-stats-bar span:nth-child(2)').innerHTML = '👥 ' + t.members + ': <strong id="gridMemberCount">0</strong>';
-    document.querySelector('.grid-stats-bar span:nth-child(3)').innerHTML = '📦 ' + t.available + ': <strong id="gridAvailableCount">0</strong>';
-    
-    document.querySelector('.sponsors-header span').textContent = '🌟 ' + (lang === 'ar' ? 'الرعاة' : 'Sponsors');
-    document.querySelector('.sponsor-cta').textContent = lang === 'ar' ? 'كن راعياً' : 'Sponsor';
+    // تحديث labels في الميزات
+    document.getElementById('normalLabel').textContent = t.normal;
+    document.getElementById('silverLabel').textContent = t.silver;
+    document.getElementById('goldLabel').textContent = t.gold;
+    document.getElementById('royalLabel').textContent = t.royal;
+    document.querySelectorAll('#yearLabel, #yearLabel2, #yearLabel3, #yearLabel4').forEach(function(el) {
+        el.textContent = t.year;
+    });
 }
 
 // ===== تهيئة الموقع =====
