@@ -9,21 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- ===== شاشة التحميل ===== -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
         <p id="loadingText">⏳ جاري تحميل مليون مربع...</p>
     </div>
 
-    <!-- ===== خلفية الموقع ===== -->
     <div class="site-background" id="siteBackground"></div>
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
 
-    <!-- ===== زر العودة للأعلى ===== -->
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- ===== الشريط العلوي ===== -->
     <div class="top-banner">
         <div class="banner-content">
             <span class="banner-text" data-i18n="banner">🚀 انضم الآن واحجز مربعك المميز</span>
@@ -33,7 +26,6 @@
         </div>
     </div>
 
-    <!-- ===== الهيدر ===== -->
     <header class="main-header">
         <div class="header-content">
             <div class="logo-section">
@@ -48,61 +40,33 @@
                     <button class="lang-btn" data-lang="es">🇪🇸 ES</button>
                     <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
                 </div>
-                
                 <div class="live-stats">
-                    <div class="stat-item">
-                        <i class="fas fa-user fa-fade"></i>
-                        <span class="stat-label">متصلون</span>
-                        <span class="stat-number" id="liveUsers">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-rocket fa-fade"></i>
-                        <span class="stat-label">جديد اليوم</span>
-                        <span class="stat-number" id="todayMembers">0</span>
-                    </div>
+                    <div class="stat-item"><i class="fas fa-user fa-fade"></i> <span class="stat-label">متصلون</span> <span class="stat-number" id="liveUsers">0</span></div>
+                    <div class="stat-item"><i class="fas fa-rocket fa-fade"></i> <span class="stat-label">جديد اليوم</span> <span class="stat-number" id="todayMembers">0</span></div>
                 </div>
-                
                 <div class="header-stats">
-                    <div class="stat-item">
-                        <span class="stat-number" id="totalMembers">0</span>
-                        <span class="stat-label" data-i18n="members">مشترك</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="totalRevenue">$0</span>
-                        <span class="stat-label" data-i18n="revenue">إيرادات</span>
-                    </div>
+                    <div class="stat-item"><span class="stat-number" id="totalMembers">0</span><span class="stat-label" data-i18n="members">مشترك</span></div>
+                    <div class="stat-item"><span class="stat-number" id="totalRevenue">$0</span><span class="stat-label" data-i18n="revenue">إيرادات</span></div>
                 </div>
-                <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
-                    <i class="fas fa-moon"></i>
-                </button>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
             </div>
         </div>
     </header>
 
-    <!-- ===== الرعاة ===== -->
     <div class="sponsors-section">
-        <div class="sponsors-header">
-            <span data-i18n="sponsors_title">🌟 الرعاة الداعمون</span>
-            <a href="#sponsorPayment" class="sponsor-cta" data-i18n="become_sponsor">كن راعياً</a>
-        </div>
-        <div class="sponsors-marquee">
-            <div class="marquee-track" id="marqueeTrack"></div>
-        </div>
+        <div class="sponsors-header"><span data-i18n="sponsors_title">🌟 الرعاة الداعمون</span><a href="#sponsorPayment" class="sponsor-cta" data-i18n="become_sponsor">كن راعياً</a></div>
+        <div class="sponsors-marquee"><div class="marquee-track" id="marqueeTrack"></div></div>
     </div>
 
-    <!-- ===== شريط الأدوات ===== -->
     <div class="toolbar">
         <div class="toolbar-group">
-            <button id="zoomInBtn" title="تكبير"><i class="fas fa-search-plus"></i></button>
-            <button id="zoomOutBtn" title="تصغير"><i class="fas fa-search-minus"></i></button>
-            <button id="resetViewBtn" title="إعادة ضبط"><i class="fas fa-undo"></i></button>
-            <button id="fullscreenBtn" title="شاشة كاملة"><i class="fas fa-expand"></i></button>
+            <button id="zoomInBtn"><i class="fas fa-search-plus"></i></button>
+            <button id="zoomOutBtn"><i class="fas fa-search-minus"></i></button>
+            <button id="resetViewBtn"><i class="fas fa-undo"></i></button>
+            <button id="fullscreenBtn"><i class="fas fa-expand"></i></button>
         </div>
         <div class="search-group">
-            <div class="search-wrapper">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchInput" data-i18n-placeholder="search" placeholder="🔎 بحث عن مشترك...">
-            </div>
+            <div class="search-wrapper"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" data-i18n-placeholder="search" placeholder="🔎 بحث عن مشترك..."></div>
             <select id="filterTier">
                 <option value="all" data-i18n="all_tiers">جميع المستويات</option>
                 <option value="normal" data-i18n="normal">💎 عادي</option>
@@ -110,7 +74,6 @@
                 <option value="gold" data-i18n="gold">👑 ذهبي</option>
                 <option value="royal" data-i18n="royal">💠 ملكي</option>
             </select>
-            <!-- ===== خيارات الترتيب ===== -->
             <select id="sortBy">
                 <option value="name" data-i18n="sort_name">ترتيب حسب الاسم</option>
                 <option value="location" data-i18n="sort_location">ترتيب حسب البلد</option>
@@ -120,7 +83,6 @@
         </div>
     </div>
 
-    <!-- ===== الجريد ===== -->
     <div class="grid-container">
         <div class="grid-stats-bar">
             <span><i class="fas fa-th"></i> <span data-i18n="total_squares">إجمالي المربعات</span>: <strong>1,000,000</strong></span>
@@ -130,142 +92,62 @@
         </div>
         <div class="grid-wrapper" id="gridWrapper">
             <div class="grid-canvas" id="gridCanvas"></div>
-            <div class="loading-indicator" id="loadingIndicator">
-                <div class="spinner"></div>
-                <span data-i18n="loading">⏳ جاري تحميل المربعات...</span>
-            </div>
+            <div class="loading-indicator" id="loadingIndicator"><div class="spinner"></div><span data-i18n="loading">⏳ جاري تحميل المربعات...</span></div>
         </div>
     </div>
 
-    <!-- ===== معلومات الموقع ===== -->
     <section class="info-section">
         <div class="info-card">
             <h2 data-i18n="what_is">🎯 ما هو مليون مربع؟</h2>
             <p data-i18n="description">منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية لعرض هويتهم.</p>
             <div class="features-grid">
-                <div class="feature normal-tier">
-                    <div class="feature-icon">💎</div>
-                    <h4 data-i18n="normal">عادي</h4>
-                    <p class="price">$1/<span data-i18n="year">سنة</span></p>
-                    <ul class="feature-list">
-                        <li data-i18n="f_normal_1">✅ عرض الاسم</li>
-                        <li data-i18n="f_normal_2">✅ عرض الموقع</li>
-                    </ul>
-                    <div class="feature-badge">مبتدئ</div>
-                </div>
-                <div class="feature silver-tier">
-                    <div class="feature-icon">⭐</div>
-                    <h4 data-i18n="silver">فضي</h4>
-                    <p class="price">$5/<span data-i18n="year">سنة</span></p>
-                    <ul class="feature-list">
-                        <li data-i18n="f_silver_1">✅ عرض الاسم</li>
-                        <li data-i18n="f_silver_2">✅ عرض الموقع</li>
-                        <li data-i18n="f_silver_3">✅ رابط الموقع</li>
-                        <li data-i18n="f_silver_4">✅ إطار فضي لامع</li>
-                    </ul>
-                    <div class="feature-badge">شائع</div>
-                </div>
-                <div class="feature gold-tier">
-                    <div class="feature-icon">👑</div>
-                    <h4 data-i18n="gold">ذهبي</h4>
-                    <p class="price">$10/<span data-i18n="year">سنة</span></p>
-                    <ul class="feature-list">
-                        <li data-i18n="f_gold_1">✅ عرض الاسم</li>
-                        <li data-i18n="f_gold_2">✅ عرض الموقع</li>
-                        <li data-i18n="f_gold_3">✅ رابط الموقع</li>
-                        <li data-i18n="f_gold_4">✅ صورة شخصية</li>
-                        <li data-i18n="f_gold_5">✅ إطار ذهبي لامع</li>
-                        <li data-i18n="f_gold_6">✅ أولوية الظهور</li>
-                    </ul>
-                    <div class="feature-badge">مميز</div>
-                </div>
-                <div class="feature royal-tier">
-                    <div class="feature-icon">💠</div>
-                    <h4 data-i18n="royal">ملكي</h4>
-                    <p class="price">$100/<span data-i18n="year">سنة</span></p>
-                    <ul class="feature-list">
-                        <li data-i18n="f_royal_1">✅ جميع ميزات الذهبي</li>
-                        <li data-i18n="f_royal_2">✅ خلفية شفافة متحركة</li>
-                        <li data-i18n="f_royal_3">✅ تأثير نبض مميز</li>
-                        <li data-i18n="f_royal_4">✅ صورة خلفية مخصصة</li>
-                        <li data-i18n="f_royal_5">✅ ظهور في الأعلى</li>
-                    </ul>
-                    <div class="feature-badge premium">VIP</div>
-                </div>
+                <div class="feature normal-tier"><div class="feature-icon">💎</div><h4 data-i18n="normal">عادي</h4><p class="price">$1/<span data-i18n="year">سنة</span></p>
+                    <ul class="feature-list"><li data-i18n="f_normal_1">✅ عرض الاسم</li><li data-i18n="f_normal_2">✅ عرض الموقع</li></ul><div class="feature-badge">مبتدئ</div></div>
+                <div class="feature silver-tier"><div class="feature-icon">⭐</div><h4 data-i18n="silver">فضي</h4><p class="price">$5/<span data-i18n="year">سنة</span></p>
+                    <ul class="feature-list"><li data-i18n="f_silver_1">✅ عرض الاسم</li><li data-i18n="f_silver_2">✅ عرض الموقع</li><li data-i18n="f_silver_3">✅ رابط الموقع</li><li data-i18n="f_silver_4">✅ إطار فضي لامع</li></ul><div class="feature-badge">شائع</div></div>
+                <div class="feature gold-tier"><div class="feature-icon">👑</div><h4 data-i18n="gold">ذهبي</h4><p class="price">$10/<span data-i18n="year">سنة</span></p>
+                    <ul class="feature-list"><li data-i18n="f_gold_1">✅ عرض الاسم</li><li data-i18n="f_gold_2">✅ عرض الموقع</li><li data-i18n="f_gold_3">✅ رابط الموقع</li><li data-i18n="f_gold_4">✅ صورة شخصية</li><li data-i18n="f_gold_5">✅ إطار ذهبي لامع</li><li data-i18n="f_gold_6">✅ أولوية الظهور</li></ul><div class="feature-badge">مميز</div></div>
+                <div class="feature royal-tier"><div class="feature-icon">💠</div><h4 data-i18n="royal">ملكي</h4><p class="price">$100/<span data-i18n="year">سنة</span></p>
+                    <ul class="feature-list"><li data-i18n="f_royal_1">✅ جميع ميزات الذهبي</li><li data-i18n="f_royal_2">✅ خلفية شفافة متحركة</li><li data-i18n="f_royal_3">✅ تأثير نبض مميز</li><li data-i18n="f_royal_4">✅ صورة خلفية مخصصة</li><li data-i18n="f_royal_5">✅ ظهور في الأعلى</li></ul><div class="feature-badge premium">VIP</div></div>
             </div>
         </div>
-
         <div class="info-card">
             <h2 data-i18n="steps_title">📋 خطوات الاشتراك</h2>
-            <ol>
-                <li data-i18n="step1"><span class="step-number">1</span> <strong>اختر موقعك</strong> - انقر على أي مربع فارغ</li>
+            <ol><li data-i18n="step1"><span class="step-number">1</span> <strong>اختر موقعك</strong> - انقر على أي مربع فارغ</li>
                 <li data-i18n="step2"><span class="step-number">2</span> <strong>حدد المستوى</strong> - عادي، فضي، ذهبي، أو ملكي</li>
                 <li data-i18n="step3"><span class="step-number">3</span> <strong>املأ بياناتك</strong> - الاسم، البريد، الموقع، صورة</li>
                 <li data-i18n="step4"><span class="step-number">4</span> <strong>ادفع بأمان</strong> - عبر PayPal أو Stripe أو IBAN</li>
                 <li data-i18n="step5"><span class="step-number">5</span> <strong>انطلق!</strong> - سيظهر مربعك فوراً</li>
             </ol>
-            <div class="payment-methods">
-                <span><i class="fab fa-paypal"></i> PayPal</span>
-                <span><i class="fas fa-bolt"></i> Stripe</span>
-                <span><i class="fas fa-university"></i> IBAN</span>
-            </div>
+            <div class="payment-methods"><span><i class="fab fa-paypal"></i> PayPal</span><span><i class="fas fa-bolt"></i> Stripe</span><span><i class="fas fa-university"></i> IBAN</span></div>
         </div>
     </section>
 
-    <!-- ===== نظام دفع الرعاة ===== -->
     <section class="sponsor-payment-section" id="sponsorPayment">
         <h2 data-i18n="sponsor_payment_title">🌟 نظام الدفع للرعاة</h2>
         <p data-i18n="sponsor_payment_desc">اختر الباقة المناسبة لشركتك وادفع مباشرة عبر بوابة الدفع الإلكتروني</p>
         <div class="sponsor-plans">
-            <div class="plan-card">
-                <div class="plan-icon">📅</div>
-                <h4 data-i18n="weekly">أسبوعي</h4>
-                <p class="price">$100</p>
-                <ul>
-                    <li data-i18n="sp_weekly_1">✅ عرض اسم الشركة</li>
-                    <li data-i18n="sp_weekly_2">✅ مدة: 7 أيام</li>
-                    <li data-i18n="sp_weekly_3">✅ رابط موقعك</li>
-                </ul>
+            <div class="plan-card"><div class="plan-icon">📅</div><h4 data-i18n="weekly">أسبوعي</h4><p class="price">$100</p>
+                <ul><li data-i18n="sp_weekly_1">✅ عرض اسم الشركة</li><li data-i18n="sp_weekly_2">✅ مدة: 7 أيام</li><li data-i18n="sp_weekly_3">✅ رابط موقعك</li></ul>
                 <button class="plan-btn sponsor-pay-btn" data-plan="weekly" data-amount="100" data-i18n="choose">اختر</button>
             </div>
-            <div class="plan-card featured">
-                <div class="plan-icon">🌟</div>
-                <h4 data-i18n="monthly">شهري</h4>
-                <p class="price">$1,000</p>
-                <ul>
-                    <li data-i18n="sp_monthly_1">✅ عرض اسم الشركة</li>
-                    <li data-i18n="sp_monthly_2">✅ مدة: 30 يوماً</li>
-                    <li data-i18n="sp_monthly_3">✅ رابط موقعك</li>
-                    <li data-i18n="sp_monthly_4">✅ شعار مميز</li>
-                </ul>
+            <div class="plan-card featured"><div class="plan-icon">🌟</div><h4 data-i18n="monthly">شهري</h4><p class="price">$1,000</p>
+                <ul><li data-i18n="sp_monthly_1">✅ عرض اسم الشركة</li><li data-i18n="sp_monthly_2">✅ مدة: 30 يوماً</li><li data-i18n="sp_monthly_3">✅ رابط موقعك</li><li data-i18n="sp_monthly_4">✅ شعار مميز</li></ul>
                 <button class="plan-btn sponsor-pay-btn" data-plan="monthly" data-amount="1000" data-i18n="choose">اختر</button>
                 <span class="popular-badge" data-i18n="popular">الأكثر طلباً</span>
             </div>
-            <div class="plan-card premium">
-                <div class="plan-icon">👑</div>
-                <h4 data-i18n="yearly">سنوي</h4>
-                <p class="price">$10,000</p>
-                <ul>
-                    <li data-i18n="sp_yearly_1">✅ عرض اسم الشركة</li>
-                    <li data-i18n="sp_yearly_2">✅ مدة: 365 يوماً</li>
-                    <li data-i18n="sp_yearly_3">✅ رابط موقعك</li>
-                    <li data-i18n="sp_yearly_4">✅ شعار مميز</li>
-                    <li data-i18n="sp_yearly_5">✅ فيديو تعريفي</li>
-                </ul>
+            <div class="plan-card premium"><div class="plan-icon">👑</div><h4 data-i18n="yearly">سنوي</h4><p class="price">$10,000</p>
+                <ul><li data-i18n="sp_yearly_1">✅ عرض اسم الشركة</li><li data-i18n="sp_yearly_2">✅ مدة: 365 يوماً</li><li data-i18n="sp_yearly_3">✅ رابط موقعك</li><li data-i18n="sp_yearly_4">✅ شعار مميز</li><li data-i18n="sp_yearly_5">✅ فيديو تعريفي</li></ul>
                 <button class="plan-btn sponsor-pay-btn" data-plan="yearly" data-amount="10000" data-i18n="choose">اختر</button>
             </div>
         </div>
     </section>
 
-    <!-- ===== لوحة التحكم ===== -->
     <div class="admin-section">
         <div class="admin-hidden-trigger">
-            <button id="adminSecretBtn" class="admin-secret-btn" title="اضغط مرتين للدخول">
-                <i class="fas fa-user-shield"></i>
-            </button>
+            <button id="adminSecretBtn" class="admin-secret-btn"><i class="fas fa-user-shield"></i></button>
             <span class="admin-hint" data-i18n="admin_hint">انقر مرتين للدخول إلى لوحة المدير</span>
         </div>
-        
         <div id="adminPanel" class="admin-panel hidden">
             <div class="admin-login">
                 <div class="admin-login-icon">🔐</div>
@@ -277,7 +159,6 @@
                 </div>
                 <div id="loginError" class="login-error hidden">❌ اسم المستخدم أو كلمة السر غير صحيحة</div>
             </div>
-            
             <div id="adminContent" class="admin-content hidden">
                 <div class="admin-tabs">
                     <button class="tab-btn active" data-tab="tabMembers"><i class="fas fa-users"></i> <span data-i18n="members">المشتركين</span></button>
@@ -287,7 +168,6 @@
                     <button class="tab-btn" data-tab="tabSuggestions"><i class="fas fa-lightbulb"></i> <span data-i18n="suggestions">الاقتراحات</span></button>
                     <button class="tab-btn" data-tab="tabSettings"><i class="fas fa-cog"></i> <span data-i18n="settings">الإعدادات</span></button>
                 </div>
-
                 <div id="tabMembers" class="tab-content active">
                     <div class="admin-actions">
                         <button id="addMemberBtn"><i class="fas fa-user-plus"></i> <span data-i18n="add_member">إضافة مشترك</span></button>
@@ -296,44 +176,21 @@
                     </div>
                     <div class="members-table-wrapper">
                         <table id="membersTable">
-                            <thead>
-                                <tr>
-                                    <th data-i18n="name">الاسم</th>
-                                    <th data-i18n="email">البريد</th>
-                                    <th data-i18n="tier">المستوى</th>
-                                    <th data-i18n="location">الموقع</th>
-                                    <th data-i18n="type">النوع</th>
-                                    <th data-i18n="actions">الإجراءات</th>
-                                </tr>
-                            </thead>
+                            <thead><tr><th data-i18n="name">الاسم</th><th data-i18n="email">البريد</th><th data-i18n="tier">المستوى</th><th data-i18n="location">الموقع</th><th data-i18n="type">النوع</th><th data-i18n="actions">الإجراءات</th></tr></thead>
                             <tbody id="membersTableBody"></tbody>
                         </table>
                     </div>
-                    <div class="table-footer">
-                        <span><span data-i18n="total_members">إجمالي المشتركين</span>: <strong id="tableTotalMembers">0</strong></span>
-                        <span style="margin-right:20px;"><span data-i18n="virtual_members">افتراضي</span>: <strong id="tableVirtualCount">0</strong></span>
-                    </div>
+                    <div class="table-footer"><span><span data-i18n="total_members">إجمالي المشتركين</span>: <strong id="tableTotalMembers">0</strong></span><span style="margin-right:20px;"><span data-i18n="virtual_members">افتراضي</span>: <strong id="tableVirtualCount">0</strong></span></div>
                 </div>
-
                 <div id="tabPayments" class="tab-content hidden">
                     <h4><i class="fas fa-credit-card"></i> <span data-i18n="payment_settings">إعدادات الدفع</span></h4>
                     <div class="payment-settings">
-                        <div class="payment-field">
-                            <label><i class="fab fa-paypal"></i> PayPal:</label>
-                            <input type="text" id="paypalSetting" placeholder="بريد PayPal">
-                        </div>
-                        <div class="payment-field">
-                            <label><i class="fas fa-bolt"></i> Stripe:</label>
-                            <input type="text" id="stripeSetting" placeholder="مفتاح Stripe">
-                        </div>
-                        <div class="payment-field">
-                            <label><i class="fas fa-university"></i> IBAN:</label>
-                            <input type="text" id="ibanSetting" placeholder="رقم IBAN">
-                        </div>
+                        <div class="payment-field"><label><i class="fab fa-paypal"></i> PayPal:</label><input type="text" id="paypalSetting" placeholder="بريد PayPal"></div>
+                        <div class="payment-field"><label><i class="fas fa-bolt"></i> Stripe:</label><input type="text" id="stripeSetting" placeholder="مفتاح Stripe"></div>
+                        <div class="payment-field"><label><i class="fas fa-university"></i> IBAN:</label><input type="text" id="ibanSetting" placeholder="رقم IBAN"></div>
                         <button id="savePaymentSettings"><i class="fas fa-save"></i> <span data-i18n="save">حفظ الإعدادات</span></button>
                     </div>
                 </div>
-
                 <div id="tabSponsors" class="tab-content hidden">
                     <h4><i class="fas fa-handshake"></i> <span data-i18n="sponsor_management">إدارة الرعاة</span></h4>
                     <div class="sponsor-admin">
@@ -341,62 +198,33 @@
                             <input type="text" id="sponsorName" placeholder="اسم الراعي">
                             <input type="text" id="sponsorLink" placeholder="رابط الموقع">
                             <input type="number" id="sponsorAmount" placeholder="المبلغ">
-                            <select id="sponsorDuration">
-                                <option value="weekly" data-i18n="weekly">أسبوعي</option>
-                                <option value="monthly" data-i18n="monthly">شهري</option>
-                                <option value="yearly" data-i18n="yearly">سنوي</option>
-                            </select>
+                            <select id="sponsorDuration"><option value="weekly" data-i18n="weekly">أسبوعي</option><option value="monthly" data-i18n="monthly">شهري</option><option value="yearly" data-i18n="yearly">سنوي</option></select>
                             <button id="addSponsorBtn"><i class="fas fa-plus"></i> <span data-i18n="add_sponsor">إضافة راعي</span></button>
                         </div>
                         <ul id="sponsorList" class="sponsor-list"></ul>
                     </div>
                 </div>
-
                 <div id="tabSocial" class="tab-content hidden">
                     <h4><i class="fas fa-share-alt"></i> <span data-i18n="social_media">إدارة وسائل التواصل الاجتماعي</span></h4>
                     <div class="social-settings">
-                        <div class="social-field">
-                            <label><i class="fab fa-facebook"></i> Facebook:</label>
-                            <input type="url" id="socialFacebook" placeholder="https://facebook.com/yourpage">
-                        </div>
-                        <div class="social-field">
-                            <label><i class="fab fa-twitter"></i> Twitter/X:</label>
-                            <input type="url" id="socialTwitter" placeholder="https://twitter.com/yourpage">
-                        </div>
-                        <div class="social-field">
-                            <label><i class="fab fa-instagram"></i> Instagram:</label>
-                            <input type="url" id="socialInstagram" placeholder="https://instagram.com/yourpage">
-                        </div>
-                        <div class="social-field">
-                            <label><i class="fab fa-youtube"></i> YouTube:</label>
-                            <input type="url" id="socialYoutube" placeholder="https://youtube.com/yourchannel">
-                        </div>
-                        <div class="social-field">
-                            <label><i class="fab fa-linkedin"></i> LinkedIn:</label>
-                            <input type="url" id="socialLinkedin" placeholder="https://linkedin.com/yourcompany">
-                        </div>
-                        <div class="social-field">
-                            <label><i class="fab fa-tiktok"></i> TikTok:</label>
-                            <input type="url" id="socialTiktok" placeholder="https://tiktok.com/@yourpage">
-                        </div>
+                        <div class="social-field"><label><i class="fab fa-facebook"></i> Facebook:</label><input type="url" id="socialFacebook" placeholder="https://facebook.com/yourpage"></div>
+                        <div class="social-field"><label><i class="fab fa-twitter"></i> Twitter/X:</label><input type="url" id="socialTwitter" placeholder="https://twitter.com/yourpage"></div>
+                        <div class="social-field"><label><i class="fab fa-instagram"></i> Instagram:</label><input type="url" id="socialInstagram" placeholder="https://instagram.com/yourpage"></div>
+                        <div class="social-field"><label><i class="fab fa-youtube"></i> YouTube:</label><input type="url" id="socialYoutube" placeholder="https://youtube.com/yourchannel"></div>
+                        <div class="social-field"><label><i class="fab fa-linkedin"></i> LinkedIn:</label><input type="url" id="socialLinkedin" placeholder="https://linkedin.com/yourcompany"></div>
+                        <div class="social-field"><label><i class="fab fa-tiktok"></i> TikTok:</label><input type="url" id="socialTiktok" placeholder="https://tiktok.com/@yourpage"></div>
                         <button id="saveSocialSettings"><i class="fas fa-save"></i> <span data-i18n="save">حفظ الإعدادات</span></button>
                     </div>
                 </div>
-
                 <div id="tabSuggestions" class="tab-content hidden">
                     <h4><i class="fas fa-lightbulb"></i> <span data-i18n="suggestions_title">اقتراحات المشتركين</span></h4>
-                    <div id="suggestionsList" class="suggestions-list">
-                        <p class="empty-msg" data-i18n="no_suggestions">لا توجد اقتراحات حالياً</p>
-                    </div>
+                    <div id="suggestionsList" class="suggestions-list"><p class="empty-msg" data-i18n="no_suggestions">لا توجد اقتراحات حالياً</p></div>
                 </div>
-
                 <div id="tabSettings" class="tab-content hidden">
                     <h4><i class="fas fa-cog"></i> <span data-i18n="settings_title">إعدادات الموقع</span></h4>
                     <div class="settings-group">
-                        <label data-i18n="admin_email">بريد المدير:</label>
-                        <input type="email" id="adminEmailSetting" placeholder="بريد المدير">
-                        <label data-i18n="admin_name">اسم المدير:</label>
-                        <input type="text" id="adminNameSetting" placeholder="اسم المدير">
+                        <label data-i18n="admin_email">بريد المدير:</label><input type="email" id="adminEmailSetting" placeholder="بريد المدير">
+                        <label data-i18n="admin_name">اسم المدير:</label><input type="text" id="adminNameSetting" placeholder="اسم المدير">
                         <button id="saveSettingsBtn"><i class="fas fa-save"></i> <span data-i18n="save">حفظ الإعدادات</span></button>
                     </div>
                     <div class="settings-group">
@@ -409,45 +237,23 @@
         </div>
     </div>
 
-    <!-- ===== نموذج الاقتراحات ===== -->
     <section class="suggestion-section">
         <h2 data-i18n="suggest_idea">💡 شاركنا اقتراحك</h2>
         <form id="suggestionForm">
-            <div class="form-group">
-                <i class="fas fa-user"></i>
-                <input type="text" id="suggesterName" data-i18n-placeholder="your_name" placeholder="اسمك" required>
-            </div>
-            <div class="form-group">
-                <i class="fas fa-envelope"></i>
-                <input type="email" id="suggesterEmail" data-i18n-placeholder="your_email" placeholder="بريدك الإلكتروني" required>
-            </div>
-            <div class="form-group">
-                <i class="fas fa-comment"></i>
-                <textarea id="suggestionText" data-i18n-placeholder="your_suggestion" placeholder="ما هي فكرتك لتطوير الموقع؟" required></textarea>
-            </div>
+            <div class="form-group"><i class="fas fa-user"></i><input type="text" id="suggesterName" data-i18n-placeholder="your_name" placeholder="اسمك" required></div>
+            <div class="form-group"><i class="fas fa-envelope"></i><input type="email" id="suggesterEmail" data-i18n-placeholder="your_email" placeholder="بريدك الإلكتروني" required></div>
+            <div class="form-group"><i class="fas fa-comment"></i><textarea id="suggestionText" data-i18n-placeholder="your_suggestion" placeholder="ما هي فكرتك لتطوير الموقع؟" required></textarea></div>
             <button type="submit" data-i18n="send"><i class="fas fa-paper-plane"></i> إرسال الاقتراح</button>
         </form>
     </section>
 
-    <!-- ===== الفوتر ===== -->
     <footer class="main-footer">
         <div class="footer-content">
-            <div class="footer-section">
-                <h4 data-i18n="contact_us">📧 تواصل معنا</h4>
-                <a href="mailto:fdaally646@gmail.com"><i class="fas fa-envelope"></i> fdaally646@gmail.com</a>
-            </div>
-            <div class="footer-section">
-                <h4 data-i18n="about_us">📍 عن الموقع</h4>
-                <p data-i18n="about_text">منصة مليون مربع - حيث الإبداع يلتقي بالفرص</p>
-            </div>
-            <div class="footer-section">
-                <h4 data-i18n="follow_us">📱 تابعنا</h4>
-                <div class="social-links" id="footerSocialLinks"></div>
-            </div>
+            <div class="footer-section"><h4 data-i18n="contact_us">📧 تواصل معنا</h4><a href="mailto:fdaally646@gmail.com"><i class="fas fa-envelope"></i> fdaally646@gmail.com</a></div>
+            <div class="footer-section"><h4 data-i18n="about_us">📍 عن الموقع</h4><p data-i18n="about_text">منصة مليون مربع - حيث الإبداع يلتقي بالفرص</p></div>
+            <div class="footer-section"><h4 data-i18n="follow_us">📱 تابعنا</h4><div class="social-links" id="footerSocialLinks"></div></div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 <span data-i18n="site_title">مليون مربع</span> - <span data-i18n="rights">جميع الحقوق محفوظة</span></p>
-        </div>
+        <div class="footer-bottom"><p>© 2026 <span data-i18n="site_title">مليون مربع</span> - <span data-i18n="rights">جميع الحقوق محفوظة</span></p></div>
     </footer>
 
     <script src="script.js"></script>
