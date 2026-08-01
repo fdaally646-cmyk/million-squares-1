@@ -3,87 +3,636 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 مليون مربع</title>
+    <title>🏆 مليون مربع - المنصة التفاعلية</title>
     <style>
-        /* ===== التنسيقات ===== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ===== التنسيقات العامة ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6C3CE1;
+            --secondary: #00D4FF;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --royal: #9B59B6;
+            --dark: #0A0E1A;
+            --dark-card: #111827;
+            --dark-surface: #1A2236;
+            --text: #E8EDF5;
+            --text-muted: #8899BB;
+            --border: #2A3A5C;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #0A0E1A;
-            color: #E8EDF5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark);
+            color: var(--text);
             min-height: 100vh;
+            line-height: 1.6;
+            direction: rtl;
         }
+
+        /* ===== شاشة التحميل ===== */
         .loading-screen {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #0A0E1A;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s;
+            transition: opacity 0.6s ease;
         }
-        .loading-screen.hidden { opacity: 0; pointer-events: none; }
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
         .loader {
-            width: 60px; height: 60px;
-            border: 4px solid #2A3A5C;
-            border-top-color: #00D4FF;
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border);
+            border-top-color: var(--secondary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .loading-text {
+            margin-top: 20px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .loading-progress {
+            margin-top: 15px;
+            width: 200px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .loading-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* ===== شاشة الترحيب ===== */
+        .welcome-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        .welcome-popup.hidden {
+            display: none;
+        }
+        .welcome-content {
+            background: var(--dark-card);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: scaleIn 0.5s ease;
+        }
+        .welcome-icon {
+            font-size: 3.5rem;
+        }
+        .welcome-content h2 {
+            font-size: 1.8rem;
+            margin: 16px 0 8px;
+        }
+        .welcome-content p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .welcome-content strong {
+            color: var(--gold);
+        }
+        .welcome-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .welcome-buttons button {
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .welcome-buttons button:hover {
+            transform: scale(1.05);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        .btn-secondary {
+            background: var(--dark-surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: var(--dark);
+        }
+        .welcome-small {
+            display: block;
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .welcome-small span {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ===== الشريط العلوي ===== */
         .top-banner {
-            background: linear-gradient(135deg, #4A1FA6, #6C3CE1);
+            background: linear-gradient(135deg, #4A1FA6, var(--primary));
             padding: 8px 20px;
             text-align: center;
-            border-bottom: 2px solid #00D4FF;
-            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 2px solid var(--secondary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(108, 60, 225, 0.3);
         }
-        .banner-content { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 14px; }
-        
-        .header {
-            background: #111827;
-            border-bottom: 1px solid #2A3A5C;
-            padding: 12px 20px;
+        .banner-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+        .banner-counter {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 2px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .banner-clock {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        /* ===== الهيدر ===== */
+        .main-header {
+            background: var(--dark-card);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 40px;
+            position: sticky;
+            top: 38px;
+            z-index: 999;
+            backdrop-filter: blur(10px);
         }
         .header-content {
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 10px; max-width: 1400px; margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        .logo h1 { font-size: 1.6rem; font-weight: 800; }
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
         .gradient-text {
-            background: linear-gradient(135deg, #00D4FF, #8B6BE8, #FFD700);
+            background: linear-gradient(135deg, var(--secondary), #8B6BE8, var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .header-stats { display: flex; gap: 20px; font-size: 14px; }
-        .header-stats span { color: #00D4FF; font-weight: 700; }
-        
-        .book-section { padding: 10px 20px; background: #1A2236; text-align: center; border-bottom: 1px solid #2A3A5C; }
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: -4px;
+        }
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .lang-selector {
+            display: flex;
+            gap: 4px;
+        }
+        .lang-btn {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .lang-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(108, 60, 225, 0.3);
+        }
+        .header-stats {
+            display: flex;
+            gap: 20px;
+            background: var(--dark-surface);
+            padding: 4px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+        }
+        .stat-item {
+            text-align: center;
+            padding: 4px 8px;
+        }
+        .stat-number {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+        .theme-toggle {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: rotate(20deg);
+        }
+
+        /* ===== CTA ثابت ===== */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark-card);
+            border-top: 1px solid var(--border);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .sticky-cta.visible {
+            transform: translateY(0);
+        }
+        .sticky-cta .book-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: inherit;
+            position: relative;
+        }
+        .sticky-cta .book-btn:hover {
+            transform: scale(1.03);
+        }
+        .cta-badge {
+            background: #10B981;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        /* ===== زر الحجز ===== */
+        .book-section {
+            padding: 12px 40px;
+            background: var(--dark-surface);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
         .book-btn {
-            background: linear-gradient(135deg, #6C3CE1, #00D4FF);
-            border: none; color: white;
-            padding: 12px 35px; border-radius: 50px;
-            font-size: 1rem; font-weight: 700; cursor: pointer;
-            transition: transform 0.3s;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            box-shadow: 0 4px 25px rgba(108, 60, 225, 0.4);
         }
-        .book-btn:hover { transform: scale(1.05); }
-        
-        .grid-container { padding: 15px 20px; }
+        .book-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 40px rgba(108, 60, 225, 0.6);
+        }
+        .book-hint {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 6px;
+            opacity: 0.7;
+        }
+
+        /* ===== شارات الثقة ===== */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 10px 40px;
+            background: var(--dark-surface);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .trust-badges span {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .trust-badges span i {
+            color: var(--secondary);
+        }
+
+        /* ===== الرعاة ===== */
+        .sponsors-section {
+            background: var(--dark-surface);
+            padding: 10px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sponsors-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sponsors-header span {
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .sponsor-cta {
+            background: var(--gold);
+            color: var(--dark);
+            padding: 6px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        .sponsor-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 50px;
+            animation: marqueeScroll 30s linear infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            padding: 6px 0;
+        }
+        .marquee-track .sponsor-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .marquee-track .sponsor-item .sponsor-badge {
+            background: var(--gold);
+            color: var(--dark);
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+        @keyframes marqueeScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ===== عد التنازلي ===== */
+        .scarcity-counter {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A24);
+            padding: 6px 20px;
+            text-align: center;
+            font-weight: 700;
+            color: white;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border);
+        }
+        #scarcityTimer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0 12px;
+            border-radius: 12px;
+            font-family: monospace;
+        }
+
+        /* ===== أدوات البحث ===== */
+        .toolbar {
+            background: var(--dark-card);
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 94px;
+            z-index: 998;
+        }
+        .toolbar-group {
+            display: flex;
+            gap: 6px;
+        }
+        .toolbar-group button {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .toolbar-group button:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        .search-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-wrapper .search-icon {
+            position: absolute;
+            right: 14px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .search-wrapper input {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 40px 8px 16px;
+            border-radius: 30px;
+            width: 250px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .search-wrapper input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+            width: 280px;
+        }
+        .search-group select {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .search-group select:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        /* ===== إحصائيات الجريد ===== */
+        .grid-stats-bar {
+            display: flex;
+            gap: 25px;
+            padding: 8px 20px;
+            background: var(--dark-surface);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .grid-stats-bar i {
+            margin-left: 6px;
+        }
+        .grid-stats-bar strong {
+            color: var(--text);
+        }
+
+        /* ===== الجريد ===== */
+        .grid-container {
+            padding: 15px 40px;
+            background: var(--dark);
+        }
         .grid-wrapper {
-            background: #111827;
+            background: var(--dark-card);
             border-radius: 16px;
-            border: 1px solid #2A3A5C;
+            border: 1px solid var(--border);
             padding: 10px;
             height: 600px;
             overflow: auto;
+            position: relative;
         }
         .grid-canvas {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
             gap: 3px;
+            min-width: 100%;
+            min-height: 100%;
         }
-        
+
+        /* ===== المربعات ===== */
         .pixel-cell {
             border-radius: 8px;
             aspect-ratio: 1/1;
@@ -100,17 +649,30 @@
             overflow: hidden;
             min-height: 45px;
             padding: 2px;
-            background: #1A2236;
+            background: var(--dark-surface);
         }
         .pixel-cell .cell-image {
-            width: 100%; height: 100%; object-fit: cover;
-            position: absolute; top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
             opacity: 0.4;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .pixel-cell:hover .cell-image {
+            opacity: 0.7;
+            transform: scale(1.05);
         }
         .pixel-cell .cell-name {
-            font-weight: 700; font-size: 0.5rem;
-            position: relative; z-index: 2;
-            text-shadow: 0 0 10px rgba(0,0,0,0.9);
+            font-weight: 700;
+            font-size: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+            line-height: 1.2;
             max-width: 95%;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -118,162 +680,1427 @@
         }
         .pixel-cell .cell-tier {
             font-size: 0.4rem;
-            position: absolute; top: 2px; right: 3px;
-            background: rgba(0,0,0,0.8);
-            padding: 0 6px; border-radius: 10px;
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0 6px;
+            border-radius: 10px;
             font-weight: 700;
             z-index: 2;
         }
-        .pixel-cell.tier-normal { border-color: #4A90D9; background: linear-gradient(145deg, #1a2a4a, #0d1a2d); }
-        .pixel-cell.tier-silver { border-color: #C0C0C0; background: linear-gradient(145deg, #2a2a3a, #1a1a2a); }
-        .pixel-cell.tier-gold { border-color: #FFD700; background: linear-gradient(145deg, #2a1f00, #1a1000); }
-        .pixel-cell.tier-royal { border-color: #9B59B6; background: linear-gradient(145deg, #2a1040, #1a0820); }
+        .pixel-cell .cell-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            width: 240px;
+            z-index: 100;
+            text-align: right;
+            font-size: 0.75rem;
+            box-shadow: var(--shadow);
+            pointer-events: none;
+        }
+        .pixel-cell:hover .cell-tooltip {
+            display: block;
+        }
+        .pixel-cell:hover {
+            transform: scale(1.15);
+            z-index: 20;
+            border-color: var(--secondary);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+        }
+
+        /* ===== مستويات المربعات ===== */
+        .pixel-cell.tier-normal {
+            border-color: #4A90D9;
+            background: linear-gradient(145deg, #1a2a4a, #0d1a2d);
+        }
+        .pixel-cell.tier-normal .cell-name {
+            color: #6AA8F0;
+        }
+        .pixel-cell.tier-silver {
+            border-color: var(--silver);
+            background: linear-gradient(145deg, #2a2a3a, #1a1a2a);
+            animation: silverShine 3s ease-in-out infinite;
+        }
+        .pixel-cell.tier-silver .cell-name {
+            color: #E8E8E8;
+        }
+        @keyframes silverShine {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(192, 192, 192, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(192, 192, 192, 0.3);
+            }
+        }
+        .pixel-cell.tier-gold {
+            border-color: var(--gold);
+            background: linear-gradient(145deg, #2a1f00, #1a1000);
+            animation: goldGlow 2s ease-in-out infinite;
+        }
+        .pixel-cell.tier-gold .cell-name {
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        @keyframes goldGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(255, 215, 0, 0.4);
+            }
+        }
+        .pixel-cell.tier-royal {
+            border-color: var(--royal);
+            background: linear-gradient(145deg, #2a1040, #1a0820);
+            animation: royalPulse 2s ease-in-out infinite;
+        }
+        .pixel-cell.tier-royal .cell-name {
+            color: #C084D0;
+            text-shadow: 0 0 30px rgba(155, 89, 182, 0.5);
+        }
+        @keyframes royalPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(155, 89, 182, 0.1);
+                border-color: #9B59B6;
+            }
+            50% {
+                box-shadow: 0 0 80px rgba(155, 89, 182, 0.4);
+                border-color: #C084D0;
+            }
+        }
+
         .pixel-cell.empty {
-            background: #1A2236;
-            border: 2px dashed #2A3A5C;
-            color: #8899BB;
+            background: var(--dark-surface);
+            border: 2px dashed var(--border);
+            color: var(--text-muted);
             font-size: 1.2rem;
         }
-        .pixel-cell:hover { transform: scale(1.1); z-index: 10; border-color: #00D4FF; }
-        
-        .admin-section { padding: 10px 20px; text-align: center; border-top: 1px solid #2A3A5C; }
-        .admin-panel.hidden { display: none; }
-        .login-error.hidden { display: none; }
-        .admin-content.hidden { display: none; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        .admin-login { max-width: 380px; margin: 0 auto; }
+        .pixel-cell.empty:hover {
+            border-color: var(--secondary);
+            background: var(--dark);
+            transform: scale(1.1);
+        }
+
+        .cell-virtual-badge {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            font-size: 0.3rem;
+            background: rgba(245, 158, 11, 0.3);
+            color: #F59E0B;
+            padding: 1px 4px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+        .cell-rating {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.35rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1px 6px;
+            border-radius: 10px;
+            white-space: nowrap;
+            z-index: 2;
+        }
+        .cell-rating .stars {
+            color: #FFD700;
+        }
+        .cell-rating .votes {
+            color: var(--text-muted);
+            font-size: 0.3rem;
+        }
+
+        /* ===== معلومات الموقع ===== */
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            padding: 40px;
+            background: var(--dark-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .info-card {
+            background: var(--dark-surface);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+        .info-card h2 {
+            color: var(--secondary);
+            margin-bottom: 14px;
+            font-size: 1.2rem;
+        }
+        .info-card p {
+            color: var(--text-muted);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 14px;
+        }
+        .feature {
+            background: var(--dark);
+            padding: 16px;
+            border-radius: 14px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        .feature .feature-icon {
+            font-size: 1.8rem;
+        }
+        .feature h4 {
+            font-size: 0.9rem;
+            margin: 4px 0;
+        }
+        .feature .price {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .feature ul {
+            list-style: none;
+            text-align: right;
+            margin-top: 8px;
+            font-size: 0.65rem;
+        }
+        .feature ul li {
+            padding: 3px 0;
+            color: var(--text-muted);
+        }
+        .feature-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+        .feature-badge.premium {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1A1100;
+        }
+        .normal-tier .feature-badge {
+            background: #4A90D9;
+            color: white;
+        }
+        .silver-tier .feature-badge {
+            background: #C0C0C0;
+            color: #1A1A2A;
+        }
+        .gold-tier .feature-badge {
+            background: #FFD700;
+            color: #1A1100;
+        }
+        .royal-tier .feature-badge {
+            background: linear-gradient(135deg, #9B59B6, #6C3483);
+            color: white;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .info-card ol {
+            list-style: none;
+            padding-right: 0;
+            margin: 10px 0;
+        }
+        .info-card ol li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .trial-banner {
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #10B981, #059669);
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ===== نظام الإحالات ===== */
+        .referral-section {
+            padding: 30px 40px;
+            text-align: center;
+            background: var(--dark-surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .referral-section h3 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+        .referral-section p {
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .referral-link-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .referral-link-container input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: var(--dark);
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .referral-link-container button {
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .referral-link-container button:hover {
+            background: var(--primary-light);
+            transform: scale(1.05);
+        }
+
+        /* ===== نظام دفع الرعاة ===== */
+        .sponsor-payment-section {
+            padding: 30px 40px;
+            text-align: center;
+            background: var(--dark-surface);
+            border-bottom: 1px solid var(--border);
+        }
+        .sponsor-payment-section h2 {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .sponsor-plans {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .plan-card {
+            background: var(--dark-card);
+            padding: 25px 20px;
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            width: 240px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .plan-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        .plan-card.featured {
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
+        }
+        .plan-card .plan-icon {
+            font-size: 2rem;
+        }
+        .plan-card h4 {
+            font-size: 1.1rem;
+        }
+        .plan-card .price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .plan-card ul {
+            list-style: none;
+            text-align: right;
+            margin: 12px 0;
+        }
+        .plan-card ul li {
+            padding: 4px 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .plan-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 10px 35px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .plan-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 30px rgba(108, 60, 225, 0.4);
+        }
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 50%;
+            transform: translateX(50%);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: var(--dark);
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+
+        /* ===== لوحة التحكم ===== */
+        .admin-section {
+            padding: 10px 40px;
+            background: var(--dark-card);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .admin-hidden-trigger {
+            text-align: center;
+            padding: 10px;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+        .admin-hidden-trigger:hover {
+            opacity: 0.8;
+        }
+        .admin-secret-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+        .admin-secret-btn:hover {
+            color: var(--secondary);
+            background: rgba(0, 212, 255, 0.1);
+            transform: scale(1.1);
+        }
+        .admin-hint {
+            display: block;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        .admin-panel {
+            margin-top: 15px;
+            background: var(--dark-surface);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--border);
+        }
+        .admin-panel.hidden {
+            display: none;
+        }
+
+        .admin-login {
+            max-width: 380px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .admin-login h3 {
+            color: var(--secondary);
+            margin-bottom: 16px;
+        }
         .admin-login input {
-            background: #0A0E1A; border: 1px solid #2A3A5C;
-            color: #E8EDF5; padding: 10px 18px;
-            border-radius: 25px; width: 100%; margin: 6px 0;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 18px;
+            border-radius: 25px;
+            width: 100%;
+            margin: 6px 0;
+        }
+        .admin-login input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
         }
         .admin-login button {
-            background: linear-gradient(135deg, #6C3CE1, #00D4FF);
-            border: none; color: white; padding: 10px;
-            border-radius: 25px; width: 100%; font-weight: 700; cursor: pointer;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 25px;
+            width: 100%;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .admin-tabs { display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 2px solid #2A3A5C; padding-bottom: 12px; margin-bottom: 18px; }
+        .admin-login button:hover {
+            transform: scale(1.02);
+        }
+
+        .login-error {
+            color: #FF6B6B;
+            text-align: center;
+            padding: 8px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 12px;
+            border: 1px solid #FF6B6B;
+            margin-top: 8px;
+        }
+        .login-error.hidden {
+            display: none;
+        }
+
+        .admin-content {
+            margin-top: 15px;
+        }
+        .admin-content.hidden {
+            display: none;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
         .admin-tabs .tab-btn {
-            background: transparent; border: none;
-            color: #8899BB; padding: 8px 18px;
-            border-radius: 25px; cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.85rem;
         }
-        .admin-tabs .tab-btn.active { background: #6C3CE1; color: white; }
-        
-        #membersTable { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        #membersTable th { background: #0A0E1A; padding: 10px; text-align: right; border-bottom: 2px solid #2A3A5C; color: #8899BB; }
-        #membersTable td { padding: 8px 10px; border-bottom: 1px solid #2A3A5C; }
-        .delete-btn { background: #FF6B6B; border: none; color: white; padding: 4px 14px; border-radius: 14px; cursor: pointer; }
-        
-        .admin-secret-btn {
-            background: transparent; border: none;
-            color: #8899BB; font-size: 1.5rem;
-            cursor: pointer; padding: 8px 20px;
+        .admin-tabs .tab-btn:hover {
+            color: var(--text);
+            background: var(--dark);
         }
-        .admin-hint { display: block; font-size: 0.6rem; color: #8899BB; opacity: 0.5; }
-        
-        .footer { text-align: center; padding: 20px; border-top: 1px solid #2A3A5C; color: #8899BB; font-size: 0.8rem; }
+        .admin-tabs .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(108, 60, 225, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== أدوات التحكم في لوحة التحكم ===== */
+        .admin-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: var(--dark);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            align-items: center;
+        }
+        .admin-search {
+            position: relative;
+            flex: 1;
+            min-width: 180px;
+        }
+        .admin-search i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .admin-search input {
+            width: 100%;
+            padding: 8px 40px 8px 14px;
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+        .admin-search input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+        .admin-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .admin-actions button {
+            padding: 8px 18px;
+            background: var(--primary);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .admin-actions button:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* ===== جدول المشتركين ===== */
+        .members-table-wrapper {
+            overflow-x: auto;
+        }
+        #membersTable {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        #membersTable th {
+            background: var(--dark);
+            padding: 10px 14px;
+            text-align: right;
+            border-bottom: 2px solid var(--border);
+            color: var(--text-muted);
+        }
+        #membersTable td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        #membersTable tr:hover {
+            background: var(--dark);
+        }
+        #membersTable tr.real-member {
+            border-right: 3px solid #10B981;
+        }
+        #membersTable tr.virtual-member {
+            border-right: 3px solid #F59E0B;
+        }
+
+        .member-type-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .member-type-badge.real {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+        }
+        .member-type-badge.virtual {
+            background: rgba(245, 158, 11, 0.2);
+            color: #F59E0B;
+        }
+
+        .action-btn {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+        }
+        .action-btn.edit {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        .action-btn.edit:hover {
+            background: #00b8e6;
+            transform: scale(1.05);
+        }
+        .action-btn.delete {
+            background: #FF6B6B;
+            color: white;
+        }
+        .action-btn.delete:hover {
+            background: #e55a5a;
+            transform: scale(1.05);
+        }
+
+        .table-footer {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* ===== الإعدادات ===== */
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        .settings-group label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .settings-group input {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 14px;
+            border-radius: 12px;
+        }
+        .settings-group input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+        .settings-group button {
+            background: var(--secondary);
+            border: none;
+            color: var(--dark);
+            padding: 8px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+        .settings-group button:hover {
+            transform: scale(1.02);
+        }
+
+        /* ===== نموذج الاقتراحات ===== */
+        .suggestion-section {
+            padding: 30px 40px;
+            background: var(--dark);
+            border-bottom: 1px solid var(--border);
+        }
+        .suggestion-section h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 25px;
+        }
+        #suggestionForm {
+            max-width: 550px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        #suggestionForm input,
+        #suggestionForm textarea {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-family: inherit;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        #suggestionForm input:focus,
+        #suggestionForm textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+        }
+        #suggestionForm textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        #suggestionForm button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #suggestionForm button:hover {
+            transform: scale(1.02);
+        }
+
+        /* ===== إشعارات ===== */
+        .notification-container {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 350px;
+        }
+        .notification-item {
+            background: var(--dark-card);
+            border: 1px solid var(--secondary);
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            animation: slideInRight 0.4s ease;
+            font-size: 0.85rem;
+        }
+        .notification-item .highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+        @keyframes slideInRight {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== الفوتر ===== */
+        .main-footer {
+            background: var(--dark-card);
+            padding: 30px 40px;
+            border-top: 1px solid var(--border);
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-content h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        .footer-content a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-content a:hover {
+            color: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            background: var(--dark-surface);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        .social-links a:hover {
+            color: white;
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.4);
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .main-header {
+                padding: 10px 15px;
+            }
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .header-stats {
+                justify-content: center;
+            }
+            .lang-selector {
+                justify-content: center;
+            }
+            .toolbar {
+                padding: 10px 15px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-group {
+                justify-content: center;
+            }
+            .search-wrapper input {
+                width: 100%;
+            }
+            .search-wrapper input:focus {
+                width: 100%;
+            }
+            .book-section {
+                padding: 10px 15px;
+            }
+            .book-btn {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+            .info-section {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .sponsor-plans {
+                flex-direction: column;
+                align-items: center;
+            }
+            .plan-card {
+                width: 100%;
+                max-width: 300px;
+            }
+            .grid-container {
+                padding: 10px 15px;
+            }
+            .grid-wrapper {
+                height: 400px;
+            }
+            .grid-canvas {
+                grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+            }
+            .pixel-cell {
+                min-height: 32px;
+            }
+            .banner-content {
+                gap: 10px;
+                font-size: 0.7rem;
+            }
+            .trust-badges {
+                gap: 12px;
+                padding: 8px 15px;
+                font-size: 0.7rem;
+            }
+            .sponsors-section {
+                padding: 10px 15px;
+            }
+            .admin-section {
+                padding: 10px 15px;
+            }
+            .admin-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .admin-actions {
+                justify-content: center;
+            }
+            .admin-actions button {
+                flex: 1;
+                justify-content: center;
+            }
+            .admin-tabs {
+                justify-content: center;
+            }
+            .admin-tabs .tab-btn {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+            .referral-section {
+                padding: 20px 15px;
+            }
+            .referral-link-container {
+                flex-direction: column;
+            }
+            .referral-link-container input {
+                width: 100%;
+            }
+            .suggestion-section {
+                padding: 20px 15px;
+            }
+            .main-footer {
+                padding: 20px 15px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .welcome-content {
+                padding: 24px;
+            }
+            .sticky-cta .book-btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+            .notification-container {
+                max-width: 280px;
+                right: 10px;
+                bottom: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .grid-canvas {
+                grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+            }
+            .pixel-cell {
+                min-height: 28px;
+                font-size: 0.3rem;
+            }
+            .header-stats {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        /* ===== وضع فاتح ===== */
+        body.light-mode {
+            --dark: #F0F4F8;
+            --dark-card: #FFFFFF;
+            --dark-surface: #E8EDF5;
+            --text: #1A2236;
+            --text-muted: #4A5568;
+            --border: #CBD5E0;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .loading-screen {
+            background: #F0F4F8;
+        }
+        body.light-mode .welcome-content {
+            background: #FFFFFF;
+        }
     </style>
 </head>
 <body>
+
     <!-- ===== شاشة التحميل ===== -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
-        <p style="margin-top:20px;color:#8899BB;">⏳ جاري تحميل مليون مربع...</p>
+        <p class="loading-text">⏳ جاري تحميل مليون مربع...</p>
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- ===== شاشة الترحيب ===== -->
+    <div id="welcomePopup" class="welcome-popup">
+        <div class="welcome-content">
+            <div class="welcome-icon">🚀</div>
+            <h2>🌟 انضم إلى مليون مربع</h2>
+            <p>احجز مساحتك الرقمية التفاعلية الآن واستفيد من <strong>3 أيام تجريبية مجانية</strong>.</p>
+            <div class="welcome-buttons">
+                <button id="welcomeBookBtn" class="btn-primary">ابدأ الآن</button>
+                <button id="welcomeCloseBtn" class="btn-secondary">تصفح الموقع</button>
+            </div>
+            <small class="welcome-small">⚡ أكثر من <span id="welcomeMemberCount">0</span> مشترك انضموا بالفعل!</small>
+        </div>
+    </div>
+
+    <!-- ===== خلفية الموقع ===== -->
+    <div class="site-background" id="siteBackground"></div>
+
+    <!-- ===== CTA ثابت ===== -->
+    <div id="stickyCTA" class="sticky-cta">
+        <button id="stickyBookBtn" class="book-btn">
+            <i class="fas fa-plus-circle"></i> احجز مربعك الآن
+            <span class="cta-badge">🎁 3 أيام مجانية</span>
+        </button>
     </div>
 
     <!-- ===== الشريط العلوي ===== -->
     <div class="top-banner">
         <div class="banner-content">
-            <span>🚀 انضم الآن واحجز مربعك المميز</span>
-            <span>📊 المتاحة: <strong id="availableSquares">0</strong></span>
-            <span>🕐 <span id="liveClock">00:00:00</span></span>
-            <span>👥 <strong id="totalMembersDisplay">0</strong> مشترك</span>
+            <span class="banner-text">🚀 انضم الآن واحجز مربعك المميز</span>
+            <span class="banner-counter">📊 المربعات المتاحة: <strong id="availableSquares">0</strong></span>
+            <span class="banner-clock">🕐 <span id="liveClock">00:00:00</span></span>
+            <span class="banner-counter">👥 <strong id="totalMembersDisplay">0</strong> مشترك</span>
         </div>
     </div>
 
     <!-- ===== الهيدر ===== -->
-    <header class="header">
+    <header class="main-header">
         <div class="header-content">
-            <div class="logo"><h1>🏆 <span class="gradient-text">مليون مربع</span></h1></div>
-            <div class="header-stats">
-                <div><span id="totalMembers">0</span> مشترك</div>
-                <div><span id="totalRevenue">$0</span> إيرادات</div>
+            <div class="logo">
+                <h1>🏆 <span class="gradient-text">مليون مربع</span></h1>
+                <p class="subtitle">منصة التواصل البصرية الأولى</p>
+            </div>
+            <div class="header-controls">
+                <div class="lang-selector">
+                    <button class="lang-btn active" data-lang="ar">🇸🇦 عربي</button>
+                    <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+                    <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalMembers">0</span>
+                        <span class="stat-label">مشترك</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalRevenue">$0</span>
+                        <span class="stat-label">إيرادات</span>
+                    </div>
+                </div>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
             </div>
         </div>
     </header>
 
+    <!-- ===== عد التنازلي ===== -->
+    <div class="scarcity-counter">
+        <span>🔥 العرض محدود: <span id="scarcityTimer">00:00:00</span></span>
+    </div>
+
     <!-- ===== زر الحجز ===== -->
     <div class="book-section">
-        <button class="book-btn" id="bookSquareBtn">➕ احجز مربعك الآن</button>
+        <button id="bookSquareBtn" class="book-btn">
+            <i class="fas fa-plus-circle"></i> احجز مربعك الآن
+        </button>
+        <span class="book-hint">🎁 3 أيام تجريبية مجانية</span>
+    </div>
+
+    <!-- ===== شارات الثقة ===== -->
+    <div class="trust-badges">
+        <span><i class="fas fa-shield-alt"></i> دفع آمن</span>
+        <span><i class="fas fa-credit-card"></i> PayPal / Stripe</span>
+        <span><i class="fas fa-headset"></i> دعم 24/7</span>
+        <span><i class="fas fa-gift"></i> 3 أيام مجانية</span>
+    </div>
+
+    <!-- ===== الرعاة ===== -->
+    <div class="sponsors-section">
+        <div class="sponsors-header">
+            <span>🌟 الرعاة الداعمون</span>
+            <a href="#sponsorPayment" class="sponsor-cta">كن راعياً</a>
+        </div>
+        <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+
+    <!-- ===== أدوات البحث ===== -->
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <button id="zoomInBtn" title="تكبير"><i class="fas fa-search-plus"></i></button>
+            <button id="zoomOutBtn" title="تصغير"><i class="fas fa-search-minus"></i></button>
+            <button id="resetViewBtn" title="إعادة ضبط"><i class="fas fa-undo"></i></button>
+            <button id="fullscreenBtn" title="شاشة كاملة"><i class="fas fa-expand"></i></button>
+        </div>
+        <div class="search-group">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="🔎 بحث عن مشترك...">
+            </div>
+            <select id="filterTier">
+                <option value="all">جميع المستويات</option>
+                <option value="normal">💎 عادي</option>
+                <option value="silver">⭐ فضي</option>
+                <option value="gold">👑 ذهبي</option>
+                <option value="royal">💠 ملكي</option>
+            </select>
+            <select id="filterType">
+                <option value="all">الكل</option>
+                <option value="real">حقيقي</option>
+                <option value="virtual">افتراضي</option>
+            </select>
+        </div>
     </div>
 
     <!-- ===== الجريد ===== -->
     <div class="grid-container">
+        <div class="grid-stats-bar">
+            <span><i class="fas fa-th"></i> إجمالي المربعات: <strong>1,000,000</strong></span>
+            <span><i class="fas fa-user-check"></i> المشتركين: <strong id="gridMemberCount">0</strong></span>
+            <span><i class="fas fa-square"></i> المتاح: <strong id="gridAvailableCount">0</strong></span>
+            <span><i class="fas fa-users"></i> افتراضي: <strong id="virtualCount">0</strong></span>
+        </div>
         <div class="grid-wrapper">
             <div class="grid-canvas" id="gridCanvas"></div>
         </div>
     </div>
 
+    <!-- ===== معلومات الموقع ===== -->
+    <section class="info-section">
+        <div class="info-card">
+            <h2>🎯 ما هو مليون مربع؟</h2>
+            <p>منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.</p>
+            <div class="features-grid">
+                <div class="feature normal-tier">
+                    <div class="feature-icon">💎</div>
+                    <h4>عادي</h4>
+                    <p class="price">$1/سنة</p>
+                    <ul>
+                        <li>✅ عرض الاسم</li>
+                        <li>✅ عرض الموقع</li>
+                    </ul>
+                    <span class="feature-badge">مبتدئ</span>
+                </div>
+                <div class="feature silver-tier">
+                    <div class="feature-icon">⭐</div>
+                    <h4>فضي</h4>
+                    <p class="price">$5/سنة</p>
+                    <ul>
+                        <li>✅ عرض الاسم</li>
+                        <li>✅ عرض الموقع</li>
+                        <li>✅ رابط الموقع</li>
+                    </ul>
+                    <span class="feature-badge">شائع</span>
+                </div>
+                <div class="feature gold-tier">
+                    <div class="feature-icon">👑</div>
+                    <h4>ذهبي</h4>
+                    <p class="price">$10/سنة</p>
+                    <ul>
+                        <li>✅ عرض الاسم</li>
+                        <li>✅ عرض الموقع</li>
+                        <li>✅ رابط الموقع</li>
+                        <li>✅ صورة شخصية</li>
+                    </ul>
+                    <span class="feature-badge">مميز</span>
+                </div>
+                <div class="feature royal-tier">
+                    <div class="feature-icon">💠</div>
+                    <h4>ملكي</h4>
+                    <p class="price">$100/سنة</p>
+                    <ul>
+                        <li>✅ جميع الميزات</li>
+                        <li>✅ خلفية متحركة</li>
+                        <li>✅ ظهور مميز</li>
+                    </ul>
+                    <span class="feature-badge premium">VIP</span>
+                </div>
+            </div>
+        </div>
+        <div class="info-card">
+            <h2>📋 خطوات الاشتراك</h2>
+            <ol>
+                <li><span class="step-number">1</span> اختر موقعك</li>
+                <li><span class="step-number">2</span> حدد المستوى</li>
+                <li><span class="step-number">3</span> املأ بياناتك</li>
+                <li><span class="step-number">4</span> 3 أيام تجريبية مجانية</li>
+                <li><span class="step-number">5</span> انطلق!</li>
+            </ol>
+            <div class="trial-banner"><i class="fas fa-gift"></i> 🎁 3 أيام تجريبية مجانية</div>
+        </div>
+    </section>
+
+    <!-- ===== نظام الإحالات ===== -->
+    <section class="referral-section">
+        <h3>👥 أحضر صديقاً واحصل على مكافأة</h3>
+        <p>شارك رابطك الخاص مع أصدقائك واحصل على خصم 10% عند اشتراكهم.</p>
+        <div class="referral-link-container">
+            <input type="text" id="referralLink" value="https://million-squares.com/ref/your-code" readonly>
+            <button id="copyReferralLink"><i class="fas fa-copy"></i> نسخ</button>
+        </div>
+    </section>
+
+    <!-- ===== نظام دفع الرعاة ===== -->
+    <section class="sponsor-payment-section" id="sponsorPayment">
+        <h2>🌟 نظام الدفع للرعاة</h2>
+        <p>اختر الباقة المناسبة لشركتك</p>
+        <div class="sponsor-plans">
+            <div class="plan-card">
+                <div class="plan-icon">📅</div>
+                <h4>أسبوعي</h4>
+                <p class="price">$100</p>
+                <ul>
+                    <li>✅ عرض اسم الشركة</li>
+                    <li>✅ مدة: 7 أيام</li>
+                </ul>
+                <button class="plan-btn sponsor-pay-btn" data-plan="weekly" data-amount="100">اختر</button>
+            </div>
+            <div class="plan-card featured">
+                <div class="plan-icon">🌟</div>
+                <h4>شهري</h4>
+                <p class="price">$1,000</p>
+                <ul>
+                    <li>✅ عرض اسم الشركة</li>
+                    <li>✅ مدة: 30 يوماً</li>
+                    <li>✅ شعار مميز</li>
+                </ul>
+                <button class="plan-btn sponsor-pay-btn" data-plan="monthly" data-amount="1000">اختر</button>
+                <span class="popular-badge">الأكثر طلباً</span>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== لوحة التحكم ===== -->
     <div class="admin-section">
-        <button id="adminSecretBtn" class="admin-secret-btn">🔐</button>
-        <span class="admin-hint">انقر مرتين للدخول</span>
+        <div class="admin-hidden-trigger">
+            <button id="adminSecretBtn" class="admin-secret-btn"><i class="fas fa-user-shield"></i></button>
+            <span class="admin-hint">انقر مرتين للدخول</span>
+        </div>
         <div id="adminPanel" class="admin-panel hidden">
             <div class="admin-login">
                 <h3>🔐 الدخول إلى لوحة التحكم</h3>
                 <input type="text" id="adminEmail" placeholder="اسم المستخدم">
                 <input type="password" id="adminPassword" placeholder="كلمة السر">
-                <button id="adminLoginBtn">دخول</button>
+                <button id="adminLoginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
                 <div id="loginError" class="login-error hidden">❌ اسم المستخدم أو كلمة السر غير صحيحة</div>
             </div>
             <div id="adminContent" class="admin-content hidden">
                 <div class="admin-tabs">
-                    <button class="tab-btn active" data-tab="tabMembers">👥 المشتركين</button>
-                    <button class="tab-btn" data-tab="tabSettings">⚙️ الإعدادات</button>
+                    <button class="tab-btn active" data-tab="tabMembers"><i class="fas fa-users"></i> المشتركين</button>
+                    <button class="tab-btn" data-tab="tabSettings"><i class="fas fa-cog"></i> الإعدادات</button>
                 </div>
                 <div id="tabMembers" class="tab-content active">
-                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-                        <input type="text" id="adminSearchInput" placeholder="🔍 بحث..." style="flex:1;background:#0A0E1A;border:1px solid #2A3A5C;color:#E8EDF5;padding:8px 16px;border-radius:25px;min-width:150px;">
-                        <button id="addMemberBtn" style="background:#6C3CE1;border:none;color:white;padding:8px 18px;border-radius:25px;cursor:pointer;">➕ إضافة</button>
-                        <button id="refreshMembersBtn" style="background:#6C3CE1;border:none;color:white;padding:8px 18px;border-radius:25px;cursor:pointer;">🔄 تحديث</button>
+                    <div class="admin-controls">
+                        <div class="admin-search">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="adminSearchInput" placeholder="🔍 بحث في المشتركين...">
+                        </div>
+                        <div class="admin-actions">
+                            <button id="addMemberBtn"><i class="fas fa-user-plus"></i> إضافة</button>
+                            <button id="refreshMembersBtn"><i class="fas fa-sync"></i> تحديث</button>
+                        </div>
                     </div>
-                    <table id="membersTable">
-                        <thead><tr><th>الاسم</th><th>البريد</th><th>المستوى</th><th>الموقع</th><th>النوع</th><th>الإجراءات</th></tr></thead>
-                        <tbody id="membersTableBody"></tbody>
-                    </table>
+                    <div class="members-table-wrapper">
+                        <table id="membersTable">
+                            <thead>
+                                <tr>
+                                    <th>الاسم</th>
+                                    <th>البريد</th>
+                                    <th>المستوى</th>
+                                    <th>الموقع</th>
+                                    <th>النوع</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="membersTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer">
+                        <span>إجمالي المشتركين: <strong id="tableTotalMembers">0</strong></span>
+                        <span>حقيقي: <strong id="tableRealCount">0</strong></span>
+                        <span>افتراضي: <strong id="tableVirtualCount">0</strong></span>
+                    </div>
                 </div>
                 <div id="tabSettings" class="tab-content hidden">
                     <h4>الإعدادات</h4>
-                    <div style="margin-bottom:10px;">
+                    <div class="settings-group">
                         <label>بريد المدير:</label>
-                        <input type="email" id="adminEmailSetting" placeholder="بريد المدير" style="background:#0A0E1A;border:1px solid #2A3A5C;color:#E8EDF5;padding:8px 16px;border-radius:25px;width:100%;">
-                        <button id="saveSettingsBtn" style="background:#6C3CE1;border:none;color:white;padding:8px 18px;border-radius:25px;cursor:pointer;margin-top:6px;">💾 حفظ</button>
+                        <input type="email" id="adminEmailSetting" placeholder="بريد المدير">
+                        <button id="saveSettingsBtn"><i class="fas fa-save"></i> حفظ</button>
                     </div>
-                    <div>
+                    <div class="settings-group">
                         <h5>🔑 تغيير كلمة السر</h5>
-                        <input type="password" id="newPassword" placeholder="كلمة سر جديدة" style="background:#0A0E1A;border:1px solid #2A3A5C;color:#E8EDF5;padding:8px 16px;border-radius:25px;width:100%;">
-                        <button id="changePasswordBtn" style="background:#6C3CE1;border:none;color:white;padding:8px 18px;border-radius:25px;cursor:pointer;margin-top:6px;">🔑 تغيير</button>
+                        <input type="password" id="newPassword" placeholder="كلمة سر جديدة">
+                        <button id="changePasswordBtn"><i class="fas fa-exchange-alt"></i> تغيير</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ===== الفوتر ===== -->
-    <div class="footer">
-        <p>© 2026 مليون مربع - جميع الحقوق محفوظة</p>
-    </div>
+    <!-- ===== نموذج الاقتراحات ===== -->
+    <section class="suggestion-section">
+        <h2>💡 شاركنا اقتراحك</h2>
+        <form id="suggestionForm">
+            <input type="text" id="suggesterName" placeholder="اسمك" required>
+            <input type="email" id="suggesterEmail" placeholder="بريدك" required>
+            <textarea id="suggestionText" placeholder="فكرتك لتطوير الموقع" required></textarea>
+            <button type="submit"><i class="fas fa-paper-plane"></i> إرسال</button>
+        </form>
+    </section>
 
-    <!-- ===== جافا سكريبت ===== -->
+    <!-- ===== الفوتر ===== -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>📧 تواصل معنا</h4>
+                <a href="mailto:fdaally646@gmail.com"><i class="fas fa-envelope"></i> fdaally646@gmail.com</a>
+            </div>
+            <div class="footer-section">
+                <h4>📍 عن الموقع</h4>
+                <p>منصة مليون مربع - حيث الإبداع يلتقي بالفرص</p>
+            </div>
+            <div class="footer-section">
+                <h4>📱 تابعنا</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 مليون مربع - جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <!-- ===== حاوية الإشعارات ===== -->
+    <div id="notificationContainer" class="notification-container"></div>
+
     <script>
         // ============================================================
-        // ===== كود JavaScript (مبسط جداً) =====
+        // ===== جافا سكريبت (الكود الكامل والمُصلح) =====
         // ============================================================
-        
-        // بيانات المستويات
+
+        // ===== بيانات المستويات =====
         var TIERS = {
             normal: { name: 'عادي', price: 1, color: '#4A90D9', label: '💎' },
             silver: { name: 'فضي', price: 5, color: '#C0C0C0', label: '⭐' },
@@ -281,26 +2108,46 @@
             royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
         };
 
-        // بيانات وهمية
+        // ===== بيانات افتراضية =====
         var NAMES = ['أحمد محمد', 'محمد العمري', 'سارة الخالدي', 'نورة الحربي', 'علي الشمري', 'فاطمة الزهراء'];
         var LOCATIONS = ['الرياض', 'جدة', 'مكة', 'المدينة', 'الدمام', 'دبي'];
 
-        // المتغيرات العامة
+        // ===== المتغيرات العامة =====
         var members = [];
+        var sponsors = [];
+        var suggestions = [];
         var totalRevenue = 0;
         var virtualRevenue = 0;
+        var currentZoom = 1;
+        var currentLang = 'ar';
         var adminClickCount = 0;
         var adminClickTimer = null;
+        var royalInterval = null;
+        var royalIndex = 0;
 
-        // عناصر الصفحة
-        var gridCanvas, membersTableBody, loadingScreen;
+        // ===== عناصر DOM =====
+        var gridCanvas, searchInput, filterTier, filterType;
         var totalMembersDisplay, totalMembers, totalRevenueEl, availableSquares;
+        var membersTableBody, loginError, siteBackground, loadingScreen;
+        var progressBar, welcomePopup;
 
-        // ===== إنشاء مشتركين وهميين =====
-        function createMembers() {
+        // ===== حساب الإيرادات =====
+        function calculateRevenue() {
+            var real = 0,
+                virtual = 0;
+            for (var i = 0; i < members.length; i++) {
+                var price = TIERS[members[i].tier].price;
+                if (members[i].isVirtual) virtual += price;
+                else real += price;
+            }
+            return { real: real, virtual: virtual, total: real + virtual };
+        }
+
+        // ===== إنشاء مشتركين افتراضيين =====
+        function generateVirtualMembers(count) {
             var result = [];
             var tierKeys = ['normal', 'silver', 'gold', 'royal'];
-            for (var i = 0; i < 30; i++) {
+            for (var i = 0; i < count; i++) {
                 var tier = tierKeys[i % tierKeys.length];
                 var nameIndex = i % NAMES.length;
                 var locIndex = i % LOCATIONS.length;
@@ -310,8 +2157,13 @@
                     email: NAMES[nameIndex].replace(/ /g, '').toLowerCase() + i + '@example.com',
                     location: LOCATIONS[locIndex],
                     tier: tier,
+                    website: 'https://' + NAMES[nameIndex].replace(/ /g, '').toLowerCase() + '.com',
+                    message: 'مرحباً، أنا ' + NAMES[nameIndex],
                     image: 'https://picsum.photos/seed/' + (i + 100) + '/100/100',
+                    isRoyal: tier === 'royal',
                     isVirtual: true,
+                    position: i,
+                    joinDate: new Date().toLocaleDateString('ar-EG'),
                     rating: Math.floor(Math.random() * 5) + 1,
                     votes: Math.floor(Math.random() * 50) + 1
                 });
@@ -319,181 +2171,659 @@
             return result;
         }
 
-        // ===== حفظ البيانات =====
+        // ===== التخزين المحلي =====
         function saveData() {
-            try {
-                localStorage.setItem('millionSquaresData', JSON.stringify({ members: members }));
-            } catch(e) {}
+            var data = {
+                members: members,
+                sponsors: sponsors,
+                suggestions: suggestions,
+                totalRevenue: totalRevenue,
+                virtualRevenue: virtualRevenue
+            };
+            try { localStorage.setItem('millionSquaresData', JSON.stringify(data)); } catch (e) {}
         }
 
-        // ===== تحميل البيانات =====
         function loadData() {
             try {
                 var saved = localStorage.getItem('millionSquaresData');
                 if (saved) {
                     var data = JSON.parse(saved);
                     members = data.members || [];
+                    sponsors = data.sponsors || [];
+                    suggestions = data.suggestions || [];
+                    totalRevenue = data.totalRevenue || 0;
+                    virtualRevenue = data.virtualRevenue || 0;
                     return true;
                 }
-            } catch(e) {}
+            } catch (e) {}
             return false;
         }
 
         // ===== تهيئة البيانات =====
         if (!loadData() || members.length === 0) {
-            members = createMembers();
+            members = generateVirtualMembers(50);
+            var rev = calculateRevenue();
+            totalRevenue = rev.real;
+            virtualRevenue = rev.virtual;
             saveData();
         }
 
         // ===== عرض المربعات =====
         function renderGrid() {
             if (!gridCanvas) return;
-            
+
             gridCanvas.innerHTML = '';
-            var totalCells = 500;
+            var fragment = document.createDocumentFragment();
+            var totalCells = 800;
             var memberCount = members.length;
-            
+
             for (var i = 0; i < totalCells; i++) {
                 var cell = document.createElement('div');
                 cell.className = 'pixel-cell';
                 var memberIndex = i % memberCount;
                 var member = members[memberIndex];
-                
+
                 if (member) {
                     var tierInfo = TIERS[member.tier];
                     var stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
                     cell.className = 'pixel-cell tier-' + member.tier;
-                    cell.innerHTML = 
+
+                    cell.innerHTML =
                         (member.image ? '<img src="' + member.image + '" class="cell-image" loading="lazy">' : '') +
                         '<div class="cell-name">' + member.name + '</div>' +
-                        '<div class="cell-tier">' + tierInfo.label + '</div>';
-                    
-                    cell.addEventListener('click', (function(m) {
-                        return function() {
-                            alert('👤 ' + m.name + '\n📧 ' + m.email + '\n📍 ' + m.location + '\n🏷️ ' + TIERS[m.tier].label + ' ' + TIERS[m.tier].name);
-                        };
-                    })(member));
+                        '<div class="cell-tier">' + tierInfo.label + '</div>' +
+                        (member.isVirtual ? '<div class="cell-virtual-badge">افتراضي</div>' : '') +
+                        '<div class="cell-tooltip"><strong>' + member.name + '</strong><br>📍 ' + member.location +
+                        '<br>✉️ ' + member.email +
+                        '<br><span style="color:' + tierInfo.color + ';font-weight:700">' + tierInfo.label + ' ' +
+                        tierInfo.name + ' ($' + tierInfo.price + '/سنة)</span><br><small>⭐ ' + stars + ' (' + (member
+                            .votes || 0) + ')</small></div>' +
+                        '<div class="cell-rating"><span class="stars">' + stars + '</span><span class="votes">(' + (
+                            member.votes || 0) + ')</span></div>' +
+                        (member.isRoyal ? '<div style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);font-size:0.8rem;color:#FFD700;text-shadow:0 0 20px rgba(255,215,0,0.5);">👑</div>' :
+                            '');
+
+                    (function(m) {
+                        cell.addEventListener('click', function() {
+                            alert('👤 ' + m.name + '\n📧 ' + m.email + '\n📍 ' + m.location +
+                                '\n🏷️ ' + TIERS[m.tier].label + ' ' + TIERS[m.tier].name +
+                                '\n💰 $' + TIERS[m.tier].price + '/سنة');
+                        });
+                    })(member);
                 } else {
                     cell.className = 'pixel-cell empty';
                     cell.textContent = '+';
-                    cell.addEventListener('click', function() {
-                        alert('💳 هذا المربع فارغ! اختر مستوى اشتراكك.');
-                    });
+                    cell.addEventListener('click', bookSquare);
                 }
-                gridCanvas.appendChild(cell);
+                fragment.appendChild(cell);
             }
-            
+            gridCanvas.appendChild(fragment);
+            applyZoom();
             updateStats();
         }
 
         // ===== تحديث الإحصائيات =====
         function updateStats() {
-            var count = members.length;
-            if (totalMembers) totalMembers.textContent = count;
-            if (totalMembersDisplay) totalMembersDisplay.textContent = count;
-            if (availableSquares) availableSquares.textContent = (1000000 - count).toLocaleString();
-            if (totalRevenueEl) {
-                var rev = 0;
-                for (var i = 0; i < members.length; i++) {
-                    rev += TIERS[members[i].tier].price;
-                }
-                totalRevenueEl.textContent = '$' + rev.toFixed(0);
+            var virtualCount = 0,
+                realCount = 0;
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].isVirtual) virtualCount++;
+                else realCount++;
             }
+            var totalCount = members.length;
+            var rev = calculateRevenue();
+            totalRevenue = rev.real;
+            virtualRevenue = rev.virtual;
+
+            if (totalMembers) totalMembers.textContent = totalCount;
+            if (totalMembersDisplay) totalMembersDisplay.textContent = totalCount;
+            if (availableSquares) availableSquares.textContent = (1000000 - totalCount).toLocaleString();
+            if (totalRevenueEl) totalRevenueEl.textContent = '$' + (totalRevenue + virtualRevenue).toFixed(0);
+
+            var vc = document.getElementById('virtualCount');
+            if (vc) vc.textContent = virtualCount;
+
+            var gmc = document.getElementById('gridMemberCount');
+            var gac = document.getElementById('gridAvailableCount');
+            if (gmc) gmc.textContent = totalCount;
+            if (gac) gac.textContent = (1000000 - totalCount).toLocaleString();
+
+            var wmc = document.getElementById('welcomeMemberCount');
+            if (wmc) wmc.textContent = totalCount;
+
+            updateAdminStats();
         }
 
-        // ===== عرض جدول المشتركين =====
-        function renderMembersTable() {
-            if (!membersTableBody) return;
-            membersTableBody.innerHTML = '';
-            
-            var searchInput = document.getElementById('adminSearchInput');
-            var searchText = searchInput ? searchInput.value.toLowerCase() : '';
-            
-            var filtered = members.filter(function(m) {
-                return m.name.toLowerCase().includes(searchText) || 
-                       m.email.toLowerCase().includes(searchText) || 
-                       m.location.toLowerCase().includes(searchText);
-            });
-            
-            filtered.forEach(function(m) {
-                var tr = document.createElement('tr');
-                var tierInfo = TIERS[m.tier];
-                var typeBadge = m.isVirtual ? 
-                    '<span style="color:#F59E0B;">🔄 افتراضي</span>' : 
-                    '<span style="color:#10B981;">✅ حقيقي</span>';
-                var index = members.indexOf(m);
-                tr.innerHTML = 
-                    '<td>' + m.name + '</td>' +
-                    '<td>' + m.email + '</td>' +
-                    '<td><span style="color:' + tierInfo.color + ';">' + tierInfo.label + ' ' + tierInfo.name + '</span></td>' +
-                    '<td>' + m.location + '</td>' +
-                    '<td>' + typeBadge + '</td>' +
-                    '<td><button class="delete-btn" data-index="' + index + '">🗑️ حذف</button></td>';
-                membersTableBody.appendChild(tr);
-            });
-            
-            document.querySelectorAll('.delete-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    var index = parseInt(this.dataset.index);
-                    if (confirm('هل أنت متأكد من حذف هذا المشترك؟')) {
-                        members.splice(index, 1);
-                        saveData();
-                        renderMembersTable();
-                        renderGrid();
-                        updateStats();
-                    }
-                });
-            });
-        }
-
-        // ===== الحجز =====
+        // ===== دالة الحجز =====
         function bookSquare() {
+            var options = '';
+            for (var key in TIERS) {
+                options += key + ': ' + TIERS[key].label + ' ' + TIERS[key].name + ' - $' + TIERS[key].price + '/سنة\n';
+            }
+            var choice = prompt('💳 اختر مستوى الاشتراك:\n' + options +
+                '\nأدخل نوع المستوى (normal, silver, gold, royal):');
+            if (!choice || !TIERS[choice]) { alert('❌ مستوى غير صحيح'); return; }
+
+            var tierInfo = TIERS[choice];
             var name = prompt('👤 أدخل اسمك الكامل:');
             if (!name) return;
             var email = prompt('✉️ أدخل بريدك الإلكتروني:');
             if (!email) return;
             var location = prompt('📍 أدخل موقعك:') || 'غير محدد';
-            
-            var tier = prompt('🏷️ اختر المستوى (normal, silver, gold, royal):');
-            if (!tier || !TIERS[tier]) {
-                alert('❌ مستوى غير صحيح');
-                return;
-            }
-            
+            var website = prompt('🔗 رابط موقعك (اختياري):') || '';
             var image = prompt('🖼️ رابط الصورة (اختياري):') || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
-            
-            members.push({
+
+            var newMember = {
                 id: 'm' + Date.now(),
                 name: name,
                 email: email,
                 location: location,
-                tier: tier,
+                tier: choice,
+                website: website,
                 image: image,
+                message: 'مرحباً، أنا ' + name,
+                isRoyal: choice === 'royal',
                 isVirtual: false,
+                position: members.length,
                 rating: 0,
-                votes: 0
-            });
-            
+                votes: 0,
+                joinDate: new Date().toLocaleDateString('ar-EG')
+            };
+
+            members.push(newMember);
+            totalRevenue += tierInfo.price;
             saveData();
             renderGrid();
             renderMembersTable();
             updateStats();
+            updateRoyalBackground();
+            showNotification('🎉 ' + name + ' انضم للتو!');
             alert('🎉 تم الاشتراك بنجاح!');
         }
 
-        // ===== تشغيل الموقع =====
+        // ===== الإشعارات =====
+        function showNotification(message) {
+            var container = document.getElementById('notificationContainer');
+            if (!container) return;
+            var item = document.createElement('div');
+            item.className = 'notification-item';
+            item.innerHTML = message;
+            container.appendChild(item);
+            setTimeout(function() {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(120%)';
+                setTimeout(function() { item.remove(); }, 500);
+            }, 4000);
+        }
+
+        // ===== الرعاة =====
+        function renderSponsors() {
+            var track = document.getElementById('marqueeTrack');
+            if (!track) return;
+            track.innerHTML = '';
+            var durationMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
+            for (var i = 0; i < sponsors.length; i++) {
+                var s = sponsors[i];
+                var item = document.createElement('span');
+                item.className = 'sponsor-item';
+                item.innerHTML = '🏢 ' + s.name + ' <span class="sponsor-badge">' + durationMap[s.duration] +
+                    '</span> $' + s.amount;
+                track.appendChild(item);
+            }
+            for (var j = 0; j < sponsors.length; j++) {
+                var s2 = sponsors[j];
+                var item2 = document.createElement('span');
+                item2.className = 'sponsor-item';
+                item2.innerHTML = '🏢 ' + s2.name + ' <span class="sponsor-badge">' + durationMap[s2.duration] +
+                    '</span> $' + s2.amount;
+                track.appendChild(item2);
+            }
+        }
+
+        // ===== خلفية الملكيين =====
+        function updateRoyalBackground() {
+            var royals = [];
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].tier === 'royal' && members[i].image) {
+                    royals.push(members[i]);
+                }
+            }
+            if (royals.length === 0) {
+                if (siteBackground) {
+                    siteBackground.classList.remove('active');
+                    siteBackground.style.backgroundImage = '';
+                }
+                if (royalInterval) clearInterval(royalInterval);
+                return;
+            }
+            if (royalInterval) clearInterval(royalInterval);
+            royalIndex = 0;
+            setRoyalImage(royals[0]);
+            royalInterval = setInterval(function() {
+                royalIndex = (royalIndex + 1) % royals.length;
+                setRoyalImage(royals[royalIndex]);
+            }, 8000);
+        }
+
+        function setRoyalImage(member) {
+            if (member && member.image && siteBackground) {
+                siteBackground.style.backgroundImage = 'url(' + member.image + ')';
+                siteBackground.classList.add('active');
+            }
+        }
+
+        // ===== لوحة التحكم =====
+        function renderMembersTable() {
+            if (!membersTableBody) return;
+            membersTableBody.innerHTML = '';
+
+            var adminSearch = document.getElementById('adminSearchInput');
+            var searchText = adminSearch ? adminSearch.value.toLowerCase() : '';
+
+            var filtered = members.filter(function(m) {
+                return m.name.toLowerCase().includes(searchText) ||
+                    m.email.toLowerCase().includes(searchText) ||
+                    m.location.toLowerCase().includes(searchText);
+            });
+
+            filtered.forEach(function(m) {
+                var tr = document.createElement('tr');
+                var tierInfo = TIERS[m.tier];
+                tr.className = m.isVirtual ? 'virtual-member' : 'real-member';
+                var typeBadge = m.isVirtual ?
+                    '<span class="member-type-badge virtual">🔄 افتراضي</span>' :
+                    '<span class="member-type-badge real">✅ حقيقي</span>';
+                var index = members.indexOf(m);
+
+                tr.innerHTML =
+                    '<td><strong>' + m.name + '</strong></td>' +
+                    '<td>' + m.email + '</td>' +
+                    '<td><span style="color:' + tierInfo.color + ';font-weight:700">' + tierInfo.label + ' ' +
+                    tierInfo.name + '</span></td>' +
+                    '<td>' + m.location + '</td>' +
+                    '<td>' + typeBadge + '</td>' +
+                    '<td><button class="action-btn delete" data-index="' + index + '">🗑️ حذف</button></td>';
+                membersTableBody.appendChild(tr);
+            });
+
+            updateAdminStats();
+
+            document.querySelectorAll('.action-btn.delete').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var index = parseInt(this.dataset.index);
+                    deleteMember(index);
+                });
+            });
+        }
+
+        function updateAdminStats() {
+            var realCount = 0,
+                virtualCount = 0;
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].isVirtual) virtualCount++;
+                else realCount++;
+            }
+            var totalCount = members.length;
+            var rev = calculateRevenue();
+
+            var ids = ['tableTotalMembers', 'tableRealCount', 'tableVirtualCount'];
+            var values = [totalCount, realCount, virtualCount];
+
+            for (var i = 0; i < ids.length; i++) {
+                var el = document.getElementById(ids[i]);
+                if (el) el.textContent = values[i];
+            }
+        }
+
+        function deleteMember(index) {
+            var member = members[index];
+            if (!member) return;
+            if (!confirm('هل أنت متأكد من حذف هذا المشترك؟')) return;
+            if (member.isVirtual) virtualRevenue -= TIERS[member.tier].price;
+            else totalRevenue -= TIERS[member.tier].price;
+            members.splice(index, 1);
+            saveData();
+            renderMembersTable();
+            renderGrid();
+            updateStats();
+            updateRoyalBackground();
+        }
+
+        function renderSponsorList() {
+            var list = document.getElementById('sponsorList');
+            if (!list) return;
+            list.innerHTML = '';
+            var durationMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
+            for (var i = 0; i < sponsors.length; i++) {
+                var s = sponsors[i];
+                var li = document.createElement('li');
+                li.innerHTML = '<span>🏢 ' + s.name + ' - $' + s.amount + ' (' + durationMap[s.duration] +
+                    ')</span><button onclick="removeSponsor(' + i + ')">🗑️</button>';
+                list.appendChild(li);
+            }
+        }
+
+        window.removeSponsor = function(i) {
+            if (confirm('هل أنت متأكد؟')) {
+                sponsors.splice(i, 1);
+                saveData();
+                renderSponsorList();
+                renderSponsors();
+            }
+        };
+
+        // ===== عد التنازلي =====
+        function createScarcityCounter() {
+            var timeLeft = 3600;
+            var timerEl = document.getElementById('scarcityTimer');
+            if (!timerEl) return;
+            setInterval(function() {
+                timeLeft--;
+                if (timeLeft <= 0) timeLeft = 3600;
+                var hours = String(Math.floor(timeLeft / 3600)).padStart(2, '0');
+                var minutes = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, '0');
+                var seconds = String(timeLeft % 60).padStart(2, '0');
+                timerEl.textContent = hours + ':' + minutes + ':' + seconds;
+            }, 1000);
+        }
+
+        // ===== تطبيق الزوم =====
+        function applyZoom() {
+            var size = Math.max(30, 60 * currentZoom);
+            document.querySelectorAll('.pixel-cell').forEach(function(cell) {
+                cell.style.minHeight = size + 'px';
+                cell.style.fontSize = (size * 0.015) + 'rem';
+            });
+        }
+
+        // ===== البحث =====
+        function filterGrid() {
+            if (!searchInput || !gridCanvas) return;
+            var text = searchInput.value.toLowerCase();
+            var tier = filterTier ? filterTier.value : 'all';
+            var type = filterType ? filterType.value : 'all';
+
+            document.querySelectorAll('.pixel-cell').forEach(function(cell) {
+                var nameEl = cell.querySelector('.cell-name');
+                var tierEl = cell.querySelector('.cell-tier');
+                var virtualBadge = cell.querySelector('.cell-virtual-badge');
+                if (nameEl) {
+                    var matchSearch = nameEl.textContent.toLowerCase().includes(text);
+                    var matchTier = tier === 'all' || (tierEl && tierEl.textContent.includes(TIERS[tier]?.label ||
+                    ''));
+                    var matchType = type === 'all' || (type === 'real' && !virtualBadge) || (type === 'virtual' &&
+                        virtualBadge);
+                    cell.style.display = (matchSearch && matchTier && matchType) ? 'block' : 'none';
+                }
+            });
+        }
+
+        // ===== الترجمة =====
+        function translatePage(lang) {
+            var translations = {
+                ar: {
+                    banner: '🚀 انضم الآن واحجز مربعك المميز',
+                    available: 'المربعات المتاحة',
+                    members: 'مشترك',
+                    revenue: 'إيرادات',
+                    site_title: 'مليون مربع',
+                    subtitle: 'منصة التواصل البصرية الأولى',
+                    search: '🔎 بحث عن مشترك...',
+                    all_tiers: 'جميع المستويات',
+                    normal: '💎 عادي',
+                    silver: '⭐ فضي',
+                    gold: '👑 ذهبي',
+                    royal: '💠 ملكي',
+                    year: 'سنة',
+                    loading: '⏳ جاري تحميل مليون مربع...',
+                    loading_grid: '⏳ جاري التحميل...',
+                    total_squares: 'إجمالي المربعات',
+                    virtual_members: 'افتراضي',
+                    online: 'متصلون',
+                    today: 'جديد اليوم',
+                    book_square: 'احجز مربعك الآن',
+                    book_hint: '🎁 3 أيام تجريبية مجانية',
+                    sponsors: 'الرعاة',
+                    sponsor_cta: 'كن راعياً',
+                    admin_hint: 'انقر مرتين للدخول',
+                    admin_login: 'الدخول إلى لوحة التحكم',
+                    login: 'دخول',
+                    login_error: 'اسم المستخدم أو كلمة السر غير صحيحة',
+                    username: 'اسم المستخدم',
+                    password: 'كلمة السر',
+                    settings: 'الإعدادات',
+                    add: 'إضافة',
+                    refresh: 'تحديث',
+                    name: 'الاسم',
+                    email: 'البريد',
+                    tier: 'المستوى',
+                    location: 'الموقع',
+                    type: 'النوع',
+                    actions: 'الإجراءات',
+                    delete: 'حذف',
+                    settings_title: 'الإعدادات',
+                    admin_email: 'بريد المدير:',
+                    change_password: 'تغيير كلمة السر',
+                    change: 'تغيير',
+                    save: 'حفظ',
+                    suggest_idea: '💡 شاركنا اقتراحك',
+                    send: 'إرسال',
+                    your_name: 'اسمك',
+                    your_email: 'بريدك',
+                    your_suggestion: 'فكرتك لتطوير الموقع',
+                    contact_us: '📧 تواصل معنا',
+                    about_us: '📍 عن الموقع',
+                    about_text: 'منصة مليون مربع',
+                    rights: 'جميع الحقوق محفوظة',
+                    badge_normal: 'مبتدئ',
+                    badge_silver: 'شائع',
+                    badge_gold: 'مميز',
+                    badge_royal: 'VIP'
+                },
+                en: {
+                    banner: '🚀 Join now and book your special square',
+                    available: 'Available squares',
+                    members: 'Members',
+                    revenue: 'Revenue',
+                    site_title: 'Million Squares',
+                    subtitle: 'The First Visual Communication Platform',
+                    search: '🔎 Search members...',
+                    all_tiers: 'All Tiers',
+                    normal: '💎 Normal',
+                    silver: '⭐ Silver',
+                    gold: '👑 Gold',
+                    royal: '💠 Royal',
+                    year: 'year',
+                    loading: '⏳ Loading Million Squares...',
+                    loading_grid: '⏳ Loading...',
+                    total_squares: 'Total squares',
+                    virtual_members: 'Virtual',
+                    online: 'Online',
+                    today: 'Today',
+                    book_square: 'Book Your Square Now',
+                    book_hint: '🎁 3 days free trial',
+                    sponsors: 'Sponsors',
+                    sponsor_cta: 'Sponsor',
+                    admin_hint: 'Double click to access',
+                    admin_login: 'Login to Dashboard',
+                    login: 'Login',
+                    login_error: 'Invalid username or password',
+                    username: 'Username',
+                    password: 'Password',
+                    settings: 'Settings',
+                    add: 'Add',
+                    refresh: 'Refresh',
+                    name: 'Name',
+                    email: 'Email',
+                    tier: 'Tier',
+                    location: 'Location',
+                    type: 'Type',
+                    actions: 'Actions',
+                    delete: 'Delete',
+                    settings_title: 'Settings',
+                    admin_email: 'Admin Email:',
+                    change_password: 'Change Password',
+                    change: 'Change',
+                    save: 'Save',
+                    suggest_idea: '💡 Share Your Suggestion',
+                    send: 'Send',
+                    your_name: 'Your name',
+                    your_email: 'Your email',
+                    your_suggestion: 'Your idea to improve',
+                    contact_us: '📧 Contact Us',
+                    about_us: '📍 About Us',
+                    about_text: 'Million Squares Platform',
+                    rights: 'All Rights Reserved',
+                    badge_normal: 'Beginner',
+                    badge_silver: 'Popular',
+                    badge_gold: 'Featured',
+                    badge_royal: 'VIP'
+                },
+                fr: {
+                    banner: '🚀 Rejoignez maintenant',
+                    available: 'Carrés disponibles',
+                    members: 'Membres',
+                    revenue: 'Revenus',
+                    site_title: 'Million de Carrés',
+                    subtitle: 'Plateforme de communication visuelle',
+                    search: '🔎 Rechercher...',
+                    all_tiers: 'Tous les niveaux',
+                    normal: '💎 Normal',
+                    silver: '⭐ Argent',
+                    gold: '👑 Or',
+                    royal: '💠 Royal',
+                    year: 'an',
+                    loading: '⏳ Chargement...',
+                    loading_grid: '⏳ Chargement...',
+                    total_squares: 'Total des carrés',
+                    virtual_members: 'Virtuel',
+                    online: 'En ligne',
+                    today: "Aujourd'hui",
+                    book_square: 'Réservez votre carré',
+                    book_hint: '🎁 3 jours d\'essai',
+                    sponsors: 'Sponsors',
+                    sponsor_cta: 'Sponsor',
+                    admin_hint: 'Double-cliquez pour accéder',
+                    admin_login: 'Connexion',
+                    login: 'Connexion',
+                    login_error: 'Identifiants incorrects',
+                    username: "Nom d'utilisateur",
+                    password: 'Mot de passe',
+                    settings: 'Paramètres',
+                    add: 'Ajouter',
+                    refresh: 'Rafraîchir',
+                    name: 'Nom',
+                    email: 'Email',
+                    tier: 'Niveau',
+                    location: 'Emplacement',
+                    type: 'Type',
+                    actions: 'Actions',
+                    delete: 'Supprimer',
+                    settings_title: 'Paramètres',
+                    admin_email: "Email de l'admin:",
+                    change_password: 'Changer mot de passe',
+                    change: 'Changer',
+                    save: 'Enregistrer',
+                    suggest_idea: '💡 Partagez votre suggestion',
+                    send: 'Envoyer',
+                    your_name: 'Votre nom',
+                    your_email: 'Votre email',
+                    your_suggestion: 'Votre idée',
+                    contact_us: '📧 Contactez-nous',
+                    about_us: '📍 À propos',
+                    about_text: 'Plateforme Million de Carrés',
+                    rights: 'Tous droits réservés',
+                    badge_normal: 'Débutant',
+                    badge_silver: 'Populaire',
+                    badge_gold: 'En vedette',
+                    badge_royal: 'VIP'
+                }
+            };
+
+            var t = translations[lang];
+            if (!t) return;
+
+            // تحديث النصوص
+            document.querySelector('.banner-text').textContent = t.banner;
+            var counters = document.querySelectorAll('.banner-counter');
+            if (counters.length >= 2) {
+                counters[0].innerHTML = '📊 ' + t.available + ': <strong id="availableSquares">0</strong>';
+                counters[1].innerHTML = '👥 <strong id="totalMembersDisplay">0</strong> ' + t.members;
+            }
+            document.querySelector('.logo h1 .gradient-text').textContent = t.site_title;
+            document.querySelector('.subtitle').textContent = t.subtitle;
+            document.getElementById('searchInput').placeholder = t.search;
+            document.getElementById('filterTier').options[0].text = t.all_tiers;
+            document.getElementById('filterTier').options[1].text = '💎 ' + t.normal;
+            document.getElementById('filterTier').options[2].text = '⭐ ' + t.silver;
+            document.getElementById('filterTier').options[3].text = '👑 ' + t.gold;
+            document.getElementById('filterTier').options[4].text = '💠 ' + t.royal;
+            document.querySelector('.book-btn').innerHTML = '<i class="fas fa-plus-circle"></i> ' + t.book_square;
+            document.querySelector('.book-hint').textContent = t.book_hint;
+            document.querySelector('.sponsors-header span').textContent = '🌟 ' + t.sponsors;
+            document.querySelector('.sponsor-cta').textContent = t.sponsor_cta;
+            document.querySelector('.admin-hint').textContent = t.admin_hint;
+
+            // تحديث إحصائيات الجريد
+            document.querySelector('.grid-stats-bar span:nth-child(1)').innerHTML = '<i class="fas fa-th"></i> ' + t
+                .total_squares + ': <strong>1,000,000</strong>';
+            document.querySelector('.grid-stats-bar span:nth-child(2)').innerHTML = '<i class="fas fa-user-check"></i> ' +
+                t.members + ': <strong id="gridMemberCount">0</strong>';
+            document.querySelector('.grid-stats-bar span:nth-child(3)').innerHTML = '<i class="fas fa-square"></i> ' + t
+                .available + ': <strong id="gridAvailableCount">0</strong>';
+            document.querySelector('.grid-stats-bar span:nth-child(4)').innerHTML = '<i class="fas fa-users"></i> ' + t
+                .virtual_members + ': <strong id="virtualCount">0</strong>';
+
+            // تحديث شاشة التحميل
+            document.querySelector('.loading-text').textContent = t.loading;
+
+            // تحديث معلومات الموقع
+            document.querySelector('.info-card:first-child h2').textContent = '🎯 ' + (lang === 'ar' ?
+                'ما هو مليون مربع؟' : 'What is Million Squares?');
+            document.querySelector('.info-card:first-child p').textContent = lang === 'ar' ?
+                'منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.' :
+                'A revolutionary platform for interactive digital space.';
+            document.querySelector('.info-card:last-child h2').textContent = '📋 ' + (lang === 'ar' ?
+                'خطوات الاشتراك' : 'Subscription Steps');
+
+            // تحديث الفوتر
+            document.querySelector('.footer-bottom p').textContent = '© 2026 ' + t.site_title + ' - ' + t.rights;
+
+            // تحديث أزرار اللغة
+            document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            translatePage(lang);
+            saveData();
+        }
+
+        // ===== تهيئة الموقع =====
         document.addEventListener('DOMContentLoaded', function() {
             // تهيئة العناصر
             gridCanvas = document.getElementById('gridCanvas');
-            membersTableBody = document.getElementById('membersTableBody');
-            loadingScreen = document.getElementById('loadingScreen');
+            searchInput = document.getElementById('searchInput');
+            filterTier = document.getElementById('filterTier');
+            filterType = document.getElementById('filterType');
+            liveClock = document.getElementById('liveClock');
             totalMembersDisplay = document.getElementById('totalMembersDisplay');
             totalMembers = document.getElementById('totalMembers');
             totalRevenueEl = document.getElementById('totalRevenue');
             availableSquares = document.getElementById('availableSquares');
-            
-            var liveClock = document.getElementById('liveClock');
-            
+            membersTableBody = document.getElementById('membersTableBody');
+            loginError = document.getElementById('loginError');
+            siteBackground = document.getElementById('siteBackground');
+            loadingScreen = document.getElementById('loadingScreen');
+            progressBar = document.getElementById('progressBar');
+            welcomePopup = document.getElementById('welcomePopup');
+
             // الساعة
             setInterval(function() {
                 if (liveClock) {
@@ -501,17 +2831,136 @@
                     liveClock.textContent = now.toLocaleTimeString('ar-EG');
                 }
             }, 1000);
-            
+
+            // شريط التقدم
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.random() * 8;
+                if (progress > 100) progress = 100;
+                if (progressBar) progressBar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(function() {
+                        if (loadingScreen) loadingScreen.classList.add('hidden');
+                    }, 400);
+                }
+            }, 100);
+
             // عرض المربعات
             renderGrid();
-            
-            // عرض الجدول
+
+            // عد التنازلي
+            createScarcityCounter();
+
+            // الرعاة
+            renderSponsors();
+
+            // جدول المشتركين
             renderMembersTable();
-            
+
+            // قائمة الرعاة
+            renderSponsorList();
+
+            // خلفية الملكيين
+            updateRoyalBackground();
+
+            // ===== الأحداث =====
+
             // زر الحجز
             document.getElementById('bookSquareBtn').addEventListener('click', bookSquare);
-            
-            // زر الدخول المخفي للوحة التحكم
+            document.getElementById('stickyBookBtn').addEventListener('click', bookSquare);
+
+            // شاشة الترحيب
+            var welcomeMemberCount = document.getElementById('welcomeMemberCount');
+            if (welcomeMemberCount) welcomeMemberCount.textContent = members.length || 0;
+
+            setTimeout(function() {
+                if (welcomePopup) welcomePopup.classList.add('hidden');
+            }, 5000);
+
+            document.getElementById('welcomeBookBtn').addEventListener('click', function() {
+                welcomePopup.classList.add('hidden');
+                bookSquare();
+            });
+            document.getElementById('welcomeCloseBtn').addEventListener('click', function() {
+                welcomePopup.classList.add('hidden');
+            });
+
+            // CTA الثابت
+            var stickyCTA = document.getElementById('stickyCTA');
+            window.addEventListener('scroll', function() {
+                if (!stickyCTA) return;
+                if (window.scrollY > 400 && window.scrollY < document.body.scrollHeight - 800) {
+                    stickyCTA.classList.add('visible');
+                } else {
+                    stickyCTA.classList.remove('visible');
+                }
+            });
+
+            // البحث
+            if (searchInput) {
+                searchInput.addEventListener('input', filterGrid);
+            }
+            if (filterTier) {
+                filterTier.addEventListener('change', filterGrid);
+            }
+            if (filterType) {
+                filterType.addEventListener('change', filterGrid);
+            }
+
+            // نظام الإحالات
+            document.getElementById('copyReferralLink').addEventListener('click', function() {
+                var input = document.getElementById('referralLink');
+                if (!input) return;
+                input.select();
+                document.execCommand('copy');
+                showNotification('✅ تم نسخ رابط الإحالة!');
+            });
+
+            // الزوم
+            document.getElementById('zoomInBtn').addEventListener('click', function() {
+                currentZoom = Math.min(2, currentZoom + 0.1);
+                applyZoom();
+            });
+            document.getElementById('zoomOutBtn').addEventListener('click', function() {
+                currentZoom = Math.max(0.5, currentZoom - 0.1);
+                applyZoom();
+            });
+            document.getElementById('resetViewBtn').addEventListener('click', function() {
+                currentZoom = 1;
+                applyZoom();
+            });
+
+            // الشاشة الكاملة
+            document.getElementById('fullscreenBtn').addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                    this.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                        this.innerHTML = '<i class="fas fa-expand"></i>';
+                    }
+                }
+            });
+
+            // الثيم
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                document.body.classList.toggle('light-mode');
+                var isLight = document.body.classList.contains('light-mode');
+                this.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            });
+
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+                var toggle = document.getElementById('themeToggle');
+                if (toggle) toggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+
+            // ===== لوحة التحكم =====
+
+            // زر الدخول المخفي
             document.getElementById('adminSecretBtn').addEventListener('click', function() {
                 adminClickCount++;
                 if (adminClickCount === 1) {
@@ -525,105 +2974,195 @@
                         if (!panel.classList.contains('hidden')) {
                             document.getElementById('adminEmail').value = '';
                             document.getElementById('adminPassword').value = '';
-                            document.getElementById('loginError').classList.add('hidden');
+                            if (loginError) loginError.classList.add('hidden');
+                            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
                     }
                 }
             });
-            
-            // تسجيل الدخول للوحة التحكم
+
+            // تسجيل الدخول
             document.getElementById('adminLoginBtn').addEventListener('click', function() {
                 var email = document.getElementById('adminEmail').value;
                 var password = document.getElementById('adminPassword').value;
                 var storedEmail = localStorage.getItem('adminEmail') || 'fedaaali';
                 var storedPassword = localStorage.getItem('adminPassword') || 'fida1271980';
-                
                 if (email === storedEmail && password === storedPassword) {
                     document.getElementById('adminContent').classList.remove('hidden');
                     document.querySelector('.admin-login').style.display = 'none';
                     renderMembersTable();
                     alert('✅ تم الدخول إلى لوحة التحكم');
                 } else {
-                    document.getElementById('loginError').classList.remove('hidden');
+                    if (loginError) loginError.classList.remove('hidden');
                     document.getElementById('adminPassword').value = '';
+                    document.getElementById('adminPassword').focus();
                 }
             });
-            
+
             // تبويبات
             document.querySelectorAll('.tab-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
-                    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+                    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove(
+                        'active'); });
                     this.classList.add('active');
-                    document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
+                    document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove(
+                        'active'); });
                     document.getElementById(this.dataset.tab).classList.add('active');
                 });
             });
-            
+
             // البحث في لوحة التحكم
             document.getElementById('adminSearchInput').addEventListener('input', renderMembersTable);
-            
+
             // إضافة مشترك
             document.getElementById('addMemberBtn').addEventListener('click', function() {
-                var name = prompt('👤 اسم المشترك:');
+                var name = prompt('👤 اسم المشترك الكامل:');
                 if (!name) return;
                 var email = prompt('✉️ البريد:');
                 if (!email) return;
                 var location = prompt('📍 الموقع:') || 'غير محدد';
                 var tier = prompt('🏷️ المستوى (normal/silver/gold/royal):') || 'normal';
                 if (!TIERS[tier]) { alert('❌ مستوى غير صحيح'); return; }
-                
+                var image = prompt('🖼️ رابط الصورة:') || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
+
                 members.push({
                     id: 'm' + Date.now(),
                     name: name,
                     email: email,
                     location: location,
                     tier: tier,
-                    image: 'https://picsum.photos/seed/' + Date.now() + '/100/100',
+                    image: image,
+                    website: '',
+                    message: 'مرحباً، أنا ' + name,
+                    isRoyal: tier === 'royal',
                     isVirtual: false,
+                    position: members.length,
                     rating: 0,
-                    votes: 0
+                    votes: 0,
+                    joinDate: new Date().toLocaleDateString('ar-EG')
                 });
+                totalRevenue += TIERS[tier].price;
                 saveData();
-                renderGrid();
                 renderMembersTable();
+                renderGrid();
                 updateStats();
+                updateRoyalBackground();
                 alert('✅ تم إضافة المشترك');
             });
-            
+
             // تحديث الجدول
             document.getElementById('refreshMembersBtn').addEventListener('click', function() {
                 renderMembersTable();
                 updateStats();
                 alert('✅ تم تحديث البيانات');
             });
-            
+
+            // إضافة راعي
+            document.getElementById('addSponsorBtn').addEventListener('click', function() {
+                var name = document.getElementById('sponsorName').value.trim();
+                var link = document.getElementById('sponsorLink').value.trim();
+                var amount = parseFloat(document.getElementById('sponsorAmount').value);
+                var duration = document.getElementById('sponsorDuration').value;
+                if (!name || !amount || isNaN(amount)) { alert('❌ أدخل البيانات'); return; }
+                sponsors.push({ name: name, link: link, amount: amount, duration: duration });
+                saveData();
+                renderSponsorList();
+                renderSponsors();
+                document.getElementById('sponsorName').value = '';
+                document.getElementById('sponsorLink').value = '';
+                document.getElementById('sponsorAmount').value = '';
+                alert('✅ تم إضافة الراعي');
+            });
+
             // حفظ إعدادات المدير
             document.getElementById('saveSettingsBtn').addEventListener('click', function() {
                 var email = document.getElementById('adminEmailSetting').value;
                 if (email) localStorage.setItem('adminEmail', email);
                 alert('✅ تم حفظ الإعدادات');
             });
-            
+
             // تغيير كلمة السر
             document.getElementById('changePasswordBtn').addEventListener('click', function() {
                 var pass = document.getElementById('newPassword').value.trim();
-                if (pass.length < 4) {
-                    alert('❌ 4 أحرف على الأقل');
-                    return;
-                }
+                if (pass.length < 4) { alert('❌ 4 أحرف على الأقل'); return; }
                 localStorage.setItem('adminPassword', pass);
                 alert('✅ تم تغيير كلمة السر');
                 document.getElementById('newPassword').value = '';
             });
-            
-            // إخفاء شاشة التحميل
-            setTimeout(function() {
-                if (loadingScreen) loadingScreen.classList.add('hidden');
-            }, 800);
-            
+
+            // الاقتراحات
+            document.getElementById('suggestionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                var name = document.getElementById('suggesterName').value.trim();
+                var email = document.getElementById('suggesterEmail').value.trim();
+                var text = document.getElementById('suggestionText').value.trim();
+                if (!name || !email || !text) { alert('❌ ملء جميع الحقول'); return; }
+                suggestions.push({ name: name, email: email, text: text, date: new Date()
+                    .toLocaleDateString() });
+                saveData();
+                updateSuggestions();
+                this.reset();
+                alert('✅ تم إرسال الاقتراح');
+            });
+
+            function updateSuggestions() {
+                var list = document.getElementById('suggestionsList');
+                if (!list) return;
+                if (suggestions.length === 0) {
+                    list.innerHTML = '<p class="empty-msg">لا توجد اقتراحات</p>';
+                    return;
+                }
+                var html = '';
+                for (var i = suggestions.length - 1; i >= 0; i--) {
+                    var s = suggestions[i];
+                    html += '<div class="suggestion-item"><strong>' + s.name + '</strong> (' + s.email +
+                        ') - ' + s.date + '<p>' + s.text + '</p></div>';
+                }
+                list.innerHTML = html;
+            }
+
+            // رعاة الدفع
+            document.querySelectorAll('.sponsor-pay-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var plan = this.dataset.plan;
+                    var amount = this.dataset.amount;
+                    var planMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
+                    var name = prompt('🏢 أدخل اسم الشركة:');
+                    if (!name) return;
+                    var link = prompt('🔗 أدخل رابط الموقع:');
+                    if (!link) return;
+                    var method = prompt('💳 طريقة الدفع:\n1. PayPal\n2. Stripe\n3. IBAN\n\nأدخل الرقم (1-3):');
+                    if (!method || !['1', '2', '3'].includes(method)) { alert('❌ طريقة غير صحيحة');
+                        return; }
+                    var methods = ['PayPal', 'Stripe', 'IBAN'];
+                    alert('✅ جارٍ التحويل إلى ' + methods[parseInt(method) - 1] + '\nالمبلغ: $' + amount);
+                    sponsors.push({ name: name, link: link, amount: parseInt(amount), duration: plan });
+                    saveData();
+                    renderSponsorList();
+                    renderSponsors();
+                    alert('🎉 تمت الرعاية بنجاح!');
+                });
+            });
+
+            // أزرار اللغة
+            document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    setLanguage(this.dataset.lang);
+                });
+            });
+
+            // تطبيق اللغة
+            setLanguage(currentLang);
+
+            // تحميل الإعدادات
+            document.getElementById('adminEmailSetting').value = localStorage.getItem('adminEmail') || '';
+
             console.log('🚀 مليون مربع - تم التحميل بنجاح');
             console.log('👥 المشتركين: ' + members.length);
+            console.log('💰 الإيرادات: $' + totalRevenue);
+            console.log('🌐 اللغة: ' + currentLang);
         });
     </script>
+
 </body>
 </html>
