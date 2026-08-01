@@ -48,6 +48,21 @@
                     <button class="lang-btn" data-lang="es">🇪🇸 ES</button>
                     <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
                 </div>
+                
+                <!-- ===== إحصائيات حية ===== -->
+                <div class="live-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-user fa-fade"></i>
+                        <span class="stat-label">متصلون</span>
+                        <span class="stat-number" id="liveUsers">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-rocket fa-fade"></i>
+                        <span class="stat-label">جديد اليوم</span>
+                        <span class="stat-number" id="todayMembers">0</span>
+                    </div>
+                </div>
+                
                 <div class="header-stats">
                     <div class="stat-item">
                         <span class="stat-number" id="totalMembers">0</span>
@@ -129,6 +144,7 @@
                         <li data-i18n="f_normal_1">✅ عرض الاسم</li>
                         <li data-i18n="f_normal_2">✅ عرض الموقع</li>
                     </ul>
+                    <div class="feature-badge">مبتدئ</div>
                 </div>
                 <div class="feature silver-tier">
                     <div class="feature-icon">⭐</div>
@@ -140,6 +156,7 @@
                         <li data-i18n="f_silver_3">✅ رابط الموقع</li>
                         <li data-i18n="f_silver_4">✅ إطار فضي لامع</li>
                     </ul>
+                    <div class="feature-badge">شائع</div>
                 </div>
                 <div class="feature gold-tier">
                     <div class="feature-icon">👑</div>
@@ -153,6 +170,7 @@
                         <li data-i18n="f_gold_5">✅ إطار ذهبي لامع</li>
                         <li data-i18n="f_gold_6">✅ أولوية الظهور</li>
                     </ul>
+                    <div class="feature-badge">مميز</div>
                 </div>
                 <div class="feature royal-tier">
                     <div class="feature-icon">💠</div>
@@ -165,6 +183,7 @@
                         <li data-i18n="f_royal_4">✅ صورة خلفية مخصصة</li>
                         <li data-i18n="f_royal_5">✅ ظهور في الأعلى</li>
                     </ul>
+                    <div class="feature-badge premium">VIP</div>
                 </div>
             </div>
         </div>
@@ -182,6 +201,9 @@
                 <span><i class="fab fa-paypal"></i> PayPal</span>
                 <span><i class="fas fa-bolt"></i> Stripe</span>
                 <span><i class="fas fa-university"></i> IBAN</span>
+            </div>
+            <div class="discount-badge">
+                <i class="fas fa-gift"></i> خصم 20% عند الدفع السنوي
             </div>
         </div>
     </section>
@@ -324,7 +346,6 @@
                     </div>
                 </div>
 
-                <!-- ===== تبويب وسائل التواصل ===== -->
                 <div id="tabSocial" class="tab-content hidden">
                     <h4><i class="fas fa-share-alt"></i> <span data-i18n="social_media">إدارة وسائل التواصل الاجتماعي</span></h4>
                     <div class="social-settings">
@@ -351,10 +372,6 @@
                         <div class="social-field">
                             <label><i class="fab fa-tiktok"></i> TikTok:</label>
                             <input type="url" id="socialTiktok" placeholder="https://tiktok.com/@yourpage">
-                        </div>
-                        <div class="social-field">
-                            <label><i class="fab fa-snapchat"></i> Snapchat:</label>
-                            <input type="url" id="socialSnapchat" placeholder="https://snapchat.com/yourpage">
                         </div>
                         <button id="saveSocialSettings"><i class="fas fa-save"></i> <span data-i18n="save">حفظ الإعدادات</span></button>
                     </div>
