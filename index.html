@@ -2,1341 +2,337 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
-    <title>جدار السيلفي الفوري - Selfie Wall</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <style>
-        /* ==================== RESET & BASE ==================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121f;
-            --text-primary: #f0f0ff;
-            --text-secondary: #9a9ac0;
-            --glow-purple: rgba(168, 85, 247, 0.3);
-            --glow-blue: rgba(56, 189, 248, 0.2);
-            --gold-gradient: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24);
-            --silver-gradient: linear-gradient(135deg, #e5e7eb, #9ca3af, #e5e7eb);
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: var(--bg-primary);
-            background-image: 
-                radial-gradient(circle at 20% 30%, #1a1a2e 0%, #0a0a0f 80%),
-                radial-gradient(circle at 80% 70%, #1a1a2e 0%, transparent 60%);
-            min-height: 100vh;
-            color: var(--text-primary);
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            line-height: 1.6;
-            transition: all 0.3s ease;
-        }
-
-        .app-container {
-            max-width: 1400px;
-            width: 100%;
-            background: rgba(10, 10, 20, 0.5);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 48px;
-            padding: 25px 30px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 60px rgba(0, 180, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.3s ease;
-        }
-
-        /* ==================== HEADER & LANGUAGE ==================== */
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .language-selector {
-            position: relative;
-            display: inline-block;
-        }
-
-        .language-selector select {
-            padding: 10px 35px 10px 18px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(0, 0, 0, 0.4);
-            color: #fff;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            appearance: none;
-            -webkit-appearance: none;
-            font-family: 'Cairo', sans-serif;
-            transition: 0.3s;
-            min-width: 130px;
-        }
-
-        .language-selector select:hover {
-            border-color: rgba(168, 85, 247, 0.3);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.05);
-        }
-
-        .language-selector select option {
-            background: #1a1a2e;
-            color: #fff;
-        }
-
-        .language-selector::after {
-            content: '🌐';
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1rem;
-            pointer-events: none;
-            opacity: 0.7;
-        }
-
-        .main-title {
-            font-size: clamp(2.5rem, 8vw, 4.8rem);
-            font-weight: 900;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, #ff6ec7, #a855f7, #38bdf8, #f97316);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 5s ease infinite alternate;
-            text-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
-            display: inline-block;
-            position: relative;
-            text-align: center;
-            flex: 1;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .main-title::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 15%;
-            width: 70%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #a855f7, #38bdf8, transparent);
-            border-radius: 10px;
-            filter: blur(4px);
-            opacity: 0.5;
-        }
-
-        /* ==================== MARQUEE ==================== */
-        .marquee-wrapper {
-            width: 100%;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 60px;
-            padding: 10px 0;
-            margin: 8px 0 20px 0;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .marquee-track {
-            display: flex;
-            gap: 50px;
-            white-space: nowrap;
-            animation: marqueeScroll 30s linear infinite;
-            width: max-content;
-        }
-
-        .marquee-track span {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #b0b0d0;
-            letter-spacing: 1.5px;
-            padding: 0 15px;
-            transition: 0.3s;
-            text-shadow: 0 0 10px rgba(168, 85, 247, 0.15);
-        }
-
-        .marquee-track span::before {
-            content: "✦";
-            color: #a855f7;
-            margin-left: 18px;
-            opacity: 0.6;
-        }
-
-        @keyframes marqueeScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* ==================== DASHBOARD ==================== */
-        .live-dashboard {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 12px 25px;
-            background: rgba(0, 0, 0, 0.35);
-            border-radius: 40px;
-            padding: 16px 28px;
-            margin-bottom: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(6px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1rem;
-            flex: 1 1 auto;
-            min-width: 140px;
-        }
-
-        .stat-item .icon {
-            font-size: 1.6rem;
-            filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.3));
-        }
-
-        .stat-item .label {
-            color: var(--text-secondary);
-            font-weight: 400;
-            font-size: 0.82rem;
-            letter-spacing: 0.3px;
-        }
-
-        .stat-item .value {
-            font-weight: 700;
-            font-size: 1.4rem;
-            background: linear-gradient(135deg, #c084fc, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            direction: ltr;
-            unicode-bidi: plaintext;
-        }
-
-        .stat-item .value.time-value {
-            font-size: 1.3rem;
-            letter-spacing: 0.5px;
-        }
-
-        /* ==================== WALL GRID ==================== */
-        .wall-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #d0d0ff;
-        }
-
-        .wall-title span {
-            background: linear-gradient(135deg, #a855f7, #38bdf8);
-            padding: 2px 16px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            color: #fff;
-            -webkit-text-fill-color: #fff;
-            background-clip: unset;
-        }
-
-        .wall-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-            gap: 20px;
-            margin: 15px 0 25px 0;
-            min-height: 180px;
-        }
-
-        /* ==================== CARD TIERS ==================== */
-        .card-item {
-            border-radius: 28px;
-            padding: 20px 14px 14px 14px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            animation: cardPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            min-height: 150px;
-        }
-
-        .card-item:hover {
-            transform: translateY(-5px) scale(1.02);
-        }
-
-        @keyframes cardPop {
-            0% { opacity: 0; transform: scale(0.8) translateY(30px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* --- TIER: Normal (1$) --- */
-        .card-tier-normal {
-            background: linear-gradient(145deg, #1e1e32, #2a2a44);
-        }
-
-        /* --- TIER: Silver (5$) --- */
-        .card-tier-silver {
-            background: linear-gradient(145deg, #2a2a3a, #3a3a4a);
-            border: 2px solid #c0c0c0;
-            box-shadow: 0 0 30px rgba(192, 192, 192, 0.15), 0 0 60px rgba(192, 192, 192, 0.05);
-        }
-
-        .card-tier-silver::after {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 28px;
-            padding: 2px;
-            background: linear-gradient(135deg, #e5e7eb, #9ca3af, #e5e7eb);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        /* --- TIER: Gold (10$) --- */
-        .card-tier-gold {
-            background: linear-gradient(145deg, #2a1f0a, #3d2b0f);
-            border: 2px solid #fbbf24;
-            box-shadow: 0 0 40px rgba(251, 191, 36, 0.2), 0 0 80px rgba(251, 191, 36, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-tier-gold::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(251, 191, 36, 0.1), transparent, rgba(251, 191, 36, 0.05), transparent);
-            animation: shimmerRotate 4s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes shimmerRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .card-tier-gold::after {
-            content: '👑';
-            position: absolute;
-            top: 6px;
-            right: 10px;
-            font-size: 1.2rem;
-            opacity: 0.6;
-            animation: crownFloat 2s ease-in-out infinite;
-        }
-
-        @keyframes crownFloat {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-5px) rotate(5deg); }
-        }
-
-        /* --- TIER: Royal (100$) --- */
-        .card-tier-royal {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 215, 0, 0.6);
-            box-shadow: 
-                0 0 50px rgba(255, 215, 0, 0.2),
-                0 0 100px rgba(255, 215, 0, 0.05),
-                inset 0 0 80px rgba(255, 215, 0, 0.02);
-            position: relative;
-        }
-
-        .card-tier-royal::before {
-            content: '👑';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.2rem;
-            animation: crownFloat 2s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
-        }
-
-        .card-tier-royal .royal-glow {
-            position: absolute;
-            inset: -3px;
-            border-radius: 28px;
-            background: conic-gradient(from 0deg, #ffd700, #ffed4a, #ffd700, #ffed4a, #ffd700);
-            z-index: -1;
-            animation: shimmerRotate 3s linear infinite;
-            opacity: 0.3;
-        }
-
-        .card-tier-royal::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 28px;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.05), transparent 70%);
-            pointer-events: none;
-        }
-
-        /* --- Card Content --- */
-        .card-item .avatar {
-            font-size: 3.2rem;
-            margin-bottom: 4px;
-            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.2));
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-item .card-name {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            margin: 4px 0 2px;
-            text-shadow: 0 0 20px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-item .card-phone {
-            font-size: 0.8rem;
-            color: #a8a8d0;
-            direction: ltr;
-            unicode-bidi: plaintext;
-            background: rgba(0,0,0,0.2);
-            padding: 2px 12px;
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-item .card-tier-badge {
-            font-size: 0.65rem;
-            padding: 2px 12px;
-            border-radius: 40px;
-            margin-top: 4px;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(4px);
-        }
-
-        .card-item .card-date {
-            font-size: 0.65rem;
-            color: #7a7aaa;
-            margin-top: 6px;
-            border-top: 1px solid rgba(255,255,255,0.03);
-            padding-top: 6px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ==================== POPUP PREVIEW ==================== */
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            animation: popupFadeIn 0.4s ease;
-        }
-
-        .popup-overlay.active {
-            display: flex;
-        }
-
-        @keyframes popupFadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .popup-content {
-            background: rgba(20, 20, 40, 0.9);
-            backdrop-filter: blur(30px);
-            border-radius: 60px;
-            padding: 50px 40px;
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 50px 150px rgba(0,0,0,0.8);
-            position: relative;
-        }
-
-        .popup-content .popup-avatar {
-            font-size: 6rem;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 60px rgba(168, 85, 247, 0.3));
-        }
-
-        .popup-content .popup-name {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .popup-content .popup-phone {
-            font-size: 1.1rem;
-            color: #a8a8d0;
-            direction: ltr;
-            unicode-bidi: plaintext;
-        }
-
-        .popup-content .popup-tier {
-            margin-top: 15px;
-            font-size: 1rem;
-            font-weight: 700;
-            padding: 6px 20px;
-            border-radius: 40px;
-            display: inline-block;
-            background: rgba(0,0,0,0.3);
-        }
-
-        .popup-timer {
-            margin-top: 20px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #c084fc;
-            text-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
-        }
-
-        /* ==================== ADMIN MODAL ==================== */
-        .admin-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            padding: 20px;
-            animation: modalFade 0.3s ease;
-        }
-
-        .admin-modal.active {
-            display: flex;
-        }
-
-        @keyframes modalFade {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal-content {
-            background: rgba(20, 20, 40, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 60px;
-            max-width: 520px;
-            width: 100%;
-            padding: 40px 35px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 40px 120px rgba(0,0,0,0.8), 0 0 80px rgba(124, 58, 237, 0.06);
-            position: relative;
-        }
-
-        .modal-content h2 {
-            font-size: 2rem;
-            font-weight: 900;
-            margin-bottom: 6px;
-            background: linear-gradient(135deg, #c084fc, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .modal-content .sub {
-            color: #8a8aba;
-            margin-bottom: 25px;
-            font-size: 0.9rem;
-        }
-
-        .modal-content label {
-            display: block;
-            margin: 14px 0 6px;
-            color: #c0c0e0;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .modal-content input, .modal-content select {
-            width: 100%;
-            padding: 14px 20px;
-            border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.06);
-            background: rgba(0,0,0,0.3);
-            color: #fff;
-            font-size: 1rem;
-            font-family: 'Cairo', sans-serif;
-            transition: 0.2s;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        .modal-content input:focus, .modal-content select:focus {
-            outline: none;
-            border-color: #7c3aed;
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.12);
-        }
-
-        .modal-content select option {
-            background: #1a1a2e;
-            color: #fff;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 14px;
-            margin-top: 28px;
-            flex-wrap: wrap;
-        }
-
-        .modal-actions .btn {
-            flex: 1;
-            justify-content: center;
-            min-width: 120px;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 16px;
-            left: 20px;
-            background: none;
-            border: none;
-            color: #8888bb;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .close-modal:hover {
-            color: #fff;
-            transform: rotate(90deg);
-        }
-
-        /* ==================== BUTTONS ==================== */
-        .btn {
-            padding: 14px 32px;
-            border: none;
-            border-radius: 80px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.25s ease;
-            background: rgba(255,255,255,0.03);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.06);
-            backdrop-filter: blur(6px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #7c3aed, #4f46e5);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 0 50px rgba(124, 58, 237, 0.35);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-3px);
-        }
-
-        .action-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
-            margin-top: 15px;
-        }
-
-        /* ==================== TOAST ==================== */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(20, 20, 40, 0.9);
-            backdrop-filter: blur(16px);
-            padding: 16px 30px;
-            border-radius: 80px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-            color: #d0d0ff;
-            font-weight: 600;
-            z-index: 1000;
-            transform: translateY(80px);
-            opacity: 0;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            font-size: 0.95rem;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* ==================== RESPONSIVE ==================== */
-        @media (max-width: 768px) {
-            .app-container {
-                padding: 16px 14px;
-                border-radius: 32px;
-            }
-
-            .header-top {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .language-selector select {
-                padding: 8px 30px 8px 14px;
-                font-size: 0.85rem;
-                min-width: 110px;
-            }
-
-            .live-dashboard {
-                flex-direction: column;
-                gap: 8px;
-                padding: 14px 18px;
-            }
-
-            .stat-item {
-                min-width: unset;
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .stat-item .value {
-                font-size: 1.1rem;
-            }
-
-            .wall-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 14px;
-            }
-
-            .card-item {
-                padding: 14px 10px 10px 10px;
-                min-height: 130px;
-            }
-
-            .card-item .avatar {
-                font-size: 2.6rem;
-            }
-
-            .card-item .card-name {
-                font-size: 1rem;
-            }
-
-            .modal-content {
-                padding: 28px 18px;
-                border-radius: 40px;
-            }
-
-            .btn {
-                padding: 12px 22px;
-                font-size: 0.9rem;
-            }
-
-            .marquee-track span {
-                font-size: 0.9rem;
-                padding: 0 8px;
-            }
-
-            .marquee-track {
-                gap: 30px;
-            }
-
-            .popup-content {
-                padding: 35px 20px;
-                border-radius: 40px;
-            }
-
-            .popup-content .popup-avatar {
-                font-size: 4rem;
-            }
-
-            .popup-content .popup-name {
-                font-size: 1.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 2.2rem;
-            }
-
-            .wall-grid {
-                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-                gap: 10px;
-            }
-
-            .card-item {
-                min-height: 110px;
-                padding: 10px 8px 8px 8px;
-            }
-
-            .card-item .avatar {
-                font-size: 2rem;
-            }
-
-            .card-item .card-name {
-                font-size: 0.85rem;
-            }
-
-            .action-bar .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .stat-item .value.time-value {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 مليون مربع - المنصة التفاعلية</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="app-container" id="app">
+    <div class="site-background" id="siteBackground"></div>
 
-        <!-- HEADER with Language -->
-        <div class="header-top">
-            <div class="language-selector">
-                <select id="languageSelect" onchange="changeLanguage(this.value)">
-                    <option value="ar">🇸🇦 العربية</option>
-                    <option value="en">🇬🇧 English</option>
-                    <option value="fr">🇫🇷 Français</option>
-                    <option value="es">🇪🇸 Español</option>
-                </select>
-            </div>
-            <h1 class="main-title" id="mainTitle">📸 جدار السيلفي الفوري</h1>
-            <div style="width: 130px;"></div>
-        </div>
-
-        <!-- MARQUEE -->
-        <div class="marquee-wrapper">
-            <div class="marquee-track" id="marqueeTrack">
-                <span>شركة الاتصالات السعودية</span>
-                <span>زين السعودية</span>
-                <span>موبايلي</span>
-                <span>STC Pay</span>
-                <span>أبل السعودية</span>
-                <span>سامسونج الخليج</span>
-                <span>نون أكاديمي</span>
-                <span>شركة الاتصالات السعودية</span>
-                <span>زين السعودية</span>
-                <span>موبايلي</span>
-                <span>STC Pay</span>
-                <span>أبل السعودية</span>
-                <span>سامسونج الخليج</span>
-                <span>نون أكاديمي</span>
-            </div>
-        </div>
-
-        <!-- DASHBOARD -->
-        <div class="live-dashboard" id="liveDashboard">
-            <div class="stat-item">
-                <span class="icon">🕒</span>
-                <div>
-                    <div class="label" id="labelTime">التاريخ والوقت</div>
-                    <div class="value time-value" id="liveTime">--:--:--</div>
-                </div>
-            </div>
-            <div class="stat-item">
-                <span class="icon">👥</span>
-                <div>
-                    <div class="label" id="labelSubscribers">المشتركين على الجدار</div>
-                    <div class="value" id="subscriberCount">0</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WALL -->
-        <div class="wall-title">
-            <span id="wallIcon">🖼️</span>
-            <span id="wallTitle">الجدار الحي</span>
-            <span id="wallCounter">0</span>
-        </div>
-        <div class="wall-grid" id="wallGrid"></div>
-
-        <!-- ACTIONS -->
-        <div class="action-bar">
-            <button class="btn btn-primary" id="addSubscriberBtn">➕ <span id="btnAdd">إضافة مشترك جديد</span></button>
-            <button class="btn btn-secondary" id="openAdminBtn">⚙️ <span id="btnAdmin">لوحة المدير</span></button>
+    <!-- ===== شريط التنبيه ===== -->
+    <div class="top-banner">
+        <div class="banner-content">
+            <span class="banner-text" data-i18n="banner">🚀 انضم الآن واحجز مربعك المميز</span>
+            <span class="banner-counter">📊 <span data-i18n="available">المربعات المتاحة</span>: <strong id="availableSquares">0</strong></span>
+            <span class="banner-clock">🕐 <span id="liveClock">00:00:00</span></span>
+            <span class="banner-counter">👥 <strong id="totalMembersDisplay">0</strong> <span data-i18n="members">مشترك</span></span>
         </div>
     </div>
 
-    <!-- POPUP PREVIEW -->
-    <div class="popup-overlay" id="popupOverlay">
-        <div class="popup-content">
-            <div class="popup-avatar" id="popupAvatar">👤</div>
-            <div class="popup-name" id="popupName">اسم المشترك</div>
-            <div class="popup-phone" id="popupPhone">رقم الجوال</div>
-            <div class="popup-tier" id="popupTier">🏷️ الفئة</div>
-            <div class="popup-timer" id="popupTimer">⏱️ 4</div>
+    <!-- ===== الهيدر ===== -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1>🏆 <span class="gradient-text" data-i18n="site_title">مليون مربع</span></h1>
+                <p class="subtitle" data-i18n="subtitle">منصة التواصل البصرية الأولى</p>
+            </div>
+            <div class="header-controls">
+                <div class="lang-selector">
+                    <button class="lang-btn active" data-lang="ar">🇸🇦 عربي</button>
+                    <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+                    <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
+                    <button class="lang-btn" data-lang="es">🇪🇸 ES</button>
+                    <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalMembers">0</span>
+                        <span class="stat-label" data-i18n="members">مشترك</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalRevenue">$0</span>
+                        <span class="stat-label" data-i18n="revenue">إيرادات</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== شريط الرعاة ===== -->
+    <div class="sponsors-section">
+        <div class="sponsors-header">
+            <span data-i18n="sponsors_title">🌟 الرعاة الداعمون</span>
+            <a href="#sponsorPayment" class="sponsor-cta" data-i18n="become_sponsor">كن راعياً</a>
+        </div>
+        <div class="sponsors-marquee">
+            <div class="marquee-track" id="marqueeTrack"></div>
         </div>
     </div>
 
-    <!-- ADMIN MODAL -->
-    <div class="admin-modal" id="adminModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeAdminBtn">✕</button>
-            <h2 id="modalTitle">🔐 لوحة المدير</h2>
-            <p class="sub" id="modalSub">إضافة مشتركين يدوياً وإدارة الجدار</p>
-
-            <label id="labelName">👤 الاسم</label>
-            <input type="text" id="adminName" placeholder="مثال: أحمد محمد" value="أحمد محمد">
-
-            <label id="labelPhone">📱 رقم الجوال</label>
-            <input type="text" id="adminPhone" placeholder="مثال: 0501234567" value="0501234567">
-
-            <label id="labelTier">🏷️ فئة المربع</label>
-            <select id="adminTier">
-                <option value="normal" id="optNormal">🟩 عادي (1$)</option>
-                <option value="silver" id="optSilver">⬜ فضي (5$)</option>
-                <option value="gold" id="optGold">🟨 ذهبي (10$)</option>
-                <option value="royal" id="optRoyal">👑 ملكي (100$)</option>
+    <!-- ===== شريط الأدوات ===== -->
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <button id="zoomInBtn" title="تكبير">🔍+</button>
+            <button id="zoomOutBtn" title="تصغير">🔍-</button>
+            <button id="resetViewBtn" title="إعادة ضبط">⟳</button>
+        </div>
+        <div class="search-group">
+            <input type="text" id="searchInput" placeholder="🔎 بحث عن مشترك...">
+            <select id="filterTier">
+                <option value="all">جميع المستويات</option>
+                <option value="normal">💎 عادي</option>
+                <option value="silver">⭐ فضي</option>
+                <option value="gold">👑 ذهبي</option>
+                <option value="royal">💠 ملكي</option>
             </select>
+        </div>
+    </div>
 
-            <label id="labelPassword">🔑 كلمة المرور</label>
-            <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور" value="admin123">
+    <!-- ===== جدار المربعات ===== -->
+    <div class="grid-container">
+        <div class="grid-wrapper" id="gridWrapper">
+            <div class="grid-canvas" id="gridCanvas"></div>
+            <div class="loading-indicator" id="loadingIndicator">⏳ جاري تحميل المربعات...</div>
+        </div>
+    </div>
 
-            <div class="modal-actions">
-                <button class="btn btn-primary" id="adminAddBtn">➕ <span id="modalAddBtn">إضافة للجدار</span></button>
-                <button class="btn btn-secondary" id="adminCloseBtn"><span id="modalCloseBtn">إغلاق</span></button>
+    <!-- ===== معلومات الموقع ===== -->
+    <section class="info-section">
+        <div class="info-card">
+            <h2 data-i18n="what_is">🎯 ما هو مليون مربع؟</h2>
+            <p data-i18n="description">منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية لعرض هويتهم.</p>
+            <div class="features-grid">
+                <div class="feature normal-tier">
+                    <span>💎</span>
+                    <h4 data-i18n="normal">عادي</h4>
+                    <p class="price">$1/<span data-i18n="year">سنة</span></p>
+                    <ul class="feature-list">
+                        <li data-i18n="f_normal_1">✅ عرض الاسم</li>
+                        <li data-i18n="f_normal_2">✅ عرض الموقع</li>
+                    </ul>
+                </div>
+                <div class="feature silver-tier">
+                    <span>⭐</span>
+                    <h4 data-i18n="silver">فضي</h4>
+                    <p class="price">$5/<span data-i18n="year">سنة</span></p>
+                    <ul class="feature-list">
+                        <li data-i18n="f_silver_1">✅ عرض الاسم</li>
+                        <li data-i18n="f_silver_2">✅ عرض الموقع</li>
+                        <li data-i18n="f_silver_3">✅ رابط الموقع</li>
+                        <li data-i18n="f_silver_4">✅ إطار فضي لامع</li>
+                    </ul>
+                </div>
+                <div class="feature gold-tier">
+                    <span>👑</span>
+                    <h4 data-i18n="gold">ذهبي</h4>
+                    <p class="price">$10/<span data-i18n="year">سنة</span></p>
+                    <ul class="feature-list">
+                        <li data-i18n="f_gold_1">✅ عرض الاسم</li>
+                        <li data-i18n="f_gold_2">✅ عرض الموقع</li>
+                        <li data-i18n="f_gold_3">✅ رابط الموقع</li>
+                        <li data-i18n="f_gold_4">✅ صورة شخصية</li>
+                        <li data-i18n="f_gold_5">✅ إطار ذهبي لامع</li>
+                        <li data-i18n="f_gold_6">✅ أولوية الظهور</li>
+                    </ul>
+                </div>
+                <div class="feature royal-tier">
+                    <span>💠</span>
+                    <h4 data-i18n="royal">ملكي</h4>
+                    <p class="price">$100/<span data-i18n="year">سنة</span></p>
+                    <ul class="feature-list">
+                        <li data-i18n="f_royal_1">✅ جميع ميزات الذهبي</li>
+                        <li data-i18n="f_royal_2">✅ خلفية شفافة متحركة</li>
+                        <li data-i18n="f_royal_3">✅ تأثير نبض مميز</li>
+                        <li data-i18n="f_royal_4">✅ صورة خلفية مخصصة</li>
+                        <li data-i18n="f_royal_5">✅ ظهور في الأعلى</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2 data-i18n="steps_title">📋 خطوات الاشتراك</h2>
+            <ol>
+                <li data-i18n="step1"><strong>اختر موقعك</strong> - انقر على أي مربع فارغ</li>
+                <li data-i18n="step2"><strong>حدد المستوى</strong> - عادي، فضي، ذهبي، أو ملكي</li>
+                <li data-i18n="step3"><strong>املأ بياناتك</strong> - الاسم، البريد، الموقع، صورة</li>
+                <li data-i18n="step4"><strong>ادفع بأمان</strong> - عبر PayPal أو Stripe أو IBAN</li>
+                <li data-i18n="step5"><strong>انطلق!</strong> - سيظهر مربعك فوراً</li>
+            </ol>
+            <div class="payment-methods">
+                <span>💳 PayPal</span>
+                <span>⚡ Stripe</span>
+                <span>🏦 IBAN</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== نظام دفع الرعاة ===== -->
+    <section class="sponsor-payment-section" id="sponsorPayment">
+        <h2 data-i18n="sponsor_payment_title">🌟 نظام الدفع للرعاة</h2>
+        <p data-i18n="sponsor_payment_desc">اختر الباقة المناسبة لشركتك وادفع مباشرة عبر بوابة الدفع الإلكتروني</p>
+        <div class="sponsor-plans">
+            <div class="plan-card">
+                <h4 data-i18n="weekly">أسبوعي</h4>
+                <p class="price">$100</p>
+                <ul>
+                    <li data-i18n="sp_weekly_1">✅ عرض اسم الشركة</li>
+                    <li data-i18n="sp_weekly_2">✅ مدة: 7 أيام</li>
+                    <li data-i18n="sp_weekly_3">✅ رابط موقعك</li>
+                </ul>
+                <button class="plan-btn sponsor-pay-btn" data-plan="weekly" data-amount="100" data-i18n="choose">اختر</button>
+            </div>
+            <div class="plan-card featured">
+                <h4 data-i18n="monthly">شهري</h4>
+                <p class="price">$1,000</p>
+                <ul>
+                    <li data-i18n="sp_monthly_1">✅ عرض اسم الشركة</li>
+                    <li data-i18n="sp_monthly_2">✅ مدة: 30 يوماً</li>
+                    <li data-i18n="sp_monthly_3">✅ رابط موقعك</li>
+                    <li data-i18n="sp_monthly_4">✅ شعار مميز</li>
+                </ul>
+                <button class="plan-btn sponsor-pay-btn" data-plan="monthly" data-amount="1000" data-i18n="choose">اختر</button>
+            </div>
+            <div class="plan-card premium">
+                <h4 data-i18n="yearly">سنوي</h4>
+                <p class="price">$10,000</p>
+                <ul>
+                    <li data-i18n="sp_yearly_1">✅ عرض اسم الشركة</li>
+                    <li data-i18n="sp_yearly_2">✅ مدة: 365 يوماً</li>
+                    <li data-i18n="sp_yearly_3">✅ رابط موقعك</li>
+                    <li data-i18n="sp_yearly_4">✅ شعار مميز</li>
+                    <li data-i18n="sp_yearly_5">✅ فيديو تعريفي</li>
+                </ul>
+                <button class="plan-btn sponsor-pay-btn" data-plan="yearly" data-amount="10000" data-i18n="choose">اختر</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== لوحة التحكم (مخفية) ===== -->
+    <div class="admin-section">
+        <div class="admin-hidden-trigger">
+            <button id="adminSecretBtn" class="admin-secret-btn" title="اضغط مرتين للدخول">🔐</button>
+            <span class="admin-hint" data-i18n="admin_hint">انقر مرتين للدخول إلى لوحة المدير</span>
+        </div>
+        
+        <div id="adminPanel" class="admin-panel hidden">
+            <div class="admin-login">
+                <h3 data-i18n="admin_login">🔐 الدخول إلى لوحة التحكم</h3>
+                <input type="text" id="adminEmail" placeholder="اسم المستخدم">
+                <input type="password" id="adminPassword" placeholder="كلمة السر">
+                <button id="adminLoginBtn" data-i18n="login">دخول</button>
+                <div id="loginError" class="login-error hidden">❌ اسم المستخدم أو كلمة السر غير صحيحة</div>
+            </div>
+            
+            <div id="adminContent" class="admin-content hidden">
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="tabMembers">👥 <span data-i18n="members">المشتركين</span></button>
+                    <button class="tab-btn" data-tab="tabPayments">💰 <span data-i18n="payments">الدفع</span></button>
+                    <button class="tab-btn" data-tab="tabSponsors">🏢 <span data-i18n="sponsors">الرعاة</span></button>
+                    <button class="tab-btn" data-tab="tabSuggestions">💡 <span data-i18n="suggestions">الاقتراحات</span></button>
+                    <button class="tab-btn" data-tab="tabSettings">⚙️ <span data-i18n="settings">الإعدادات</span></button>
+                </div>
+
+                <div id="tabMembers" class="tab-content active">
+                    <div class="admin-actions">
+                        <button id="addMemberBtn">➕ <span data-i18n="add_member">إضافة مشترك</span></button>
+                        <button id="exportMembersBtn">📥 <span data-i18n="export">تصدير</span></button>
+                    </div>
+                    <div class="members-table-wrapper">
+                        <table id="membersTable">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="name">الاسم</th>
+                                    <th data-i18n="email">البريد</th>
+                                    <th data-i18n="tier">المستوى</th>
+                                    <th data-i18n="location">الموقع</th>
+                                    <th data-i18n="actions">الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="membersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tabPayments" class="tab-content hidden">
+                    <h4 data-i18n="payment_settings">💳 إعدادات الدفع</h4>
+                    <div class="payment-settings">
+                        <label>PayPal: <input type="text" id="paypalSetting" placeholder="بريد PayPal"></label>
+                        <label>Stripe: <input type="text" id="stripeSetting" placeholder="مفتاح Stripe"></label>
+                        <label>IBAN: <input type="text" id="ibanSetting" placeholder="رقم IBAN"></label>
+                        <button id="savePaymentSettings">💾 <span data-i18n="save">حفظ الإعدادات</span></button>
+                    </div>
+                </div>
+
+                <div id="tabSponsors" class="tab-content hidden">
+                    <h4 data-i18n="sponsor_management">🏢 إدارة الرعاة</h4>
+                    <div class="sponsor-admin">
+                        <div class="add-sponsor-form">
+                            <input type="text" id="sponsorName" placeholder="اسم الراعي">
+                            <input type="text" id="sponsorLink" placeholder="رابط الموقع">
+                            <input type="number" id="sponsorAmount" placeholder="المبلغ">
+                            <select id="sponsorDuration">
+                                <option value="weekly" data-i18n="weekly">أسبوعي</option>
+                                <option value="monthly" data-i18n="monthly">شهري</option>
+                                <option value="yearly" data-i18n="yearly">سنوي</option>
+                            </select>
+                            <button id="addSponsorBtn">➕ <span data-i18n="add_sponsor">إضافة راعي</span></button>
+                        </div>
+                        <ul id="sponsorList" class="sponsor-list"></ul>
+                    </div>
+                </div>
+
+                <div id="tabSuggestions" class="tab-content hidden">
+                    <h4 data-i18n="suggestions_title">💡 اقتراحات المشتركين</h4>
+                    <div id="suggestionsList" class="suggestions-list">
+                        <p class="empty-msg" data-i18n="no_suggestions">لا توجد اقتراحات حالياً</p>
+                    </div>
+                </div>
+
+                <div id="tabSettings" class="tab-content hidden">
+                    <h4 data-i18n="settings_title">⚙️ إعدادات الموقع</h4>
+                    <div class="settings-group">
+                        <label data-i18n="admin_email">بريد المدير: <input type="email" id="adminEmailSetting" placeholder="بريد المدير"></label>
+                        <label data-i18n="admin_name">اسم المدير: <input type="text" id="adminNameSetting" placeholder="اسم المدير"></label>
+                        <button id="saveSettingsBtn">💾 <span data-i18n="save">حفظ الإعدادات</span></button>
+                    </div>
+                    <div class="settings-group">
+                        <h5 data-i18n="change_password">🔑 تغيير كلمة السر</h5>
+                        <input type="password" id="newPassword" placeholder="كلمة سر جديدة">
+                        <button id="changePasswordBtn" data-i18n="change">تغيير</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- TOAST -->
-    <div class="toast" id="toastMessage">✅ تمت الإضافة بنجاح</div>
+    <!-- ===== نموذج الاقتراحات ===== -->
+    <section class="suggestion-section">
+        <h2 data-i18n="suggest_idea">💡 شاركنا اقتراحك</h2>
+        <form id="suggestionForm">
+            <input type="text" id="suggesterName" placeholder="اسمك" required>
+            <input type="email" id="suggesterEmail" placeholder="بريدك الإلكتروني" required>
+            <textarea id="suggestionText" placeholder="ما هي فكرتك لتطوير الموقع؟" required></textarea>
+            <button type="submit" data-i18n="send">إرسال الاقتراح</button>
+        </form>
+    </section>
 
-    <script>
-        // ==================== DATA ====================
-        let subscribers = [
-            { name: "سارة الأحمد", phone: "0501112222", tier: "normal", date: "2026-07-31" },
-            { name: "خالد العتيبي", phone: "0503334444", tier: "silver", date: "2026-07-31" },
-            { name: "نورة الدوسري", phone: "0505556666", tier: "gold", date: "2026-07-30" },
-            { name: "فيصل المالكي", phone: "0507778888", tier: "royal", date: "2026-07-30" }
-        ];
+    <!-- ===== الفوتر ===== -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 data-i18n="contact_us">📧 تواصل معنا</h4>
+                <a href="mailto:fdaally646@gmail.com">fdaally646@gmail.com</a>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="about_us">📍 عن الموقع</h4>
+                <p data-i18n="about_text">منصة مليون مربع - حيث الإبداع يلتقي بالفرص</p>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="follow_us">📱 تابعنا</h4>
+                <div class="social-links">
+                    <a href="#">🐦 X</a>
+                    <a href="#">📘 Facebook</a>
+                    <a href="#">📸 Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 <span data-i18n="site_title">مليون مربع</span> - <span data-i18n="rights">جميع الحقوق محفوظة</span></p>
+        </div>
+    </footer>
 
-        // ==================== DOM REFERENCES ====================
-        const wallGrid = document.getElementById('wallGrid');
-        const subscriberCountEl = document.getElementById('subscriberCount');
-        const wallCounter = document.getElementById('wallCounter');
-        const liveTimeEl = document.getElementById('liveTime');
-        const toast = document.getElementById('toastMessage');
-
-        const adminModal = document.getElementById('adminModal');
-        const openAdminBtn = document.getElementById('openAdminBtn');
-        const closeAdminBtn = document.getElementById('closeAdminBtn');
-        const adminCloseBtn = document.getElementById('adminCloseBtn');
-        const adminAddBtn = document.getElementById('adminAddBtn');
-        const adminName = document.getElementById('adminName');
-        const adminPhone = document.getElementById('adminPhone');
-        const adminPassword = document.getElementById('adminPassword');
-        const adminTier = document.getElementById('adminTier');
-
-        const addSubscriberBtn = document.getElementById('addSubscriberBtn');
-
-        // ==================== FUNCTIONS ====================
-
-        // Generate random avatar
-        function getRandomAvatar() {
-            const avatars = ['👤', '👩', '👨', '🧑', '👱', '👩‍🦰', '👨‍🦱', '🧑‍🦳', '👩‍🦳', '👨‍🦳', '👩‍🦲', '👨‍🦲'];
-            return avatars[Math.floor(Math.random() * avatars.length)];
-        }
-
-        // Get tier class
-        function getTierClass(tier) {
-            return 'card-tier-' + tier;
-        }
-
-        // Get tier label in Arabic
-        function getTierLabel(tier) {
-            const labels = {
-                normal: 'عادي',
-                silver: 'فضي',
-                gold: 'ذهبي',
-                royal: 'ملكي'
-            };
-            return labels[tier] || tier;
-        }
-
-        // Render wall
-        function renderWall() {
-            wallGrid.innerHTML = '';
-            subscribers.forEach((sub, index) => {
-                const card = document.createElement('div');
-                card.className = `card-item ${getTierClass(sub.tier)}`;
-                card.dataset.index = index;
-                card.innerHTML = `
-                    <div class="avatar">${getRandomAvatar()}</div>
-                    <div class="card-name">${sub.name}</div>
-                    <div class="card-phone">${sub.phone}</div>
-                    <div class="card-tier-badge">🏷️ ${getTierLabel(sub.tier)}</div>
-                    <div class="card-date">📅 ${sub.date}</div>
-                `;
-                card.onclick = function() { showPopup(index); };
-                wallGrid.appendChild(card);
-            });
-
-            const count = subscribers.length;
-            subscriberCountEl.textContent = count;
-            wallCounter.textContent = count;
-        }
-
-        // Add subscriber
-        function addSubscriber(name, phone, tier) {
-            if (!name || name.trim() === '') name = 'مشترك جديد';
-            if (!phone || phone.trim() === '') phone = '05XXXXXXXX';
-            if (!tier) tier = 'normal';
-
-            const now = new Date();
-            const dateStr = now.toISOString().slice(0, 10);
-
-            subscribers.push({
-                name: name.trim(),
-                phone: phone.trim(),
-                tier: tier,
-                date: dateStr
-            });
-
-            renderWall();
-            showToast(`✅ تم إضافة ${name.trim()} بنجاح!`);
-        }
-
-        // Show popup preview (4 seconds)
-        let popupTimerInterval = null;
-
-        function showPopup(index) {
-            const sub = subscribers[index];
-            if (!sub) return;
-
-            const overlay = document.getElementById('popupOverlay');
-            document.getElementById('popupAvatar').textContent = getRandomAvatar();
-            document.getElementById('popupName').textContent = sub.name;
-            document.getElementById('popupPhone').textContent = sub.phone;
-            document.getElementById('popupTier').textContent = '🏷️ ' + getTierLabel(sub.tier);
-
-            overlay.classList.add('active');
-
-            let timer = 4;
-            const timerEl = document.getElementById('popupTimer');
-            timerEl.textContent = '⏱️ ' + timer;
-
-            if (popupTimerInterval) clearInterval(popupTimerInterval);
-
-            popupTimerInterval = setInterval(() => {
-                timer--;
-                timerEl.textContent = '⏱️ ' + timer;
-                if (timer <= 0) {
-                    clearInterval(popupTimerInterval);
-                    overlay.classList.remove('active');
-                    timerEl.textContent = '⏱️ 4';
-                }
-            }, 1000);
-        }
-
-        // Show toast
-        let toastTimer = null;
-
-        function showToast(msg) {
-            toast.textContent = msg;
-            toast.classList.add('show');
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Update time
-        function updateTime() {
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' });
-            const timeStr = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            liveTimeEl.textContent = `${dateStr} | ${timeStr}`;
-        }
-
-        // ==================== LANGUAGE SYSTEM ====================
-        const translations = {
-            ar: {
-                title: '📸 جدار السيلفي الفوري',
-                time: 'التاريخ والوقت',
-                subscribers: 'المشتركين على الجدار',
-                wall: 'الجدار الحي',
-                add: 'إضافة مشترك جديد',
-                admin: 'لوحة المدير',
-                modalTitle: '🔐 لوحة المدير',
-                modalSub: 'إضافة مشتركين يدوياً وإدارة الجدار',
-                name: '👤 الاسم',
-                phone: '📱 رقم الجوال',
-                tier: '🏷️ فئة المربع',
-                normal: '🟩 عادي (1$)',
-                silver: '⬜ فضي (5$)',
-                gold: '🟨 ذهبي (10$)',
-                royal: '👑 ملكي (100$)',
-                password: '🔑 كلمة المرور',
-                addBtn: 'إضافة للجدار',
-                closeBtn: 'إغلاق',
-                tierNames: {
-                    normal: 'عادي',
-                    silver: 'فضي',
-                    gold: 'ذهبي',
-                    royal: 'ملكي'
-                }
-            },
-            en: {
-                title: '📸 Instant Selfie Wall',
-                time: 'Date & Time',
-                subscribers: 'Subscribers on Wall',
-                wall: 'Live Wall',
-                add: 'Add New Subscriber',
-                admin: 'Admin Panel',
-                modalTitle: '🔐 Admin Panel',
-                modalSub: 'Add subscribers manually and manage the wall',
-                name: '👤 Name',
-                phone: '📱 Phone Number',
-                tier: '🏷️ Card Tier',
-                normal: '🟩 Normal (1$)',
-                silver: '⬜ Silver (5$)',
-                gold: '🟨 Gold (10$)',
-                royal: '👑 Royal (100$)',
-                password: '🔑 Password',
-                addBtn: 'Add to Wall',
-                closeBtn: 'Close',
-                tierNames: {
-                    normal: 'Normal',
-                    silver: 'Silver',
-                    gold: 'Gold',
-                    royal: 'Royal'
-                }
-            },
-            fr: {
-                title: '📸 Mur de Selfie Instantané',
-                time: 'Date et Heure',
-                subscribers: 'Abonnés sur le Mur',
-                wall: 'Mur en Direct',
-                add: 'Ajouter un Abonné',
-                admin: 'Panneau Admin',
-                modalTitle: '🔐 Panneau Admin',
-                modalSub: 'Ajouter des abonnés manuellement et gérer le mur',
-                name: '👤 Nom',
-                phone: '📱 Téléphone',
-                tier: '🏷️ Catégorie',
-                normal: '🟩 Normal (1$)',
-                silver: '⬜ Argent (5$)',
-                gold: '🟨 Or (10$)',
-                royal: '👑 Royal (100$)',
-                password: '🔑 Mot de passe',
-                addBtn: 'Ajouter au Mur',
-                closeBtn: 'Fermer',
-                tierNames: {
-                    normal: 'Normal',
-                    silver: 'Argent',
-                    gold: 'Or',
-                    royal: 'Royal'
-                }
-            },
-            es: {
-                title: '📸 Muro de Selfie Instantáneo',
-                time: 'Fecha y Hora',
-                subscribers: 'Suscriptores en el Muro',
-                wall: 'Muro en Vivo',
-                add: 'Agregar Suscriptor',
-                admin: 'Panel Admin',
-                modalTitle: '🔐 Panel Admin',
-                modalSub: 'Agregar suscriptores manualmente y gestionar el muro',
-                name: '👤 Nombre',
-                phone: '📱 Teléfono',
-                tier: '🏷️ Categoría',
-                normal: '🟩 Normal (1$)',
-                silver: '⬜ Plata (5$)',
-                gold: '🟨 Oro (10$)',
-                royal: '👑 Real (100$)',
-                password: '🔑 Contraseña',
-                addBtn: 'Agregar al Muro',
-                closeBtn: 'Cerrar',
-                tierNames: {
-                    normal: 'Normal',
-                    silver: 'Plata',
-                    gold: 'Oro',
-                    royal: 'Real'
-                }
-            }
-        };
-
-        let currentLang = 'ar';
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            const t = translations[lang];
-
-            document.getElementById('mainTitle').textContent = t.title;
-            document.getElementById('labelTime').textContent = t.time;
-            document.getElementById('labelSubscribers').textContent = t.subscribers;
-            document.getElementById('wallTitle').textContent = t.wall;
-            document.getElementById('btnAdd').textContent = t.add;
-            document.getElementById('btnAdmin').textContent = t.admin;
-            document.getElementById('modalTitle').textContent = t.modalTitle;
-            document.getElementById('modalSub').textContent = t.modalSub;
-            document.getElementById('labelName').textContent = t.name;
-            document.getElementById('labelPhone').textContent = t.phone;
-            document.getElementById('labelTier').textContent = t.tier;
-            document.getElementById('optNormal').textContent = t.normal;
-            document.getElementById('optSilver').textContent = t.silver;
-            document.getElementById('optGold').textContent = t.gold;
-            document.getElementById('optRoyal').textContent = t.royal;
-            document.getElementById('labelPassword').textContent = t.password;
-            document.getElementById('modalAddBtn').textContent = t.addBtn;
-            document.getElementById('modalCloseBtn').textContent = t.closeBtn;
-
-            // Update tier badges on existing cards
-            document.querySelectorAll('.card-item').forEach(card => {
-                const tier = card.dataset.tier || 'normal';
-                const badge = card.querySelector('.card-tier-badge');
-                if (badge) {
-                    badge.textContent = '🏷️ ' + t.tierNames[tier];
-                }
-            });
-
-            // Update direction
-            if (lang === 'ar') {
-                document.documentElement.dir = 'rtl';
-                document.documentElement.lang = 'ar';
-            } else {
-                document.documentElement.dir = 'ltr';
-                document.documentElement.lang = lang;
-            }
-        }
-
-        // ==================== EVENT LISTENERS ====================
-
-        // Admin modal
-        openAdminBtn.addEventListener('click', () => {
-            adminModal.classList.add('active');
-        });
-
-        closeAdminBtn.addEventListener('click', () => {
-            adminModal.classList.remove('active');
-        });
-
-        adminCloseBtn.addEventListener('click', () => {
-            adminModal.classList.remove('active');
-        });
-
-        adminModal.addEventListener('click', (e) => {
-            if (e.target === adminModal) adminModal.classList.remove('active');
-        });
-
-        // Admin add button
-        adminAddBtn.addEventListener('click', () => {
-            const password = adminPassword.value.trim();
-            if (password !== 'admin123') {
-                showToast('❌ كلمة المرور غير صحيحة!');
-                return;
-            }
-
-            const name = adminName.value.trim() || 'مشترك جديد';
-            const phone = adminPhone.value.trim() || '05XXXXXXXX';
-            const tier = adminTier.value;
-
-            addSubscriber(name, phone, tier);
-            adminModal.classList.remove('active');
-        });
-
-        // Quick add button
-        addSubscriberBtn.addEventListener('click', () => {
-            const name = prompt('👤 أدخل اسم المشترك:', 'مشترك جديد');
-            if (name === null) return;
-            const phone = prompt('📱 أدخل رقم الجوال:', '05XXXXXXXX');
-            if (phone === null) return;
-
-            // Ask for tier
-            const tierOptions = ['normal', 'silver', 'gold', 'royal'];
-            const tierLabels = ['عادي (1$)', 'فضي (5$)', 'ذهبي (10$)', 'ملكي (100$)'];
-            const tierChoice = prompt('🏷️ اختر الفئة:\n0- عادي\n1- فضي\n2- ذهبي\n3- ملكي', '0');
-
-            let tier = 'normal';
-            if (tierChoice !== null) {
-                const choice = parseInt(tierChoice);
-                if (choice >= 0 && choice <= 3) {
-                    tier = tierOptions[choice];
-                }
-            }
-
-            addSubscriber(name, phone, tier);
-        });
-
-        // ==================== INITIALIZATION ====================
-
-        renderWall();
-        updateTime();
-        setInterval(updateTime, 1000);
-
-        // Add some more subscribers for demo
-        setTimeout(() => {
-            if (subscribers.length < 6) {
-                const extra = [
-                    { name: 'فاطمة الزهراء', phone: '0509990000', tier: 'silver', date: '2026-07-31' },
-                    { name: 'عبدالله الناصر', phone: '0508887777', tier: 'gold', date: '2026-07-30' }
-                ];
-                extra.forEach(e => subscribers.push(e));
-                renderWall();
-            }
-        }, 500);
-
-        console.log('🚀 جدار السيلفي الفوري يعمل بكفاءة عالية!');
-        console.log('📊 عدد المشتركين:', subscribers.length);
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
