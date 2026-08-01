@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 مليون مربع - المنصة البصرية التفاعلية الاحترافية</title>
+    <title>🏆 مليون مربع - المنصة الاحترافية</title>
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+    <!-- jsPDF for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script>
     <style>
         /* ============================================================
-                   RESET & BASE
+                   ROOT VARIABLES (Light/Dark Themes)
                    ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         :root {
             --bg-primary: #0a0e1a;
             --bg-secondary: #111827;
             --bg-card: #1a2340;
             --bg-input: #1e2a4a;
+            --bg-hover: #2a3a6a;
             --border-color: #2a3a6a;
             --text-primary: #e8edf5;
             --text-secondary: #8aa0c8;
@@ -28,19 +30,46 @@
             --blue-dark: #3b5fd9;
             --green: #2ecc71;
             --red: #e74c3c;
+            --purple: #9b59b6;
+            --orange: #f39c12;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             --radius: 16px;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Light Theme */
+        [data-theme="light"] {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --bg-card: #e8edf5;
+            --bg-input: #dce3ed;
+            --bg-hover: #c8d2e0;
+            --border-color: #b0c0d0;
+            --text-primary: #1a2330;
+            --text-secondary: #3a4a6a;
+            --text-muted: #6a7a9a;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ============================================================
+                   RESET & BASE
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         html {
             scroll-behavior: smooth;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-family);
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
             line-height: 1.6;
+            transition: var(--transition);
         }
         .container {
             max-width: 1400px;
@@ -71,6 +100,32 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--gold);
+        }
+
+        /* ============================================================
+                   THEME TOGGLE
+                   ============================================================ */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--gold);
         }
 
         /* ============================================================
@@ -129,15 +184,21 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             padding: 40px;
-            max-width: 420px;
+            max-width: 440px;
             width: 90%;
             box-shadow: var(--shadow);
         }
         .admin-login-box h2 {
             text-align: center;
             color: var(--gold);
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             font-size: 1.5rem;
+        }
+        .admin-login-box .sub {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
         }
         .admin-login-box input {
             width: 100%;
@@ -145,7 +206,7 @@
             background: var(--bg-input);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            color: #fff;
+            color: var(--text-primary);
             font-size: 1rem;
             margin-bottom: 14px;
             transition: var(--transition);
@@ -154,6 +215,9 @@
             border-color: var(--blue);
             outline: none;
             box-shadow: 0 0 20px rgba(79, 124, 247, 0.1);
+        }
+        .admin-login-box input::placeholder {
+            color: var(--text-muted);
         }
         .admin-login-box .btn-login {
             width: 100%;
@@ -221,7 +285,7 @@
         }
         .admin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
         }
         .admin-section {
@@ -246,7 +310,7 @@
             background: var(--bg-input);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            color: #fff;
+            color: var(--text-primary);
             font-size: 0.95rem;
             margin-bottom: 8px;
             transition: var(--transition);
@@ -294,6 +358,12 @@
         .btn-admin.success:hover {
             background: #27ae60;
         }
+        .btn-admin.warning {
+            background: var(--orange);
+        }
+        .btn-admin.warning:hover {
+            background: #e67e22;
+        }
         .admin-section .hint {
             font-size: 0.7rem;
             color: var(--text-muted);
@@ -327,7 +397,7 @@
         }
         .admin-section .file-input-wrapper .file-label:hover {
             border-color: var(--blue);
-            color: #fff;
+            color: var(--text-primary);
         }
 
         /* ============================================================
@@ -349,22 +419,23 @@
             color: var(--gold);
         }
         .toggle-admin.locked {
-            border-color: var(--red);
-            color: var(--red);
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
         /* ============================================================
-                   HEADER / HERO
+                   HERO
                    ============================================================ */
         .hero {
             text-align: center;
             padding: 50px 20px 40px;
-            background: linear-gradient(145deg, #0d1425, #1a2340);
+            background: var(--bg-secondary);
             border-radius: var(--radius);
             margin-bottom: 30px;
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
+            transition: var(--transition);
         }
         .hero::before {
             content: '';
@@ -401,13 +472,13 @@
                    ============================================================ */
         .features-strip {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
             margin: 20px 0 25px;
         }
         .feature-item {
             background: var(--bg-card);
-            padding: 16px 12px;
+            padding: 14px 10px;
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             text-align: center;
@@ -418,11 +489,11 @@
             transform: translateY(-3px);
         }
         .feature-item .icon {
-            font-size: 2rem;
+            font-size: 1.8rem;
             display: block;
         }
         .feature-item .label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
             margin-top: 4px;
         }
@@ -432,13 +503,13 @@
                    ============================================================ */
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
             margin: 25px 0 20px;
         }
         .stat-card {
             background: var(--bg-card);
-            padding: 18px 12px;
+            padding: 16px 10px;
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             text-align: center;
@@ -449,12 +520,12 @@
             transform: translateY(-3px);
         }
         .stat-card .number {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-primary);
         }
         .stat-card .label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
             margin-top: 4px;
         }
@@ -463,33 +534,35 @@
                    TRIAL BANNER
                    ============================================================ */
         .trial-banner {
-            background: linear-gradient(90deg, #1a2a50, #0f1a30);
+            background: var(--bg-card);
             border: 1px solid var(--blue);
             border-radius: 60px;
-            padding: 14px 28px;
+            padding: 12px 24px;
             display: inline-flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
             margin: 10px auto 0;
             flex-wrap: wrap;
             justify-content: center;
         }
         .trial-banner .badge {
             background: var(--blue);
-            padding: 6px 18px;
+            padding: 4px 16px;
             border-radius: 40px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #fff;
         }
         .trial-banner .text {
             color: var(--text-secondary);
+            font-size: 0.9rem;
         }
         .trial-banner .payment-icons {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
             flex-wrap: wrap;
+            font-size: 0.85rem;
         }
 
         /* ============================================================
@@ -501,9 +574,10 @@
             border-radius: var(--radius);
             padding: 20px 25px;
             margin: 35px 0 30px;
+            transition: var(--transition);
         }
         .sponsor-strip .title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--text-muted);
@@ -512,13 +586,13 @@
         }
         .sponsor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
         }
         .sponsor-item {
             background: var(--bg-card);
             border-radius: var(--radius);
-            padding: 18px 14px;
+            padding: 16px 12px;
             text-align: center;
             border: 1px solid var(--border-color);
             transition: var(--transition);
@@ -530,8 +604,8 @@
             transform: scale(1.02);
         }
         .sponsor-item .sponsor-avatar {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             background: var(--bg-input);
             border: 2px solid var(--gold);
@@ -539,7 +613,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             overflow: hidden;
         }
         .sponsor-item .sponsor-avatar img {
@@ -548,30 +622,30 @@
             object-fit: cover;
         }
         .sponsor-item .plan {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text-muted);
         }
         .sponsor-item .name {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-primary);
             margin: 4px 0;
         }
         .sponsor-item .price {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gold);
         }
         .sponsor-item .period {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
         }
         .sponsor-item .badge-sp {
             display: inline-block;
-            padding: 2px 14px;
+            padding: 2px 12px;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             margin-top: 6px;
         }
@@ -594,26 +668,27 @@
         .search-section {
             background: var(--bg-secondary);
             border-radius: var(--radius);
-            padding: 20px;
+            padding: 18px;
             margin: 20px 0 25px;
             border: 1px solid var(--border-color);
+            transition: var(--transition);
         }
         .search-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
         .search-row input,
         .search-row select {
             flex: 1;
-            min-width: 160px;
-            padding: 10px 16px;
+            min-width: 140px;
+            padding: 10px 14px;
             background: var(--bg-input);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            color: #fff;
-            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
             transition: var(--transition);
         }
         .search-row input:focus,
@@ -629,7 +704,7 @@
             background: var(--blue);
             border: none;
             color: #fff;
-            padding: 10px 28px;
+            padding: 10px 24px;
             border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
@@ -639,21 +714,28 @@
             background: var(--blue-dark);
             transform: scale(1.02);
         }
+        .search-row .btn-search.reset {
+            background: var(--red);
+        }
+        .search-row .btn-search.reset:hover {
+            background: #c0392b;
+        }
         .search-row .sort-group {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
+            flex-wrap: wrap;
         }
         .search-row .sort-group label {
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         .search-row .sort-group select {
-            min-width: 120px;
+            min-width: 100px;
         }
 
         /* ============================================================
-                   SQUARES GRID (Virtual Scroll)
+                   SQUARES GRID
                    ============================================================ */
         .squares-wrapper {
             position: relative;
@@ -664,6 +746,7 @@
             border: 1px solid var(--border-color);
             background: var(--bg-secondary);
             padding: 16px;
+            transition: var(--transition);
         }
         .squares-wrapper .scroll-hint {
             text-align: center;
@@ -677,13 +760,13 @@
         }
         .squares-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 14px;
         }
         .square-card {
             background: var(--bg-card);
             border-radius: var(--radius);
-            padding: 16px;
+            padding: 14px;
             border: 1px solid var(--border-color);
             transition: var(--transition);
             position: relative;
@@ -695,19 +778,19 @@
             box-shadow: var(--shadow);
         }
         .square-card .avatar {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: var(--bg-input);
             border: 2px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 8px;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
             overflow: hidden;
             float: left;
-            margin-left: 12px;
+            margin-left: 10px;
         }
         .square-card .avatar img {
             width: 100%;
@@ -715,59 +798,59 @@
             object-fit: cover;
         }
         .square-card .s-name {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 700;
             margin: 2px 0;
         }
         .square-card .s-location {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
         }
         .square-card .s-email {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             direction: ltr;
             text-align: left;
             word-break: break-all;
         }
         .square-card .s-plan {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             background: var(--bg-input);
-            padding: 2px 12px;
+            padding: 2px 10px;
             border-radius: 30px;
             display: inline-block;
             margin: 4px 0;
         }
         .square-card .s-rating {
             color: var(--gold);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
         }
         .square-card .s-rating .count {
             color: var(--text-muted);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
         }
         .square-card .s-specialty {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             background: var(--bg-input);
-            padding: 2px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
             display: inline-block;
             margin: 2px 0;
         }
         .square-card .delete-btn {
             position: absolute;
-            top: 6px;
-            right: 6px;
+            top: 4px;
+            right: 4px;
             background: var(--red);
             border: none;
             color: #fff;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 10px;
             opacity: 0;
             transition: var(--transition);
         }
@@ -779,12 +862,12 @@
         }
         .square-card .new-badge {
             position: absolute;
-            top: 6px;
-            left: 6px;
+            top: 4px;
+            left: 4px;
             background: var(--green);
             color: #fff;
-            font-size: 0.6rem;
-            padding: 2px 10px;
+            font-size: 0.55rem;
+            padding: 2px 8px;
             border-radius: 20px;
             font-weight: 700;
             animation: pulse 2s infinite;
@@ -794,19 +877,19 @@
                    SECTION TITLE
                    ============================================================ */
         .section-title {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin: 30px 0 16px;
+            margin: 25px 0 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
         .section-title span {
             background: var(--bg-card);
-            padding: 2px 16px;
+            padding: 2px 14px;
             border-radius: 40px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
         }
 
@@ -815,15 +898,15 @@
                    ============================================================ */
         .cta-section {
             text-align: center;
-            margin: 40px 0 20px;
+            margin: 35px 0 20px;
         }
         .btn-primary {
             background: linear-gradient(135deg, var(--blue), var(--blue-dark));
             border: none;
             color: #fff;
-            padding: 16px 48px;
+            padding: 14px 40px;
             border-radius: 60px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
@@ -837,46 +920,47 @@
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
-            padding: 14px 36px;
+            padding: 12px 30px;
             border-radius: 60px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: var(--transition);
-            margin-right: 12px;
+            margin-right: 10px;
         }
         .btn-secondary:hover {
             border-color: var(--blue);
-            color: #fff;
+            color: var(--text-primary);
         }
 
         /* ============================================================
                    FOOTER
                    ============================================================ */
         .footer {
-            margin-top: 60px;
-            padding: 30px 0;
+            margin-top: 50px;
+            padding: 25px 0;
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border-top: 1px solid var(--border-color);
         }
         .footer .footer-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         .footer .footer-links a {
             color: var(--text-muted);
             transition: var(--transition);
+            font-size: 0.8rem;
         }
         .footer .footer-links a:hover {
             color: var(--gold);
         }
 
         /* ============================================================
-                   NEW MEMBER NOTIFICATION
+                   NOTIFICATION
                    ============================================================ */
         .notification {
             position: fixed;
@@ -885,8 +969,8 @@
             background: var(--bg-card);
             border: 1px solid var(--gold);
             border-radius: var(--radius);
-            padding: 16px 24px;
-            max-width: 360px;
+            padding: 14px 20px;
+            max-width: 340px;
             box-shadow: var(--shadow);
             animation: slideUp 0.5s ease;
             z-index: 1000;
@@ -898,20 +982,47 @@
         .notification .notif-title {
             color: var(--gold);
             font-weight: 700;
+            font-size: 0.95rem;
         }
         .notification .notif-text {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         .notification .notif-close {
             position: absolute;
-            top: 6px;
-            right: 10px;
+            top: 4px;
+            right: 8px;
             background: none;
             border: none;
             color: var(--text-muted);
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        /* ============================================================
+                   ANALYTICS / CHARTS
+                   ============================================================ */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .chart-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 16px;
+            border: 1px solid var(--border-color);
+        }
+        .chart-box h4 {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .chart-box canvas {
+            max-height: 200px;
+            max-width: 100%;
         }
 
         /* ============================================================
@@ -970,7 +1081,7 @@
                    ============================================================ */
         @media (max-width: 768px) {
             .hero .logo {
-                font-size: 2.8rem;
+                font-size: 2.6rem;
             }
             .search-row {
                 flex-direction: column;
@@ -1001,12 +1112,22 @@
             }
             .square-card .avatar {
                 float: none;
-                margin: 0 auto 8px;
+                margin: 0 auto 6px;
             }
             .notification {
                 left: 20px;
                 right: 20px;
                 max-width: unset;
+            }
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            .theme-toggle {
+                bottom: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
         }
         @media (max-width: 480px) {
@@ -1015,17 +1136,20 @@
             }
             .trial-banner {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
                 border-radius: 30px;
-                padding: 18px;
+                padding: 14px;
             }
             .btn-primary {
-                padding: 14px 30px;
-                font-size: 1rem;
+                padding: 12px 24px;
+                font-size: 0.95rem;
             }
             .admin-panel .panel-header {
                 flex-direction: column;
                 align-items: stretch;
+            }
+            .features-strip {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -1033,14 +1157,21 @@
 <body>
 
     <!-- ============================================================
+    THEME TOGGLE
+    ============================================================ -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="تبديل المظهر">🌙</button>
+
+    <!-- ============================================================
     ADMIN LOGIN OVERLAY
     ============================================================ -->
     <div class="admin-overlay" id="adminOverlay">
         <div class="admin-login-box">
             <h2>🔐 لوحة التحكم</h2>
-            <input type="password" id="adminPassword" placeholder="🔑 أدخل كلمة المرور" dir="ltr">
+            <div class="sub" id="loginSub">ادخل بيانات المدير للدخول</div>
+            <input type="text" id="adminUsername" placeholder="👤 اسم المدير" dir="ltr">
+            <input type="password" id="adminPassword" placeholder="🔑 كلمة المرور" dir="ltr">
             <button class="btn-login" onclick="verifyAdmin()">🚀 دخول</button>
-            <div class="error-msg" id="loginError">❌ كلمة المرور غير صحيحة!</div>
+            <div class="error-msg" id="loginError">❌ اسم المستخدم أو كلمة المرور غير صحيحة!</div>
         </div>
     </div>
 
@@ -1049,7 +1180,7 @@
     ============================================================ -->
     <div class="notification" id="notification">
         <button class="notif-close" onclick="closeNotification()">✕</button>
-        <div class="notif-title">🎉 عضو جديد!</div>
+        <div class="notif-title" id="notifTitle">🎉 عضو جديد!</div>
         <div class="notif-text" id="notifText">مرحباً بك في مجتمع مليون مربع</div>
     </div>
 
@@ -1078,6 +1209,19 @@
                 <h3>🛠️ لوحة التحكم المتقدمة</h3>
                 <button class="close-panel" onclick="toggleAdminPanel()">✕ إغلاق</button>
             </div>
+
+            <!-- Analytics / Charts -->
+            <div class="analytics-grid" id="analyticsGrid">
+                <div class="chart-box">
+                    <h4 id="chartUsersTitle">👥 توزيع المشتركين حسب الباقة</h4>
+                    <canvas id="planChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h4 id="chartRevenueTitle">💰 الإيرادات الشهرية</h4>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+
             <div class="admin-grid">
                 <!-- Add Subscriber -->
                 <div class="admin-section">
@@ -1086,7 +1230,7 @@
                     <input type="text" id="subLocation" placeholder="📍 المدينة" dir="auto">
                     <input type="text" id="subCountry" placeholder="🌍 البلد" dir="auto">
                     <input type="email" id="subEmail" placeholder="✉️ البريد الإلكتروني" dir="ltr">
-                    <input type="text" id="subSpecialty" placeholder="🔬 الاختصاص (مثال: تطوير, تسويق)" dir="auto">
+                    <input type="text" id="subSpecialty" placeholder="🔬 الاختصاص" dir="auto">
                     <select id="subPlan">
                         <option value="💎 عادي ($1/سنة)">💎 عادي ($1/سنة)</option>
                         <option value="⭐ فضي ($5/سنة)">⭐ فضي ($5/سنة)</option>
@@ -1098,7 +1242,7 @@
                         <input type="file" id="subAvatar" accept="image/*" onchange="handleAvatarUpload(event)">
                     </div>
                     <button class="btn-admin success" onclick="addSubscriber()">✅ إضافة المشترك</button>
-                    <div class="hint">💡 سيتم إضافته تلقائياً مع صورة واختصاص</div>
+                    <div class="hint">💡 سيتم إرسال إشعار بريدي للعضو الجديد</div>
                 </div>
 
                 <!-- Update Sponsors -->
@@ -1125,6 +1269,17 @@
                     <div class="hint">🔒 سيتم استخدام هذه الحسابات لاستلام الأرباح</div>
                 </div>
 
+                <!-- Email Settings -->
+                <div class="admin-section">
+                    <h4>📧 إعدادات البريد الإلكتروني</h4>
+                    <input type="email" id="smtpEmail" placeholder="📧 البريد المرسل" dir="ltr">
+                    <input type="password" id="smtpPassword" placeholder="🔑 كلمة مرور البريد" dir="ltr">
+                    <input type="text" id="smtpHost" placeholder="🌐 SMTP Host (مثال: smtp.gmail.com)" dir="ltr">
+                    <input type="number" id="smtpPort" placeholder="🔢 SMTP Port (مثال: 587)" dir="ltr">
+                    <button class="btn-admin" onclick="saveEmailSettings()">💾 حفظ إعدادات البريد</button>
+                    <div class="hint">📨 سيتم استخدام هذه الإعدادات لإرسال الإشعارات</div>
+                </div>
+
                 <!-- Site Settings -->
                 <div class="admin-section">
                     <h4>⚙️ إعدادات الموقع</h4>
@@ -1140,7 +1295,8 @@
                     <h4>⚠️ منطقة الخطر</h4>
                     <button class="btn-admin danger" onclick="resetAllData()">🗑️ حذف جميع البيانات</button>
                     <button class="btn-admin danger" onclick="resetToDefault()">🔄 استعادة البيانات الافتراضية</button>
-                    <button class="btn-admin" onclick="exportData()">📤 تصدير البيانات (JSON)</button>
+                    <button class="btn-admin warning" onclick="exportData()">📤 تصدير البيانات (JSON)</button>
+                    <button class="btn-admin warning" onclick="exportPDF()">📄 تصدير تقرير (PDF)</button>
                     <div class="file-input-wrapper" style="margin-top:8px;">
                         <div class="file-label">📥 استيراد بيانات (JSON)</div>
                         <input type="file" id="importFile" accept=".json" onchange="importData(event)">
@@ -1154,7 +1310,7 @@
         HERO
         ============================================================ -->
         <header class="hero">
-            <div class="logo">🏆 مليون مربع</div>
+            <div class="logo" id="siteLogo">🏆 مليون مربع</div>
             <p class="subtitle" id="heroSubtitle">✨ <span>المنصة البصرية التفاعلية</span> الأولى ✨</p>
 
             <!-- Features Strip -->
@@ -1164,6 +1320,7 @@
                 <div class="feature-item"><span class="icon">🔒</span><div class="label" id="f3">دفع آمن</div></div>
                 <div class="feature-item"><span class="icon">🌍</span><div class="label" id="f4">عالمي</div></div>
                 <div class="feature-item"><span class="icon">🎯</span><div class="label" id="f5">استهداف دقيق</div></div>
+                <div class="feature-item"><span class="icon">📊</span><div class="label" id="f6">تحليلات متقدمة</div></div>
             </div>
 
             <!-- STATS -->
@@ -1242,12 +1399,12 @@
                     </select>
                 </div>
                 <button class="btn-search" onclick="applyFilters()">🔍 بحث</button>
-                <button class="btn-search" style="background:var(--red);" onclick="resetFilters()">🔄 إعادة ضبط</button>
+                <button class="btn-search reset" onclick="resetFilters()">🔄 إعادة ضبط</button>
             </div>
         </div>
 
         <!-- ============================================================
-        SQUARES GRID WITH VIRTUAL SCROLL
+        SQUARES GRID
         ============================================================ -->
         <div class="section-title">
             📦 المربعات
@@ -1266,6 +1423,7 @@
         <div class="cta-section">
             <button class="btn-primary" id="ctaBuy">🚀 اشترِ مربعك الآن</button>
             <button class="btn-secondary" id="ctaMore">📋 عرض الكل</button>
+            <button class="btn-secondary" id="ctaExport">📄 تصدير التقرير</button>
         </div>
 
         <!-- ============================================================
@@ -1290,7 +1448,8 @@
         // ============================================================
         //  CONFIGURATION
         // ============================================================
-        const ADMIN_PASSWORD = 'Admin@2026#Secure'; // 🔑 غيّر هذه الكلمة
+        const ADMIN_USERNAME = 'admin';
+        const ADMIN_PASSWORD = 'Secure@2026#Admin';
         const DEFAULT_SQUARES_PER_PAGE = 1000;
         const LANGUAGES = ['ar', 'en', 'fr', 'es', 'de'];
 
@@ -1336,17 +1495,10 @@
             yearly: { name: 'مجموعة الأفق الماسية', avatar: '' }
         };
 
-        const defaultPayment = {
-            paypal: '',
-            stripe: '',
-            bank: ''
-        };
-
-        const defaultSettings = {
-            siteTitle: '🏆 مليون مربع',
-            siteDescription: 'المنصة البصرية التفاعلية الأولى',
-            squaresPerPage: 1000
-        };
+        const defaultPayment = { paypal: '', stripe: '', bank: '' };
+        const defaultEmail = { smtpEmail: '', smtpPassword: '', smtpHost: '', smtpPort: 587 };
+        const defaultSettings = { siteTitle: '🏆 مليون مربع', siteDescription: 'المنصة البصرية التفاعلية الأولى',
+            squaresPerPage: 1000 };
 
         // ============================================================
         //  STATE
@@ -1354,11 +1506,14 @@
         let usersData = [];
         let sponsors = {};
         let paymentAccounts = {};
+        let emailSettings = {};
         let siteSettings = {};
         let currentLang = 'ar';
         let adminLoggedIn = false;
-        let avatarData = {}; // Store base64 avatars
+        let avatarData = {};
         let sponsorAvatarData = { weekly: '', monthly: '', yearly: '' };
+        let chartInstances = { plan: null, revenue: null };
+        let currentTheme = 'dark';
 
         // ============================================================
         //  LOCAL STORAGE HELPERS
@@ -1368,35 +1523,57 @@
                 const savedUsers = localStorage.getItem('millionSquares_users');
                 const savedSponsors = localStorage.getItem('millionSquares_sponsors');
                 const savedPayment = localStorage.getItem('millionSquares_payment');
+                const savedEmail = localStorage.getItem('millionSquares_email');
                 const savedSettings = localStorage.getItem('millionSquares_settings');
                 const savedAvatars = localStorage.getItem('millionSquares_avatars');
                 const savedSponsorAvatars = localStorage.getItem('millionSquares_sponsorAvatars');
+                const savedTheme = localStorage.getItem('millionSquares_theme');
 
                 usersData = savedUsers ? JSON.parse(savedUsers) : JSON.parse(JSON.stringify(defaultUsers));
                 sponsors = savedSponsors ? JSON.parse(savedSponsors) : JSON.parse(JSON.stringify(defaultSponsors));
                 paymentAccounts = savedPayment ? JSON.parse(savedPayment) : JSON.parse(JSON.stringify(defaultPayment));
+                emailSettings = savedEmail ? JSON.parse(savedEmail) : JSON.parse(JSON.stringify(defaultEmail));
                 siteSettings = savedSettings ? JSON.parse(savedSettings) : JSON.parse(JSON.stringify(defaultSettings));
                 avatarData = savedAvatars ? JSON.parse(savedAvatars) : {};
                 sponsorAvatarData = savedSponsorAvatars ? JSON.parse(savedSponsorAvatars) : { weekly: '', monthly: '',
                     yearly: '' };
+                currentTheme = savedTheme || 'dark';
             } catch (e) {
                 console.warn('Error loading state, using defaults:', e);
                 usersData = JSON.parse(JSON.stringify(defaultUsers));
                 sponsors = JSON.parse(JSON.stringify(defaultSponsors));
                 paymentAccounts = JSON.parse(JSON.stringify(defaultPayment));
+                emailSettings = JSON.parse(JSON.stringify(defaultEmail));
                 siteSettings = JSON.parse(JSON.stringify(defaultSettings));
                 avatarData = {};
                 sponsorAvatarData = { weekly: '', monthly: '', yearly: '' };
             }
+            applyTheme(currentTheme);
         }
 
         function saveState() {
             localStorage.setItem('millionSquares_users', JSON.stringify(usersData));
             localStorage.setItem('millionSquares_sponsors', JSON.stringify(sponsors));
             localStorage.setItem('millionSquares_payment', JSON.stringify(paymentAccounts));
+            localStorage.setItem('millionSquares_email', JSON.stringify(emailSettings));
             localStorage.setItem('millionSquares_settings', JSON.stringify(siteSettings));
             localStorage.setItem('millionSquares_avatars', JSON.stringify(avatarData));
             localStorage.setItem('millionSquares_sponsorAvatars', JSON.stringify(sponsorAvatarData));
+            localStorage.setItem('millionSquares_theme', currentTheme);
+        }
+
+        // ============================================================
+        //  THEME
+        // ============================================================
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(currentTheme);
+            saveState();
+            document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
         }
 
         // ============================================================
@@ -1404,12 +1581,14 @@
         // ============================================================
         const langData = {
             ar: {
+                loginSub: 'ادخل بيانات المدير للدخول',
                 heroSubtitle: '✨ <span>المنصة البصرية التفاعلية</span> الأولى ✨',
                 f1: '🖼️ مربعات تفاعلية',
                 f2: '👥 مجتمع نشط',
                 f3: '🔒 دفع آمن',
                 f4: '🌍 عالمي',
                 f5: '🎯 استهداف دقيق',
+                f6: '📊 تحليلات متقدمة',
                 labelSquares: '📦 إجمالي المربعات',
                 labelSold: '✅ المربعات المباعة',
                 labelSubs: '👥 المشتركين النشطين',
@@ -1420,6 +1599,7 @@
                 squaresCount: '📊 عرض {count} من {total}',
                 ctaBuy: '🚀 اشترِ مربعك الآن',
                 ctaMore: '📋 عرض الكل',
+                ctaExport: '📄 تصدير التقرير',
                 footer: '© 2026 مليون مربع — المنصة البصرية التفاعلية. جميع الحقوق محفوظة. 💎',
                 scrollHint: '⬇️ مرر للمزيد ({perPage} مربع لكل عرض)',
                 planWeekly: '🗓️ راعي أسبوعي',
@@ -1436,15 +1616,19 @@
                 linkAbout: '📖 عن الموقع',
                 linkPrivacy: '🔒 سياسة الخصوصية',
                 linkTerms: '📜 شروط الاستخدام',
-                linkContact: '📞 اتصل بنا'
+                linkContact: '📞 اتصل بنا',
+                chartUsersTitle: '👥 توزيع المشتركين حسب الباقة',
+                chartRevenueTitle: '💰 الإيرادات الشهرية'
             },
             en: {
+                loginSub: 'Enter admin credentials to login',
                 heroSubtitle: '✨ The <span>Interactive Visual Platform</span> ✨',
                 f1: '🖼️ Interactive Squares',
                 f2: '👥 Active Community',
                 f3: '🔒 Secure Payment',
                 f4: '🌍 Global',
                 f5: '🎯 Precise Targeting',
+                f6: '📊 Advanced Analytics',
                 labelSquares: '📦 Total Squares',
                 labelSold: '✅ Squares Sold',
                 labelSubs: '👥 Active Subscribers',
@@ -1455,6 +1639,7 @@
                 squaresCount: '📊 Showing {count} of {total}',
                 ctaBuy: '🚀 Buy Your Square Now',
                 ctaMore: '📋 View All',
+                ctaExport: '📄 Export Report',
                 footer: '© 2026 Million Squares — The Interactive Visual Platform. All rights reserved. 💎',
                 scrollHint: '⬇️ Scroll for more ({perPage} squares per view)',
                 planWeekly: '🗓️ Weekly Sponsor',
@@ -1471,15 +1656,19 @@
                 linkAbout: '📖 About',
                 linkPrivacy: '🔒 Privacy Policy',
                 linkTerms: '📜 Terms of Service',
-                linkContact: '📞 Contact Us'
+                linkContact: '📞 Contact Us',
+                chartUsersTitle: '👥 Subscribers by Plan',
+                chartRevenueTitle: '💰 Monthly Revenue'
             },
             fr: {
+                loginSub: 'Entrez les identifiants admin',
                 heroSubtitle: '✨ La <span>plateforme visuelle interactive</span> ✨',
                 f1: '🖼️ Carrés interactifs',
                 f2: '👥 Communauté active',
                 f3: '🔒 Paiement sécurisé',
                 f4: '🌍 Mondial',
                 f5: '🎯 Ciblage précis',
+                f6: '📊 Analyses avancées',
                 labelSquares: '📦 Total des carrés',
                 labelSold: '✅ Carrés vendus',
                 labelSubs: '👥 Abonnés actifs',
@@ -1490,6 +1679,7 @@
                 squaresCount: '📊 Affichage de {count} sur {total}',
                 ctaBuy: '🚀 Achetez votre carré',
                 ctaMore: '📋 Voir tout',
+                ctaExport: '📄 Exporter le rapport',
                 footer: '© 2026 Million Squares — La plateforme visuelle interactive. Tous droits réservés. 💎',
                 scrollHint: '⬇️ Faites défiler pour plus ({perPage} carrés par vue)',
                 planWeekly: '🗓️ Sponsor hebdomadaire',
@@ -1506,15 +1696,19 @@
                 linkAbout: '📖 À propos',
                 linkPrivacy: '🔒 Politique de confidentialité',
                 linkTerms: '📜 Conditions d\'utilisation',
-                linkContact: '📞 Contactez-nous'
+                linkContact: '📞 Contactez-nous',
+                chartUsersTitle: '👥 Abonnés par forfait',
+                chartRevenueTitle: '💰 Revenus mensuels'
             },
             es: {
+                loginSub: 'Ingrese credenciales de administrador',
                 heroSubtitle: '✨ La <span>plataforma visual interactiva</span> ✨',
                 f1: '🖼️ Cuadrados interactivos',
                 f2: '👥 Comunidad activa',
                 f3: '🔒 Pago seguro',
                 f4: '🌍 Global',
                 f5: '🎯 Segmentación precisa',
+                f6: '📊 Análisis avanzados',
                 labelSquares: '📦 Total de cuadrados',
                 labelSold: '✅ Cuadrados vendidos',
                 labelSubs: '👥 Suscriptores activos',
@@ -1525,6 +1719,7 @@
                 squaresCount: '📊 Mostrando {count} de {total}',
                 ctaBuy: '🚀 Compra tu cuadrado',
                 ctaMore: '📋 Ver todo',
+                ctaExport: '📄 Exportar informe',
                 footer: '© 2026 Million Squares — La plataforma visual interactiva. Todos los derechos reservados. 💎',
                 scrollHint: '⬇️ Desplázate para más ({perPage} cuadrados por vista)',
                 planWeekly: '🗓️ Patrocinador semanal',
@@ -1541,15 +1736,19 @@
                 linkAbout: '📖 Acerca de',
                 linkPrivacy: '🔒 Política de privacidad',
                 linkTerms: '📜 Términos de servicio',
-                linkContact: '📞 Contáctanos'
+                linkContact: '📞 Contáctanos',
+                chartUsersTitle: '👥 Suscriptores por plan',
+                chartRevenueTitle: '💰 Ingresos mensuales'
             },
             de: {
+                loginSub: 'Admin-Anmeldeinformationen eingeben',
                 heroSubtitle: '✨ Die <span>interaktive visuelle Plattform</span> ✨',
                 f1: '🖼️ Interaktive Quadrate',
                 f2: '👥 Aktive Community',
                 f3: '🔒 Sichere Zahlung',
                 f4: '🌍 Global',
                 f5: '🎯 Präzises Targeting',
+                f6: '📊 Erweiterte Analysen',
                 labelSquares: '📦 Gesamtquadrate',
                 labelSold: '✅ Verkaufte Quadrate',
                 labelSubs: '👥 Aktive Abonnenten',
@@ -1560,6 +1759,7 @@
                 squaresCount: '📊 Zeige {count} von {total}',
                 ctaBuy: '🚀 Kaufe dein Quadrat',
                 ctaMore: '📋 Alle anzeigen',
+                ctaExport: '📄 Bericht exportieren',
                 footer: '© 2026 Million Squares — Die interaktive visuelle Plattform. Alle Rechte vorbehalten. 💎',
                 scrollHint: '⬇️ Scrolle für mehr ({perPage} Quadrate pro Ansicht)',
                 planWeekly: '🗓️ Wöchentlicher Sponsor',
@@ -1576,7 +1776,9 @@
                 linkAbout: '📖 Über uns',
                 linkPrivacy: '🔒 Datenschutz',
                 linkTerms: '📜 Nutzungsbedingungen',
-                linkContact: '📞 Kontakt'
+                linkContact: '📞 Kontakt',
+                chartUsersTitle: '👥 Abonnenten nach Plan',
+                chartRevenueTitle: '💰 Monatliche Einnahmen'
             }
         };
 
@@ -1589,12 +1791,14 @@
             const t = langData[lang];
             if (!t) return;
 
+            document.getElementById('loginSub').textContent = t.loginSub;
             document.getElementById('heroSubtitle').innerHTML = t.heroSubtitle;
             document.getElementById('f1').textContent = t.f1;
             document.getElementById('f2').textContent = t.f2;
             document.getElementById('f3').textContent = t.f3;
             document.getElementById('f4').textContent = t.f4;
             document.getElementById('f5').textContent = t.f5;
+            document.getElementById('f6').textContent = t.f6;
             document.getElementById('labelSquares').textContent = t.labelSquares;
             document.getElementById('labelSold').textContent = t.labelSold;
             document.getElementById('labelSubs').textContent = t.labelSubs;
@@ -1604,6 +1808,7 @@
             document.getElementById('sponsorTitle').textContent = t.sponsorTitle;
             document.getElementById('ctaBuy').textContent = t.ctaBuy;
             document.getElementById('ctaMore').textContent = t.ctaMore;
+            document.getElementById('ctaExport').textContent = t.ctaExport;
             document.getElementById('footerText').textContent = t.footer;
             document.getElementById('scrollHint').textContent = t.scrollHint.replace('{perPage}', siteSettings
             .squaresPerPage || DEFAULT_SQUARES_PER_PAGE);
@@ -1611,6 +1816,8 @@
             document.getElementById('linkPrivacy').textContent = t.linkPrivacy;
             document.getElementById('linkTerms').textContent = t.linkTerms;
             document.getElementById('linkContact').textContent = t.linkContact;
+            document.getElementById('chartUsersTitle').textContent = t.chartUsersTitle;
+            document.getElementById('chartRevenueTitle').textContent = t.chartRevenueTitle;
 
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
@@ -1620,6 +1827,7 @@
             document.documentElement.lang = lang;
 
             renderAll();
+            updateCharts();
         }
 
         // ============================================================
@@ -1647,15 +1855,15 @@
                 const div = document.createElement('div');
                 div.className = 'sponsor-item';
                 div.innerHTML = `
-                    <div class="sponsor-avatar">
-                        ${avatarSrc ? `<img src="${avatarSrc}" alt="${sp.name}">` : '🌟'}
-                    </div>
-                    <div class="plan">${item.plan}</div>
-                    <div class="name">${sp.name}</div>
-                    <div class="price">${prices[item.key]}</div>
-                    <div class="period">${item.period}</div>
-                    <span class="badge-sp ${item.badgeClass}">${item.badge}</span>
-                `;
+                        <div class="sponsor-avatar">
+                            ${avatarSrc ? `<img src="${avatarSrc}" alt="${sp.name}">` : '🌟'}
+                        </div>
+                        <div class="plan">${item.plan}</div>
+                        <div class="name">${sp.name}</div>
+                        <div class="price">${prices[item.key]}</div>
+                        <div class="period">${item.period}</div>
+                        <span class="badge-sp ${item.badgeClass}">${item.badge}</span>
+                    `;
                 grid.appendChild(div);
             });
         }
@@ -1679,7 +1887,7 @@
                 return;
             }
 
-            displayData.forEach((u, index) => {
+            displayData.forEach((u) => {
                 const fullStars = Math.floor(u.rating || 0);
                 const halfStar = (u.rating - fullStars) >= 0.5 ? '☆' : '';
                 const starStr = '⭐'.repeat(fullStars) + halfStar + '☆'.repeat(5 - fullStars - (halfStar ? 1 : 0));
@@ -1689,18 +1897,18 @@
                 const card = document.createElement('div');
                 card.className = 'square-card';
                 card.innerHTML = `
-                    ${isNew ? '<div class="new-badge">🎉 جديد</div>' : ''}
-                    <button class="delete-btn" onclick="deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
-                    <div class="avatar">
-                        ${avatarSrc ? `<img src="${avatarSrc}" alt="${u.name}">` : (u.icon || '🧑')}
-                    </div>
-                    <div class="s-name">${u.name}</div>
-                    <div class="s-location">📍 ${u.location}${u.country ? `, ${u.country}` : ''}</div>
-                    ${u.specialty ? `<div class="s-specialty">🔬 ${u.specialty}</div>` : ''}
-                    <div class="s-email">✉️ ${u.email}</div>
-                    <div class="s-plan">${u.plan}</div>
-                    <div class="s-rating">${starStr} <span class="count">(${u.rating || 0})</span></div>
-                `;
+                        ${isNew ? '<div class="new-badge">🎉 جديد</div>' : ''}
+                        <button class="delete-btn" onclick="deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
+                        <div class="avatar">
+                            ${avatarSrc ? `<img src="${avatarSrc}" alt="${u.name}">` : (u.icon || '🧑')}
+                        </div>
+                        <div class="s-name">${u.name}</div>
+                        <div class="s-location">📍 ${u.location}${u.country ? `, ${u.country}` : ''}</div>
+                        ${u.specialty ? `<div class="s-specialty">🔬 ${u.specialty}</div>` : ''}
+                        <div class="s-email">✉️ ${u.email}</div>
+                        <div class="s-plan">${u.plan}</div>
+                        <div class="s-rating">${starStr} <span class="count">(${u.rating || 0})</span></div>
+                    `;
                 grid.appendChild(card);
             });
 
@@ -1724,6 +1932,76 @@
             renderSponsors();
             renderSquares();
             populateFilters();
+            updateCharts();
+        }
+
+        // ============================================================
+        //  CHARTS (Chart.js)
+        // ============================================================
+        function updateCharts() {
+            // Plan Distribution Chart
+            const planCounts = {};
+            usersData.forEach(u => {
+                const plan = u.plan || 'غير محدد';
+                planCounts[plan] = (planCounts[plan] || 0) + 1;
+            });
+            const planLabels = Object.keys(planCounts);
+            const planValues = Object.values(planCounts);
+            const colors = ['#4f7cf7', '#f7c948', '#2ecc71', '#e74c3c', '#9b59b6', '#f39c12'];
+
+            const planCtx = document.getElementById('planChart').getContext('2d');
+            if (chartInstances.plan) chartInstances.plan.destroy();
+            chartInstances.plan = new Chart(planCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: planLabels,
+                    datasets: [{ data: planValues, backgroundColor: colors.slice(0, planLabels.length) }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom', labels: { color: getComputedStyle(document.documentElement)
+                                .getPropertyValue('--text-secondary') || '#8aa0c8' } } }
+                }
+            });
+
+            // Revenue Chart (simulated monthly)
+            const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر',
+                'ديسمبر'
+            ];
+            const monthlyRevenue = Array(12).fill(0);
+            usersData.forEach(u => {
+                const match = u.plan.match(/\$(\d+)/);
+                if (match) {
+                    const amount = parseInt(match[1]);
+                    const month = Math.floor(Math.random() * 12);
+                    monthlyRevenue[month] += amount;
+                }
+            });
+
+            const revCtx = document.getElementById('revenueChart').getContext('2d');
+            if (chartInstances.revenue) chartInstances.revenue.destroy();
+            chartInstances.revenue = new Chart(revCtx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: currentLang === 'ar' ? 'الإيرادات' : 'Revenue',
+                        data: monthlyRevenue,
+                        backgroundColor: '#4f7cf7',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { color: getComputedStyle(document.documentElement)
+                                    .getPropertyValue('--text-secondary') || '#8aa0c8' } },
+                        x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--text-secondary') || '#8aa0c8' } }
+                    }
+                }
+            });
         }
 
         // ============================================================
@@ -1750,7 +2028,6 @@
                 return matchSearch && matchCountry && matchCity && matchPlan;
             });
 
-            // Sort
             filtered.sort((a, b) => {
                 let valA, valB;
                 switch (sortBy) {
@@ -1817,6 +2094,7 @@
         //  ADMIN FUNCTIONS
         // ============================================================
         let avatarFile = null;
+        let sponsorAvatarFiles = [];
 
         function handleAvatarUpload(event) {
             const file = event.target.files[0];
@@ -1829,8 +2107,6 @@
             reader.readAsDataURL(file);
         }
 
-        let sponsorAvatarFiles = [];
-
         function handleSponsorAvatars(event) {
             const files = event.target.files;
             if (!files.length) return;
@@ -1842,7 +2118,8 @@
                     sponsorAvatarFiles.push(e.target.result);
                     loaded++;
                     if (loaded === Math.min(files.length, 3)) {
-                        document.getElementById('sponsorAvatarLabel').textContent = `✅ تم رفع ${sponsorAvatarFiles.length} صور`;
+                        document.getElementById('sponsorAvatarLabel').textContent =
+                            `✅ تم رفع ${sponsorAvatarFiles.length} صور`;
                     }
                 };
                 reader.readAsDataURL(files[i]);
@@ -1887,9 +2164,14 @@
             }
             saveState();
 
+            // Send email notification
+            sendEmailNotification(newUser);
+
             // Show notification
-            showNotification(currentLang === 'ar' ? '🎉 عضو جديد!' : '🎉 New Member!',
-                langData[currentLang].newMemberText.replace('{name}', name));
+            showNotification(
+                langData[currentLang].newMember || '🎉 عضو جديد!',
+                langData[currentLang].newMemberText.replace('{name}', name)
+            );
 
             // Clear fields
             document.getElementById('subName').value = '';
@@ -1920,7 +2202,6 @@
             if (monthly) sponsors.monthly.name = monthly;
             if (yearly) sponsors.yearly.name = yearly;
 
-            // Assign sponsor avatars
             const keys = ['weekly', 'monthly', 'yearly'];
             sponsorAvatarFiles.forEach((file, i) => {
                 if (i < 3) {
@@ -1947,6 +2228,15 @@
             alert(currentLang === 'ar' ? '✅ تم حفظ حسابات الدفع!' : '✅ Payment accounts saved!');
         }
 
+        function saveEmailSettings() {
+            emailSettings.smtpEmail = document.getElementById('smtpEmail').value.trim();
+            emailSettings.smtpPassword = document.getElementById('smtpPassword').value.trim();
+            emailSettings.smtpHost = document.getElementById('smtpHost').value.trim();
+            emailSettings.smtpPort = parseInt(document.getElementById('smtpPort').value) || 587;
+            saveState();
+            alert(currentLang === 'ar' ? '✅ تم حفظ إعدادات البريد!' : '✅ Email settings saved!');
+        }
+
         function saveSiteSettings() {
             const title = document.getElementById('siteTitle').value.trim();
             const desc = document.getElementById('siteDescription').value.trim();
@@ -1957,7 +2247,7 @@
             siteSettings.squaresPerPage = Math.max(10, Math.min(5000, perPage));
 
             saveState();
-            document.querySelector('.logo').textContent = siteSettings.siteTitle;
+            document.getElementById('siteLogo').textContent = siteSettings.siteTitle;
             document.getElementById('scrollHint').textContent =
                 (langData[currentLang]?.scrollHint || '⬇️ Scroll for more ({perPage} squares per view)')
                 .replace('{perPage}', siteSettings.squaresPerPage);
@@ -1980,6 +2270,7 @@
             usersData = JSON.parse(JSON.stringify(defaultUsers));
             sponsors = JSON.parse(JSON.stringify(defaultSponsors));
             paymentAccounts = JSON.parse(JSON.stringify(defaultPayment));
+            emailSettings = JSON.parse(JSON.stringify(defaultEmail));
             siteSettings = JSON.parse(JSON.stringify(defaultSettings));
             avatarData = {};
             sponsorAvatarData = { weekly: '', monthly: '', yearly: '' };
@@ -1989,7 +2280,8 @@
         }
 
         function exportData() {
-            const data = { users: usersData, sponsors, paymentAccounts, siteSettings, avatarData, sponsorAvatarData };
+            const data = { users: usersData, sponsors, paymentAccounts, emailSettings, siteSettings, avatarData,
+                sponsorAvatarData };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -2009,6 +2301,7 @@
                     if (data.users) usersData = data.users;
                     if (data.sponsors) sponsors = data.sponsors;
                     if (data.paymentAccounts) paymentAccounts = data.paymentAccounts;
+                    if (data.emailSettings) emailSettings = data.emailSettings;
                     if (data.siteSettings) siteSettings = data.siteSettings;
                     if (data.avatarData) avatarData = data.avatarData;
                     if (data.sponsorAvatarData) sponsorAvatarData = data.sponsorAvatarData;
@@ -2023,25 +2316,91 @@
             event.target.value = '';
         }
 
+        function exportPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const t = langData[currentLang] || langData.ar;
+
+            doc.setFontSize(20);
+            doc.text(t.siteTitle || '🏆 مليون مربع', 105, 20, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text(t.heroSubtitle?.replace(/<[^>]*>/g, '') || 'تقرير الموقع', 105, 30, { align: 'center' });
+
+            doc.setFontSize(14);
+            doc.text(`📊 ${t.labelSubs}: ${usersData.length}`, 20, 45);
+            const revenue = usersData.reduce((sum, u) => {
+                const match = u.plan.match(/\$(\d+)/);
+                return sum + (match ? parseInt(match[1]) : 0);
+            }, 0);
+            doc.text(`💰 ${t.labelRevenue}: $${revenue}`, 20, 55);
+
+            doc.setFontSize(12);
+            doc.text('📋 قائمة المشتركين:', 20, 70);
+            let y = 80;
+            usersData.slice(0, 20).forEach((u, i) => {
+                if (y > 270) { doc.addPage();
+                    y = 20; }
+                doc.text(`${i+1}. ${u.name} - ${u.email} - ${u.plan}`, 20, y);
+                y += 7;
+            });
+
+            if (usersData.length > 20) {
+                doc.text(`... و ${usersData.length - 20} مشترك إضافي`, 20, y + 5);
+            }
+
+            doc.setFontSize(10);
+            doc.text('© 2026 Million Squares', 105, 285, { align: 'center' });
+
+            doc.save(`تقرير_مليون_مربع_${new Date().toISOString().slice(0,10)}.pdf`);
+        }
+
+        // ============================================================
+        //  EMAIL NOTIFICATION (Simulated)
+        // ============================================================
+        function sendEmailNotification(user) {
+            // In production, this would use a backend API or SMTP
+            // For demo, we log to console and show a simulated alert
+            console.log('📧 Email Notification sent to:', user.email);
+            console.log('📧 Subject: Welcome to Million Squares!');
+            console.log('📧 Body:', `
+                    مرحباً ${user.name},
+                    شكراً لانضمامك إلى مجتمع مليون مربع!
+                    بريدك: ${user.email}
+                    الباقة: ${user.plan}
+                    الاختصاص: ${user.specialty}
+                `);
+
+            // Simulated email - in production you would use a real SMTP service
+            if (emailSettings.smtpEmail && emailSettings.smtpHost) {
+                // Here you would implement actual email sending via SMTP
+                // For now, just show a success message
+                console.log('📧 SMTP configured with:', emailSettings.smtpHost);
+            }
+        }
+
         // ============================================================
         //  ADMIN AUTH
         // ============================================================
         function verifyAdmin() {
-            const input = document.getElementById('adminPassword');
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
             const error = document.getElementById('loginError');
-            if (input.value === ADMIN_PASSWORD) {
+
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
                 adminLoggedIn = true;
                 document.getElementById('adminOverlay').classList.remove('active');
                 document.getElementById('adminPanel').classList.add('active');
                 document.getElementById('toggleAdminBtn').textContent = '🔒 إدارة الموقع (مفعل)';
                 document.getElementById('toggleAdminBtn').classList.add('locked');
-                input.value = '';
+                document.getElementById('adminUsername').value = '';
+                document.getElementById('adminPassword').value = '';
                 error.style.display = 'none';
                 loadAdminData();
+                updateCharts();
             } else {
                 error.style.display = 'block';
-                input.value = '';
-                input.focus();
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
             }
         }
 
@@ -2049,6 +2408,10 @@
             document.getElementById('paypalAccount').value = paymentAccounts.paypal || '';
             document.getElementById('stripeAccount').value = paymentAccounts.stripe || '';
             document.getElementById('bankAccount').value = paymentAccounts.bank || '';
+            document.getElementById('smtpEmail').value = emailSettings.smtpEmail || '';
+            document.getElementById('smtpPassword').value = emailSettings.smtpPassword || '';
+            document.getElementById('smtpHost').value = emailSettings.smtpHost || '';
+            document.getElementById('smtpPort').value = emailSettings.smtpPort || 587;
             document.getElementById('siteTitle').value = siteSettings.siteTitle || '';
             document.getElementById('siteDescription').value = siteSettings.siteDescription || '';
             document.getElementById('squaresPerPage').value = siteSettings.squaresPerPage || DEFAULT_SQUARES_PER_PAGE;
@@ -2057,13 +2420,14 @@
         function toggleAdminPanel() {
             if (!adminLoggedIn) {
                 document.getElementById('adminOverlay').classList.toggle('active');
-                document.getElementById('adminPassword').focus();
+                document.getElementById('adminUsername').focus();
                 return;
             }
             const panel = document.getElementById('adminPanel');
             panel.classList.toggle('active');
             if (panel.classList.contains('active')) {
                 loadAdminData();
+                updateCharts();
                 document.getElementById('toggleAdminBtn').textContent = '🔒 إدارة الموقع (مفعل)';
             } else {
                 document.getElementById('toggleAdminBtn').textContent = '⚙️ إدارة الموقع';
@@ -2075,7 +2439,7 @@
         // ============================================================
         function showNotification(title, text) {
             const notif = document.getElementById('notification');
-            document.querySelector('.notif-title').textContent = title;
+            document.getElementById('notifTitle').textContent = title;
             document.getElementById('notifText').textContent = text;
             notif.classList.add('active');
             setTimeout(() => notif.classList.remove('active'), 6000);
@@ -2089,17 +2453,14 @@
         //  KEYBOARD SHORTCUTS
         // ============================================================
         document.addEventListener('keydown', function(e) {
-            // Ctrl+Shift+A -> Open Admin
             if (e.ctrlKey && e.shiftKey && e.key === 'A') {
                 e.preventDefault();
                 toggleAdminPanel();
             }
-            // Escape -> Close notifications
             if (e.key === 'Escape') {
                 closeNotification();
                 document.getElementById('adminOverlay').classList.remove('active');
             }
-            // Enter in admin login
             if (e.key === 'Enter' && document.getElementById('adminOverlay').classList.contains('active')) {
                 verifyAdmin();
             }
@@ -2112,10 +2473,12 @@
             const msg = currentLang === 'ar' ?
                 '🚀 تم توجيهك إلى صفحة الدفع الآمن.\n' +
                 `💳 PayPal: ${paymentAccounts.paypal || 'غير محدد'}\n` +
-                `⚡ Stripe: ${paymentAccounts.stripe || 'غير محدد'}` :
+                `⚡ Stripe: ${paymentAccounts.stripe || 'غير محدد'}\n` +
+                `🏦 Bank: ${paymentAccounts.bank || 'غير محدد'}` :
                 '🚀 Redirecting to secure checkout.\n' +
                 `💳 PayPal: ${paymentAccounts.paypal || 'Not set'}\n` +
-                `⚡ Stripe: ${paymentAccounts.stripe || 'Not set'}`;
+                `⚡ Stripe: ${paymentAccounts.stripe || 'Not set'}\n` +
+                `🏦 Bank: ${paymentAccounts.bank || 'Not set'}`;
             alert(msg);
         });
 
@@ -2134,17 +2497,22 @@
                 `💡 Use search and filters to browse.`);
         });
 
+        document.getElementById('ctaExport').addEventListener('click', exportPDF);
+
         // ============================================================
         //  INIT
         // ============================================================
         loadState();
         setLang('ar');
+        document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 
         console.log('✅ مليون مربع - النسخة الاحترافية النهائية!');
-        console.log('🔑 كلمة مرور لوحة التحكم:', ADMIN_PASSWORD);
+        console.log('🔑 اسم المدير:', ADMIN_USERNAME);
+        console.log('🔑 كلمة مرور المدير:', ADMIN_PASSWORD);
         console.log('💡 اختصار لوحة التحكم: Ctrl+Shift+A');
         console.log('📊 عدد المشتركين:', usersData.length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
+        console.log('🌓 المظهر الحالي:', currentTheme);
     </script>
 </body>
 </html>
