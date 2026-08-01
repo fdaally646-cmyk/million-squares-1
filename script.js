@@ -6,35 +6,51 @@ const TIERS = {
     royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
 };
 
-// ===== أسماء متنوعة =====
+// ===== أسماء متنوعة (غير مكررة) =====
 const NAMES = [
     'أحمد محمد السيد', 'محمد عبدالله العمري', 'سارة خالد الخالدي', 'نورة سعيد الحربي',
     'علي حسن الشمري', 'فاطمة محمد الزهراء', 'حسن علي الغامدي', 'زينب عبدالله العلي',
     'خالد إبراهيم المالكي', 'ليلى عبدالرحمن القحطاني', 'عمر سعود العتيبي', 'منى صالح الشهراني',
     'سعيد مبارك الدوسري', 'هدى فيصل الفهد', 'ياسر ناصر المطيري', 'سمية خالد العيسى',
     'ماجد عبدالعزيز البلوي', 'رانيا محمد العنزي', 'إبراهيم علي السبيعي', 'سعاد عبدالله الزهراني',
-    'عبدالله خالد الناصر', 'نجوى سليمان الخريف', 'ناصر عبدالرحمن السديري', 'غادة محمد الغامدي'
+    'عبدالله خالد الناصر', 'نجوى سليمان الخريف', 'ناصر عبدالرحمن السديري', 'غادة محمد الغامدي',
+    'سامر عبدالله الحربي', 'دينا خالد الشريف', 'رامي فيصل الزيد', 'شيرين محمود المصري',
+    'طارق ناصر الشهري', 'مها عبدالعزيز العبدالله', 'زياد خالد الفيصل', 'نادية حسن الحسن',
+    'فهد ناصر النفيسي', 'ريما سعود السالم', 'سلطان عبدالعزيز القحطاني', 'نوال خالد الحمود',
+    'مشاري عبدالله العجاجي', 'حياة سعد الموسى', 'بدر خالد العنزي', 'أمل صالح السيف'
 ];
 
+// ===== مواقع متنوعة =====
 const LOCATIONS = [
     'الرياض', 'جدة', 'مكة المكرمة', 'المدينة المنورة', 'الدمام',
     'الخبر', 'تبوك', 'حائل', 'القصيم', 'نجران',
-    'دبي', 'أبوظبي', 'القاهرة', 'الإسكندرية', 'بيروت', 'عمان'
+    'جازان', 'عسير', 'الباحة', 'الجوف', 'الحدود الشمالية',
+    'دبي', 'أبوظبي', 'الشارقة', 'عجمان', 'رأس الخيمة',
+    'القاهرة', 'الإسكندرية', 'الجيزة', 'بورسعيد', 'الإسماعيلية',
+    'بيروت', 'طرابلس', 'صيدا', 'صور', 'زحلة',
+    'عمان', 'الزرقاء', 'إربد', 'السلط', 'المفرق',
+    'الكويت', 'حولي', 'الفحيحيل', 'الجهراء', 'مبارك الكبير'
 ];
 
 // ===== المتغيرات العامة =====
 let members = [];
 let sponsors = [
     { name: 'شركة الاتصالات', link: '#', amount: 1000, duration: 'monthly' },
-    { name: 'بنك الرياض', link: '#', amount: 500, duration: 'weekly' }
+    { name: 'بنك الرياض', link: '#', amount: 500, duration: 'weekly' },
+    { name: 'أكاديمية البرمجة', link: '#', amount: 2000, duration: 'monthly' },
+    { name: 'مؤسسة النور', link: '#', amount: 300, duration: 'weekly' }
 ];
 let suggestions = [];
-let socialLinks = { facebook: '', twitter: '', instagram: '', youtube: '', linkedin: '', tiktok: '' };
+let socialLinks = { facebook: '', twitter: '', instagram: '', youtube: '', linkedin: '', tiktok: '', snapchat: '' };
 let totalRevenue = 0;
 let currentZoom = 1;
+let currentLang = 'ar';
 let virtualGrid = null;
-let isGridLoading = false;
-let gridLoadTimeout = null;
+
+// ===== عناصر DOM =====
+let gridCanvas, searchInput, filterTier, sortBy, liveClock;
+let totalMembersDisplay, totalMembers, totalRevenueEl, availableSquares;
+let membersTableBody, loginError, siteBackground, loadingIndicator;
 
 // ===== إنشاء مشتركين افتراضيين (100 فقط) =====
 function generateVirtualMembers(count) {
@@ -44,23 +60,51 @@ function generateVirtualMembers(count) {
     
     for (var i = 0; i < count; i++) {
         var tier = tierKeys[i % tierKeys.length];
-        var nameIndex = i % NAMES.length;
+        var isCompany = i % 5 === 0 && i > 10;
+        
+        var name, email;
+        if (isCompany) {
+            var companyNames = [
+                'شركة التقنية الرقمية', 'مؤسسة الإبداع', 'أكاديمية المستقبل',
+                'مركز الابتكار', 'مجموعة الرواد', 'شركة الحلول الذكية',
+                'مختبر التصميم', 'استوديو إبداع', 'منصة الأعمال'
+            ];
+            name = companyNames[i % companyNames.length] + ' ' + (Math.floor(i / companyNames.length) + 1);
+            email = 'info@' + name.replace(/ /g, '').toLowerCase() + '.com';
+        } else {
+            var nameIndex = i % NAMES.length;
+            name = NAMES[nameIndex];
+            email = name.replace(/ /g, '').toLowerCase() + i + '@example.com';
+        }
+        
         var locIndex = i % LOCATIONS.length;
+        var location = LOCATIONS[locIndex];
         var imageUrl = 'https://picsum.photos/seed/' + (i + 100) + '/100/100';
+        
+        var messages = {
+            normal: ['سعيد بانضمامي للمنصة!', 'شكراً لهذه الفرصة', 'بداية مشوار جديد', 'نتطلع للتعاون'],
+            silver: ['نحن رواد في التقنية', 'شريككم الموثوق', 'نبني المستقبل معاً', 'نحو آفاق جديدة'],
+            gold: ['نصنع التميز كل يوم', 'رواد التغيير الإيجابي', 'نبتكر حلولاً ذكية', 'نطلق الإبداع'],
+            royal: ['نمثل قمة التميز', 'القيادة الحقيقية', 'نلهم العالم', 'نصنع التاريخ', 'رواد بلا منافس']
+        };
+        
+        var tierMessages = messages[tier] || messages.normal;
+        var message = tierMessages[i % tierMessages.length];
         
         result.push({
             id: 'v' + (i + 1),
-            name: NAMES[nameIndex],
-            email: NAMES[nameIndex].replace(/ /g, '').toLowerCase() + i + '@example.com',
-            location: LOCATIONS[locIndex],
+            name: name,
+            email: email,
+            location: location,
             tier: tier,
-            website: 'https://' + NAMES[nameIndex].replace(/ /g, '').toLowerCase() + '.com',
-            message: 'مرحباً، أنا ' + NAMES[nameIndex] + ' من ' + LOCATIONS[locIndex],
+            website: isCompany ? 'https://' + name.replace(/ /g, '').toLowerCase() + '.com' : 'https://' + name.replace(/ /g, '').toLowerCase() + '.com',
+            message: message,
             image: imageUrl,
             isRoyal: tier === 'royal',
+            isCompany: isCompany,
             isVirtual: true,
             position: i * step,
-            joinDate: new Date().toLocaleDateString('ar-EG'),
+            joinDate: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString('ar-EG'),
             rating: Math.floor(Math.random() * 5) + 1,
             votes: Math.floor(Math.random() * 50) + 1
         });
@@ -71,7 +115,11 @@ function generateVirtualMembers(count) {
 // ===== التخزين المحلي =====
 function saveData() {
     var dataToSave = {
-        members: members,
+        members: members.map(function(m) { 
+            var copy = Object.assign({}, m);
+            copy.isVirtual = m.isVirtual || false;
+            return copy;
+        }),
         sponsors: sponsors,
         suggestions: suggestions,
         totalRevenue: totalRevenue,
@@ -90,6 +138,16 @@ function loadData() {
             suggestions = data.suggestions || suggestions;
             totalRevenue = data.totalRevenue || 0;
             socialLinks = data.socialLinks || socialLinks;
+            
+            // التحقق من عدد المشتركين الحقيقيين
+            var realMembers = members.filter(function(m) { return !m.isVirtual; });
+            
+            // إذا تجاوز عدد المشتركين الحقيقيين 1000، احذف جميع المشتركين الافتراضيين
+            if (realMembers.length >= 1000) {
+                members = members.filter(function(m) { return !m.isVirtual; });
+                saveData();
+            }
+            
             return true;
         } catch(e) {
             return false;
@@ -105,81 +163,166 @@ if (!loadData() || members.length === 0) {
         return sum + TIERS[m.tier].price;
     }, 0);
     saveData();
+} else {
+    // التأكد من وجود مشتركين افتراضيين إذا كان العدد أقل من 100
+    var virtualCount = 0;
+    var realCount = 0;
+    for (var i = 0; i < members.length; i++) {
+        if (members[i].isVirtual) virtualCount++;
+        else realCount++;
+    }
+    
+    if (virtualCount === 0 && realCount < 100) {
+        var newVirtual = generateVirtualMembers(100 - realCount);
+        members = members.concat(newVirtual);
+        saveData();
+    }
 }
 
-// ===== محاكاة متصلين =====
+// ===== محاكاة متصلين حقيقيين =====
 function simulateLiveUsers() {
     var liveUsers = document.getElementById('liveUsers');
     var todayMembers = document.getElementById('todayMembers');
+    
     if (liveUsers) {
-        liveUsers.textContent = Math.floor(Math.random() * 33) + 12;
+        var count = Math.floor(Math.random() * 33) + 12;
+        liveUsers.textContent = count;
     }
+    
     if (todayMembers) {
-        todayMembers.textContent = Math.floor(Math.random() * 12) + 3;
+        var count2 = Math.floor(Math.random() * 12) + 3;
+        todayMembers.textContent = count2;
     }
 }
+
 setInterval(simulateLiveUsers, 10000);
 simulateLiveUsers();
+
+// ===== إشعارات جديدة =====
+function showNotification() {
+    var realMembers = members.filter(function(m) { return !m.isVirtual; });
+    if (realMembers.length === 0) return;
+    
+    var randomMember = realMembers[Math.floor(Math.random() * realMembers.length)];
+    var tierLabels = { normal: '💎 عادي', silver: '⭐ فضي', gold: '👑 ذهبي', royal: '💠 ملكي' };
+    
+    var notification = document.createElement('div');
+    notification.className = 'notification-popup';
+    notification.innerHTML = '<div class="notification-content"><span class="notification-icon">🎉</span><span>' + randomMember.name + ' من ' + randomMember.location + ' اشترك في ' + tierLabels[randomMember.tier] + '</span></div>';
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(function() {
+        notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(function() {
+        notification.classList.remove('show');
+        setTimeout(function() {
+            notification.remove();
+        }, 500);
+    }, 5000);
+}
+
+setInterval(function() {
+    var realMembers = members.filter(function(m) { return !m.isVirtual; });
+    if (realMembers.length > 0) {
+        showNotification();
+    }
+}, Math.random() * 30000 + 30000);
 
 // ===== نظام الترتيب =====
 function sortMembers(sortByValue) {
     var sorted = members.slice();
-    if (sortByValue === 'name') {
-        sorted.sort(function(a, b) { return a.name.localeCompare(b.name); });
-    } else if (sortByValue === 'location') {
-        sorted.sort(function(a, b) { return a.location.localeCompare(b.location); });
-    } else if (sortByValue === 'tier') {
-        var order = { royal: 0, gold: 1, silver: 2, normal: 3 };
-        sorted.sort(function(a, b) { return (order[a.tier] || 4) - (order[b.tier] || 4); });
-    } else if (sortByValue === 'date') {
-        sorted.sort(function(a, b) { return new Date(b.joinDate) - new Date(a.joinDate); });
+    switch(sortByValue) {
+        case 'name':
+            sorted.sort(function(a, b) { return a.name.localeCompare(b.name); });
+            break;
+        case 'location':
+            sorted.sort(function(a, b) { return a.location.localeCompare(b.location); });
+            break;
+        case 'tier':
+            var order = { royal: 0, gold: 1, silver: 2, normal: 3 };
+            sorted.sort(function(a, b) { return (order[a.tier] || 4) - (order[b.tier] || 4); });
+            break;
+        case 'date':
+            sorted.sort(function(a, b) { return new Date(b.joinDate) - new Date(a.joinDate); });
+            break;
+        default:
+            break;
     }
     return sorted;
 }
 
-// ===== عرض المربعات بشكل محسّن =====
-function renderGridOptimized() {
-    if (isGridLoading) return;
-    isGridLoading = true;
+// ===== نظام التحميل التدريجي (محسّن) =====
+function VirtualGrid(container, totalCells) {
+    this.container = container;
+    this.totalCells = totalCells || 1000000;
+    this.loadedCount = 0;
+    this.batchSize = 5000;
+    this.isLoading = false;
+    this.allCells = [];
+    this.filtered = false;
+    this.sortByValue = 'name';
+    var self = this;
     
-    var container = document.getElementById('gridCanvas');
-    if (!container) return;
-    
-    // استخدام DocumentFragment لتقليل إعادة الرسم
-    var fragment = document.createDocumentFragment();
-    var sortedMembers = sortMembers('name');
-    var memberCount = sortedMembers.length;
-    var totalCells = 10000; // عرض 10000 مربع فقط للسرعة
-    
-    // عرض المربعات بشكل متدرج
-    var batchSize = 500;
-    var currentIndex = 0;
-    
-    function loadBatch() {
-        var end = Math.min(currentIndex + batchSize, totalCells);
-        
-        for (var i = currentIndex; i < end; i++) {
+    this.container.addEventListener('scroll', function() {
+        self.handleScroll.call(self);
+    });
+    this.loadMore();
+}
+
+VirtualGrid.prototype.handleScroll = function() {
+    if (this.filtered) return;
+    var scrollTop = this.container.scrollTop;
+    var clientHeight = this.container.clientHeight;
+    var scrollHeight = this.container.scrollHeight;
+    if (scrollTop + clientHeight >= scrollHeight - 500) {
+        this.loadMore();
+    }
+};
+
+VirtualGrid.prototype.loadMore = function() {
+    if (this.isLoading || this.loadedCount >= this.totalCells || this.filtered) return;
+    this.isLoading = true;
+    if (loadingIndicator) loadingIndicator.classList.add('active');
+
+    var self = this;
+    requestAnimationFrame(function() {
+        var start = self.loadedCount;
+        var end = Math.min(start + self.batchSize, self.totalCells);
+        var fragment = document.createDocumentFragment();
+
+        var sortedMembers = sortMembers(self.sortByValue);
+        var memberCount = sortedMembers.length;
+        var step = memberCount > 0 ? Math.floor(self.totalCells / memberCount) : 1;
+
+        for (var i = start; i < end; i++) {
             var cell = document.createElement('div');
             cell.className = 'pixel-cell';
-            
-            var member = sortedMembers[i % memberCount];
-            
+            cell.dataset.index = i;
+
+            var member = null;
+            for (var j = 0; j < sortedMembers.length; j++) {
+                if (sortedMembers[j].position === i) {
+                    member = sortedMembers[j];
+                    break;
+                }
+            }
+            if (!member && memberCount > 0) {
+                var memberIndex = Math.floor(i / step) % memberCount;
+                member = sortedMembers[memberIndex];
+            }
+
             if (member) {
                 var tierInfo = TIERS[member.tier];
                 var stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
                 cell.className = 'pixel-cell tier-' + member.tier;
-                
-                var imageHtml = member.image ? '<img src="' + member.image + '" class="cell-image" loading="lazy">' : '';
-                var virtualBadge = member.isVirtual ? '<div class="cell-virtual-badge">افتراضي</div>' : '';
-                var royalCrown = member.isRoyal ? '<div class="royal-crown">👑</div>' : '';
-                
-                // عرض الاسم الكامل
-                var displayName = member.name.length > 12 ? member.name.substring(0, 10) + '..' : member.name;
-                
-                cell.innerHTML = imageHtml + 
-                    '<div class="cell-name">' + displayName + '</div>' +
+                cell.innerHTML = 
+                    (member.image ? '<img src="' + member.image + '" class="cell-image" loading="lazy">' : '') +
+                    '<div class="cell-name">' + member.name + '</div>' +
                     '<div class="cell-tier">' + tierInfo.label + '</div>' +
-                    virtualBadge +
+                    (member.isVirtual ? '<div class="cell-virtual-badge">افتراضي</div>' : '') +
                     '<div class="cell-tooltip">' +
                         '<strong>' + member.name + '</strong><br>' +
                         '📍 ' + member.location + '<br>' +
@@ -189,69 +332,115 @@ function renderGridOptimized() {
                         '<span style="color:' + tierInfo.color + ';font-weight:700">' +
                             tierInfo.label + ' ' + tierInfo.name + ' ($' + tierInfo.price + '/سنة)' +
                         '</span><br>' +
-                        '<small>⭐ ' + stars + ' (' + (member.votes || 0) + ')</small>' +
+                        '<small>⭐ ' + stars + ' (' + (member.votes || 0) + ' تقييم)</small>' +
                         (member.isVirtual ? '<br><small>🔄 مشترك افتراضي</small>' : '') +
                     '</div>' +
                     '<div class="cell-rating"><span class="stars">' + stars + '</span><span class="votes">(' + (member.votes || 0) + ')</span></div>' +
-                    royalCrown;
+                    (member.isRoyal ? '<div class="royal-crown">👑</div>' : '');
                 
-                cell.addEventListener('click', (function(m) {
-                    return function() { showMemberInfo(m); };
+                cell.addEventListener('click', (function(member) {
+                    return function() { showMemberInfo(member); };
                 })(member));
             } else {
                 cell.className = 'pixel-cell empty';
                 cell.textContent = '+';
                 cell.addEventListener('click', showPaymentDialog);
             }
-            
+
             fragment.appendChild(cell);
+            self.allCells.push(cell);
         }
-        
-        container.appendChild(fragment);
-        currentIndex = end;
-        
-        if (currentIndex < totalCells) {
-            // تحميل الدفعة التالية بعد 100ms
-            gridLoadTimeout = setTimeout(loadBatch, 100);
+
+        self.container.appendChild(fragment);
+        self.loadedCount = end;
+        self.isLoading = false;
+        if (loadingIndicator) loadingIndicator.classList.remove('active');
+
+        if (self.loadedCount < self.totalCells) {
+            setTimeout(function() { self.loadMore.call(self); }, 20);
         } else {
-            isGridLoading = false;
-            updateStats();
-            applyZoom();
-            
-            // إخفاء مؤشر التحميل
-            var loadingIndicator = document.getElementById('loadingIndicator');
             if (loadingIndicator) {
-                loadingIndicator.classList.remove('active');
-                loadingIndicator.innerHTML = '<span>✅ تم تحميل ' + totalCells + ' مربع</span>';
+                loadingIndicator.innerHTML = '<span>✅ تم تحميل جميع المربعات!</span>';
                 setTimeout(function() {
                     loadingIndicator.classList.remove('active');
                 }, 2000);
             }
         }
-    }
+        updateStats();
+    });
+};
+
+VirtualGrid.prototype.updateSort = function(sortValue) {
+    this.sortByValue = sortValue;
+    this.reset();
+};
+
+VirtualGrid.prototype.filter = function(text, tier) {
+    this.filtered = true;
+    var lowerText = text.toLowerCase();
+    var sortedMembers = sortMembers(this.sortByValue);
+    var memberCount = sortedMembers.length;
+    var step = memberCount > 0 ? Math.floor(this.totalCells / memberCount) : 1;
     
-    // بدء التحميل
-    var loadingIndicator = document.getElementById('loadingIndicator');
-    if (loadingIndicator) {
-        loadingIndicator.classList.add('active');
-        loadingIndicator.innerHTML = '<div class="spinner"></div><span>⏳ جاري تحميل المربعات...</span>';
+    for (var i = 0; i < this.allCells.length; i++) {
+        var cell = this.allCells[i];
+        var index = parseInt(cell.dataset.index);
+        var member = null;
+        for (var j = 0; j < sortedMembers.length; j++) {
+            if (sortedMembers[j].position === index) {
+                member = sortedMembers[j];
+                break;
+            }
+        }
+        if (!member && memberCount > 0) {
+            var memberIndex = Math.floor(index / step) % memberCount;
+            member = sortedMembers[memberIndex];
+        }
+        
+        if (!member) {
+            cell.style.display = 'block';
+            continue;
+        }
+        var matchText = member.name.includes(lowerText) || 
+                         member.email.includes(lowerText) || 
+                         member.location.includes(lowerText);
+        var matchTier = tier === 'all' || member.tier === tier;
+        cell.style.display = (matchText && matchTier) ? 'block' : 'none';
     }
-    
-    loadBatch();
-}
+};
+
+VirtualGrid.prototype.resetFilter = function() {
+    this.filtered = false;
+    for (var i = 0; i < this.allCells.length; i++) {
+        this.allCells[i].style.display = 'block';
+    }
+};
+
+VirtualGrid.prototype.reset = function() {
+    this.container.innerHTML = '';
+    this.allCells = [];
+    this.loadedCount = 0;
+    this.filtered = false;
+    this.loadMore();
+};
 
 // ===== دوال العرض =====
 function updateStats() {
+    var realCount = 0;
     var virtualCount = 0;
     for (var i = 0; i < members.length; i++) {
         if (members[i].isVirtual) virtualCount++;
+        else realCount++;
     }
     var totalCount = members.length;
     
-    var totalMembers = document.getElementById('totalMembers');
-    var totalMembersDisplay = document.getElementById('totalMembersDisplay');
-    var availableSquares = document.getElementById('availableSquares');
-    var totalRevenueEl = document.getElementById('totalRevenue');
+    // حذف المشتركين الافتراضيين إذا تجاوز عدد الحقيقيين 1000
+    if (realCount >= 1000) {
+        members = members.filter(function(m) { return !m.isVirtual; });
+        saveData();
+        updateStats();
+        return;
+    }
     
     if (totalMembers) totalMembers.textContent = totalCount;
     if (totalMembersDisplay) totalMembersDisplay.textContent = totalCount;
@@ -260,6 +449,7 @@ function updateStats() {
     
     var virtualCountEl = document.getElementById('virtualCount');
     if (virtualCountEl) virtualCountEl.textContent = virtualCount;
+    
     var tableVirtualCount = document.getElementById('tableVirtualCount');
     if (tableVirtualCount) tableVirtualCount.textContent = virtualCount;
     
@@ -271,6 +461,7 @@ function updateGridStats() {
     var gridMemberCount = document.getElementById('gridMemberCount');
     var gridAvailableCount = document.getElementById('gridAvailableCount');
     var tableTotal = document.getElementById('tableTotalMembers');
+    
     if (gridMemberCount) gridMemberCount.textContent = totalCount;
     if (gridAvailableCount) gridAvailableCount.textContent = (1000000 - totalCount).toLocaleString();
     if (tableTotal) tableTotal.textContent = totalCount;
@@ -332,6 +523,7 @@ function showPaymentDialog() {
         image: image,
         message: 'مرحباً، أنا ' + name + ' من ' + location,
         isRoyal: choice === 'royal',
+        isCompany: false,
         isVirtual: false,
         position: newPosition,
         rating: 0,
@@ -342,10 +534,11 @@ function showPaymentDialog() {
     members.push(newMember);
     totalRevenue += tierInfo.price;
     saveData();
-    renderGridOptimized();
+    if (virtualGrid) virtualGrid.reset();
     renderMembersTable();
     updateStats();
     updateRoyalBackground();
+    
     alert('🎉 تم الاشتراك بنجاح!\nالمستوى: ' + tierInfo.label + ' ' + tierInfo.name + '\nالمبلغ: $' + tierInfo.price);
 }
 
@@ -383,7 +576,6 @@ function updateRoyalBackground() {
         }
     }
     
-    var siteBackground = document.getElementById('siteBackground');
     if (royals.length === 0) {
         if (siteBackground) {
             siteBackground.classList.remove('active');
@@ -403,7 +595,6 @@ function updateRoyalBackground() {
 }
 
 function setRoyalImage(member) {
-    var siteBackground = document.getElementById('siteBackground');
     if (member && member.image && siteBackground) {
         siteBackground.style.backgroundImage = 'url(' + member.image + ')';
         siteBackground.classList.add('active');
@@ -415,7 +606,6 @@ var adminClickCount = 0;
 var adminClickTimer = null;
 
 function renderMembersTable() {
-    var membersTableBody = document.getElementById('membersTableBody');
     if (!membersTableBody) return;
     membersTableBody.innerHTML = '';
     
@@ -452,7 +642,7 @@ function renderMembersTable() {
             members.splice(index, 1);
             saveData();
             renderMembersTable();
-            renderGridOptimized();
+            if (virtualGrid) virtualGrid.reset();
             updateStats();
             updateRoyalBackground();
         });
@@ -490,7 +680,8 @@ function updateSocialLinks() {
         instagram: document.getElementById('socialInstagram'),
         youtube: document.getElementById('socialYoutube'),
         linkedin: document.getElementById('socialLinkedin'),
-        tiktok: document.getElementById('socialTiktok')
+        tiktok: document.getElementById('socialTiktok'),
+        snapchat: document.getElementById('socialSnapchat')
     };
     for (var key in socialFields) {
         var field = socialFields[key];
@@ -513,7 +704,8 @@ function renderFooterSocialLinks() {
         instagram: 'fab fa-instagram',
         youtube: 'fab fa-youtube',
         linkedin: 'fab fa-linkedin',
-        tiktok: 'fab fa-tiktok'
+        tiktok: 'fab fa-tiktok',
+        snapchat: 'fab fa-snapchat'
     };
     
     for (var key in socialIcons) {
@@ -533,20 +725,131 @@ function renderFooterSocialLinks() {
     }
 }
 
-// ===== تطبيق الزوم =====
-function applyZoom() {
-    var size = Math.max(30, 60 * currentZoom);
-    var cells = document.querySelectorAll('.pixel-cell');
-    for (var i = 0; i < cells.length; i++) {
-        cells[i].style.minHeight = size + 'px';
-        cells[i].style.fontSize = (size * 0.015) + 'rem';
+// ===== الترجمة =====
+function translatePage(lang) {
+    var translations = {
+        ar: {
+            banner: '🚀 انضم الآن واحجز مربعك المميز',
+            available: 'المربعات المتاحة',
+            members: 'مشترك',
+            revenue: 'إيرادات',
+            site_title: 'مليون مربع',
+            subtitle: 'منصة التواصل البصرية الأولى',
+            sponsors_title: '🌟 الرعاة الداعمون',
+            become_sponsor: 'كن راعياً',
+            all_tiers: 'جميع المستويات',
+            normal: '💎 عادي',
+            silver: '⭐ فضي',
+            gold: '👑 ذهبي',
+            royal: '💠 ملكي',
+            search: '🔎 بحث عن مشترك...',
+            year: 'سنة',
+            loading: '⏳ جاري تحميل المربعات...',
+            total_squares: 'إجمالي المربعات',
+            virtual_members: 'افتراضي',
+            sort_name: 'ترتيب حسب الاسم',
+            sort_location: 'ترتيب حسب البلد',
+            sort_tier: 'ترتيب حسب الفئة',
+            sort_date: 'الأحدث أولاً'
+        },
+        en: {
+            banner: '🚀 Join now and book your special square',
+            available: 'Available squares',
+            members: 'Members',
+            revenue: 'Revenue',
+            site_title: 'Million Squares',
+            subtitle: 'The First Visual Communication Platform',
+            sponsors_title: '🌟 Supporting Sponsors',
+            become_sponsor: 'Become a Sponsor',
+            all_tiers: 'All Tiers',
+            normal: '💎 Normal',
+            silver: '⭐ Silver',
+            gold: '👑 Gold',
+            royal: '💠 Royal',
+            search: '🔎 Search members...',
+            year: 'year',
+            loading: '⏳ Loading squares...',
+            total_squares: 'Total squares',
+            virtual_members: 'Virtual',
+            sort_name: 'Sort by Name',
+            sort_location: 'Sort by Location',
+            sort_tier: 'Sort by Tier',
+            sort_date: 'Latest First'
+        }
+    };
+    
+    var t = translations[lang];
+    if (!t) return;
+    
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.dataset.i18n;
+        if (t[key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = t[key];
+            } else {
+                el.innerHTML = t[key];
+            }
+        }
+    });
+    
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        var key = el.dataset.i18nPlaceholder;
+        if (t[key]) {
+            el.placeholder = t[key];
+        }
+    });
+    
+    document.querySelectorAll('select option[data-i18n]').forEach(function(opt) {
+        var key = opt.dataset.i18n;
+        if (t[key]) {
+            opt.textContent = t[key];
+        }
+    });
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    
+    translatePage(lang);
+    
+    var loadingText = document.getElementById('loadingText');
+    if (loadingText) {
+        var t = { ar: '⏳ جاري تحميل مليون مربع...', en: '⏳ Loading Million Squares...' };
+        loadingText.textContent = t[lang] || t.ar;
     }
+    
+    saveData();
+    if (virtualGrid) virtualGrid.reset();
+    renderSponsors();
+    renderMembersTable();
+    updateStats();
+    updateRoyalBackground();
 }
 
 // ===== تهيئة الموقع =====
 document.addEventListener('DOMContentLoaded', function() {
+    gridCanvas = document.getElementById('gridCanvas');
+    searchInput = document.getElementById('searchInput');
+    filterTier = document.getElementById('filterTier');
+    sortBy = document.getElementById('sortBy');
+    liveClock = document.getElementById('liveClock');
+    totalMembersDisplay = document.getElementById('totalMembersDisplay');
+    totalMembers = document.getElementById('totalMembers');
+    totalRevenueEl = document.getElementById('totalRevenue');
+    availableSquares = document.getElementById('availableSquares');
+    membersTableBody = document.getElementById('membersTableBody');
+    loginError = document.getElementById('loginError');
+    siteBackground = document.getElementById('siteBackground');
+    loadingIndicator = document.getElementById('loadingIndicator');
+
     // الساعة
-    var liveClock = document.getElementById('liveClock');
     setInterval(function() {
         if (liveClock) {
             var now = new Date();
@@ -554,25 +857,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 
-    // عرض المربعات
-    renderGridOptimized();
+    // تهيئة الشبكة
+    if (gridCanvas) {
+        virtualGrid = new VirtualGrid(gridCanvas, 1000000);
+    }
 
     // أحداث البحث والفلترة
-    var searchInput = document.getElementById('searchInput');
-    var filterTier = document.getElementById('filterTier');
-    var sortBy = document.getElementById('sortBy');
-
     if (searchInput) {
         searchInput.addEventListener('input', function() {
-            // بحث بسيط
-            var text = this.value.toLowerCase();
-            var cells = document.querySelectorAll('.pixel-cell');
-            for (var i = 0; i < cells.length; i++) {
-                var name = cells[i].querySelector('.cell-name');
-                if (name) {
-                    var match = name.textContent.toLowerCase().includes(text);
-                    cells[i].style.display = match ? 'block' : 'none';
+            if (virtualGrid) {
+                var text = this.value.toLowerCase();
+                var tier = filterTier ? filterTier.value : 'all';
+                if (text || tier !== 'all') {
+                    virtualGrid.filter(text, tier);
+                } else {
+                    virtualGrid.resetFilter();
                 }
+            }
+        });
+    }
+
+    if (filterTier) {
+        filterTier.addEventListener('change', function() {
+            if (virtualGrid) {
+                var text = searchInput ? searchInput.value.toLowerCase() : '';
+                if (text || this.value !== 'all') {
+                    virtualGrid.filter(text, this.value);
+                } else {
+                    virtualGrid.resetFilter();
+                }
+            }
+        });
+    }
+
+    if (sortBy) {
+        sortBy.addEventListener('change', function() {
+            if (virtualGrid) {
+                virtualGrid.updateSort(this.value);
             }
         });
     }
@@ -593,6 +914,22 @@ document.addEventListener('DOMContentLoaded', function() {
         applyZoom();
     });
 
+    function applyZoom() {
+        var size = Math.max(30, 60 * currentZoom);
+        var cells = document.querySelectorAll('.pixel-cell');
+        for (var i = 0; i < cells.length; i++) {
+            cells[i].style.minHeight = size + 'px';
+            cells[i].style.fontSize = (size * 0.015) + 'rem';
+        }
+    }
+
+    // أزرار اللغة
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            setLanguage(this.dataset.lang);
+        });
+    });
+
     // تبديل الثيم
     document.getElementById('themeToggle').addEventListener('click', function() {
         document.body.classList.toggle('light-mode');
@@ -600,7 +937,7 @@ document.addEventListener('DOMContentLoaded', function() {
         this.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
-    
+
     if (localStorage.getItem('theme') === 'light') {
         document.body.classList.add('light-mode');
         var toggle = document.getElementById('themeToggle');
@@ -620,6 +957,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    document.addEventListener('fullscreenchange', function() {
+        var btn = document.getElementById('fullscreenBtn');
+        if (btn) {
+            btn.innerHTML = document.fullscreenElement ? '<i class="fas fa-compress"></i>' : '<i class="fas fa-expand"></i>';
+        }
+    });
+
     // زر العودة للأعلى
     var backBtn = document.getElementById('backToTop');
     if (backBtn) {
@@ -632,7 +976,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // زر الدخول المخفي للوحة التحكم
-    var loginError = document.getElementById('loginError');
     document.getElementById('adminSecretBtn').addEventListener('click', function() {
         adminClickCount++;
         if (adminClickCount === 1) {
@@ -677,21 +1020,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // تبويبات
-    var tabBtns = document.querySelectorAll('.tab-btn');
-    for (var i = 0; i < tabBtns.length; i++) {
-        tabBtns[i].addEventListener('click', function() {
-            var allBtns = document.querySelectorAll('.tab-btn');
-            for (var j = 0; j < allBtns.length; j++) {
-                allBtns[j].classList.remove('active');
-            }
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(function(b) {
+                b.classList.remove('active');
+            });
             this.classList.add('active');
-            var allContents = document.querySelectorAll('.tab-content');
-            for (var k = 0; k < allContents.length; k++) {
-                allContents[k].classList.remove('active');
-            }
+            document.querySelectorAll('.tab-content').forEach(function(tc) {
+                tc.classList.remove('active');
+            });
             document.getElementById(this.dataset.tab).classList.add('active');
         });
-    }
+    });
 
     // إضافة مشترك
     document.getElementById('addMemberBtn').addEventListener('click', function() {
@@ -706,13 +1046,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         var image = prompt('🖼️ رابط الصورة:') || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
-        
+
         var maxPosition = 0;
         for (var i = 0; i < members.length; i++) {
             if (members[i].position > maxPosition) maxPosition = members[i].position;
         }
         var newPosition = maxPosition + 1000;
-        
+
         members.push({
             id: 'm' + Date.now(),
             name: name,
@@ -723,17 +1063,18 @@ document.addEventListener('DOMContentLoaded', function() {
             website: '',
             message: 'مرحباً، أنا ' + name,
             isRoyal: tier === 'royal',
+            isCompany: false,
             isVirtual: false,
             position: newPosition,
             rating: 0,
             votes: 0,
             joinDate: new Date().toLocaleDateString('ar-EG')
         });
-        
+
         totalRevenue += TIERS[tier].price;
         saveData();
         renderMembersTable();
-        renderGridOptimized();
+        if (virtualGrid) virtualGrid.reset();
         updateStats();
         updateRoyalBackground();
         alert('✅ تم إضافة المشترك');
@@ -790,6 +1131,8 @@ document.addEventListener('DOMContentLoaded', function() {
         socialLinks.youtube = document.getElementById('socialYoutube').value.trim();
         socialLinks.linkedin = document.getElementById('socialLinkedin').value.trim();
         socialLinks.tiktok = document.getElementById('socialTiktok').value.trim();
+        socialLinks.snapchat = document.getElementById('socialSnapchat').value.trim();
+        
         saveData();
         renderFooterSocialLinks();
         alert('✅ تم حفظ روابط التواصل الاجتماعي');
@@ -855,9 +1198,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // رعاة الدفع
-    var payBtns = document.querySelectorAll('.sponsor-pay-btn');
-    for (var i = 0; i < payBtns.length; i++) {
-        payBtns[i].addEventListener('click', function() {
+    document.querySelectorAll('.sponsor-pay-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
             var plan = this.dataset.plan;
             var amount = this.dataset.amount;
             var planMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
@@ -882,7 +1224,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderSponsors();
             alert('🎉 تمت الرعاية بنجاح!\nالشركة: ' + name + '\nالمبلغ: $' + amount + '\nالمدة: ' + planMap[plan]);
         });
-    }
+    });
 
     // تهيئة العناصر
     renderSponsors();
@@ -899,14 +1241,25 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('paypalSetting').value = localStorage.getItem('paypal') || '';
     document.getElementById('stripeSetting').value = localStorage.getItem('stripe') || '';
     document.getElementById('ibanSetting').value = localStorage.getItem('iban') || '';
+    
+    for (var key in socialLinks) {
+        var field = document.getElementById('social' + key.charAt(0).toUpperCase() + key.slice(1));
+        if (field && socialLinks[key]) {
+            field.value = socialLinks[key];
+        }
+    }
 
     // إخفاء شاشة التحميل
     setTimeout(function() {
         var loading = document.getElementById('loadingScreen');
         if (loading) loading.classList.add('hidden');
-    }, 500);
+    }, 1500);
 
     console.log('🚀 مليون مربع - تم التحميل بنجاح');
     console.log('👥 المشتركين: ' + members.length);
     console.log('💰 الإيرادات: $' + totalRevenue);
+    console.log('📦 المربعات: 1,000,000 (تحميل تدريجي)');
+    console.log('🔐 لوحة التحكم: انقر مرتين على زر 🔐');
+    console.log('🌐 اللغة الحالية: ' + currentLang);
+    console.log('🔄 عدد المشتركين الافتراضيين: ' + members.filter(function(m) { return m.isVirtual; }).length);
 });
