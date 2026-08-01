@@ -332,7 +332,47 @@
             <p>© 2026 <span data-i18n="site_title">مليون مربع</span> - <span data-i18n="rights">جميع الحقوق محفوظة</span></p>
         </div>
     </footer>
+<!-- ===== شاشة ترحيب سريعة ===== -->
+<div id="welcomePopup" class="welcome-popup">
+    <div class="welcome-content">
+        <i class="fas fa-rocket" style="font-size: 3rem; color: var(--gold);"></i>
+        <h2>🌟 انضم إلى مليون مربع</h2>
+        <p>احجز مساحتك الرقمية التفاعلية الآن واستفد من <strong>3 أيام تجريبية مجانية</strong>.</p>
+        <div class="welcome-buttons">
+            <button id="welcomeBookBtn" class="btn-primary">ابدأ الآن</button>
+            <button id="welcomeCloseBtn" class="btn-secondary">تصفح الموقع</button>
+        </div>
+        <small>⚡ أكثر من <span id="welcomeMemberCount">0</span> مشترك انضموا بالفعل!</small>
+    </div>
+</div>
 
+<!-- ===== زر CTA ثابت ===== -->
+<div id="stickyCTA" class="sticky-cta">
+    <button id="stickyBookBtn" class="book-btn">
+        <i class="fas fa-plus-circle"></i> <span>احجز مربعك الآن</span>
+        <span class="cta-badge">🎁 3 أيام مجانية</span>
+    </button>
+</div>
+
+<!-- ===== إشعارات فورية ===== -->
+<div id="notificationContainer" class="notification-container"></div>
+
+<!-- ===== شارة الثقة ===== -->
+<div class="trust-badges">
+    <span><i class="fas fa-shield-alt"></i> دفع آمن</span>
+    <span><i class="fas fa-credit-card"></i> PayPal / Stripe</span>
+    <span><i class="fas fa-headset"></i> دعم 24/7</span>
+</div>
+
+<!-- ===== نظام الإحالات ===== -->
+<div class="referral-section">
+    <h3>👥 أحضر صديقاً واحصل على مكافأة</h3>
+    <p>شارك رابطك الخاص مع أصدقائك واحصل على خصم 10% عند اشتراكهم.</p>
+    <div class="referral-link-container">
+        <input type="text" id="referralLink" value="https://million-squares.com/ref/your-code" readonly>
+        <button id="copyReferralLink"><i class="fas fa-copy"></i> نسخ</button>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
