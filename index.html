@@ -49,7 +49,6 @@
                     <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
                 </div>
                 
-                <!-- ===== إحصائيات حية ===== -->
                 <div class="live-stats">
                     <div class="stat-item">
                         <i class="fas fa-user fa-fade"></i>
@@ -111,6 +110,13 @@
                 <option value="gold" data-i18n="gold">👑 ذهبي</option>
                 <option value="royal" data-i18n="royal">💠 ملكي</option>
             </select>
+            <!-- ===== خيارات الترتيب ===== -->
+            <select id="sortBy">
+                <option value="name" data-i18n="sort_name">ترتيب حسب الاسم</option>
+                <option value="location" data-i18n="sort_location">ترتيب حسب البلد</option>
+                <option value="tier" data-i18n="sort_tier">ترتيب حسب الفئة</option>
+                <option value="date" data-i18n="sort_date">الأحدث أولاً</option>
+            </select>
         </div>
     </div>
 
@@ -120,6 +126,7 @@
             <span><i class="fas fa-th"></i> <span data-i18n="total_squares">إجمالي المربعات</span>: <strong>1,000,000</strong></span>
             <span><i class="fas fa-user-check"></i> <span data-i18n="members">المشتركين</span>: <strong id="gridMemberCount">0</strong></span>
             <span><i class="fas fa-square"></i> <span data-i18n="available">المتاح</span>: <strong id="gridAvailableCount">0</strong></span>
+            <span><i class="fas fa-users"></i> <span data-i18n="virtual_members">افتراضي</span>: <strong id="virtualCount">0</strong></span>
         </div>
         <div class="grid-wrapper" id="gridWrapper">
             <div class="grid-canvas" id="gridCanvas"></div>
@@ -201,9 +208,6 @@
                 <span><i class="fab fa-paypal"></i> PayPal</span>
                 <span><i class="fas fa-bolt"></i> Stripe</span>
                 <span><i class="fas fa-university"></i> IBAN</span>
-            </div>
-            <div class="discount-badge">
-                <i class="fas fa-gift"></i> خصم 20% عند الدفع السنوي
             </div>
         </div>
     </section>
@@ -298,6 +302,7 @@
                                     <th data-i18n="email">البريد</th>
                                     <th data-i18n="tier">المستوى</th>
                                     <th data-i18n="location">الموقع</th>
+                                    <th data-i18n="type">النوع</th>
                                     <th data-i18n="actions">الإجراءات</th>
                                 </tr>
                             </thead>
@@ -306,6 +311,7 @@
                     </div>
                     <div class="table-footer">
                         <span><span data-i18n="total_members">إجمالي المشتركين</span>: <strong id="tableTotalMembers">0</strong></span>
+                        <span style="margin-right:20px;"><span data-i18n="virtual_members">افتراضي</span>: <strong id="tableVirtualCount">0</strong></span>
                     </div>
                 </div>
 
@@ -436,9 +442,7 @@
             </div>
             <div class="footer-section">
                 <h4 data-i18n="follow_us">📱 تابعنا</h4>
-                <div class="social-links" id="footerSocialLinks">
-                    <!-- سيتم إضافة الروابط عبر JavaScript -->
-                </div>
+                <div class="social-links" id="footerSocialLinks"></div>
             </div>
         </div>
         <div class="footer-bottom">
