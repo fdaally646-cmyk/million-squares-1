@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="site_title">🏆 مليون مربع</title>
     <style>
-        /* ===== جميع التنسيقات ===== */
+        /* ===== التنسيقات العامة ===== */
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +14,10 @@
 
         :root {
             --primary: #6C3CE1;
+            --primary-dark: #4A1FA6;
+            --primary-light: #8B6BE8;
             --secondary: #00D4FF;
+            --accent: #FF6B6B;
             --gold: #FFD700;
             --silver: #C0C0C0;
             --royal: #9B59B6;
@@ -24,6 +27,12 @@
             --text: #E8EDF5;
             --text-muted: #8899BB;
             --border: #2A3A5C;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #6C3CE1, #00D4FF);
+            --gradient-gold: linear-gradient(135deg, #FFD700, #FF6B00);
+            --gradient-royal: linear-gradient(135deg, #9B59B6, #6C3483);
         }
 
         body {
@@ -32,7 +41,21 @@
             color: var(--text);
             min-height: 100vh;
             direction: rtl;
-            transition: background 0.3s;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ===== وضع فاتح ===== */
+        body.light-mode {
+            --dark: #F0F4F8;
+            --dark-card: #FFFFFF;
+            --dark-surface: #E8EDF5;
+            --text: #1A2236;
+            --text-muted: #4A5568;
+            --border: #CBD5E0;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .loading-screen {
+            background: #F0F4F8;
         }
 
         /* ===== شاشة التحميل ===== */
@@ -70,6 +93,7 @@
         .loading-text {
             margin-top: 20px;
             color: var(--text-muted);
+            font-size: 1.1rem;
         }
         .loading-progress {
             margin-top: 15px;
@@ -82,20 +106,117 @@
         .loading-progress-bar {
             width: 0%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-primary);
             border-radius: 4px;
             transition: width 0.3s;
         }
 
+        /* ===== أزرار عصرية ===== */
+        .btn-modern {
+            position: relative;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            overflow: hidden;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-modern:hover::before {
+            left: 100%;
+        }
+        .btn-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(108, 60, 225, 0.4);
+        }
+        .btn-modern:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 8px 40px rgba(108, 60, 225, 0.5);
+        }
+
+        .btn-gold {
+            background: var(--gradient-gold);
+            color: #1A1100;
+        }
+        .btn-gold:hover {
+            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--dark-surface);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A24);
+            color: white;
+        }
+        .btn-accent:hover {
+            box-shadow: 0 8px 40px rgba(255, 107, 107, 0.5);
+        }
+
+        .btn-royal {
+            background: var(--gradient-royal);
+            color: white;
+        }
+        .btn-royal:hover {
+            box-shadow: 0 8px 40px rgba(155, 89, 182, 0.5);
+        }
+
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+        .btn-lg {
+            padding: 16px 44px;
+            font-size: 1.1rem;
+        }
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
         /* ===== الشريط العلوي ===== */
         .top-banner {
-            background: linear-gradient(135deg, #4A1FA6, var(--primary));
+            background: var(--gradient-primary);
             padding: 8px 20px;
             text-align: center;
             border-bottom: 2px solid var(--secondary);
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 30px rgba(108, 60, 225, 0.3);
         }
         .banner-content {
             display: flex;
@@ -106,15 +227,17 @@
             font-size: 0.9rem;
         }
         .banner-counter {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.15);
             padding: 2px 16px;
             border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
         .banner-clock {
             background: rgba(0, 0, 0, 0.2);
             padding: 2px 16px;
             border-radius: 20px;
             font-weight: 700;
+            backdrop-filter: blur(10px);
         }
 
         /* ===== الهيدر ===== */
@@ -125,6 +248,7 @@
             position: sticky;
             top: 38px;
             z-index: 999;
+            backdrop-filter: blur(10px);
         }
         .header-content {
             display: flex;
@@ -140,7 +264,7 @@
             font-weight: 800;
         }
         .gradient-text {
-            background: linear-gradient(135deg, var(--secondary), #8B6BE8, var(--gold));
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -156,33 +280,42 @@
             gap: 15px;
             flex-wrap: wrap;
         }
+
+        /* ===== محدد اللغة العصري ===== */
         .lang-selector {
             display: flex;
             gap: 4px;
             flex-wrap: wrap;
+            background: var(--dark-surface);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
         }
         .lang-btn {
-            background: var(--dark-surface);
-            border: 1px solid var(--border);
+            background: transparent;
+            border: none;
             color: var(--text-muted);
-            padding: 6px 12px;
-            border-radius: 20px;
+            padding: 6px 14px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-size: 0.7rem;
-            font-weight: 500;
+            font-weight: 600;
+            position: relative;
         }
         .lang-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateY(-2px);
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
         }
         .lang-btn.active {
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: white;
-            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
         }
+        .lang-btn .lang-flag {
+            margin-left: 4px;
+        }
+
         .header-stats {
             display: flex;
             gap: 20px;
@@ -205,6 +338,7 @@
             font-size: 0.65rem;
             color: var(--text-muted);
         }
+
         .theme-toggle {
             background: var(--dark-surface);
             border: 1px solid var(--border);
@@ -213,16 +347,20 @@
             height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .theme-toggle:hover {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
+            transform: rotate(20deg);
         }
 
-        /* ===== زر الحجز ===== */
+        /* ===== زر الحجز العصري ===== */
         .book-section {
             padding: 12px 40px;
             background: var(--dark-surface);
@@ -230,21 +368,36 @@
             text-align: center;
         }
         .book-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-primary);
             border: none;
             color: white;
-            padding: 12px 40px;
+            padding: 14px 48px;
             border-radius: 50px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-family: inherit;
-            box-shadow: 0 4px 25px rgba(108, 60, 225, 0.4);
+            box-shadow: 0 4px 30px rgba(108, 60, 225, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .book-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        .book-btn:hover::before {
+            left: 100%;
         }
         .book-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 40px rgba(108, 60, 225, 0.6);
+            box-shadow: 0 6px 50px rgba(108, 60, 225, 0.6);
         }
         .book-hint {
             display: block;
@@ -269,9 +422,18 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: var(--transition);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+        }
+        .trust-badges span:hover {
+            border-color: var(--secondary);
+            color: var(--text);
         }
         .trust-badges span i {
             color: var(--secondary);
+            font-size: 1rem;
         }
 
         /* ===== الرعاة ===== */
@@ -288,19 +450,23 @@
         .sponsors-header span {
             font-weight: 700;
             color: var(--gold);
+            font-size: 1.1rem;
         }
         .sponsor-cta {
-            background: var(--gold);
-            color: var(--dark);
+            background: var(--gradient-gold);
+            color: #1A1100;
             padding: 6px 24px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 700;
             font-size: 0.85rem;
-            transition: all 0.3s;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
         }
         .sponsor-cta:hover {
             transform: scale(1.05);
+            box-shadow: 0 4px 30px rgba(255, 215, 0, 0.4);
         }
         .marquee-track {
             display: flex;
@@ -318,8 +484,8 @@
             color: var(--text-muted);
         }
         .marquee-track .sponsor-item .sponsor-badge {
-            background: var(--gold);
-            color: var(--dark);
+            background: var(--gradient-gold);
+            color: #1A1100;
             padding: 2px 12px;
             border-radius: 12px;
             font-size: 0.6rem;
@@ -360,14 +526,19 @@
             height: 40px;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .toolbar-group button:hover {
             background: var(--primary);
             border-color: var(--primary);
             transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
         }
+
         .search-group {
             display: flex;
             gap: 8px;
@@ -392,12 +563,13 @@
             padding: 8px 40px 8px 16px;
             border-radius: 30px;
             width: 250px;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-size: 0.9rem;
         }
         .search-wrapper input:focus {
             border-color: var(--secondary);
             outline: none;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
             width: 280px;
         }
         .search-group select {
@@ -408,6 +580,7 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 0.85rem;
+            transition: var(--transition);
         }
         .search-group select:focus {
             border-color: var(--secondary);
@@ -462,7 +635,7 @@
             font-size: 0.4rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
@@ -479,7 +652,7 @@
             left: 0;
             opacity: 0.4;
             border-radius: 6px;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
         .pixel-cell:hover .cell-image {
             opacity: 0.7;
@@ -521,8 +694,9 @@
             z-index: 100;
             text-align: right;
             font-size: 0.75rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            box-shadow: var(--shadow);
             pointer-events: none;
+            backdrop-filter: blur(10px);
         }
         .pixel-cell:hover .cell-tooltip {
             display: block;
@@ -567,11 +741,13 @@
             border: 2px dashed var(--border);
             color: var(--text-muted);
             font-size: 1.2rem;
+            transition: var(--transition);
         }
         .pixel-cell.empty:hover {
             border-color: var(--secondary);
             background: var(--dark);
             transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
         }
 
         .cell-virtual-badge {
@@ -620,6 +796,11 @@
             padding: 25px;
             border-radius: 16px;
             border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .info-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.05);
         }
         .info-card h2 {
             color: var(--secondary);
@@ -629,6 +810,7 @@
         .info-card p {
             color: var(--text-muted);
         }
+
         .features-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -641,10 +823,12 @@
             border-radius: 14px;
             text-align: center;
             border: 2px solid var(--border);
-            transition: all 0.3s;
+            transition: var(--transition);
+            position: relative;
         }
         .feature:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
         .feature .feature-icon {
             font-size: 1.8rem;
@@ -677,7 +861,7 @@
             margin-top: 6px;
         }
         .feature-badge.premium {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
+            background: var(--gradient-gold);
             color: #1A1100;
         }
         .normal-tier .feature-badge {
@@ -689,20 +873,21 @@
             color: #1A1A2A;
         }
         .gold-tier .feature-badge {
-            background: #FFD700;
+            background: var(--gradient-gold);
             color: #1A1100;
         }
         .royal-tier .feature-badge {
-            background: linear-gradient(135deg, #9B59B6, #6C3483);
+            background: var(--gradient-royal);
             color: white;
         }
+
         .step-number {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 28px;
             height: 28px;
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: white;
             border-radius: 50%;
             font-weight: 700;
@@ -732,6 +917,17 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            animation: pulseGreen 2s infinite;
+        }
+        @keyframes pulseGreen {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+            }
         }
 
         /* ===== لوحة التحكم ===== */
@@ -745,7 +941,7 @@
             text-align: center;
             padding: 10px;
             opacity: 0.3;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
         .admin-hidden-trigger:hover {
             opacity: 0.8;
@@ -756,7 +952,7 @@
             color: var(--text-muted);
             font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             padding: 8px 20px;
             border-radius: 20px;
         }
@@ -791,6 +987,7 @@
         .admin-login h3 {
             color: var(--secondary);
             margin-bottom: 16px;
+            font-size: 1.3rem;
         }
         .admin-login input {
             background: var(--dark);
@@ -800,13 +997,16 @@
             border-radius: 25px;
             width: 100%;
             margin: 6px 0;
+            transition: var(--transition);
+            font-size: 0.95rem;
         }
         .admin-login input:focus {
             border-color: var(--secondary);
             outline: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
         }
         .admin-login button {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-primary);
             border: none;
             color: white;
             padding: 10px;
@@ -814,18 +1014,21 @@
             width: 100%;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
+            font-size: 0.95rem;
         }
         .admin-login button:hover {
             transform: scale(1.02);
+            box-shadow: 0 4px 30px rgba(108, 60, 225, 0.4);
         }
+
         .login-error {
-            color: #FF6B6B;
+            color: var(--accent);
             text-align: center;
             padding: 8px;
             background: rgba(255, 107, 107, 0.1);
             border-radius: 12px;
-            border: 1px solid #FF6B6B;
+            border: 1px solid var(--accent);
             margin-top: 8px;
         }
         .login-error.hidden {
@@ -854,7 +1057,7 @@
             padding: 8px 18px;
             border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-weight: 500;
             font-size: 0.85rem;
         }
@@ -865,12 +1068,25 @@
         .admin-tabs .tab-btn.active {
             background: var(--primary);
             color: white;
+            box-shadow: 0 0 20px rgba(108, 60, 225, 0.3);
         }
+
         .tab-content {
             display: none;
         }
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ===== أدوات التحكم في لوحة التحكم ===== */
@@ -904,7 +1120,7 @@
             border: 1px solid var(--border);
             border-radius: 25px;
             color: var(--text);
-            transition: all 0.3s;
+            transition: var(--transition);
         }
         .admin-search input:focus {
             border-color: var(--secondary);
@@ -917,20 +1133,21 @@
         }
         .admin-actions button {
             padding: 8px 18px;
-            background: var(--primary);
+            background: var(--gradient-primary);
             border: none;
             border-radius: 25px;
             color: white;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 6px;
+            font-weight: 600;
         }
         .admin-actions button:hover {
-            background: var(--primary-light);
             transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
         }
 
         /* ===== جدول المشتركين ===== */
@@ -948,6 +1165,7 @@
             text-align: right;
             border-bottom: 2px solid var(--border);
             color: var(--text-muted);
+            font-weight: 600;
         }
         #membersTable td {
             padding: 10px 14px;
@@ -979,13 +1197,15 @@
             background: rgba(245, 158, 11, 0.2);
             color: #F59E0B;
         }
+
         .action-btn {
             padding: 4px 12px;
             border: none;
             border-radius: 14px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             font-size: 0.75rem;
+            font-weight: 600;
         }
         .action-btn.edit {
             background: var(--secondary);
@@ -996,13 +1216,14 @@
             transform: scale(1.05);
         }
         .action-btn.delete {
-            background: #FF6B6B;
+            background: var(--accent);
             color: white;
         }
         .action-btn.delete:hover {
             background: #e55a5a;
             transform: scale(1.05);
         }
+
         .table-footer {
             margin-top: 12px;
             padding-top: 10px;
@@ -1025,6 +1246,7 @@
         .settings-group label {
             font-size: 0.9rem;
             color: var(--text-muted);
+            font-weight: 600;
         }
         .settings-group input {
             background: var(--dark);
@@ -1032,24 +1254,26 @@
             color: var(--text);
             padding: 8px 14px;
             border-radius: 12px;
+            transition: var(--transition);
         }
         .settings-group input:focus {
             border-color: var(--secondary);
             outline: none;
         }
         .settings-group button {
-            background: var(--secondary);
+            background: var(--gradient-primary);
             border: none;
-            color: var(--dark);
+            color: white;
             padding: 8px 22px;
             border-radius: 25px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             width: fit-content;
         }
         .settings-group button:hover {
             transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
         }
 
         /* ===== نموذج الاقتراحات ===== */
@@ -1062,6 +1286,7 @@
             text-align: center;
             color: var(--secondary);
             margin-bottom: 25px;
+            font-size: 1.5rem;
         }
         #suggestionForm {
             max-width: 550px;
@@ -1079,19 +1304,20 @@
             border-radius: 14px;
             font-family: inherit;
             width: 100%;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
         #suggestionForm input:focus,
         #suggestionForm textarea:focus {
             border-color: var(--secondary);
             outline: none;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
         }
         #suggestionForm textarea {
             min-height: 100px;
             resize: vertical;
         }
         #suggestionForm button {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-primary);
             border: none;
             color: white;
             padding: 12px;
@@ -1099,10 +1325,11 @@
             font-weight: 700;
             font-size: 0.95rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
         }
         #suggestionForm button:hover {
             transform: scale(1.02);
+            box-shadow: 0 4px 30px rgba(108, 60, 225, 0.4);
         }
 
         /* ===== إشعارات ===== */
@@ -1121,9 +1348,10 @@
             border: 1px solid var(--secondary);
             border-radius: 12px;
             padding: 12px 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow);
             animation: slideInRight 0.4s ease;
             font-size: 0.85rem;
+            backdrop-filter: blur(10px);
         }
         @keyframes slideInRight {
             from {
@@ -1152,11 +1380,12 @@
         .footer-content h4 {
             color: var(--secondary);
             margin-bottom: 10px;
+            font-size: 1.1rem;
         }
         .footer-content a {
             color: var(--text-muted);
             text-decoration: none;
-            transition: all 0.3s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 6px;
@@ -1179,7 +1408,7 @@
             justify-content: center;
             color: var(--text-muted);
             text-decoration: none;
-            transition: all 0.3s;
+            transition: var(--transition);
             border: 1px solid var(--border);
         }
         .social-links a:hover {
@@ -1187,6 +1416,7 @@
             background: var(--primary);
             border-color: var(--primary);
             transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.4);
         }
         .footer-bottom {
             text-align: center;
@@ -1318,19 +1548,10 @@
                 flex-direction: column;
                 gap: 5px;
             }
-        }
-
-        /* ===== وضع فاتح ===== */
-        body.light-mode {
-            --dark: #F0F4F8;
-            --dark-card: #FFFFFF;
-            --dark-surface: #E8EDF5;
-            --text: #1A2236;
-            --text-muted: #4A5568;
-            --border: #CBD5E0;
-        }
-        body.light-mode .loading-screen {
-            background: #F0F4F8;
+            .lang-btn {
+                font-size: 0.6rem;
+                padding: 4px 8px;
+            }
         }
     </style>
 </head>
@@ -1364,11 +1585,14 @@
             </div>
             <div class="header-controls">
                 <div class="lang-selector">
-                    <button class="lang-btn active" data-lang="ar" data-i18n="lang_ar">🇸🇦 عربي</button>
-                    <button class="lang-btn" data-lang="en" data-i18n="lang_en">🇬🇧 English</button>
-                    <button class="lang-btn" data-lang="fr" data-i18n="lang_fr">🇫🇷 Français</button>
-                    <button class="lang-btn" data-lang="es" data-i18n="lang_es">🇪🇸 Español</button>
-                    <button class="lang-btn" data-lang="de" data-i18n="lang_de">🇩🇪 Deutsch</button>
+                    <button class="lang-btn active" data-lang="ar"><span class="lang-flag">🇸🇦</span> عربي</button>
+                    <button class="lang-btn" data-lang="en"><span class="lang-flag">🇬🇧</span> EN</button>
+                    <button class="lang-btn" data-lang="fr"><span class="lang-flag">🇫🇷</span> FR</button>
+                    <button class="lang-btn" data-lang="es"><span class="lang-flag">🇪🇸</span> ES</button>
+                    <button class="lang-btn" data-lang="de"><span class="lang-flag">🇩🇪</span> DE</button>
+                    <button class="lang-btn" data-lang="pt"><span class="lang-flag">🇵🇹</span> PT</button>
+                    <button class="lang-btn" data-lang="it"><span class="lang-flag">🇮🇹</span> IT</button>
+                    <button class="lang-btn" data-lang="ru"><span class="lang-flag">🇷🇺</span> RU</button>
                 </div>
                 <div class="header-stats">
                     <div class="stat-item">
@@ -1405,7 +1629,7 @@
     <div class="sponsors-section">
         <div class="sponsors-header">
             <span data-i18n="sponsors_title">🌟 الرعاة الداعمون</span>
-            <a href="#" class="sponsor-cta" data-i18n="become_sponsor">كن راعياً</a>
+            <button class="sponsor-cta" data-i18n="become_sponsor">كن راعياً</button>
         </div>
         <div class="marquee-track" id="marqueeTrack"></div>
     </div>
@@ -1413,9 +1637,10 @@
     <!-- ===== أدوات البحث ===== -->
     <div class="toolbar">
         <div class="toolbar-group">
-            <button id="zoomInBtn"><i class="fas fa-search-plus"></i></button>
-            <button id="zoomOutBtn"><i class="fas fa-search-minus"></i></button>
-            <button id="resetViewBtn"><i class="fas fa-undo"></i></button>
+            <button id="zoomInBtn" title="تكبير"><i class="fas fa-search-plus"></i></button>
+            <button id="zoomOutBtn" title="تصغير"><i class="fas fa-search-minus"></i></button>
+            <button id="resetViewBtn" title="إعادة ضبط"><i class="fas fa-undo"></i></button>
+            <button id="fullscreenBtn" title="شاشة كاملة"><i class="fas fa-expand"></i></button>
         </div>
         <div class="search-group">
             <div class="search-wrapper">
@@ -1611,6 +1836,7 @@
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -1621,6 +1847,9 @@
 
     <!-- ===== حاوية الإشعارات ===== -->
     <div id="notificationContainer" class="notification-container"></div>
+
+    <!-- ===== Font Awesome ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
         // ============================================================
@@ -1635,7 +1864,7 @@
             royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
         };
 
-        // ===== الترجمات الكاملة =====
+        // ===== الترجمات الكاملة (8 لغات) =====
         const TRANSLATIONS = {
             ar: {
                 site_title: 'مليون مربع',
@@ -1722,11 +1951,7 @@
                 f_royal_1: '✅ جميع الميزات',
                 f_royal_2: '✅ خلفية متحركة',
                 f_royal_3: '✅ ظهور مميز',
-                lang_ar: '🇸🇦 عربي',
-                lang_en: '🇬🇧 English',
-                lang_fr: '🇫🇷 Français',
-                lang_es: '🇪🇸 Español',
-                lang_de: '🇩🇪 Deutsch'
+                delete: 'حذف'
             },
             en: {
                 site_title: 'Million Squares',
@@ -1813,11 +2038,7 @@
                 f_royal_1: '✅ All features',
                 f_royal_2: '✅ Animated background',
                 f_royal_3: '✅ Featured display',
-                lang_ar: '🇸🇦 Arabic',
-                lang_en: '🇬🇧 English',
-                lang_fr: '🇫🇷 French',
-                lang_es: '🇪🇸 Spanish',
-                lang_de: '🇩🇪 German'
+                delete: 'Delete'
             },
             fr: {
                 site_title: 'Million de Carrés',
@@ -1904,11 +2125,7 @@
                 f_royal_1: '✅ Toutes les fonctionnalités',
                 f_royal_2: '✅ Fond animé',
                 f_royal_3: '✅ Affichage en vedette',
-                lang_ar: '🇸🇦 Arabe',
-                lang_en: '🇬🇧 Anglais',
-                lang_fr: '🇫🇷 Français',
-                lang_es: '🇪🇸 Espagnol',
-                lang_de: '🇩🇪 Allemand'
+                delete: 'Supprimer'
             },
             es: {
                 site_title: 'Millón de Cuadrados',
@@ -1995,11 +2212,7 @@
                 f_royal_1: '✅ Todas las características',
                 f_royal_2: '✅ Fondo animado',
                 f_royal_3: '✅ Visualización destacada',
-                lang_ar: '🇸🇦 Árabe',
-                lang_en: '🇬🇧 Inglés',
-                lang_fr: '🇫🇷 Francés',
-                lang_es: '🇪🇸 Español',
-                lang_de: '🇩🇪 Alemán'
+                delete: 'Eliminar'
             },
             de: {
                 site_title: 'Million Quadrate',
@@ -2086,11 +2299,268 @@
                 f_royal_1: '✅ Alle Funktionen',
                 f_royal_2: '✅ Animierter Hintergrund',
                 f_royal_3: '✅ Hervorgehobene Anzeige',
-                lang_ar: '🇸🇦 Arabisch',
-                lang_en: '🇬🇧 Englisch',
-                lang_fr: '🇫🇷 Französisch',
-                lang_es: '🇪🇸 Spanisch',
-                lang_de: '🇩🇪 Deutsch'
+                delete: 'Löschen'
+            },
+            pt: {
+                site_title: 'Milhão de Quadrados',
+                subtitle: 'A primeira plataforma de comunicação visual',
+                banner: '🚀 Junte-se agora',
+                available: 'Quadrados disponíveis',
+                members: 'Membros',
+                revenue: 'Receita',
+                year: 'ano',
+                loading: '⏳ Carregando...',
+                total_squares: 'Total de quadrados',
+                virtual_members: 'Virtual',
+                secure_payment: 'Pagamento seguro',
+                support_24_7: 'Suporte 24/7',
+                free_trial: '3 dias grátis',
+                book_square: 'Reserve seu quadrado',
+                book_hint: '🎁 3 dias de teste',
+                sponsors_title: '🌟 Patrocinadores',
+                become_sponsor: 'Patrocinador',
+                search: '🔎 Buscar...',
+                all_tiers: 'Todos os níveis',
+                normal: '💎 Normal',
+                silver: '⭐ Prata',
+                gold: '👑 Ouro',
+                royal: '💠 Real',
+                all_types: 'Todos',
+                real_members: 'Real',
+                what_is: '🎯 O que é Milhão de Quadrados?',
+                description: 'Uma plataforma revolucionária para espaço digital interativo.',
+                steps_title: '📋 Passos de inscrição',
+                step1: 'Escolha seu lugar',
+                step2: 'Selecione o nível',
+                step3: 'Preencha seus dados',
+                step4: '3 dias de teste',
+                step5: 'Vamos!',
+                trial_banner: '🎁 3 dias de teste',
+                admin_hint: 'Clique duas vezes para acessar',
+                admin_login: '🔐 Login no Painel',
+                login: 'Entrar',
+                login_error: 'Usuário ou senha inválidos',
+                username: 'Usuário',
+                password: 'Senha',
+                settings: 'Configurações',
+                add_member: 'Adicionar',
+                refresh: 'Atualizar',
+                name: 'Nome',
+                email: 'Email',
+                tier: 'Nível',
+                location: 'Localização',
+                type: 'Tipo',
+                actions: 'Ações',
+                total_members: 'Total de membros',
+                settings_title: 'Configurações',
+                admin_email: 'Email do admin:',
+                admin_email_placeholder: 'Email do admin',
+                change_password: '🔑 Alterar senha',
+                new_password: 'Nova senha',
+                change: 'Alterar',
+                save: 'Salvar',
+                suggest_idea: '💡 Compartilhe sua sugestão',
+                send: 'Enviar',
+                your_name: 'Seu nome',
+                your_email: 'Seu email',
+                your_suggestion: 'Sua ideia para melhorar',
+                contact_us: '📧 Contate-nos',
+                about_us: '📍 Sobre nós',
+                about_text: 'Plataforma Milhão de Quadrados',
+                follow_us: '📱 Siga-nos',
+                rights: 'Todos os direitos reservados',
+                badge_normal: 'Iniciante',
+                badge_silver: 'Popular',
+                badge_gold: 'Destaque',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Buscar membros...',
+                f_normal_1: '✅ Mostrar nome',
+                f_normal_2: '✅ Mostrar localização',
+                f_silver_1: '✅ Mostrar nome',
+                f_silver_2: '✅ Mostrar localização',
+                f_silver_3: '✅ Link do site',
+                f_gold_1: '✅ Mostrar nome',
+                f_gold_2: '✅ Mostrar localização',
+                f_gold_3: '✅ Link do site',
+                f_gold_4: '✅ Imagem de perfil',
+                f_royal_1: '✅ Todos os recursos',
+                f_royal_2: '✅ Fundo animado',
+                f_royal_3: '✅ Destaque especial',
+                delete: 'Excluir'
+            },
+            it: {
+                site_title: 'Milione di Quadrati',
+                subtitle: 'La prima piattaforma di comunicazione visiva',
+                banner: '🚀 Unisciti ora',
+                available: 'Quadrati disponibili',
+                members: 'Membri',
+                revenue: 'Entrate',
+                year: 'anno',
+                loading: '⏳ Caricamento...',
+                total_squares: 'Totale quadrati',
+                virtual_members: 'Virtuale',
+                secure_payment: 'Pagamento sicuro',
+                support_24_7: 'Supporto 24/7',
+                free_trial: '3 giorni gratis',
+                book_square: 'Prenota il tuo quadrato',
+                book_hint: '🎁 3 giorni di prova',
+                sponsors_title: '🌟 Sponsor',
+                become_sponsor: 'Sponsor',
+                search: '🔎 Cerca...',
+                all_tiers: 'Tutti i livelli',
+                normal: '💎 Normale',
+                silver: '⭐ Argento',
+                gold: '👑 Oro',
+                royal: '💠 Reale',
+                all_types: 'Tutti',
+                real_members: 'Reale',
+                what_is: '🎯 Cos\'è Milione di Quadrati?',
+                description: 'Una piattaforma rivoluzionaria per spazio digitale interattivo.',
+                steps_title: '📋 Passaggi di iscrizione',
+                step1: 'Scegli il tuo posto',
+                step2: 'Seleziona il livello',
+                step3: 'Inserisci i tuoi dati',
+                step4: '3 giorni di prova',
+                step5: 'Vai!',
+                trial_banner: '🎁 3 giorni di prova',
+                admin_hint: 'Doppio clic per accedere',
+                admin_login: '🔐 Accedi al Pannello',
+                login: 'Accedi',
+                login_error: 'Nome utente o password errati',
+                username: 'Nome utente',
+                password: 'Password',
+                settings: 'Impostazioni',
+                add_member: 'Aggiungi',
+                refresh: 'Aggiorna',
+                name: 'Nome',
+                email: 'Email',
+                tier: 'Livello',
+                location: 'Posizione',
+                type: 'Tipo',
+                actions: 'Azioni',
+                total_members: 'Totale membri',
+                settings_title: 'Impostazioni',
+                admin_email: 'Email admin:',
+                admin_email_placeholder: 'Email admin',
+                change_password: '🔑 Cambia password',
+                new_password: 'Nuova password',
+                change: 'Cambia',
+                save: 'Salva',
+                suggest_idea: '💡 Condividi il tuo suggerimento',
+                send: 'Invia',
+                your_name: 'Il tuo nome',
+                your_email: 'La tua email',
+                your_suggestion: 'La tua idea per migliorare',
+                contact_us: '📧 Contattaci',
+                about_us: '📍 Chi siamo',
+                about_text: 'Piattaforma Milione di Quadrati',
+                follow_us: '📱 Seguici',
+                rights: 'Tutti i diritti riservati',
+                badge_normal: 'Principiante',
+                badge_silver: 'Popolare',
+                badge_gold: 'In evidenza',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Cerca membri...',
+                f_normal_1: '✅ Mostra nome',
+                f_normal_2: '✅ Mostra posizione',
+                f_silver_1: '✅ Mostra nome',
+                f_silver_2: '✅ Mostra posizione',
+                f_silver_3: '✅ Link sito web',
+                f_gold_1: '✅ Mostra nome',
+                f_gold_2: '✅ Mostra posizione',
+                f_gold_3: '✅ Link sito web',
+                f_gold_4: '✅ Immagine profilo',
+                f_royal_1: '✅ Tutte le funzionalità',
+                f_royal_2: '✅ Sfondo animato',
+                f_royal_3: '✅ In primo piano',
+                delete: 'Elimina'
+            },
+            ru: {
+                site_title: 'Миллион Квадратов',
+                subtitle: 'Первая платформа визуального общения',
+                banner: '🚀 Присоединяйтесь сейчас',
+                available: 'Доступные квадраты',
+                members: 'Участники',
+                revenue: 'Доход',
+                year: 'год',
+                loading: '⏳ Загрузка...',
+                total_squares: 'Всего квадратов',
+                virtual_members: 'Виртуальный',
+                secure_payment: 'Безопасный платеж',
+                support_24_7: 'Поддержка 24/7',
+                free_trial: '3 дня бесплатно',
+                book_square: 'Забронировать квадрат',
+                book_hint: '🎁 3 дня бесплатного теста',
+                sponsors_title: '🌟 Спонсоры',
+                become_sponsor: 'Стать спонсором',
+                search: '🔎 Поиск...',
+                all_tiers: 'Все уровни',
+                normal: '💎 Обычный',
+                silver: '⭐ Серебряный',
+                gold: '👑 Золотой',
+                royal: '💠 Королевский',
+                all_types: 'Все',
+                real_members: 'Реальный',
+                what_is: '🎯 Что такое Миллион Квадратов?',
+                description: 'Революционная платформа для интерактивного цифрового пространства.',
+                steps_title: '📋 Шаги подписки',
+                step1: 'Выберите место',
+                step2: 'Выберите уровень',
+                step3: 'Заполните данные',
+                step4: '3 дня бесплатно',
+                step5: 'Вперед!',
+                trial_banner: '🎁 3 дня бесплатно',
+                admin_hint: 'Двойной клик для доступа',
+                admin_login: '🔐 Вход в панель',
+                login: 'Войти',
+                login_error: 'Неверное имя пользователя или пароль',
+                username: 'Имя пользователя',
+                password: 'Пароль',
+                settings: 'Настройки',
+                add_member: 'Добавить',
+                refresh: 'Обновить',
+                name: 'Имя',
+                email: 'Email',
+                tier: 'Уровень',
+                location: 'Местоположение',
+                type: 'Тип',
+                actions: 'Действия',
+                total_members: 'Всего участников',
+                settings_title: 'Настройки',
+                admin_email: 'Email администратора:',
+                admin_email_placeholder: 'Email администратора',
+                change_password: '🔑 Сменить пароль',
+                new_password: 'Новый пароль',
+                change: 'Изменить',
+                save: 'Сохранить',
+                suggest_idea: '💡 Поделитесь предложением',
+                send: 'Отправить',
+                your_name: 'Ваше имя',
+                your_email: 'Ваш email',
+                your_suggestion: 'Ваша идея для улучшения',
+                contact_us: '📧 Свяжитесь с нами',
+                about_us: '📍 О нас',
+                about_text: 'Платформа Миллион Квадратов',
+                follow_us: '📱 Подпишитесь',
+                rights: 'Все права защищены',
+                badge_normal: 'Начинающий',
+                badge_silver: 'Популярный',
+                badge_gold: 'Рекомендуемый',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Поиск участников...',
+                f_normal_1: '✅ Показать имя',
+                f_normal_2: '✅ Показать местоположение',
+                f_silver_1: '✅ Показать имя',
+                f_silver_2: '✅ Показать местоположение',
+                f_silver_3: '✅ Ссылка на сайт',
+                f_gold_1: '✅ Показать имя',
+                f_gold_2: '✅ Показать местоположение',
+                f_gold_3: '✅ Ссылка на сайт',
+                f_gold_4: '✅ Фото профиля',
+                f_royal_1: '✅ Все функции',
+                f_royal_2: '✅ Анимированный фон',
+                f_royal_3: '✅ Особое отображение',
+                delete: 'Удалить'
             }
         };
 
@@ -2189,12 +2659,12 @@
             saveData();
         }
 
-        // ===== الترجمة =====
+        // ===== الترجمة الشاملة =====
         function translatePage(lang) {
             const t = TRANSLATIONS[lang];
             if (!t) return;
 
-            // ترجمة جميع العناصر التي تحمل data-i18n
+            // ترجمة العناصر التي تحمل data-i18n
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
                 if (t[key] !== undefined) {
@@ -2471,8 +2941,7 @@
                     m.location.toLowerCase().includes(searchText);
             });
 
-            const lang = currentLang;
-            const t = TRANSLATIONS[lang] || TRANSLATIONS.ar;
+            const t = TRANSLATIONS[currentLang] || TRANSLATIONS.ar;
 
             filtered.forEach(m => {
                 const tr = document.createElement('tr');
@@ -2526,7 +2995,7 @@
         function deleteMember(index) {
             const member = members[index];
             if (!member) return;
-            if (!confirm((currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا المشترك؟' :
+            if (!confirm((currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا المشترك？' :
                     'Are you sure you want to delete this member?'))) return;
             if (member.isVirtual) virtualRevenue -= TIERS[member.tier].price;
             else totalRevenue -= TIERS[member.tier].price;
@@ -2677,6 +3146,19 @@
                 applyZoom();
             });
 
+            // الشاشة الكاملة
+            document.getElementById('fullscreenBtn').addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                    this.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                        this.innerHTML = '<i class="fas fa-expand"></i>';
+                    }
+                }
+            });
+
             // الثيم
             document.getElementById('themeToggle').addEventListener('click', function() {
                 document.body.classList.toggle('light-mode');
@@ -2708,6 +3190,7 @@
                             document.getElementById('adminEmail').value = '';
                             document.getElementById('adminPassword').value = '';
                             if (loginError) loginError.classList.add('hidden');
+                            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
                     }
                 }
@@ -2922,5 +3405,6 @@
             console.log('🌐 اللغة: ' + currentLang);
         });
     </script>
+
 </body>
 </html>
