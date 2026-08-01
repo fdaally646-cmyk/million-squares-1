@@ -9,14 +9,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- ===== شاشة التحميل ===== -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader"></div>
         <p id="loadingText">⏳ جاري تحميل مليون مربع...</p>
     </div>
 
+    <!-- ===== خلفية الموقع ===== -->
     <div class="site-background" id="siteBackground"></div>
+
+    <!-- ===== زر العودة للأعلى ===== -->
     <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
 
+    <!-- ===== الشريط العلوي ===== -->
     <div class="top-banner">
         <div class="banner-content">
             <span class="banner-text">🚀 انضم الآن واحجز مربعك المميز</span>
@@ -26,6 +31,7 @@
         </div>
     </div>
 
+    <!-- ===== الهيدر ===== -->
     <header class="main-header">
         <div class="header-content">
             <div class="logo-section">
@@ -36,7 +42,6 @@
                 <div class="lang-selector">
                     <button class="lang-btn active" data-lang="ar">🇸🇦 عربي</button>
                     <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
-                    <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
                 </div>
                 <div class="live-stats">
                     <div class="stat-item"><i class="fas fa-user fa-fade"></i> <span class="stat-label">متصلون</span> <span class="stat-number" id="liveUsers">0</span></div>
@@ -51,26 +56,28 @@
         </div>
     </header>
 
+    <!-- ===== زر الحجز السريع ===== -->
     <div class="book-section">
         <div class="book-container">
             <button id="bookSquareBtn" class="book-btn">
                 <i class="fas fa-plus-circle"></i> <span>احجز مربعك الآن</span>
             </button>
-            <span class="book-hint">انقر هنا لحجز مربع جديد</span>
+            <span class="book-hint">🎁 3 أيام تجريبية مجانية</span>
         </div>
     </div>
 
+    <!-- ===== الرعاة ===== -->
     <div class="sponsors-section">
         <div class="sponsors-header"><span>🌟 الرعاة الداعمون</span><a href="#sponsorPayment" class="sponsor-cta">كن راعياً</a></div>
         <div class="sponsors-marquee"><div class="marquee-track" id="marqueeTrack"></div></div>
     </div>
 
+    <!-- ===== أدوات البحث ===== -->
     <div class="toolbar">
         <div class="toolbar-group">
             <button id="zoomInBtn"><i class="fas fa-search-plus"></i></button>
             <button id="zoomOutBtn"><i class="fas fa-search-minus"></i></button>
             <button id="resetViewBtn"><i class="fas fa-undo"></i></button>
-            <button id="fullscreenBtn"><i class="fas fa-expand"></i></button>
         </div>
         <div class="search-group">
             <div class="search-wrapper"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" placeholder="🔎 بحث..."></div>
@@ -84,6 +91,7 @@
         </div>
     </div>
 
+    <!-- ===== جدار المربعات ===== -->
     <div class="grid-container">
         <div class="grid-stats-bar">
             <span><i class="fas fa-th"></i> إجمالي المربعات: <strong>1,000,000</strong></span>
@@ -92,37 +100,39 @@
         </div>
         <div class="grid-wrapper">
             <div class="grid-canvas" id="gridCanvas"></div>
-            <div class="loading-indicator" id="loadingIndicator"><div class="spinner"></div><span>⏳ جاري تحميل المربعات...</span></div>
+            <div class="loading-indicator" id="loadingIndicator"><div class="spinner"></div><span>⏳ جاري التحميل...</span></div>
         </div>
     </div>
 
+    <!-- ===== معلومات الموقع ===== -->
     <section class="info-section">
         <div class="info-card">
             <h2>🎯 ما هو مليون مربع؟</h2>
             <p>منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.</p>
             <div class="features-grid">
                 <div class="feature normal-tier"><div class="feature-icon">💎</div><h4>عادي</h4><p class="price">$1/سنة</p>
-                    <ul class="feature-list"><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li></ul><div class="feature-badge">مبتدئ</div></div>
+                    <ul class="feature-list"><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li></ul></div>
                 <div class="feature silver-tier"><div class="feature-icon">⭐</div><h4>فضي</h4><p class="price">$5/سنة</p>
-                    <ul class="feature-list"><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li><li>✅ رابط الموقع</li><li>✅ إطار فضي</li></ul><div class="feature-badge">شائع</div></div>
+                    <ul class="feature-list"><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li><li>✅ رابط الموقع</li></ul></div>
                 <div class="feature gold-tier"><div class="feature-icon">👑</div><h4>ذهبي</h4><p class="price">$10/سنة</p>
-                    <ul class="feature-list"><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li><li>✅ رابط الموقع</li><li>✅ صورة شخصية</li><li>✅ إطار ذهبي</li><li>✅ أولوية الظهور</li></ul><div class="feature-badge">مميز</div></div>
+                    <ul class="feature-list"><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li><li>✅ رابط الموقع</li><li>✅ صورة شخصية</li></ul></div>
                 <div class="feature royal-tier"><div class="feature-icon">💠</div><h4>ملكي</h4><p class="price">$100/سنة</p>
-                    <ul class="feature-list"><li>✅ جميع ميزات الذهبي</li><li>✅ خلفية متحركة</li><li>✅ تأثير نبض</li><li>✅ صورة خلفية</li><li>✅ ظهور في الأعلى</li></ul><div class="feature-badge premium">VIP</div></div>
+                    <ul class="feature-list"><li>✅ جميع الميزات</li><li>✅ خلفية متحركة</li><li>✅ ظهور مميز</li></ul></div>
             </div>
         </div>
         <div class="info-card">
             <h2>📋 خطوات الاشتراك</h2>
-            <ol><li><span class="step-number">1</span> <strong>اختر موقعك</strong> - انقر على مربع فارغ</li>
-                <li><span class="step-number">2</span> <strong>حدد المستوى</strong> - عادي، فضي، ذهبي، ملكي</li>
-                <li><span class="step-number">3</span> <strong>املأ بياناتك</strong> - الاسم، البريد، الموقع، صورة</li>
-                <li><span class="step-number">4</span> <strong>فترة تجريبية</strong> - 3 أيام مجانية</li>
-                <li><span class="step-number">5</span> <strong>انطلق!</strong> - سيظهر مربعك فوراً</li>
+            <ol><li><span class="step-number">1</span> اختر موقعك</li>
+                <li><span class="step-number">2</span> حدد المستوى</li>
+                <li><span class="step-number">3</span> املأ بياناتك</li>
+                <li><span class="step-number">4</span> 3 أيام تجريبية مجانية</li>
+                <li><span class="step-number">5</span> انطلق!</li>
             </ol>
             <div class="trial-banner"><i class="fas fa-gift"></i> 🎁 3 أيام تجريبية مجانية</div>
         </div>
     </section>
 
+    <!-- ===== نظام دفع الرعاة ===== -->
     <section class="sponsor-payment-section" id="sponsorPayment">
         <h2>🌟 نظام الدفع للرعاة</h2>
         <p>اختر الباقة المناسبة لشركتك</p>
@@ -134,15 +144,15 @@
             <div class="plan-card featured"><div class="plan-icon">🌟</div><h4>شهري</h4><p class="price">$1,000</p>
                 <ul><li>✅ عرض اسم الشركة</li><li>✅ مدة: 30 يوماً</li><li>✅ شعار مميز</li></ul>
                 <button class="plan-btn sponsor-pay-btn" data-plan="monthly" data-amount="1000">اختر</button>
-                <span class="popular-badge">الأكثر طلباً</span>
             </div>
         </div>
     </section>
 
+    <!-- ===== لوحة التحكم ===== -->
     <div class="admin-section">
         <div class="admin-hidden-trigger">
             <button id="adminSecretBtn" class="admin-secret-btn"><i class="fas fa-user-shield"></i></button>
-            <span class="admin-hint">انقر مرتين للدخول إلى لوحة المدير</span>
+            <span class="admin-hint">انقر مرتين للدخول</span>
         </div>
         <div id="adminPanel" class="admin-panel hidden">
             <div class="admin-login">
@@ -163,14 +173,12 @@
                 <div id="tabMembers" class="tab-content active">
                     <div class="admin-controls">
                         <div class="admin-search"><i class="fas fa-search"></i><input type="text" id="adminSearchInput" placeholder="🔍 بحث..."></div>
-                        <div class="admin-actions">
-                            <button id="addMemberBtn"><i class="fas fa-user-plus"></i> إضافة</button>
-                            <button id="refreshMembersBtn"><i class="fas fa-sync"></i> تحديث</button>
-                        </div>
+                        <button id="addMemberBtn"><i class="fas fa-user-plus"></i> إضافة</button>
+                        <button id="refreshMembersBtn"><i class="fas fa-sync"></i> تحديث</button>
                     </div>
                     <div class="members-table-wrapper">
                         <table id="membersTable">
-                            <thead><tr><th>الاسم</th><th>البريد</th><th>المستوى</th><th>الموقع</th><th>النوع</th><th>الفترة التجريبية</th><th>الإجراءات</th></tr></thead>
+                            <thead><tr><th>الاسم</th><th>البريد</th><th>المستوى</th><th>الموقع</th><th>النوع</th><th>التجربة</th><th>الإجراءات</th></tr></thead>
                             <tbody id="membersTableBody"></tbody>
                         </table>
                     </div>
@@ -178,7 +186,8 @@
                 <div id="tabSettings" class="tab-content hidden">
                     <h4>الإعدادات</h4>
                     <div class="settings-group">
-                        <label>بريد المدير:</label><input type="email" id="adminEmailSetting" placeholder="بريد المدير">
+                        <label>بريد المدير:</label>
+                        <input type="email" id="adminEmailSetting" placeholder="بريد المدير">
                         <button id="saveSettingsBtn"><i class="fas fa-save"></i> حفظ</button>
                     </div>
                     <div class="settings-group">
@@ -191,6 +200,7 @@
         </div>
     </div>
 
+    <!-- ===== نموذج الاقتراحات ===== -->
     <section class="suggestion-section">
         <h2>💡 شاركنا اقتراحك</h2>
         <form id="suggestionForm">
@@ -201,6 +211,7 @@
         </form>
     </section>
 
+    <!-- ===== الفوتر ===== -->
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-section"><h4>📧 تواصل معنا</h4><a href="mailto:fdaally646@gmail.com">fdaally646@gmail.com</a></div>
