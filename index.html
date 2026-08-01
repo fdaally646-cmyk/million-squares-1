@@ -3,14 +3,1570 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 مليون مربع - المنصة التفاعلية</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <title data-i18n="site_title">🏆 مليون مربع</title>
+    <style>
+        /* ===== التنسيقات العامة ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6C3CE1;
+            --primary-dark: #4A1FA6;
+            --primary-light: #8B6BE8;
+            --secondary: #00D4FF;
+            --accent: #FF6B6B;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --royal: #9B59B6;
+            --dark: #0A0E1A;
+            --dark-card: #111827;
+            --dark-surface: #1A2236;
+            --text: #E8EDF5;
+            --text-muted: #8899BB;
+            --border: #2A3A5C;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #6C3CE1, #00D4FF);
+            --gradient-gold: linear-gradient(135deg, #FFD700, #FF6B00);
+            --gradient-royal: linear-gradient(135deg, #9B59B6, #6C3483);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+            direction: rtl;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ===== وضع فاتح ===== */
+        body.light-mode {
+            --dark: #F0F4F8;
+            --dark-card: #FFFFFF;
+            --dark-surface: #E8EDF5;
+            --text: #1A2236;
+            --text-muted: #4A5568;
+            --border: #CBD5E0;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .loading-screen {
+            background: #F0F4F8;
+        }
+
+        /* ===== شاشة التحميل ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s;
+        }
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border);
+            border-top-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .loading-text {
+            margin-top: 20px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .loading-progress {
+            margin-top: 15px;
+            width: 200px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .loading-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        /* ===== أزرار عصرية ===== */
+        .btn-modern {
+            position: relative;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            overflow: hidden;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-modern:hover::before {
+            left: 100%;
+        }
+        .btn-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(108, 60, 225, 0.4);
+        }
+        .btn-modern:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 8px 40px rgba(108, 60, 225, 0.5);
+        }
+
+        .btn-gold {
+            background: var(--gradient-gold);
+            color: #1A1100;
+        }
+        .btn-gold:hover {
+            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--dark-surface);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A24);
+            color: white;
+        }
+        .btn-accent:hover {
+            box-shadow: 0 8px 40px rgba(255, 107, 107, 0.5);
+        }
+
+        .btn-royal {
+            background: var(--gradient-royal);
+            color: white;
+        }
+        .btn-royal:hover {
+            box-shadow: 0 8px 40px rgba(155, 89, 182, 0.5);
+        }
+
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+        .btn-lg {
+            padding: 16px 44px;
+            font-size: 1.1rem;
+        }
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* ===== الشريط العلوي ===== */
+        .top-banner {
+            background: var(--gradient-primary);
+            padding: 8px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--secondary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 30px rgba(108, 60, 225, 0.3);
+        }
+        .banner-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+        .banner-counter {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .banner-clock {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ===== الهيدر ===== */
+        .main-header {
+            background: var(--dark-card);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 40px;
+            position: sticky;
+            top: 38px;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: -4px;
+        }
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== محدد اللغة العصري ===== */
+        .lang-selector {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            background: var(--dark-surface);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.7rem;
+            font-weight: 600;
+            position: relative;
+        }
+        .lang-btn:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .lang-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
+        }
+        .lang-btn .lang-flag {
+            margin-left: 4px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 20px;
+            background: var(--dark-surface);
+            padding: 4px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+        }
+        .stat-item {
+            text-align: center;
+            padding: 4px 8px;
+        }
+        .stat-number {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: rotate(20deg);
+        }
+
+        /* ===== زر الحجز العصري ===== */
+        .book-section {
+            padding: 12px 40px;
+            background: var(--dark-surface);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .book-btn {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 14px 48px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            box-shadow: 0 4px 30px rgba(108, 60, 225, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .book-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        .book-btn:hover::before {
+            left: 100%;
+        }
+        .book-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 50px rgba(108, 60, 225, 0.6);
+        }
+        .book-hint {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+
+        /* ===== شارات الثقة ===== */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 10px 40px;
+            background: var(--dark-surface);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .trust-badges span {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+        }
+        .trust-badges span:hover {
+            border-color: var(--secondary);
+            color: var(--text);
+        }
+        .trust-badges span i {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        /* ===== الرعاة ===== */
+        .sponsors-section {
+            background: var(--dark-surface);
+            padding: 10px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sponsors-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sponsors-header span {
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+        .sponsor-cta {
+            background: var(--gradient-gold);
+            color: #1A1100;
+            padding: 6px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        .sponsor-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 30px rgba(255, 215, 0, 0.4);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 50px;
+            animation: marqueeScroll 30s linear infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            padding: 6px 0;
+        }
+        .marquee-track .sponsor-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .marquee-track .sponsor-item .sponsor-badge {
+            background: var(--gradient-gold);
+            color: #1A1100;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+        @keyframes marqueeScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ===== أدوات البحث ===== */
+        .toolbar {
+            background: var(--dark-card);
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 94px;
+            z-index: 998;
+        }
+        .toolbar-group {
+            display: flex;
+            gap: 6px;
+        }
+        .toolbar-group button {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .toolbar-group button:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
+        }
+
+        .search-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-wrapper .search-icon {
+            position: absolute;
+            right: 14px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .search-wrapper input {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 40px 8px 16px;
+            border-radius: 30px;
+            width: 250px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        .search-wrapper input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+            width: 280px;
+        }
+        .search-group select {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .search-group select:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        /* ===== الجريد ===== */
+        .grid-container {
+            padding: 15px 40px;
+            background: var(--dark);
+        }
+        .grid-stats-bar {
+            display: flex;
+            gap: 25px;
+            padding: 8px 20px;
+            background: var(--dark-surface);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .grid-stats-bar strong {
+            color: var(--text);
+        }
+        .grid-wrapper {
+            background: var(--dark-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 10px;
+            height: 600px;
+            overflow: auto;
+            position: relative;
+        }
+        .grid-canvas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+            gap: 3px;
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+        /* ===== المربعات ===== */
+        .pixel-cell {
+            border-radius: 8px;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.4rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            min-height: 45px;
+            padding: 2px;
+            background: var(--dark-surface);
+        }
+        .pixel-cell .cell-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.4;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        .pixel-cell:hover .cell-image {
+            opacity: 0.7;
+            transform: scale(1.05);
+        }
+        .pixel-cell .cell-name {
+            font-weight: 700;
+            font-size: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+            max-width: 95%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .pixel-cell .cell-tier {
+            font-size: 0.4rem;
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            z-index: 2;
+        }
+        .pixel-cell .cell-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            width: 240px;
+            z-index: 100;
+            text-align: right;
+            font-size: 0.75rem;
+            box-shadow: var(--shadow);
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+        }
+        .pixel-cell:hover .cell-tooltip {
+            display: block;
+        }
+        .pixel-cell:hover {
+            transform: scale(1.15);
+            z-index: 20;
+            border-color: var(--secondary);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .pixel-cell.tier-normal {
+            border-color: #4A90D9;
+            background: linear-gradient(145deg, #1a2a4a, #0d1a2d);
+        }
+        .pixel-cell.tier-normal .cell-name {
+            color: #6AA8F0;
+        }
+        .pixel-cell.tier-silver {
+            border-color: var(--silver);
+            background: linear-gradient(145deg, #2a2a3a, #1a1a2a);
+        }
+        .pixel-cell.tier-silver .cell-name {
+            color: #E8E8E8;
+        }
+        .pixel-cell.tier-gold {
+            border-color: var(--gold);
+            background: linear-gradient(145deg, #2a1f00, #1a1000);
+        }
+        .pixel-cell.tier-gold .cell-name {
+            color: #FFD700;
+        }
+        .pixel-cell.tier-royal {
+            border-color: var(--royal);
+            background: linear-gradient(145deg, #2a1040, #1a0820);
+        }
+        .pixel-cell.tier-royal .cell-name {
+            color: #C084D0;
+        }
+        .pixel-cell.empty {
+            background: var(--dark-surface);
+            border: 2px dashed var(--border);
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        .pixel-cell.empty:hover {
+            border-color: var(--secondary);
+            background: var(--dark);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+        }
+
+        .cell-virtual-badge {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            font-size: 0.3rem;
+            background: rgba(245, 158, 11, 0.3);
+            color: #F59E0B;
+            padding: 1px 4px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+        .cell-rating {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.35rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1px 6px;
+            border-radius: 10px;
+            white-space: nowrap;
+            z-index: 2;
+        }
+        .cell-rating .stars {
+            color: #FFD700;
+        }
+        .cell-rating .votes {
+            color: var(--text-muted);
+            font-size: 0.3rem;
+        }
+
+        /* ===== معلومات الموقع ===== */
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            padding: 40px;
+            background: var(--dark-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .info-card {
+            background: var(--dark-surface);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .info-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.05);
+        }
+        .info-card h2 {
+            color: var(--secondary);
+            margin-bottom: 14px;
+            font-size: 1.2rem;
+        }
+        .info-card p {
+            color: var(--text-muted);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 14px;
+        }
+        .feature {
+            background: var(--dark);
+            padding: 16px;
+            border-radius: 14px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        .feature .feature-icon {
+            font-size: 1.8rem;
+        }
+        .feature h4 {
+            font-size: 0.9rem;
+            margin: 4px 0;
+        }
+        .feature .price {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .feature ul {
+            list-style: none;
+            text-align: right;
+            margin-top: 8px;
+            font-size: 0.65rem;
+        }
+        .feature ul li {
+            padding: 3px 0;
+            color: var(--text-muted);
+        }
+        .feature-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+        .feature-badge.premium {
+            background: var(--gradient-gold);
+            color: #1A1100;
+        }
+        .normal-tier .feature-badge {
+            background: #4A90D9;
+            color: white;
+        }
+        .silver-tier .feature-badge {
+            background: #C0C0C0;
+            color: #1A1A2A;
+        }
+        .gold-tier .feature-badge {
+            background: var(--gradient-gold);
+            color: #1A1100;
+        }
+        .royal-tier .feature-badge {
+            background: var(--gradient-royal);
+            color: white;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .info-card ol {
+            list-style: none;
+            padding-right: 0;
+            margin: 10px 0;
+        }
+        .info-card ol li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .trial-banner {
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #10B981, #059669);
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            animation: pulseGreen 2s infinite;
+        }
+        @keyframes pulseGreen {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+            }
+        }
+
+        /* ===== لوحة التحكم ===== */
+        .admin-section {
+            padding: 10px 40px;
+            background: var(--dark-card);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .admin-hidden-trigger {
+            text-align: center;
+            padding: 10px;
+            opacity: 0.3;
+            transition: var(--transition);
+        }
+        .admin-hidden-trigger:hover {
+            opacity: 0.8;
+        }
+        .admin-secret-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+        .admin-secret-btn:hover {
+            color: var(--secondary);
+            background: rgba(0, 212, 255, 0.1);
+            transform: scale(1.1);
+        }
+        .admin-hint {
+            display: block;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        .admin-panel {
+            margin-top: 15px;
+            background: var(--dark-surface);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--border);
+        }
+        .admin-panel.hidden {
+            display: none;
+        }
+
+        .admin-login {
+            max-width: 380px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .admin-login h3 {
+            color: var(--secondary);
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+        .admin-login input {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 18px;
+            border-radius: 25px;
+            width: 100%;
+            margin: 6px 0;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        .admin-login input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+        .admin-login button {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 25px;
+            width: 100%;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        .admin-login button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 30px rgba(108, 60, 225, 0.4);
+        }
+
+        .login-error {
+            color: var(--accent);
+            text-align: center;
+            padding: 8px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 12px;
+            border: 1px solid var(--accent);
+            margin-top: 8px;
+        }
+        .login-error.hidden {
+            display: none;
+        }
+
+        .admin-content {
+            margin-top: 15px;
+        }
+        .admin-content.hidden {
+            display: none;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+        .admin-tabs .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .admin-tabs .tab-btn:hover {
+            color: var(--text);
+            background: var(--dark);
+        }
+        .admin-tabs .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(108, 60, 225, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== أدوات التحكم في لوحة التحكم ===== */
+        .admin-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: var(--dark);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            align-items: center;
+        }
+        .admin-search {
+            position: relative;
+            flex: 1;
+            min-width: 180px;
+        }
+        .admin-search i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .admin-search input {
+            width: 100%;
+            padding: 8px 40px 8px 14px;
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            color: var(--text);
+            transition: var(--transition);
+        }
+        .admin-search input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+        .admin-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .admin-actions button {
+            padding: 8px 18px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+        .admin-actions button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
+        }
+
+        /* ===== جدول المشتركين ===== */
+        .members-table-wrapper {
+            overflow-x: auto;
+        }
+        #membersTable {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        #membersTable th {
+            background: var(--dark);
+            padding: 10px 14px;
+            text-align: right;
+            border-bottom: 2px solid var(--border);
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        #membersTable td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        #membersTable tr:hover {
+            background: var(--dark);
+        }
+        #membersTable tr.real-member {
+            border-right: 3px solid #10B981;
+        }
+        #membersTable tr.virtual-member {
+            border-right: 3px solid #F59E0B;
+        }
+
+        .member-type-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .member-type-badge.real {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+        }
+        .member-type-badge.virtual {
+            background: rgba(245, 158, 11, 0.2);
+            color: #F59E0B;
+        }
+
+        .action-btn {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .action-btn.edit {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        .action-btn.edit:hover {
+            background: #00b8e6;
+            transform: scale(1.05);
+        }
+        .action-btn.delete {
+            background: var(--accent);
+            color: white;
+        }
+        .action-btn.delete:hover {
+            background: #e55a5a;
+            transform: scale(1.05);
+        }
+
+        .table-footer {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* ===== الإعدادات ===== */
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        .settings-group label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .settings-group input {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 14px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+        .settings-group input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+        .settings-group button {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 8px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: fit-content;
+        }
+        .settings-group button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
+        }
+
+        /* ===== نموذج الاقتراحات ===== */
+        .suggestion-section {
+            padding: 30px 40px;
+            background: var(--dark);
+            border-bottom: 1px solid var(--border);
+        }
+        .suggestion-section h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        #suggestionForm {
+            max-width: 550px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        #suggestionForm input,
+        #suggestionForm textarea {
+            background: var(--dark-surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-family: inherit;
+            width: 100%;
+            transition: var(--transition);
+        }
+        #suggestionForm input:focus,
+        #suggestionForm textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+        }
+        #suggestionForm textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        #suggestionForm button {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        #suggestionForm button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 30px rgba(108, 60, 225, 0.4);
+        }
+
+        /* ===== إشعارات ===== */
+        .notification-container {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 350px;
+        }
+        .notification-item {
+            background: var(--dark-card);
+            border: 1px solid var(--secondary);
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: var(--shadow);
+            animation: slideInRight 0.4s ease;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+        }
+        @keyframes slideInRight {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== الفوتر ===== */
+        .main-footer {
+            background: var(--dark-card);
+            padding: 30px 40px;
+            border-top: 1px solid var(--border);
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-content h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .footer-content a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-content a:hover {
+            color: var(--secondary);
+        }
+        .social-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            background: var(--dark-surface);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+        .social-links a:hover {
+            color: white;
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(108, 60, 225, 0.4);
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 768px) {
+            .main-header {
+                padding: 10px 15px;
+            }
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .header-stats {
+                justify-content: center;
+            }
+            .lang-selector {
+                justify-content: center;
+            }
+            .toolbar {
+                padding: 10px 15px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-group {
+                justify-content: center;
+            }
+            .search-wrapper input {
+                width: 100%;
+            }
+            .search-wrapper input:focus {
+                width: 100%;
+            }
+            .book-section {
+                padding: 10px 15px;
+            }
+            .book-btn {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+            .info-section {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-container {
+                padding: 10px 15px;
+            }
+            .grid-wrapper {
+                height: 400px;
+            }
+            .grid-canvas {
+                grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+            }
+            .pixel-cell {
+                min-height: 32px;
+            }
+            .banner-content {
+                gap: 10px;
+                font-size: 0.7rem;
+            }
+            .trust-badges {
+                gap: 12px;
+                padding: 8px 15px;
+                font-size: 0.7rem;
+            }
+            .sponsors-section {
+                padding: 10px 15px;
+            }
+            .admin-section {
+                padding: 10px 15px;
+            }
+            .admin-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .admin-actions {
+                justify-content: center;
+            }
+            .admin-actions button {
+                flex: 1;
+                justify-content: center;
+            }
+            .admin-tabs {
+                justify-content: center;
+            }
+            .admin-tabs .tab-btn {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+            .suggestion-section {
+                padding: 20px 15px;
+            }
+            .main-footer {
+                padding: 20px 15px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+        }
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .grid-canvas {
+                grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+            }
+            .pixel-cell {
+                min-height: 28px;
+                font-size: 0.3rem;
+            }
+            .header-stats {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .lang-btn {
+                font-size: 0.6rem;
+                padding: 4px 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="site-background" id="siteBackground"></div>
 
-    <!-- ===== شريط التنبيه ===== -->
+    <!-- ===== شاشة التحميل ===== -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <p class="loading-text" data-i18n="loading">⏳ جاري تحميل مليون مربع...</p>
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- ===== الشريط العلوي ===== -->
     <div class="top-banner">
         <div class="banner-content">
             <span class="banner-text" data-i18n="banner">🚀 انضم الآن واحجز مربعك المميز</span>
@@ -23,17 +1579,20 @@
     <!-- ===== الهيدر ===== -->
     <header class="main-header">
         <div class="header-content">
-            <div class="logo-section">
+            <div class="logo">
                 <h1>🏆 <span class="gradient-text" data-i18n="site_title">مليون مربع</span></h1>
                 <p class="subtitle" data-i18n="subtitle">منصة التواصل البصرية الأولى</p>
             </div>
             <div class="header-controls">
                 <div class="lang-selector">
-                    <button class="lang-btn active" data-lang="ar">🇸🇦 عربي</button>
-                    <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
-                    <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
-                    <button class="lang-btn" data-lang="es">🇪🇸 ES</button>
-                    <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
+                    <button class="lang-btn active" data-lang="ar"><span class="lang-flag">🇸🇦</span> عربي</button>
+                    <button class="lang-btn" data-lang="en"><span class="lang-flag">🇬🇧</span> EN</button>
+                    <button class="lang-btn" data-lang="fr"><span class="lang-flag">🇫🇷</span> FR</button>
+                    <button class="lang-btn" data-lang="es"><span class="lang-flag">🇪🇸</span> ES</button>
+                    <button class="lang-btn" data-lang="de"><span class="lang-flag">🇩🇪</span> DE</button>
+                    <button class="lang-btn" data-lang="pt"><span class="lang-flag">🇵🇹</span> PT</button>
+                    <button class="lang-btn" data-lang="it"><span class="lang-flag">🇮🇹</span> IT</button>
+                    <button class="lang-btn" data-lang="ru"><span class="lang-flag">🇷🇺</span> RU</button>
                 </div>
                 <div class="header-stats">
                     <div class="stat-item">
@@ -45,45 +1604,74 @@
                         <span class="stat-label" data-i18n="revenue">إيرادات</span>
                     </div>
                 </div>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
             </div>
         </div>
     </header>
 
-    <!-- ===== شريط الرعاة ===== -->
+    <!-- ===== زر الحجز ===== -->
+    <div class="book-section">
+        <button id="bookSquareBtn" class="book-btn">
+            <i class="fas fa-plus-circle"></i> <span data-i18n="book_square">احجز مربعك الآن</span>
+        </button>
+        <span class="book-hint" data-i18n="book_hint">🎁 3 أيام تجريبية مجانية</span>
+    </div>
+
+    <!-- ===== شارات الثقة ===== -->
+    <div class="trust-badges">
+        <span><i class="fas fa-shield-alt"></i> <span data-i18n="secure_payment">دفع آمن</span></span>
+        <span><i class="fas fa-credit-card"></i> PayPal / Stripe</span>
+        <span><i class="fas fa-headset"></i> <span data-i18n="support_24_7">دعم 24/7</span></span>
+        <span><i class="fas fa-gift"></i> <span data-i18n="free_trial">3 أيام مجانية</span></span>
+    </div>
+
+    <!-- ===== الرعاة ===== -->
     <div class="sponsors-section">
         <div class="sponsors-header">
             <span data-i18n="sponsors_title">🌟 الرعاة الداعمون</span>
-            <a href="#sponsorPayment" class="sponsor-cta" data-i18n="become_sponsor">كن راعياً</a>
+            <button class="sponsor-cta" data-i18n="become_sponsor">كن راعياً</button>
         </div>
-        <div class="sponsors-marquee">
-            <div class="marquee-track" id="marqueeTrack"></div>
-        </div>
+        <div class="marquee-track" id="marqueeTrack"></div>
     </div>
 
-    <!-- ===== شريط الأدوات ===== -->
+    <!-- ===== أدوات البحث ===== -->
     <div class="toolbar">
         <div class="toolbar-group">
-            <button id="zoomInBtn" title="تكبير">🔍+</button>
-            <button id="zoomOutBtn" title="تصغير">🔍-</button>
-            <button id="resetViewBtn" title="إعادة ضبط">⟳</button>
+            <button id="zoomInBtn" title="تكبير"><i class="fas fa-search-plus"></i></button>
+            <button id="zoomOutBtn" title="تصغير"><i class="fas fa-search-minus"></i></button>
+            <button id="resetViewBtn" title="إعادة ضبط"><i class="fas fa-undo"></i></button>
+            <button id="fullscreenBtn" title="شاشة كاملة"><i class="fas fa-expand"></i></button>
         </div>
         <div class="search-group">
-            <input type="text" id="searchInput" placeholder="🔎 بحث عن مشترك...">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" data-i18n-placeholder="search" placeholder="🔎 بحث عن مشترك...">
+            </div>
             <select id="filterTier">
-                <option value="all">جميع المستويات</option>
-                <option value="normal">💎 عادي</option>
-                <option value="silver">⭐ فضي</option>
-                <option value="gold">👑 ذهبي</option>
-                <option value="royal">💠 ملكي</option>
+                <option value="all" data-i18n="all_tiers">جميع المستويات</option>
+                <option value="normal" data-i18n="normal">💎 عادي</option>
+                <option value="silver" data-i18n="silver">⭐ فضي</option>
+                <option value="gold" data-i18n="gold">👑 ذهبي</option>
+                <option value="royal" data-i18n="royal">💠 ملكي</option>
+            </select>
+            <select id="filterType">
+                <option value="all" data-i18n="all_types">الكل</option>
+                <option value="real" data-i18n="real_members">حقيقي</option>
+                <option value="virtual" data-i18n="virtual_members">افتراضي</option>
             </select>
         </div>
     </div>
 
-    <!-- ===== جدار المربعات ===== -->
+    <!-- ===== الجريد ===== -->
     <div class="grid-container">
-        <div class="grid-wrapper" id="gridWrapper">
+        <div class="grid-stats-bar">
+            <span><i class="fas fa-th"></i> <span data-i18n="total_squares">إجمالي المربعات</span>: <strong>1,000,000</strong></span>
+            <span><i class="fas fa-user-check"></i> <span data-i18n="members">المشتركين</span>: <strong id="gridMemberCount">0</strong></span>
+            <span><i class="fas fa-square"></i> <span data-i18n="available">المتاح</span>: <strong id="gridAvailableCount">0</strong></span>
+            <span><i class="fas fa-users"></i> <span data-i18n="virtual_members">افتراضي</span>: <strong id="virtualCount">0</strong></span>
+        </div>
+        <div class="grid-wrapper">
             <div class="grid-canvas" id="gridCanvas"></div>
-            <div class="loading-indicator" id="loadingIndicator">⏳ جاري تحميل المربعات...</div>
         </div>
     </div>
 
@@ -91,143 +1679,96 @@
     <section class="info-section">
         <div class="info-card">
             <h2 data-i18n="what_is">🎯 ما هو مليون مربع؟</h2>
-            <p data-i18n="description">منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية لعرض هويتهم.</p>
+            <p data-i18n="description">منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.</p>
             <div class="features-grid">
                 <div class="feature normal-tier">
-                    <span>💎</span>
+                    <div class="feature-icon">💎</div>
                     <h4 data-i18n="normal">عادي</h4>
                     <p class="price">$1/<span data-i18n="year">سنة</span></p>
-                    <ul class="feature-list">
+                    <ul>
                         <li data-i18n="f_normal_1">✅ عرض الاسم</li>
                         <li data-i18n="f_normal_2">✅ عرض الموقع</li>
                     </ul>
+                    <span class="feature-badge" data-i18n="badge_normal">مبتدئ</span>
                 </div>
                 <div class="feature silver-tier">
-                    <span>⭐</span>
+                    <div class="feature-icon">⭐</div>
                     <h4 data-i18n="silver">فضي</h4>
                     <p class="price">$5/<span data-i18n="year">سنة</span></p>
-                    <ul class="feature-list">
+                    <ul>
                         <li data-i18n="f_silver_1">✅ عرض الاسم</li>
                         <li data-i18n="f_silver_2">✅ عرض الموقع</li>
                         <li data-i18n="f_silver_3">✅ رابط الموقع</li>
-                        <li data-i18n="f_silver_4">✅ إطار فضي لامع</li>
                     </ul>
+                    <span class="feature-badge" data-i18n="badge_silver">شائع</span>
                 </div>
                 <div class="feature gold-tier">
-                    <span>👑</span>
+                    <div class="feature-icon">👑</div>
                     <h4 data-i18n="gold">ذهبي</h4>
                     <p class="price">$10/<span data-i18n="year">سنة</span></p>
-                    <ul class="feature-list">
+                    <ul>
                         <li data-i18n="f_gold_1">✅ عرض الاسم</li>
                         <li data-i18n="f_gold_2">✅ عرض الموقع</li>
                         <li data-i18n="f_gold_3">✅ رابط الموقع</li>
                         <li data-i18n="f_gold_4">✅ صورة شخصية</li>
-                        <li data-i18n="f_gold_5">✅ إطار ذهبي لامع</li>
-                        <li data-i18n="f_gold_6">✅ أولوية الظهور</li>
                     </ul>
+                    <span class="feature-badge" data-i18n="badge_gold">مميز</span>
                 </div>
                 <div class="feature royal-tier">
-                    <span>💠</span>
+                    <div class="feature-icon">💠</div>
                     <h4 data-i18n="royal">ملكي</h4>
                     <p class="price">$100/<span data-i18n="year">سنة</span></p>
-                    <ul class="feature-list">
-                        <li data-i18n="f_royal_1">✅ جميع ميزات الذهبي</li>
-                        <li data-i18n="f_royal_2">✅ خلفية شفافة متحركة</li>
-                        <li data-i18n="f_royal_3">✅ تأثير نبض مميز</li>
-                        <li data-i18n="f_royal_4">✅ صورة خلفية مخصصة</li>
-                        <li data-i18n="f_royal_5">✅ ظهور في الأعلى</li>
+                    <ul>
+                        <li data-i18n="f_royal_1">✅ جميع الميزات</li>
+                        <li data-i18n="f_royal_2">✅ خلفية متحركة</li>
+                        <li data-i18n="f_royal_3">✅ ظهور مميز</li>
                     </ul>
+                    <span class="feature-badge premium" data-i18n="badge_royal">VIP</span>
                 </div>
             </div>
         </div>
-
         <div class="info-card">
             <h2 data-i18n="steps_title">📋 خطوات الاشتراك</h2>
             <ol>
-                <li data-i18n="step1"><strong>اختر موقعك</strong> - انقر على أي مربع فارغ</li>
-                <li data-i18n="step2"><strong>حدد المستوى</strong> - عادي، فضي، ذهبي، أو ملكي</li>
-                <li data-i18n="step3"><strong>املأ بياناتك</strong> - الاسم، البريد، الموقع، صورة</li>
-                <li data-i18n="step4"><strong>ادفع بأمان</strong> - عبر PayPal أو Stripe أو IBAN</li>
-                <li data-i18n="step5"><strong>انطلق!</strong> - سيظهر مربعك فوراً</li>
+                <li data-i18n="step1"><span class="step-number">1</span> اختر موقعك</li>
+                <li data-i18n="step2"><span class="step-number">2</span> حدد المستوى</li>
+                <li data-i18n="step3"><span class="step-number">3</span> املأ بياناتك</li>
+                <li data-i18n="step4"><span class="step-number">4</span> 3 أيام تجريبية مجانية</li>
+                <li data-i18n="step5"><span class="step-number">5</span> انطلق!</li>
             </ol>
-            <div class="payment-methods">
-                <span>💳 PayPal</span>
-                <span>⚡ Stripe</span>
-                <span>🏦 IBAN</span>
-            </div>
+            <div class="trial-banner"><i class="fas fa-gift"></i> <span data-i18n="trial_banner">🎁 3 أيام تجريبية مجانية</span></div>
         </div>
     </section>
 
-    <!-- ===== نظام دفع الرعاة ===== -->
-    <section class="sponsor-payment-section" id="sponsorPayment">
-        <h2 data-i18n="sponsor_payment_title">🌟 نظام الدفع للرعاة</h2>
-        <p data-i18n="sponsor_payment_desc">اختر الباقة المناسبة لشركتك وادفع مباشرة عبر بوابة الدفع الإلكتروني</p>
-        <div class="sponsor-plans">
-            <div class="plan-card">
-                <h4 data-i18n="weekly">أسبوعي</h4>
-                <p class="price">$100</p>
-                <ul>
-                    <li data-i18n="sp_weekly_1">✅ عرض اسم الشركة</li>
-                    <li data-i18n="sp_weekly_2">✅ مدة: 7 أيام</li>
-                    <li data-i18n="sp_weekly_3">✅ رابط موقعك</li>
-                </ul>
-                <button class="plan-btn sponsor-pay-btn" data-plan="weekly" data-amount="100" data-i18n="choose">اختر</button>
-            </div>
-            <div class="plan-card featured">
-                <h4 data-i18n="monthly">شهري</h4>
-                <p class="price">$1,000</p>
-                <ul>
-                    <li data-i18n="sp_monthly_1">✅ عرض اسم الشركة</li>
-                    <li data-i18n="sp_monthly_2">✅ مدة: 30 يوماً</li>
-                    <li data-i18n="sp_monthly_3">✅ رابط موقعك</li>
-                    <li data-i18n="sp_monthly_4">✅ شعار مميز</li>
-                </ul>
-                <button class="plan-btn sponsor-pay-btn" data-plan="monthly" data-amount="1000" data-i18n="choose">اختر</button>
-            </div>
-            <div class="plan-card premium">
-                <h4 data-i18n="yearly">سنوي</h4>
-                <p class="price">$10,000</p>
-                <ul>
-                    <li data-i18n="sp_yearly_1">✅ عرض اسم الشركة</li>
-                    <li data-i18n="sp_yearly_2">✅ مدة: 365 يوماً</li>
-                    <li data-i18n="sp_yearly_3">✅ رابط موقعك</li>
-                    <li data-i18n="sp_yearly_4">✅ شعار مميز</li>
-                    <li data-i18n="sp_yearly_5">✅ فيديو تعريفي</li>
-                </ul>
-                <button class="plan-btn sponsor-pay-btn" data-plan="yearly" data-amount="10000" data-i18n="choose">اختر</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== لوحة التحكم (مخفية) ===== -->
+    <!-- ===== لوحة التحكم ===== -->
     <div class="admin-section">
         <div class="admin-hidden-trigger">
-            <button id="adminSecretBtn" class="admin-secret-btn" title="اضغط مرتين للدخول">🔐</button>
-            <span class="admin-hint" data-i18n="admin_hint">انقر مرتين للدخول إلى لوحة المدير</span>
+            <button id="adminSecretBtn" class="admin-secret-btn"><i class="fas fa-user-shield"></i></button>
+            <span class="admin-hint" data-i18n="admin_hint">انقر مرتين للدخول</span>
         </div>
-        
         <div id="adminPanel" class="admin-panel hidden">
             <div class="admin-login">
                 <h3 data-i18n="admin_login">🔐 الدخول إلى لوحة التحكم</h3>
-                <input type="text" id="adminEmail" placeholder="اسم المستخدم">
-                <input type="password" id="adminPassword" placeholder="كلمة السر">
-                <button id="adminLoginBtn" data-i18n="login">دخول</button>
-                <div id="loginError" class="login-error hidden">❌ اسم المستخدم أو كلمة السر غير صحيحة</div>
+                <input type="text" id="adminEmail" data-i18n-placeholder="username" placeholder="اسم المستخدم">
+                <input type="password" id="adminPassword" data-i18n-placeholder="password" placeholder="كلمة السر">
+                <button id="adminLoginBtn"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login">دخول</span></button>
+                <div id="loginError" class="login-error hidden">❌ <span data-i18n="login_error">اسم المستخدم أو كلمة السر غير صحيحة</span></div>
             </div>
-            
             <div id="adminContent" class="admin-content hidden">
                 <div class="admin-tabs">
-                    <button class="tab-btn active" data-tab="tabMembers">👥 <span data-i18n="members">المشتركين</span></button>
-                    <button class="tab-btn" data-tab="tabPayments">💰 <span data-i18n="payments">الدفع</span></button>
-                    <button class="tab-btn" data-tab="tabSponsors">🏢 <span data-i18n="sponsors">الرعاة</span></button>
-                    <button class="tab-btn" data-tab="tabSuggestions">💡 <span data-i18n="suggestions">الاقتراحات</span></button>
-                    <button class="tab-btn" data-tab="tabSettings">⚙️ <span data-i18n="settings">الإعدادات</span></button>
+                    <button class="tab-btn active" data-tab="tabMembers"><i class="fas fa-users"></i> <span data-i18n="members">المشتركين</span></button>
+                    <button class="tab-btn" data-tab="tabSettings"><i class="fas fa-cog"></i> <span data-i18n="settings">الإعدادات</span></button>
                 </div>
-
                 <div id="tabMembers" class="tab-content active">
-                    <div class="admin-actions">
-                        <button id="addMemberBtn">➕ <span data-i18n="add_member">إضافة مشترك</span></button>
-                        <button id="exportMembersBtn">📥 <span data-i18n="export">تصدير</span></button>
+                    <div class="admin-controls">
+                        <div class="admin-search">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="adminSearchInput" data-i18n-placeholder="admin_search" placeholder="🔍 بحث في المشتركين...">
+                        </div>
+                        <div class="admin-actions">
+                            <button id="addMemberBtn"><i class="fas fa-user-plus"></i> <span data-i18n="add_member">إضافة</span></button>
+                            <button id="refreshMembersBtn"><i class="fas fa-sync"></i> <span data-i18n="refresh">تحديث</span></button>
+                        </div>
                     </div>
                     <div class="members-table-wrapper">
                         <table id="membersTable">
@@ -237,60 +1778,30 @@
                                     <th data-i18n="email">البريد</th>
                                     <th data-i18n="tier">المستوى</th>
                                     <th data-i18n="location">الموقع</th>
+                                    <th data-i18n="type">النوع</th>
                                     <th data-i18n="actions">الإجراءات</th>
                                 </tr>
                             </thead>
                             <tbody id="membersTableBody"></tbody>
                         </table>
                     </div>
-                </div>
-
-                <div id="tabPayments" class="tab-content hidden">
-                    <h4 data-i18n="payment_settings">💳 إعدادات الدفع</h4>
-                    <div class="payment-settings">
-                        <label>PayPal: <input type="text" id="paypalSetting" placeholder="بريد PayPal"></label>
-                        <label>Stripe: <input type="text" id="stripeSetting" placeholder="مفتاح Stripe"></label>
-                        <label>IBAN: <input type="text" id="ibanSetting" placeholder="رقم IBAN"></label>
-                        <button id="savePaymentSettings">💾 <span data-i18n="save">حفظ الإعدادات</span></button>
+                    <div class="table-footer">
+                        <span><span data-i18n="total_members">إجمالي المشتركين</span>: <strong id="tableTotalMembers">0</strong></span>
+                        <span><span data-i18n="real_members">حقيقي</span>: <strong id="tableRealCount">0</strong></span>
+                        <span><span data-i18n="virtual_members">افتراضي</span>: <strong id="tableVirtualCount">0</strong></span>
                     </div>
                 </div>
-
-                <div id="tabSponsors" class="tab-content hidden">
-                    <h4 data-i18n="sponsor_management">🏢 إدارة الرعاة</h4>
-                    <div class="sponsor-admin">
-                        <div class="add-sponsor-form">
-                            <input type="text" id="sponsorName" placeholder="اسم الراعي">
-                            <input type="text" id="sponsorLink" placeholder="رابط الموقع">
-                            <input type="number" id="sponsorAmount" placeholder="المبلغ">
-                            <select id="sponsorDuration">
-                                <option value="weekly" data-i18n="weekly">أسبوعي</option>
-                                <option value="monthly" data-i18n="monthly">شهري</option>
-                                <option value="yearly" data-i18n="yearly">سنوي</option>
-                            </select>
-                            <button id="addSponsorBtn">➕ <span data-i18n="add_sponsor">إضافة راعي</span></button>
-                        </div>
-                        <ul id="sponsorList" class="sponsor-list"></ul>
-                    </div>
-                </div>
-
-                <div id="tabSuggestions" class="tab-content hidden">
-                    <h4 data-i18n="suggestions_title">💡 اقتراحات المشتركين</h4>
-                    <div id="suggestionsList" class="suggestions-list">
-                        <p class="empty-msg" data-i18n="no_suggestions">لا توجد اقتراحات حالياً</p>
-                    </div>
-                </div>
-
                 <div id="tabSettings" class="tab-content hidden">
-                    <h4 data-i18n="settings_title">⚙️ إعدادات الموقع</h4>
+                    <h4 data-i18n="settings_title">الإعدادات</h4>
                     <div class="settings-group">
-                        <label data-i18n="admin_email">بريد المدير: <input type="email" id="adminEmailSetting" placeholder="بريد المدير"></label>
-                        <label data-i18n="admin_name">اسم المدير: <input type="text" id="adminNameSetting" placeholder="اسم المدير"></label>
-                        <button id="saveSettingsBtn">💾 <span data-i18n="save">حفظ الإعدادات</span></button>
+                        <label data-i18n="admin_email">بريد المدير:</label>
+                        <input type="email" id="adminEmailSetting" data-i18n-placeholder="admin_email_placeholder" placeholder="بريد المدير">
+                        <button id="saveSettingsBtn"><i class="fas fa-save"></i> <span data-i18n="save">حفظ</span></button>
                     </div>
                     <div class="settings-group">
                         <h5 data-i18n="change_password">🔑 تغيير كلمة السر</h5>
-                        <input type="password" id="newPassword" placeholder="كلمة سر جديدة">
-                        <button id="changePasswordBtn" data-i18n="change">تغيير</button>
+                        <input type="password" id="newPassword" data-i18n-placeholder="new_password" placeholder="كلمة سر جديدة">
+                        <button id="changePasswordBtn"><i class="fas fa-exchange-alt"></i> <span data-i18n="change">تغيير</span></button>
                     </div>
                 </div>
             </div>
@@ -301,10 +1812,10 @@
     <section class="suggestion-section">
         <h2 data-i18n="suggest_idea">💡 شاركنا اقتراحك</h2>
         <form id="suggestionForm">
-            <input type="text" id="suggesterName" placeholder="اسمك" required>
-            <input type="email" id="suggesterEmail" placeholder="بريدك الإلكتروني" required>
-            <textarea id="suggestionText" placeholder="ما هي فكرتك لتطوير الموقع؟" required></textarea>
-            <button type="submit" data-i18n="send">إرسال الاقتراح</button>
+            <input type="text" id="suggesterName" data-i18n-placeholder="your_name" placeholder="اسمك" required>
+            <input type="email" id="suggesterEmail" data-i18n-placeholder="your_email" placeholder="بريدك" required>
+            <textarea id="suggestionText" data-i18n-placeholder="your_suggestion" placeholder="فكرتك لتطوير الموقع" required></textarea>
+            <button type="submit" data-i18n="send"><i class="fas fa-paper-plane"></i> إرسال</button>
         </form>
     </section>
 
@@ -313,7 +1824,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4 data-i18n="contact_us">📧 تواصل معنا</h4>
-                <a href="mailto:fdaally646@gmail.com">fdaally646@gmail.com</a>
+                <a href="mailto:fdaally646@gmail.com"><i class="fas fa-envelope"></i> fdaally646@gmail.com</a>
             </div>
             <div class="footer-section">
                 <h4 data-i18n="about_us">📍 عن الموقع</h4>
@@ -322,9 +1833,10 @@
             <div class="footer-section">
                 <h4 data-i18n="follow_us">📱 تابعنا</h4>
                 <div class="social-links">
-                    <a href="#">🐦 X</a>
-                    <a href="#">📘 Facebook</a>
-                    <a href="#">📸 Instagram</a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -333,6 +1845,1566 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- ===== حاوية الإشعارات ===== -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <!-- ===== Font Awesome ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // ============================================================
+        // ===== جافا سكريبت - الكود الكامل والمستقر =====
+        // ============================================================
+
+        // ===== بيانات المستويات =====
+        const TIERS = {
+            normal: { name: 'عادي', price: 1, color: '#4A90D9', label: '💎' },
+            silver: { name: 'فضي', price: 5, color: '#C0C0C0', label: '⭐' },
+            gold: { name: 'ذهبي', price: 10, color: '#FFD700', label: '👑' },
+            royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
+        };
+
+        // ===== الترجمات الكاملة (8 لغات) =====
+        const TRANSLATIONS = {
+            ar: {
+                site_title: 'مليون مربع',
+                subtitle: 'منصة التواصل البصرية الأولى',
+                banner: '🚀 انضم الآن واحجز مربعك المميز',
+                available: 'المربعات المتاحة',
+                members: 'مشترك',
+                revenue: 'إيرادات',
+                year: 'سنة',
+                loading: '⏳ جاري تحميل مليون مربع...',
+                total_squares: 'إجمالي المربعات',
+                virtual_members: 'افتراضي',
+                secure_payment: 'دفع آمن',
+                support_24_7: 'دعم 24/7',
+                free_trial: '3 أيام مجانية',
+                book_square: 'احجز مربعك الآن',
+                book_hint: '🎁 3 أيام تجريبية مجانية',
+                sponsors_title: '🌟 الرعاة الداعمون',
+                become_sponsor: 'كن راعياً',
+                search: '🔎 بحث عن مشترك...',
+                all_tiers: 'جميع المستويات',
+                normal: '💎 عادي',
+                silver: '⭐ فضي',
+                gold: '👑 ذهبي',
+                royal: '💠 ملكي',
+                all_types: 'الكل',
+                real_members: 'حقيقي',
+                what_is: '🎯 ما هو مليون مربع؟',
+                description: 'منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.',
+                steps_title: '📋 خطوات الاشتراك',
+                step1: 'اختر موقعك',
+                step2: 'حدد المستوى',
+                step3: 'املأ بياناتك',
+                step4: '3 أيام تجريبية مجانية',
+                step5: 'انطلق!',
+                trial_banner: '🎁 3 أيام تجريبية مجانية',
+                admin_hint: 'انقر مرتين للدخول',
+                admin_login: '🔐 الدخول إلى لوحة التحكم',
+                login: 'دخول',
+                login_error: 'اسم المستخدم أو كلمة السر غير صحيحة',
+                username: 'اسم المستخدم',
+                password: 'كلمة السر',
+                settings: 'الإعدادات',
+                add_member: 'إضافة',
+                refresh: 'تحديث',
+                name: 'الاسم',
+                email: 'البريد',
+                tier: 'المستوى',
+                location: 'الموقع',
+                type: 'النوع',
+                actions: 'الإجراءات',
+                total_members: 'إجمالي المشتركين',
+                settings_title: 'الإعدادات',
+                admin_email: 'بريد المدير:',
+                admin_email_placeholder: 'بريد المدير',
+                change_password: '🔑 تغيير كلمة السر',
+                new_password: 'كلمة سر جديدة',
+                change: 'تغيير',
+                save: 'حفظ',
+                suggest_idea: '💡 شاركنا اقتراحك',
+                send: 'إرسال',
+                your_name: 'اسمك',
+                your_email: 'بريدك',
+                your_suggestion: 'فكرتك لتطوير الموقع',
+                contact_us: '📧 تواصل معنا',
+                about_us: '📍 عن الموقع',
+                about_text: 'منصة مليون مربع - حيث الإبداع يلتقي بالفرص',
+                follow_us: '📱 تابعنا',
+                rights: 'جميع الحقوق محفوظة',
+                badge_normal: 'مبتدئ',
+                badge_silver: 'شائع',
+                badge_gold: 'مميز',
+                badge_royal: 'VIP',
+                admin_search: '🔍 بحث في المشتركين...',
+                f_normal_1: '✅ عرض الاسم',
+                f_normal_2: '✅ عرض الموقع',
+                f_silver_1: '✅ عرض الاسم',
+                f_silver_2: '✅ عرض الموقع',
+                f_silver_3: '✅ رابط الموقع',
+                f_gold_1: '✅ عرض الاسم',
+                f_gold_2: '✅ عرض الموقع',
+                f_gold_3: '✅ رابط الموقع',
+                f_gold_4: '✅ صورة شخصية',
+                f_royal_1: '✅ جميع الميزات',
+                f_royal_2: '✅ خلفية متحركة',
+                f_royal_3: '✅ ظهور مميز',
+                delete: 'حذف'
+            },
+            en: {
+                site_title: 'Million Squares',
+                subtitle: 'The First Visual Communication Platform',
+                banner: '🚀 Join now and book your special square',
+                available: 'Available squares',
+                members: 'Members',
+                revenue: 'Revenue',
+                year: 'year',
+                loading: '⏳ Loading Million Squares...',
+                total_squares: 'Total squares',
+                virtual_members: 'Virtual',
+                secure_payment: 'Secure Payment',
+                support_24_7: '24/7 Support',
+                free_trial: '3 days free',
+                book_square: 'Book Your Square Now',
+                book_hint: '🎁 3 days free trial',
+                sponsors_title: '🌟 Supporting Sponsors',
+                become_sponsor: 'Become a Sponsor',
+                search: '🔎 Search members...',
+                all_tiers: 'All Tiers',
+                normal: '💎 Normal',
+                silver: '⭐ Silver',
+                gold: '👑 Gold',
+                royal: '💠 Royal',
+                all_types: 'All',
+                real_members: 'Real',
+                what_is: '🎯 What is Million Squares?',
+                description: 'A revolutionary platform for interactive digital space.',
+                steps_title: '📋 Subscription Steps',
+                step1: 'Choose your spot',
+                step2: 'Select tier',
+                step3: 'Fill your data',
+                step4: '3 days free trial',
+                step5: 'Go!',
+                trial_banner: '🎁 3 days free trial',
+                admin_hint: 'Double click to access',
+                admin_login: '🔐 Login to Dashboard',
+                login: 'Login',
+                login_error: 'Invalid username or password',
+                username: 'Username',
+                password: 'Password',
+                settings: 'Settings',
+                add_member: 'Add',
+                refresh: 'Refresh',
+                name: 'Name',
+                email: 'Email',
+                tier: 'Tier',
+                location: 'Location',
+                type: 'Type',
+                actions: 'Actions',
+                total_members: 'Total Members',
+                settings_title: 'Settings',
+                admin_email: 'Admin Email:',
+                admin_email_placeholder: 'Admin email',
+                change_password: '🔑 Change Password',
+                new_password: 'New password',
+                change: 'Change',
+                save: 'Save',
+                suggest_idea: '💡 Share Your Suggestion',
+                send: 'Send',
+                your_name: 'Your name',
+                your_email: 'Your email',
+                your_suggestion: 'Your idea to improve',
+                contact_us: '📧 Contact Us',
+                about_us: '📍 About Us',
+                about_text: 'Million Squares Platform - Where Creativity Meets Opportunity',
+                follow_us: '📱 Follow Us',
+                rights: 'All Rights Reserved',
+                badge_normal: 'Beginner',
+                badge_silver: 'Popular',
+                badge_gold: 'Featured',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Search members...',
+                f_normal_1: '✅ Show name',
+                f_normal_2: '✅ Show location',
+                f_silver_1: '✅ Show name',
+                f_silver_2: '✅ Show location',
+                f_silver_3: '✅ Website link',
+                f_gold_1: '✅ Show name',
+                f_gold_2: '✅ Show location',
+                f_gold_3: '✅ Website link',
+                f_gold_4: '✅ Profile image',
+                f_royal_1: '✅ All features',
+                f_royal_2: '✅ Animated background',
+                f_royal_3: '✅ Featured display',
+                delete: 'Delete'
+            },
+            fr: {
+                site_title: 'Million de Carrés',
+                subtitle: 'La première plateforme de communication visuelle',
+                banner: '🚀 Rejoignez maintenant',
+                available: 'Carrés disponibles',
+                members: 'Membres',
+                revenue: 'Revenus',
+                year: 'an',
+                loading: '⏳ Chargement...',
+                total_squares: 'Total des carrés',
+                virtual_members: 'Virtuel',
+                secure_payment: 'Paiement sécurisé',
+                support_24_7: 'Support 24/7',
+                free_trial: '3 jours gratuits',
+                book_square: 'Réservez votre carré',
+                book_hint: '🎁 3 jours d\'essai',
+                sponsors_title: '🌟 Sponsors',
+                become_sponsor: 'Sponsor',
+                search: '🔎 Rechercher...',
+                all_tiers: 'Tous les niveaux',
+                normal: '💎 Normal',
+                silver: '⭐ Argent',
+                gold: '👑 Or',
+                royal: '💠 Royal',
+                all_types: 'Tous',
+                real_members: 'Réel',
+                what_is: "🎯 Qu'est-ce que Million de Carrés?",
+                description: 'Une plateforme révolutionnaire pour espace numérique interactif.',
+                steps_title: "📋 Étapes d'abonnement",
+                step1: 'Choisissez votre emplacement',
+                step2: 'Sélectionnez le niveau',
+                step3: 'Remplissez vos données',
+                step4: "3 jours d'essai",
+                step5: 'Go!',
+                trial_banner: "🎁 3 jours d'essai",
+                admin_hint: 'Double-cliquez pour accéder',
+                admin_login: '🔐 Connexion',
+                login: 'Connexion',
+                login_error: 'Identifiants incorrects',
+                username: "Nom d'utilisateur",
+                password: 'Mot de passe',
+                settings: 'Paramètres',
+                add_member: 'Ajouter',
+                refresh: 'Rafraîchir',
+                name: 'Nom',
+                email: 'Email',
+                tier: 'Niveau',
+                location: 'Emplacement',
+                type: 'Type',
+                actions: 'Actions',
+                total_members: 'Total des membres',
+                settings_title: 'Paramètres',
+                admin_email: "Email de l'admin:",
+                admin_email_placeholder: "Email de l'admin",
+                change_password: '🔑 Changer mot de passe',
+                new_password: 'Nouveau mot de passe',
+                change: 'Changer',
+                save: 'Enregistrer',
+                suggest_idea: '💡 Partagez votre suggestion',
+                send: 'Envoyer',
+                your_name: 'Votre nom',
+                your_email: 'Votre email',
+                your_suggestion: 'Votre idée',
+                contact_us: '📧 Contactez-nous',
+                about_us: '📍 À propos',
+                about_text: 'Plateforme Million de Carrés',
+                follow_us: '📱 Suivez-nous',
+                rights: 'Tous droits réservés',
+                badge_normal: 'Débutant',
+                badge_silver: 'Populaire',
+                badge_gold: 'En vedette',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Rechercher...',
+                f_normal_1: '✅ Afficher le nom',
+                f_normal_2: "✅ Afficher l'emplacement",
+                f_silver_1: '✅ Afficher le nom',
+                f_silver_2: "✅ Afficher l'emplacement",
+                f_silver_3: '✅ Lien site web',
+                f_gold_1: '✅ Afficher le nom',
+                f_gold_2: "✅ Afficher l'emplacement",
+                f_gold_3: '✅ Lien site web',
+                f_gold_4: '✅ Photo de profil',
+                f_royal_1: '✅ Toutes les fonctionnalités',
+                f_royal_2: '✅ Fond animé',
+                f_royal_3: '✅ Affichage en vedette',
+                delete: 'Supprimer'
+            },
+            es: {
+                site_title: 'Millón de Cuadrados',
+                subtitle: 'La primera plataforma de comunicación visual',
+                banner: '🚀 Únete ahora',
+                available: 'Cuadrados disponibles',
+                members: 'Miembros',
+                revenue: 'Ingresos',
+                year: 'año',
+                loading: '⏳ Cargando...',
+                total_squares: 'Total de cuadrados',
+                virtual_members: 'Virtual',
+                secure_payment: 'Pago seguro',
+                support_24_7: 'Soporte 24/7',
+                free_trial: '3 días gratis',
+                book_square: 'Reserva tu cuadrado',
+                book_hint: '🎁 3 días de prueba',
+                sponsors_title: '🌟 Patrocinadores',
+                become_sponsor: 'Patrocinador',
+                search: '🔎 Buscar...',
+                all_tiers: 'Todos los niveles',
+                normal: '💎 Normal',
+                silver: '⭐ Plata',
+                gold: '👑 Oro',
+                royal: '💠 Real',
+                all_types: 'Todos',
+                real_members: 'Real',
+                what_is: '🎯 ¿Qué es Millón de Cuadrados?',
+                description: 'Una plataforma revolucionaria para espacio digital interactivo.',
+                steps_title: '📋 Pasos de suscripción',
+                step1: 'Elige tu lugar',
+                step2: 'Selecciona el nivel',
+                step3: 'Completa tus datos',
+                step4: '3 días de prueba',
+                step5: '¡Adelante!',
+                trial_banner: '🎁 3 días de prueba',
+                admin_hint: 'Haga doble clic para acceder',
+                admin_login: '🔐 Iniciar sesión',
+                login: 'Iniciar sesión',
+                login_error: 'Usuario o contraseña incorrectos',
+                username: 'Usuario',
+                password: 'Contraseña',
+                settings: 'Configuración',
+                add_member: 'Agregar',
+                refresh: 'Actualizar',
+                name: 'Nombre',
+                email: 'Email',
+                tier: 'Nivel',
+                location: 'Ubicación',
+                type: 'Tipo',
+                actions: 'Acciones',
+                total_members: 'Total de miembros',
+                settings_title: 'Configuración',
+                admin_email: 'Email del admin:',
+                admin_email_placeholder: 'Email del admin',
+                change_password: '🔑 Cambiar contraseña',
+                new_password: 'Nueva contraseña',
+                change: 'Cambiar',
+                save: 'Guardar',
+                suggest_idea: '💡 Comparte tu sugerencia',
+                send: 'Enviar',
+                your_name: 'Tu nombre',
+                your_email: 'Tu email',
+                your_suggestion: 'Tu idea para mejorar',
+                contact_us: '📧 Contáctanos',
+                about_us: '📍 Sobre nosotros',
+                about_text: 'Plataforma Millón de Cuadrados',
+                follow_us: '📱 Síguenos',
+                rights: 'Todos los derechos reservados',
+                badge_normal: 'Principiante',
+                badge_silver: 'Popular',
+                badge_gold: 'Destacado',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Buscar...',
+                f_normal_1: '✅ Mostrar nombre',
+                f_normal_2: '✅ Mostrar ubicación',
+                f_silver_1: '✅ Mostrar nombre',
+                f_silver_2: '✅ Mostrar ubicación',
+                f_silver_3: '✅ Enlace web',
+                f_gold_1: '✅ Mostrar nombre',
+                f_gold_2: '✅ Mostrar ubicación',
+                f_gold_3: '✅ Enlace web',
+                f_gold_4: '✅ Imagen de perfil',
+                f_royal_1: '✅ Todas las características',
+                f_royal_2: '✅ Fondo animado',
+                f_royal_3: '✅ Visualización destacada',
+                delete: 'Eliminar'
+            },
+            de: {
+                site_title: 'Million Quadrate',
+                subtitle: 'Die erste visuelle Kommunikationsplattform',
+                banner: '🚀 Jetzt beitreten',
+                available: 'Verfügbare Quadrate',
+                members: 'Mitglieder',
+                revenue: 'Einnahmen',
+                year: 'Jahr',
+                loading: '⏳ Lädt...',
+                total_squares: 'Gesamt Quadrate',
+                virtual_members: 'Virtuell',
+                secure_payment: 'Sichere Zahlung',
+                support_24_7: '24/7 Support',
+                free_trial: '3 Tage kostenlos',
+                book_square: 'Buche dein Quadrat',
+                book_hint: '🎁 3 Tage Test',
+                sponsors_title: '🌟 Sponsoren',
+                become_sponsor: 'Sponsor werden',
+                search: '🔎 Suchen...',
+                all_tiers: 'Alle Stufen',
+                normal: '💎 Normal',
+                silver: '⭐ Silber',
+                gold: '👑 Gold',
+                royal: '💠 Königlich',
+                all_types: 'Alle',
+                real_members: 'Echt',
+                what_is: '🎯 Was ist Million Quadrate?',
+                description: 'Eine revolutionäre Plattform für interaktive digitale Räume.',
+                steps_title: '📋 Abonnementschritte',
+                step1: 'Wähle deinen Platz',
+                step2: 'Wähle die Stufe',
+                step3: 'Fülle deine Daten aus',
+                step4: '3 Tage Test',
+                step5: 'Los!',
+                trial_banner: '🎁 3 Tage Test',
+                admin_hint: 'Doppelklick für Admin',
+                admin_login: '🔐 Zum Dashboard',
+                login: 'Anmelden',
+                login_error: 'Benutzername oder Passwort falsch',
+                username: 'Benutzername',
+                password: 'Passwort',
+                settings: 'Einstellungen',
+                add_member: 'Hinzufügen',
+                refresh: 'Aktualisieren',
+                name: 'Name',
+                email: 'E-Mail',
+                tier: 'Stufe',
+                location: 'Standort',
+                type: 'Typ',
+                actions: 'Aktionen',
+                total_members: 'Gesamt Mitglieder',
+                settings_title: 'Einstellungen',
+                admin_email: 'Admin-E-Mail:',
+                admin_email_placeholder: 'Admin-E-Mail',
+                change_password: '🔑 Passwort ändern',
+                new_password: 'Neues Passwort',
+                change: 'Ändern',
+                save: 'Speichern',
+                suggest_idea: '💡 Teile deinen Vorschlag',
+                send: 'Senden',
+                your_name: 'Dein Name',
+                your_email: 'Deine E-Mail',
+                your_suggestion: 'Deine Idee zur Verbesserung',
+                contact_us: '📧 Kontaktiere uns',
+                about_us: '📍 Über uns',
+                about_text: 'Million Quadrate Plattform',
+                follow_us: '📱 Folge uns',
+                rights: 'Alle Rechte vorbehalten',
+                badge_normal: 'Anfänger',
+                badge_silver: 'Beliebt',
+                badge_gold: 'Hervorgehoben',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Suchen...',
+                f_normal_1: '✅ Name anzeigen',
+                f_normal_2: '✅ Standort anzeigen',
+                f_silver_1: '✅ Name anzeigen',
+                f_silver_2: '✅ Standort anzeigen',
+                f_silver_3: '✅ Weblink',
+                f_gold_1: '✅ Name anzeigen',
+                f_gold_2: '✅ Standort anzeigen',
+                f_gold_3: '✅ Weblink',
+                f_gold_4: '✅ Profilbild',
+                f_royal_1: '✅ Alle Funktionen',
+                f_royal_2: '✅ Animierter Hintergrund',
+                f_royal_3: '✅ Hervorgehobene Anzeige',
+                delete: 'Löschen'
+            },
+            pt: {
+                site_title: 'Milhão de Quadrados',
+                subtitle: 'A primeira plataforma de comunicação visual',
+                banner: '🚀 Junte-se agora',
+                available: 'Quadrados disponíveis',
+                members: 'Membros',
+                revenue: 'Receita',
+                year: 'ano',
+                loading: '⏳ Carregando...',
+                total_squares: 'Total de quadrados',
+                virtual_members: 'Virtual',
+                secure_payment: 'Pagamento seguro',
+                support_24_7: 'Suporte 24/7',
+                free_trial: '3 dias grátis',
+                book_square: 'Reserve seu quadrado',
+                book_hint: '🎁 3 dias de teste',
+                sponsors_title: '🌟 Patrocinadores',
+                become_sponsor: 'Patrocinador',
+                search: '🔎 Buscar...',
+                all_tiers: 'Todos os níveis',
+                normal: '💎 Normal',
+                silver: '⭐ Prata',
+                gold: '👑 Ouro',
+                royal: '💠 Real',
+                all_types: 'Todos',
+                real_members: 'Real',
+                what_is: '🎯 O que é Milhão de Quadrados?',
+                description: 'Uma plataforma revolucionária para espaço digital interativo.',
+                steps_title: '📋 Passos de inscrição',
+                step1: 'Escolha seu lugar',
+                step2: 'Selecione o nível',
+                step3: 'Preencha seus dados',
+                step4: '3 dias de teste',
+                step5: 'Vamos!',
+                trial_banner: '🎁 3 dias de teste',
+                admin_hint: 'Clique duas vezes para acessar',
+                admin_login: '🔐 Login no Painel',
+                login: 'Entrar',
+                login_error: 'Usuário ou senha inválidos',
+                username: 'Usuário',
+                password: 'Senha',
+                settings: 'Configurações',
+                add_member: 'Adicionar',
+                refresh: 'Atualizar',
+                name: 'Nome',
+                email: 'Email',
+                tier: 'Nível',
+                location: 'Localização',
+                type: 'Tipo',
+                actions: 'Ações',
+                total_members: 'Total de membros',
+                settings_title: 'Configurações',
+                admin_email: 'Email do admin:',
+                admin_email_placeholder: 'Email do admin',
+                change_password: '🔑 Alterar senha',
+                new_password: 'Nova senha',
+                change: 'Alterar',
+                save: 'Salvar',
+                suggest_idea: '💡 Compartilhe sua sugestão',
+                send: 'Enviar',
+                your_name: 'Seu nome',
+                your_email: 'Seu email',
+                your_suggestion: 'Sua ideia para melhorar',
+                contact_us: '📧 Contate-nos',
+                about_us: '📍 Sobre nós',
+                about_text: 'Plataforma Milhão de Quadrados',
+                follow_us: '📱 Siga-nos',
+                rights: 'Todos os direitos reservados',
+                badge_normal: 'Iniciante',
+                badge_silver: 'Popular',
+                badge_gold: 'Destaque',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Buscar membros...',
+                f_normal_1: '✅ Mostrar nome',
+                f_normal_2: '✅ Mostrar localização',
+                f_silver_1: '✅ Mostrar nome',
+                f_silver_2: '✅ Mostrar localização',
+                f_silver_3: '✅ Link do site',
+                f_gold_1: '✅ Mostrar nome',
+                f_gold_2: '✅ Mostrar localização',
+                f_gold_3: '✅ Link do site',
+                f_gold_4: '✅ Imagem de perfil',
+                f_royal_1: '✅ Todos os recursos',
+                f_royal_2: '✅ Fundo animado',
+                f_royal_3: '✅ Destaque especial',
+                delete: 'Excluir'
+            },
+            it: {
+                site_title: 'Milione di Quadrati',
+                subtitle: 'La prima piattaforma di comunicazione visiva',
+                banner: '🚀 Unisciti ora',
+                available: 'Quadrati disponibili',
+                members: 'Membri',
+                revenue: 'Entrate',
+                year: 'anno',
+                loading: '⏳ Caricamento...',
+                total_squares: 'Totale quadrati',
+                virtual_members: 'Virtuale',
+                secure_payment: 'Pagamento sicuro',
+                support_24_7: 'Supporto 24/7',
+                free_trial: '3 giorni gratis',
+                book_square: 'Prenota il tuo quadrato',
+                book_hint: '🎁 3 giorni di prova',
+                sponsors_title: '🌟 Sponsor',
+                become_sponsor: 'Sponsor',
+                search: '🔎 Cerca...',
+                all_tiers: 'Tutti i livelli',
+                normal: '💎 Normale',
+                silver: '⭐ Argento',
+                gold: '👑 Oro',
+                royal: '💠 Reale',
+                all_types: 'Tutti',
+                real_members: 'Reale',
+                what_is: '🎯 Cos\'è Milione di Quadrati?',
+                description: 'Una piattaforma rivoluzionaria per spazio digitale interattivo.',
+                steps_title: '📋 Passaggi di iscrizione',
+                step1: 'Scegli il tuo posto',
+                step2: 'Seleziona il livello',
+                step3: 'Inserisci i tuoi dati',
+                step4: '3 giorni di prova',
+                step5: 'Vai!',
+                trial_banner: '🎁 3 giorni di prova',
+                admin_hint: 'Doppio clic per accedere',
+                admin_login: '🔐 Accedi al Pannello',
+                login: 'Accedi',
+                login_error: 'Nome utente o password errati',
+                username: 'Nome utente',
+                password: 'Password',
+                settings: 'Impostazioni',
+                add_member: 'Aggiungi',
+                refresh: 'Aggiorna',
+                name: 'Nome',
+                email: 'Email',
+                tier: 'Livello',
+                location: 'Posizione',
+                type: 'Tipo',
+                actions: 'Azioni',
+                total_members: 'Totale membri',
+                settings_title: 'Impostazioni',
+                admin_email: 'Email admin:',
+                admin_email_placeholder: 'Email admin',
+                change_password: '🔑 Cambia password',
+                new_password: 'Nuova password',
+                change: 'Cambia',
+                save: 'Salva',
+                suggest_idea: '💡 Condividi il tuo suggerimento',
+                send: 'Invia',
+                your_name: 'Il tuo nome',
+                your_email: 'La tua email',
+                your_suggestion: 'La tua idea per migliorare',
+                contact_us: '📧 Contattaci',
+                about_us: '📍 Chi siamo',
+                about_text: 'Piattaforma Milione di Quadrati',
+                follow_us: '📱 Seguici',
+                rights: 'Tutti i diritti riservati',
+                badge_normal: 'Principiante',
+                badge_silver: 'Popolare',
+                badge_gold: 'In evidenza',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Cerca membri...',
+                f_normal_1: '✅ Mostra nome',
+                f_normal_2: '✅ Mostra posizione',
+                f_silver_1: '✅ Mostra nome',
+                f_silver_2: '✅ Mostra posizione',
+                f_silver_3: '✅ Link sito web',
+                f_gold_1: '✅ Mostra nome',
+                f_gold_2: '✅ Mostra posizione',
+                f_gold_3: '✅ Link sito web',
+                f_gold_4: '✅ Immagine profilo',
+                f_royal_1: '✅ Tutte le funzionalità',
+                f_royal_2: '✅ Sfondo animato',
+                f_royal_3: '✅ In primo piano',
+                delete: 'Elimina'
+            },
+            ru: {
+                site_title: 'Миллион Квадратов',
+                subtitle: 'Первая платформа визуального общения',
+                banner: '🚀 Присоединяйтесь сейчас',
+                available: 'Доступные квадраты',
+                members: 'Участники',
+                revenue: 'Доход',
+                year: 'год',
+                loading: '⏳ Загрузка...',
+                total_squares: 'Всего квадратов',
+                virtual_members: 'Виртуальный',
+                secure_payment: 'Безопасный платеж',
+                support_24_7: 'Поддержка 24/7',
+                free_trial: '3 дня бесплатно',
+                book_square: 'Забронировать квадрат',
+                book_hint: '🎁 3 дня бесплатного теста',
+                sponsors_title: '🌟 Спонсоры',
+                become_sponsor: 'Стать спонсором',
+                search: '🔎 Поиск...',
+                all_tiers: 'Все уровни',
+                normal: '💎 Обычный',
+                silver: '⭐ Серебряный',
+                gold: '👑 Золотой',
+                royal: '💠 Королевский',
+                all_types: 'Все',
+                real_members: 'Реальный',
+                what_is: '🎯 Что такое Миллион Квадратов?',
+                description: 'Революционная платформа для интерактивного цифрового пространства.',
+                steps_title: '📋 Шаги подписки',
+                step1: 'Выберите место',
+                step2: 'Выберите уровень',
+                step3: 'Заполните данные',
+                step4: '3 дня бесплатно',
+                step5: 'Вперед!',
+                trial_banner: '🎁 3 дня бесплатно',
+                admin_hint: 'Двойной клик для доступа',
+                admin_login: '🔐 Вход в панель',
+                login: 'Войти',
+                login_error: 'Неверное имя пользователя или пароль',
+                username: 'Имя пользователя',
+                password: 'Пароль',
+                settings: 'Настройки',
+                add_member: 'Добавить',
+                refresh: 'Обновить',
+                name: 'Имя',
+                email: 'Email',
+                tier: 'Уровень',
+                location: 'Местоположение',
+                type: 'Тип',
+                actions: 'Действия',
+                total_members: 'Всего участников',
+                settings_title: 'Настройки',
+                admin_email: 'Email администратора:',
+                admin_email_placeholder: 'Email администратора',
+                change_password: '🔑 Сменить пароль',
+                new_password: 'Новый пароль',
+                change: 'Изменить',
+                save: 'Сохранить',
+                suggest_idea: '💡 Поделитесь предложением',
+                send: 'Отправить',
+                your_name: 'Ваше имя',
+                your_email: 'Ваш email',
+                your_suggestion: 'Ваша идея для улучшения',
+                contact_us: '📧 Свяжитесь с нами',
+                about_us: '📍 О нас',
+                about_text: 'Платформа Миллион Квадратов',
+                follow_us: '📱 Подпишитесь',
+                rights: 'Все права защищены',
+                badge_normal: 'Начинающий',
+                badge_silver: 'Популярный',
+                badge_gold: 'Рекомендуемый',
+                badge_royal: 'VIP',
+                admin_search: '🔍 Поиск участников...',
+                f_normal_1: '✅ Показать имя',
+                f_normal_2: '✅ Показать местоположение',
+                f_silver_1: '✅ Показать имя',
+                f_silver_2: '✅ Показать местоположение',
+                f_silver_3: '✅ Ссылка на сайт',
+                f_gold_1: '✅ Показать имя',
+                f_gold_2: '✅ Показать местоположение',
+                f_gold_3: '✅ Ссылка на сайт',
+                f_gold_4: '✅ Фото профиля',
+                f_royal_1: '✅ Все функции',
+                f_royal_2: '✅ Анимированный фон',
+                f_royal_3: '✅ Особое отображение',
+                delete: 'Удалить'
+            }
+        };
+
+        // ===== بيانات افتراضية =====
+        const NAMES = ['أحمد محمد', 'محمد العمري', 'سارة الخالدي', 'نورة الحربي', 'علي الشمري', 'فاطمة الزهراء'];
+        const LOCATIONS = ['الرياض', 'جدة', 'مكة', 'المدينة', 'الدمام', 'دبي'];
+
+        // ===== المتغيرات العامة =====
+        let members = [];
+        let sponsors = [];
+        let suggestions = [];
+        let totalRevenue = 0;
+        let virtualRevenue = 0;
+        let currentZoom = 1;
+        let currentLang = 'ar';
+        let adminClickCount = 0;
+        let adminClickTimer = null;
+        let royalInterval = null;
+        let royalIndex = 0;
+
+        // ===== عناصر DOM =====
+        let gridCanvas, searchInput, filterTier, filterType, liveClock;
+        let totalMembersDisplay, totalMembers, totalRevenueEl, availableSquares;
+        let membersTableBody, loginError, siteBackground, loadingScreen;
+        let progressBar;
+
+        // ===== حساب الإيرادات =====
+        function calculateRevenue() {
+            let real = 0,
+                virtual = 0;
+            for (let i = 0; i < members.length; i++) {
+                const price = TIERS[members[i].tier].price;
+                if (members[i].isVirtual) virtual += price;
+                else real += price;
+            }
+            return { real, virtual, total: real + virtual };
+        }
+
+        // ===== إنشاء مشتركين افتراضيين =====
+        function generateVirtualMembers(count) {
+            const result = [];
+            const tierKeys = ['normal', 'silver', 'gold', 'royal'];
+            for (let i = 0; i < count; i++) {
+                const tier = tierKeys[i % tierKeys.length];
+                const nameIndex = i % NAMES.length;
+                const locIndex = i % LOCATIONS.length;
+                result.push({
+                    id: 'v' + (i + 1),
+                    name: NAMES[nameIndex],
+                    email: NAMES[nameIndex].replace(/ /g, '').toLowerCase() + i + '@example.com',
+                    location: LOCATIONS[locIndex],
+                    tier: tier,
+                    website: 'https://' + NAMES[nameIndex].replace(/ /g, '').toLowerCase() + '.com',
+                    message: 'مرحباً، أنا ' + NAMES[nameIndex],
+                    image: 'https://picsum.photos/seed/' + (i + 100) + '/100/100',
+                    isRoyal: tier === 'royal',
+                    isVirtual: true,
+                    position: i,
+                    joinDate: new Date().toLocaleDateString('ar-EG'),
+                    rating: Math.floor(Math.random() * 5) + 1,
+                    votes: Math.floor(Math.random() * 50) + 1
+                });
+            }
+            return result;
+        }
+
+        // ===== التخزين المحلي =====
+        function saveData() {
+            const data = { members, sponsors, suggestions, totalRevenue, virtualRevenue, currentLang };
+            try { localStorage.setItem('millionSquaresData', JSON.stringify(data)); } catch (e) {}
+        }
+
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('millionSquaresData');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    members = data.members || [];
+                    sponsors = data.sponsors || [];
+                    suggestions = data.suggestions || [];
+                    totalRevenue = data.totalRevenue || 0;
+                    virtualRevenue = data.virtualRevenue || 0;
+                    if (data.currentLang) currentLang = data.currentLang;
+                    return true;
+                }
+            } catch (e) {}
+            return false;
+        }
+
+        // ===== تهيئة البيانات =====
+        if (!loadData() || members.length === 0) {
+            members = generateVirtualMembers(50);
+            const rev = calculateRevenue();
+            totalRevenue = rev.real;
+            virtualRevenue = rev.virtual;
+            saveData();
+        }
+
+        // ===== الترجمة الشاملة =====
+        function translatePage(lang) {
+            const t = TRANSLATIONS[lang];
+            if (!t) return;
+
+            // ترجمة العناصر التي تحمل data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key] !== undefined) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = t[key];
+                    } else if (el.tagName === 'SELECT') {
+                        // معالجة خاصة
+                    } else {
+                        el.textContent = t[key];
+                    }
+                }
+            });
+
+            // ترجمة العناصر التي تحمل data-i18n-placeholder
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if (t[key] !== undefined) {
+                    el.placeholder = t[key];
+                }
+            });
+
+            // ترجمة خيارات select
+            document.querySelectorAll('select option[data-i18n]').forEach(opt => {
+                const key = opt.dataset.i18n;
+                if (t[key] !== undefined) {
+                    opt.textContent = t[key];
+                }
+            });
+
+            // تحديث عنوان الصفحة
+            document.title = '🏆 ' + (t.site_title || 'مليون مربع');
+
+            // تحديث أزرار اللغة
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            translatePage(lang);
+            saveData();
+            renderGrid();
+            renderMembersTable();
+            updateStats();
+        }
+
+        // ===== عرض المربعات =====
+        function renderGrid() {
+            if (!gridCanvas) return;
+
+            gridCanvas.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+            const totalCells = 800;
+            const memberCount = members.length;
+
+            for (let i = 0; i < totalCells; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'pixel-cell';
+                const memberIndex = i % memberCount;
+                const member = members[memberIndex];
+
+                if (member) {
+                    const tierInfo = TIERS[member.tier];
+                    const stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
+                    cell.className = 'pixel-cell tier-' + member.tier;
+
+                    cell.innerHTML =
+                        (member.image ? '<img src="' + member.image + '" class="cell-image" loading="lazy">' : '') +
+                        '<div class="cell-name">' + member.name + '</div>' +
+                        '<div class="cell-tier">' + tierInfo.label + '</div>' +
+                        (member.isVirtual ? '<div class="cell-virtual-badge">' + (currentLang === 'ar' ?
+                            'افتراضي' : 'Virtual') + '</div>' : '') +
+                        '<div class="cell-tooltip"><strong>' + member.name + '</strong><br>📍 ' + member.location +
+                        '<br>✉️ ' + member.email +
+                        '<br><span style="color:' + tierInfo.color + ';font-weight:700">' + tierInfo.label + ' ' +
+                        tierInfo.name + ' ($' + tierInfo.price + '/' + (currentLang === 'ar' ? 'سنة' : 'year') +
+                        ')</span><br><small>⭐ ' + stars + ' (' + (member.votes || 0) + ')</small></div>' +
+                        '<div class="cell-rating"><span class="stars">' + stars + '</span><span class="votes">(' + (
+                            member.votes || 0) + ')</span></div>' +
+                        (member.isRoyal ? '<div style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);font-size:0.8rem;color:#FFD700;text-shadow:0 0 20px rgba(255,215,0,0.5);">👑</div>' :
+                            '');
+
+                    (function(m) {
+                        cell.addEventListener('click', function() {
+                            const tierName = TIERS[m.tier].name;
+                            alert('👤 ' + m.name + '\n📧 ' + m.email + '\n📍 ' + m.location +
+                                '\n🏷️ ' + TIERS[m.tier].label + ' ' + tierName +
+                                '\n💰 $' + TIERS[m.tier].price + '/' + (currentLang === 'ar' ?
+                                    'سنة' : 'year'));
+                        });
+                    })(member);
+                } else {
+                    cell.className = 'pixel-cell empty';
+                    cell.textContent = '+';
+                    cell.addEventListener('click', bookSquare);
+                }
+                fragment.appendChild(cell);
+            }
+            gridCanvas.appendChild(fragment);
+            applyZoom();
+            updateStats();
+        }
+
+        // ===== تحديث الإحصائيات =====
+        function updateStats() {
+            let virtualCount = 0,
+                realCount = 0;
+            for (let i = 0; i < members.length; i++) {
+                if (members[i].isVirtual) virtualCount++;
+                else realCount++;
+            }
+            const totalCount = members.length;
+            const rev = calculateRevenue();
+            totalRevenue = rev.real;
+            virtualRevenue = rev.virtual;
+
+            if (totalMembers) totalMembers.textContent = totalCount;
+            if (totalMembersDisplay) totalMembersDisplay.textContent = totalCount;
+            if (availableSquares) availableSquares.textContent = (1000000 - totalCount).toLocaleString();
+            if (totalRevenueEl) totalRevenueEl.textContent = '$' + (totalRevenue + virtualRevenue).toFixed(0);
+
+            const vc = document.getElementById('virtualCount');
+            if (vc) vc.textContent = virtualCount;
+
+            const gmc = document.getElementById('gridMemberCount');
+            const gac = document.getElementById('gridAvailableCount');
+            if (gmc) gmc.textContent = totalCount;
+            if (gac) gac.textContent = (1000000 - totalCount).toLocaleString();
+
+            updateAdminStats();
+        }
+
+        // ===== دالة الحجز =====
+        function bookSquare() {
+            const lang = currentLang;
+            const t = TRANSLATIONS[lang] || TRANSLATIONS.ar;
+            let options = '';
+            for (const key in TIERS) {
+                options += key + ': ' + TIERS[key].label + ' ' + TIERS[key].name + ' - $' + TIERS[key].price + '/' + t
+                    .year + '\n';
+            }
+            const choice = prompt('💳 ' + (lang === 'ar' ? 'اختر مستوى الاشتراك' : 'Choose subscription tier') +
+                ':\n' + options + '\n' + (lang === 'ar' ?
+                    'أدخل نوع المستوى (normal, silver, gold, royal):' :
+                    'Enter tier type (normal, silver, gold, royal):'));
+            if (!choice || !TIERS[choice]) {
+                alert('❌ ' + (lang === 'ar' ? 'مستوى غير صحيح' : 'Invalid tier'));
+                return;
+            }
+
+            const tierInfo = TIERS[choice];
+            const name = prompt('👤 ' + (lang === 'ar' ? 'أدخل اسمك الكامل:' : 'Enter your full name:'));
+            if (!name) return;
+            const email = prompt('✉️ ' + (lang === 'ar' ? 'أدخل بريدك الإلكتروني:' : 'Enter your email:'));
+            if (!email) return;
+            const location = prompt('📍 ' + (lang === 'ar' ? 'أدخل موقعك:' : 'Enter your location:')) || (lang ===
+                'ar' ? 'غير محدد' : 'Not specified');
+            const website = prompt('🔗 ' + (lang === 'ar' ? 'رابط موقعك (اختياري):' : 'Website link (optional):')) ||
+                '';
+            const image = prompt('🖼️ ' + (lang === 'ar' ? 'رابط الصورة (اختياري):' : 'Image URL (optional):')) ||
+                'https://picsum.photos/seed/' + Date.now() + '/100/100';
+
+            const newMember = {
+                id: 'm' + Date.now(),
+                name,
+                email,
+                location,
+                tier: choice,
+                website,
+                image,
+                message: (lang === 'ar' ? 'مرحباً، أنا ' : 'Hello, I am ') + name + (lang === 'ar' ? ' من ' :
+                    ' from ') + location,
+                isRoyal: choice === 'royal',
+                isVirtual: false,
+                position: members.length,
+                rating: 0,
+                votes: 0,
+                joinDate: new Date().toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US')
+            };
+
+            members.push(newMember);
+            totalRevenue += tierInfo.price;
+            saveData();
+            renderGrid();
+            renderMembersTable();
+            updateStats();
+            updateRoyalBackground();
+            showNotification('🎉 ' + name + ' ' + (lang === 'ar' ? 'انضم للتو!' : 'just joined!'));
+            alert('🎉 ' + (lang === 'ar' ? 'تم الاشتراك بنجاح!' : 'Subscription successful!'));
+        }
+
+        // ===== الإشعارات =====
+        function showNotification(message) {
+            const container = document.getElementById('notificationContainer');
+            if (!container) return;
+            const item = document.createElement('div');
+            item.className = 'notification-item';
+            item.innerHTML = message;
+            container.appendChild(item);
+            setTimeout(() => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(120%)';
+                setTimeout(() => item.remove(), 500);
+            }, 4000);
+        }
+
+        // ===== الرعاة =====
+        function renderSponsors() {
+            const track = document.getElementById('marqueeTrack');
+            if (!track) return;
+            track.innerHTML = '';
+            const durationMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
+            for (let i = 0; i < sponsors.length; i++) {
+                const s = sponsors[i];
+                const item = document.createElement('span');
+                item.className = 'sponsor-item';
+                item.innerHTML = '🏢 ' + s.name + ' <span class="sponsor-badge">' + durationMap[s.duration] +
+                    '</span> $' + s.amount;
+                track.appendChild(item);
+            }
+            for (let j = 0; j < sponsors.length; j++) {
+                const s2 = sponsors[j];
+                const item2 = document.createElement('span');
+                item2.className = 'sponsor-item';
+                item2.innerHTML = '🏢 ' + s2.name + ' <span class="sponsor-badge">' + durationMap[s2.duration] +
+                    '</span> $' + s2.amount;
+                track.appendChild(item2);
+            }
+        }
+
+        // ===== خلفية الملكيين =====
+        function updateRoyalBackground() {
+            const royals = members.filter(m => m.tier === 'royal' && m.image);
+            if (royals.length === 0) {
+                if (siteBackground) {
+                    siteBackground.classList.remove('active');
+                    siteBackground.style.backgroundImage = '';
+                }
+                if (royalInterval) clearInterval(royalInterval);
+                return;
+            }
+            if (royalInterval) clearInterval(royalInterval);
+            royalIndex = 0;
+            setRoyalImage(royals[0]);
+            royalInterval = setInterval(() => {
+                royalIndex = (royalIndex + 1) % royals.length;
+                setRoyalImage(royals[royalIndex]);
+            }, 8000);
+        }
+
+        function setRoyalImage(member) {
+            if (member && member.image && siteBackground) {
+                siteBackground.style.backgroundImage = 'url(' + member.image + ')';
+                siteBackground.classList.add('active');
+            }
+        }
+
+        // ===== لوحة التحكم =====
+        function renderMembersTable() {
+            if (!membersTableBody) return;
+            membersTableBody.innerHTML = '';
+
+            const adminSearch = document.getElementById('adminSearchInput');
+            const searchText = adminSearch ? adminSearch.value.toLowerCase() : '';
+
+            const filtered = members.filter(m => {
+                return m.name.toLowerCase().includes(searchText) ||
+                    m.email.toLowerCase().includes(searchText) ||
+                    m.location.toLowerCase().includes(searchText);
+            });
+
+            const t = TRANSLATIONS[currentLang] || TRANSLATIONS.ar;
+
+            filtered.forEach(m => {
+                const tr = document.createElement('tr');
+                const tierInfo = TIERS[m.tier];
+                tr.className = m.isVirtual ? 'virtual-member' : 'real-member';
+                const typeBadge = m.isVirtual ?
+                    '<span class="member-type-badge virtual">🔄 ' + t.virtual_members + '</span>' :
+                    '<span class="member-type-badge real">✅ ' + t.real_members + '</span>';
+                const index = members.indexOf(m);
+
+                tr.innerHTML =
+                    '<td><strong>' + m.name + '</strong></td>' +
+                    '<td>' + m.email + '</td>' +
+                    '<td><span style="color:' + tierInfo.color + ';font-weight:700">' + tierInfo.label + ' ' +
+                    tierInfo.name + '</span></td>' +
+                    '<td>' + m.location + '</td>' +
+                    '<td>' + typeBadge + '</td>' +
+                    '<td><button class="action-btn delete" data-index="' + index + '">🗑️ ' + t.delete +
+                    '</button></td>';
+                membersTableBody.appendChild(tr);
+            });
+
+            updateAdminStats();
+
+            document.querySelectorAll('.action-btn.delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    deleteMember(index);
+                });
+            });
+        }
+
+        function updateAdminStats() {
+            let realCount = 0,
+                virtualCount = 0;
+            for (let i = 0; i < members.length; i++) {
+                if (members[i].isVirtual) virtualCount++;
+                else realCount++;
+            }
+            const totalCount = members.length;
+
+            const ids = ['tableTotalMembers', 'tableRealCount', 'tableVirtualCount'];
+            const values = [totalCount, realCount, virtualCount];
+
+            for (let i = 0; i < ids.length; i++) {
+                const el = document.getElementById(ids[i]);
+                if (el) el.textContent = values[i];
+            }
+        }
+
+        function deleteMember(index) {
+            const member = members[index];
+            if (!member) return;
+            if (!confirm((currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا المشترك？' :
+                    'Are you sure you want to delete this member?'))) return;
+            if (member.isVirtual) virtualRevenue -= TIERS[member.tier].price;
+            else totalRevenue -= TIERS[member.tier].price;
+            members.splice(index, 1);
+            saveData();
+            renderMembersTable();
+            renderGrid();
+            updateStats();
+            updateRoyalBackground();
+        }
+
+        function renderSponsorList() {
+            const list = document.getElementById('sponsorList');
+            if (!list) return;
+            list.innerHTML = '';
+            const durationMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
+            for (let i = 0; i < sponsors.length; i++) {
+                const s = sponsors[i];
+                const li = document.createElement('li');
+                li.innerHTML = '<span>🏢 ' + s.name + ' - $' + s.amount + ' (' + durationMap[s.duration] +
+                    ')</span><button onclick="removeSponsor(' + i + ')">🗑️</button>';
+                list.appendChild(li);
+            }
+        }
+
+        window.removeSponsor = function(i) {
+            if (confirm((currentLang === 'ar' ? 'هل أنت متأكد؟' : 'Are you sure?'))) {
+                sponsors.splice(i, 1);
+                saveData();
+                renderSponsorList();
+                renderSponsors();
+            }
+        };
+
+        // ===== تطبيق الزوم =====
+        function applyZoom() {
+            const size = Math.max(30, 60 * currentZoom);
+            document.querySelectorAll('.pixel-cell').forEach(cell => {
+                cell.style.minHeight = size + 'px';
+                cell.style.fontSize = (size * 0.015) + 'rem';
+            });
+        }
+
+        // ===== البحث =====
+        function filterGrid() {
+            if (!searchInput || !gridCanvas) return;
+            const text = searchInput.value.toLowerCase();
+            const tier = filterTier ? filterTier.value : 'all';
+            const type = filterType ? filterType.value : 'all';
+
+            document.querySelectorAll('.pixel-cell').forEach(cell => {
+                const nameEl = cell.querySelector('.cell-name');
+                const tierEl = cell.querySelector('.cell-tier');
+                const virtualBadge = cell.querySelector('.cell-virtual-badge');
+                if (nameEl) {
+                    const matchSearch = nameEl.textContent.toLowerCase().includes(text);
+                    const matchTier = tier === 'all' || (tierEl && tierEl.textContent.includes(TIERS[tier]
+                        ?.label || ''));
+                    const matchType = type === 'all' || (type === 'real' && !virtualBadge) || (type ===
+                        'virtual' && virtualBadge);
+                    cell.style.display = (matchSearch && matchTier && matchType) ? 'block' : 'none';
+                }
+            });
+        }
+
+        // ===== تهيئة الموقع =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // تهيئة العناصر
+            gridCanvas = document.getElementById('gridCanvas');
+            searchInput = document.getElementById('searchInput');
+            filterTier = document.getElementById('filterTier');
+            filterType = document.getElementById('filterType');
+            liveClock = document.getElementById('liveClock');
+            totalMembersDisplay = document.getElementById('totalMembersDisplay');
+            totalMembers = document.getElementById('totalMembers');
+            totalRevenueEl = document.getElementById('totalRevenue');
+            availableSquares = document.getElementById('availableSquares');
+            membersTableBody = document.getElementById('membersTableBody');
+            loginError = document.getElementById('loginError');
+            siteBackground = document.getElementById('siteBackground');
+            loadingScreen = document.getElementById('loadingScreen');
+            progressBar = document.getElementById('progressBar');
+
+            // الساعة
+            setInterval(() => {
+                if (liveClock) {
+                    const now = new Date();
+                    liveClock.textContent = now.toLocaleTimeString('ar-EG');
+                }
+            }, 1000);
+
+            // شريط التقدم
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 8;
+                if (progress > 100) progress = 100;
+                if (progressBar) progressBar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        if (loadingScreen) loadingScreen.classList.add('hidden');
+                    }, 400);
+                }
+            }, 100);
+
+            // عرض المربعات
+            renderGrid();
+
+            // الرعاة
+            renderSponsors();
+
+            // جدول المشتركين
+            renderMembersTable();
+
+            // قائمة الرعاة
+            renderSponsorList();
+
+            // خلفية الملكيين
+            updateRoyalBackground();
+
+            // ===== الأحداث =====
+
+            // زر الحجز
+            document.getElementById('bookSquareBtn').addEventListener('click', bookSquare);
+
+            // البحث
+            if (searchInput) {
+                searchInput.addEventListener('input', filterGrid);
+            }
+            if (filterTier) {
+                filterTier.addEventListener('change', filterGrid);
+            }
+            if (filterType) {
+                filterType.addEventListener('change', filterGrid);
+            }
+
+            // الزوم
+            document.getElementById('zoomInBtn').addEventListener('click', () => {
+                currentZoom = Math.min(2, currentZoom + 0.1);
+                applyZoom();
+            });
+            document.getElementById('zoomOutBtn').addEventListener('click', () => {
+                currentZoom = Math.max(0.5, currentZoom - 0.1);
+                applyZoom();
+            });
+            document.getElementById('resetViewBtn').addEventListener('click', () => {
+                currentZoom = 1;
+                applyZoom();
+            });
+
+            // الشاشة الكاملة
+            document.getElementById('fullscreenBtn').addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                    this.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                        this.innerHTML = '<i class="fas fa-expand"></i>';
+                    }
+                }
+            });
+
+            // الثيم
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                document.body.classList.toggle('light-mode');
+                const isLight = document.body.classList.contains('light-mode');
+                this.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            });
+
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+                const toggle = document.getElementById('themeToggle');
+                if (toggle) toggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+
+            // ===== لوحة التحكم =====
+
+            // زر الدخول المخفي
+            document.getElementById('adminSecretBtn').addEventListener('click', function() {
+                adminClickCount++;
+                if (adminClickCount === 1) {
+                    adminClickTimer = setTimeout(() => { adminClickCount = 0; }, 500);
+                } else if (adminClickCount === 2) {
+                    clearTimeout(adminClickTimer);
+                    adminClickCount = 0;
+                    const panel = document.getElementById('adminPanel');
+                    if (panel) {
+                        panel.classList.toggle('hidden');
+                        if (!panel.classList.contains('hidden')) {
+                            document.getElementById('adminEmail').value = '';
+                            document.getElementById('adminPassword').value = '';
+                            if (loginError) loginError.classList.add('hidden');
+                            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                }
+            });
+
+            // تسجيل الدخول
+            document.getElementById('adminLoginBtn').addEventListener('click', function() {
+                const email = document.getElementById('adminEmail').value;
+                const password = document.getElementById('adminPassword').value;
+                const storedEmail = localStorage.getItem('adminEmail') || 'fedaaali';
+                const storedPassword = localStorage.getItem('adminPassword') || 'fida1271980';
+                if (email === storedEmail && password === storedPassword) {
+                    document.getElementById('adminContent').classList.remove('hidden');
+                    document.querySelector('.admin-login').style.display = 'none';
+                    renderMembersTable();
+                    alert((currentLang === 'ar' ? '✅ تم الدخول إلى لوحة التحكم' :
+                        '✅ Dashboard access granted'));
+                } else {
+                    if (loginError) loginError.classList.remove('hidden');
+                    document.getElementById('adminPassword').value = '';
+                    document.getElementById('adminPassword').focus();
+                }
+            });
+
+            // تبويبات
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                    document.getElementById(this.dataset.tab).classList.add('active');
+                });
+            });
+
+            // البحث في لوحة التحكم
+            document.getElementById('adminSearchInput').addEventListener('input', renderMembersTable);
+
+            // إضافة مشترك
+            document.getElementById('addMemberBtn').addEventListener('click', function() {
+                const lang = currentLang;
+                const name = prompt('👤 ' + (lang === 'ar' ? 'اسم المشترك الكامل:' :
+                    'Full member name:'));
+                if (!name) return;
+                const email = prompt('✉️ ' + (lang === 'ar' ? 'البريد:' : 'Email:'));
+                if (!email) return;
+                const location = prompt('📍 ' + (lang === 'ar' ? 'الموقع:' : 'Location:')) || (lang ===
+                    'ar' ? 'غير محدد' : 'Not specified');
+                const tier = prompt('🏷️ ' + (lang === 'ar' ? 'المستوى (normal/silver/gold/royal):' :
+                    'Tier (normal/silver/gold/royal):')) || 'normal';
+                if (!TIERS[tier]) {
+                    alert('❌ ' + (lang === 'ar' ? 'مستوى غير صحيح' : 'Invalid tier'));
+                    return;
+                }
+                const image = prompt('🖼️ ' + (lang === 'ar' ? 'رابط الصورة:' : 'Image URL:')) ||
+                    'https://picsum.photos/seed/' + Date.now() + '/100/100';
+
+                members.push({
+                    id: 'm' + Date.now(),
+                    name,
+                    email,
+                    location,
+                    tier,
+                    image,
+                    website: '',
+                    message: (lang === 'ar' ? 'مرحباً، أنا ' : 'Hello, I am ') + name,
+                    isRoyal: tier === 'royal',
+                    isVirtual: false,
+                    position: members.length,
+                    rating: 0,
+                    votes: 0,
+                    joinDate: new Date().toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US')
+                });
+                totalRevenue += TIERS[tier].price;
+                saveData();
+                renderMembersTable();
+                renderGrid();
+                updateStats();
+                updateRoyalBackground();
+                alert((lang === 'ar' ? '✅ تم إضافة المشترك' : '✅ Member added'));
+            });
+
+            // تحديث الجدول
+            document.getElementById('refreshMembersBtn').addEventListener('click', function() {
+                renderMembersTable();
+                updateStats();
+                alert((currentLang === 'ar' ? '✅ تم تحديث البيانات' : '✅ Data updated'));
+            });
+
+            // إضافة راعي
+            document.getElementById('addSponsorBtn').addEventListener('click', function() {
+                const name = document.getElementById('sponsorName').value.trim();
+                const link = document.getElementById('sponsorLink').value.trim();
+                const amount = parseFloat(document.getElementById('sponsorAmount').value);
+                const duration = document.getElementById('sponsorDuration').value;
+                if (!name || !amount || isNaN(amount)) {
+                    alert((currentLang === 'ar' ? '❌ أدخل البيانات' : '❌ Enter data'));
+                    return;
+                }
+                sponsors.push({ name, link, amount, duration });
+                saveData();
+                renderSponsorList();
+                renderSponsors();
+                document.getElementById('sponsorName').value = '';
+                document.getElementById('sponsorLink').value = '';
+                document.getElementById('sponsorAmount').value = '';
+                alert((currentLang === 'ar' ? '✅ تم إضافة الراعي' : '✅ Sponsor added'));
+            });
+
+            // حفظ إعدادات المدير
+            document.getElementById('saveSettingsBtn').addEventListener('click', function() {
+                const email = document.getElementById('adminEmailSetting').value;
+                if (email) localStorage.setItem('adminEmail', email);
+                alert((currentLang === 'ar' ? '✅ تم حفظ الإعدادات' : '✅ Settings saved'));
+            });
+
+            // تغيير كلمة السر
+            document.getElementById('changePasswordBtn').addEventListener('click', function() {
+                const pass = document.getElementById('newPassword').value.trim();
+                if (pass.length < 4) {
+                    alert((currentLang === 'ar' ? '❌ 4 أحرف على الأقل' :
+                    '❌ At least 4 characters'));
+                    return;
+                }
+                localStorage.setItem('adminPassword', pass);
+                alert((currentLang === 'ar' ? '✅ تم تغيير كلمة السر' : '✅ Password changed'));
+                document.getElementById('newPassword').value = '';
+            });
+
+            // الاقتراحات
+            document.getElementById('suggestionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('suggesterName').value.trim();
+                const email = document.getElementById('suggesterEmail').value.trim();
+                const text = document.getElementById('suggestionText').value.trim();
+                if (!name || !email || !text) {
+                    alert((currentLang === 'ar' ? '❌ ملء جميع الحقول' : '❌ Fill all fields'));
+                    return;
+                }
+                suggestions.push({ name, email, text, date: new Date().toLocaleDateString() });
+                saveData();
+                updateSuggestions();
+                this.reset();
+                alert((currentLang === 'ar' ? '✅ تم إرسال الاقتراح' : '✅ Suggestion sent'));
+            });
+
+            function updateSuggestions() {
+                const list = document.getElementById('suggestionsList');
+                if (!list) return;
+                if (suggestions.length === 0) {
+                    list.innerHTML = '<p class="empty-msg">' + (currentLang === 'ar' ?
+                        'لا توجد اقتراحات' : 'No suggestions') + '</p>';
+                    return;
+                }
+                let html = '';
+                for (let i = suggestions.length - 1; i >= 0; i--) {
+                    const s = suggestions[i];
+                    html += '<div class="suggestion-item"><strong>' + s.name + '</strong> (' + s.email +
+                        ') - ' + s.date + '<p>' + s.text + '</p></div>';
+                }
+                list.innerHTML = html;
+            }
+
+            // رعاة الدفع
+            document.querySelectorAll('.sponsor-pay-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const plan = this.dataset.plan;
+                    const amount = this.dataset.amount;
+                    const planMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
+                    const name = prompt('🏢 ' + (currentLang === 'ar' ?
+                        'أدخل اسم الشركة:' : 'Enter company name:'));
+                    if (!name) return;
+                    const link = prompt('🔗 ' + (currentLang === 'ar' ?
+                        'أدخل رابط الموقع:' : 'Enter website link:'));
+                    if (!link) return;
+                    const method = prompt('💳 ' + (currentLang === 'ar' ?
+                        'طريقة الدفع:\n1. PayPal\n2. Stripe\n3. IBAN\n\nأدخل الرقم (1-3):' :
+                        'Payment method:\n1. PayPal\n2. Stripe\n3. IBAN\n\nEnter number (1-3):'));
+                    if (!method || !['1', '2', '3'].includes(method)) {
+                        alert((currentLang === 'ar' ? '❌ طريقة غير صحيحة' :
+                            '❌ Invalid method'));
+                        return;
+                    }
+                    const methods = ['PayPal', 'Stripe', 'IBAN'];
+                    alert((currentLang === 'ar' ? '✅ جارٍ التحويل إلى ' : '✅ Redirecting to ') +
+                        methods[parseInt(method) - 1] + '\n' + (currentLang === 'ar' ?
+                            'المبلغ: $' : 'Amount: $') + amount);
+                    sponsors.push({ name, link, amount: parseInt(amount), duration: plan });
+                    saveData();
+                    renderSponsorList();
+                    renderSponsors();
+                    alert((currentLang === 'ar' ? '🎉 تمت الرعاية بنجاح!' :
+                        '🎉 Sponsorship successful!'));
+                });
+            });
+
+            // أزرار اللغة
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setLanguage(this.dataset.lang);
+                });
+            });
+
+            // تطبيق اللغة
+            setLanguage(currentLang);
+
+            // تحميل الإعدادات
+            document.getElementById('adminEmailSetting').value = localStorage.getItem('adminEmail') || '';
+
+            console.log('🚀 مليون مربع - تم التحميل بنجاح');
+            console.log('👥 المشتركين: ' + members.length);
+            console.log('💰 الإيرادات: $' + totalRevenue);
+            console.log('🌐 اللغة: ' + currentLang);
+        });
+    </script>
+
 </body>
 </html>
