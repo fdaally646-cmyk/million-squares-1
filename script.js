@@ -368,7 +368,17 @@ function filterGrid() {
 }
 
 // ===== الترجمة =====
-function translatePage(lang) {
+function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    
+    // ترجمة النصوص الأساسية
     var translations = {
         ar: {
             banner: '🚀 انضم الآن واحجز مربعك المميز',
@@ -391,9 +401,7 @@ function translatePage(lang) {
             online: 'متصلون',
             today: 'جديد اليوم',
             book_square: 'احجز مربعك الآن',
-            book_hint: '🎁 3 أيام تجريبية مجانية',
-            lang_ar: '🇸🇦 عربي',
-            lang_en: '🇬🇧 English'
+            book_hint: '🎁 3 أيام تجريبية مجانية'
         },
         en: {
             banner: '🚀 Join now and book your special square',
@@ -416,75 +424,40 @@ function translatePage(lang) {
             online: 'Online',
             today: 'Today',
             book_square: 'Book Your Square Now',
-            book_hint: '🎁 3 days free trial',
-            lang_ar: '🇸🇦 Arabic',
-            lang_en: '🇬🇧 English'
+            book_hint: '🎁 3 days free trial'
         }
     };
     
     var t = translations[lang];
     if (!t) return;
     
-    document.querySelectorAll('[data-i18n]').forEach(function(el) {
-        var key = el.dataset.i18n;
-        if (t[key] !== undefined) {
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = t[key];
-            } else {
-                el.innerHTML = t[key];
-            }
-        }
-    });
+    // تحديث النصوص
+    document.querySelector('.banner-text').textContent = t.banner;
+    document.querySelector('.banner-counter:nth-child(2)').innerHTML = '📊 ' + t.available + ': <strong id="availableSquares">0</strong>';
+    document.querySelector('.banner-counter:last-child').innerHTML = '👥 <strong id="totalMembersDisplay">0</strong> ' + t.members;
+    document.querySelector('.logo-section h1 .gradient-text').textContent = t.site_title;
+    document.querySelector('.subtitle').textContent = t.subtitle;
+    document.querySelector('#searchInput').placeholder = t.search;
+    document.querySelector('#filterTier option[value="all"]').textContent = t.all_tiers;
+    document.querySelector('#filterTier option[value="normal"]').textContent = '💎 ' + t.normal;
+    document.querySelector('#filterTier option[value="silver"]').textContent = '⭐ ' + t.silver;
+    document.querySelector('#filterTier option[value="gold"]').textContent = '👑 ' + t.gold;
+    document.querySelector('#filterTier option[value="royal"]').textContent = '💠 ' + t.royal;
     
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
-        var key = el.dataset.i18nPlaceholder;
-        if (t[key] !== undefined) {
-            el.placeholder = t[key];
-        }
-    });
+    var bookBtn = document.querySelector('.book-btn');
+    if (bookBtn) bookBtn.innerHTML = '<i class="fas fa-plus-circle"></i> ' + t.book_square;
+    document.querySelector('.book-hint').textContent = t.book_hint;
     
-    document.querySelectorAll('select option[data-i18n]').forEach(function(opt) {
-        var key = opt.dataset.i18n;
-        if (t[key] !== undefined) {
-            opt.textContent = t[key];
-        }
-    });
+    var loadingText = document.querySelector('.loading-screen p');
+    if (loadingText) loadingText.textContent = t.loading;
+    document.querySelector('#loadingIndicator span').textContent = t.loading_grid;
     
-    var bookBtn = document.getElementById('bookSquareBtn');
-    if (bookBtn) {
-        var span = bookBtn.querySelector('span');
-        if (span && t.book_square) span.textContent = t.book_square;
-    }
+    document.querySelector('.grid-stats-bar span:nth-child(1)').innerHTML = '📊 ' + t.total_squares + ': <strong>1,000,000</strong>';
+    document.querySelector('.grid-stats-bar span:nth-child(2)').innerHTML = '👥 ' + t.members + ': <strong id="gridMemberCount">0</strong>';
+    document.querySelector('.grid-stats-bar span:nth-child(3)').innerHTML = '📦 ' + t.available + ': <strong id="gridAvailableCount">0</strong>';
     
-    var bookHint = document.querySelector('.book-hint');
-    if (bookHint && t.book_hint) bookHint.textContent = t.book_hint;
-    
-    var loadingText = document.getElementById('loadingText');
-    if (loadingText && t.loading) loadingText.textContent = t.loading;
-    
-    var loadingIndicatorText = document.querySelector('#loadingIndicator span');
-    if (loadingIndicatorText && t.loading_grid) loadingIndicatorText.textContent = t.loading_grid;
-    
-    document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        var key = 'lang_' + btn.dataset.lang;
-        if (t[key] !== undefined) {
-            btn.innerHTML = t[key];
-        }
-    });
-}
-
-function setLanguage(lang) {
-    currentLang = lang;
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    
-    document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-    });
-    
-    translatePage(lang);
-    saveData();
+    document.querySelector('.sponsors-header span').textContent = '🌟 ' + (lang === 'ar' ? 'الرعاة' : 'Sponsors');
+    document.querySelector('.sponsor-cta').textContent = lang === 'ar' ? 'كن راعياً' : 'Sponsor';
 }
 
 // ===== تهيئة الموقع =====
@@ -716,6 +689,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             setLanguage(this.dataset.lang);
@@ -730,8 +704,11 @@ document.addEventListener('DOMContentLoaded', function() {
     updateRoyalBackground();
 
     document.getElementById('adminEmailSetting').value = localStorage.getItem('adminEmail') || '';
+    
+    // تطبيق اللغة
     setLanguage(currentLang);
 
+    // إخفاء شاشة التحميل
     setTimeout(function() {
         var loading = document.getElementById('loadingScreen');
         if (loading) loading.classList.add('hidden');
