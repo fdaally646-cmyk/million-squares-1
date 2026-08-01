@@ -1084,7 +1084,7 @@ body {
 .action-btn.delete { background: var(--accent); color: white; }
 .action-btn.delete:hover { background: #e55a5a; transform: scale(1.05); }
 
-.table-footer { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); text-align: left; display: flex; flex-wrap: wrap; gap: 15px; }
+.table-footer { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 15px; }
 
 .delete-btn { background: var(--accent); border: none; color: white; padding: 4px 14px; border-radius: 14px; cursor: pointer; transition: var(--transition); }
 .delete-btn:hover { transform: scale(1.05); opacity: 0.8; }
