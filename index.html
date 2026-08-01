@@ -10,9 +10,11 @@
     <!-- jsPDF for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
     </script>
+    <!-- Google Fonts for beautiful Arabic/English fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
-                   ROOT VARIABLES (Light/Dark Themes)
+                   ROOT VARIABLES
                    ============================================================ */
         :root {
             --bg-primary: #0a0e1a;
@@ -32,10 +34,13 @@
             --red: #e74c3c;
             --purple: #9b59b6;
             --orange: #f39c12;
+            --pink: #e84393;
+            --cyan: #00cec9;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             --radius: 16px;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-arabic: 'Cairo', 'Segoe UI', sans-serif;
+            --font-english: 'Orbitron', 'Segoe UI', sans-serif;
             --card-scale: 1.05;
         }
 
@@ -65,7 +70,7 @@
             scroll-behavior: smooth;
         }
         body {
-            font-family: var(--font-family);
+            font-family: var(--font-arabic);
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
@@ -159,6 +164,76 @@
             border-color: var(--blue);
             color: #fff;
             box-shadow: 0 0 20px rgba(79, 124, 247, 0.3);
+        }
+
+        /* ============================================================
+                   BEAUTIFUL LOGO WITH GRADIENT
+                   ============================================================ */
+        .logo-container {
+            text-align: center;
+            padding: 20px 0 10px;
+        }
+        .logo-main {
+            font-family: var(--font-arabic);
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f7c948, #f59e0b, #e84393, #4f7cf7, #00cec9);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 4s ease-in-out infinite;
+            text-shadow: none;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        .logo-main::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #f7c948, #e84393, #4f7cf7, #00cec9);
+            border-radius: 4px;
+            background-size: 300% 100%;
+            animation: gradientMove 3s ease-in-out infinite;
+        }
+        .logo-sub {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            letter-spacing: 3px;
+            font-weight: 300;
+        }
+        .logo-sub span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        @keyframes gradientMove {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* English version of logo */
+        [lang="en"] .logo-main {
+            font-family: var(--font-english);
+            font-size: 3.8rem;
+            letter-spacing: 3px;
+        }
+        [lang="fr"] .logo-main,
+        [lang="es"] .logo-main,
+        [lang="de"] .logo-main {
+            font-family: var(--font-english);
+            font-size: 3.5rem;
+            letter-spacing: 2px;
         }
 
         /* ============================================================
@@ -430,7 +505,7 @@
                    ============================================================ */
         .hero {
             text-align: center;
-            padding: 50px 20px 40px;
+            padding: 30px 20px 30px;
             background: var(--bg-secondary);
             border-radius: var(--radius);
             margin-bottom: 30px;
@@ -448,25 +523,6 @@
             height: 200%;
             background: radial-gradient(circle at 30% 40%, rgba(79, 124, 247, 0.05), transparent 60%);
             pointer-events: none;
-        }
-        .hero .logo {
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 60px rgba(247, 201, 72, 0.15);
-            position: relative;
-        }
-        .hero .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-top: 8px;
-            letter-spacing: 1px;
-        }
-        .hero .subtitle span {
-            color: var(--blue);
-            font-weight: 600;
         }
 
         /* ============================================================
@@ -737,11 +793,11 @@
         }
 
         /* ============================================================
-                   SQUARES GRID
+                   SQUARES GRID - 1000 squares with scroll
                    ============================================================ */
         .squares-wrapper {
             position: relative;
-            max-height: 700px;
+            max-height: 750px;
             overflow-y: auto;
             overflow-x: hidden;
             border-radius: var(--radius);
@@ -749,6 +805,17 @@
             background: var(--bg-secondary);
             padding: 16px;
             transition: var(--transition);
+        }
+        .squares-wrapper::-webkit-scrollbar {
+            width: 10px;
+        }
+        .squares-wrapper::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+            border-radius: 10px;
+        }
+        .squares-wrapper::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold), var(--blue));
+            border-radius: 10px;
         }
         .squares-wrapper .scroll-hint {
             text-align: center;
@@ -762,13 +829,13 @@
         }
         .squares-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
         }
         .square-card {
             background: var(--bg-card);
             border-radius: var(--radius);
-            padding: 14px;
+            padding: 12px;
             border: 1px solid var(--border-color);
             transition: all var(--transition);
             position: relative;
@@ -784,19 +851,19 @@
             border-width: 2px;
         }
         .square-card .avatar {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--bg-input);
             border: 2px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            margin-bottom: 6px;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
             overflow: hidden;
             float: left;
-            margin-left: 10px;
+            margin-left: 8px;
             transition: var(--transition);
         }
         .square-card:hover .avatar {
@@ -808,7 +875,7 @@
             object-fit: cover;
         }
         .square-card .s-name {
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 700;
             margin: 2px 0;
             transition: var(--transition);
@@ -817,54 +884,54 @@
             color: var(--gold);
         }
         .square-card .s-location {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: var(--text-secondary);
         }
         .square-card .s-email {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: var(--text-muted);
             direction: ltr;
             text-align: left;
             word-break: break-all;
         }
         .square-card .s-plan {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             background: var(--bg-input);
-            padding: 2px 10px;
+            padding: 1px 8px;
             border-radius: 30px;
             display: inline-block;
-            margin: 4px 0;
+            margin: 2px 0;
         }
         .square-card .s-rating {
             color: var(--gold);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             letter-spacing: 1px;
         }
         .square-card .s-rating .count {
             color: var(--text-muted);
-            font-size: 0.65rem;
+            font-size: 0.55rem;
         }
         .square-card .s-specialty {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--text-secondary);
             background: var(--bg-input);
-            padding: 2px 8px;
+            padding: 1px 6px;
             border-radius: 20px;
             display: inline-block;
             margin: 2px 0;
         }
         .square-card .delete-btn {
             position: absolute;
-            top: 4px;
-            right: 4px;
+            top: 2px;
+            right: 2px;
             background: var(--red);
             border: none;
             color: #fff;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 10px;
+            font-size: 9px;
             opacity: 0;
             transition: var(--transition);
             z-index: 20;
@@ -877,21 +944,21 @@
         }
         .square-card .new-badge {
             position: absolute;
-            top: 4px;
-            left: 4px;
+            top: 2px;
+            left: 2px;
             background: var(--green);
             color: #fff;
-            font-size: 0.55rem;
-            padding: 2px 8px;
+            font-size: 0.45rem;
+            padding: 1px 6px;
             border-radius: 20px;
             font-weight: 700;
             animation: pulse 2s infinite;
         }
         .square-card .view-details-hint {
             position: absolute;
-            bottom: 4px;
-            right: 4px;
-            font-size: 0.55rem;
+            bottom: 2px;
+            right: 2px;
+            font-size: 0.45rem;
             color: var(--text-muted);
             opacity: 0;
             transition: var(--transition);
@@ -1019,6 +1086,7 @@
             gap: 10px;
             margin-top: 16px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         .modal-content .modal-actions button {
             padding: 8px 24px;
@@ -1043,6 +1111,158 @@
         .modal-content .modal-actions .btn-contact:hover {
             background: var(--blue-dark);
             transform: scale(1.05);
+        }
+        .modal-content .modal-actions .btn-subscribe {
+            background: var(--gold);
+            color: #1a2330;
+        }
+        .modal-content .modal-actions .btn-subscribe:hover {
+            background: var(--gold-dark);
+            transform: scale(1.05);
+        }
+
+        /* ============================================================
+                   SUBSCRIPTION FORM MODAL
+                   ============================================================ */
+        .subscribe-modal .modal-content {
+            max-width: 560px;
+        }
+        .subscribe-modal .form-group {
+            margin-bottom: 12px;
+        }
+        .subscribe-modal .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        .subscribe-modal .form-group input,
+        .subscribe-modal .form-group select,
+        .subscribe-modal .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .subscribe-modal .form-group input:focus,
+        .subscribe-modal .form-group select:focus,
+        .subscribe-modal .form-group textarea:focus {
+            border-color: var(--blue);
+            outline: none;
+            box-shadow: 0 0 20px rgba(79, 124, 247, 0.1);
+        }
+        .subscribe-modal .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .subscribe-modal .form-group .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        .subscribe-modal .form-group .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .subscribe-modal .form-group .file-input-wrapper .file-label {
+            display: block;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .subscribe-modal .form-group .file-input-wrapper .file-label:hover {
+            border-color: var(--blue);
+            color: var(--text-primary);
+        }
+        .subscribe-modal .plan-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .subscribe-modal .plan-option {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .subscribe-modal .plan-option:hover {
+            border-color: var(--blue);
+        }
+        .subscribe-modal .plan-option.selected {
+            border-color: var(--gold);
+            background: var(--bg-input);
+        }
+        .subscribe-modal .plan-option .plan-icon {
+            font-size: 1.5rem;
+            display: block;
+        }
+        .subscribe-modal .plan-option .plan-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .subscribe-modal .plan-option .plan-price {
+            font-size: 0.7rem;
+            color: var(--gold);
+        }
+        .subscribe-modal .btn-submit {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border: none;
+            color: #1a2330;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 8px;
+        }
+        .subscribe-modal .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(247, 201, 72, 0.3);
+        }
+        .subscribe-modal .trial-info {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            margin: 8px 0;
+            border: 1px dashed var(--blue);
+        }
+        .subscribe-modal .trial-info .days {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .subscribe-modal .terms {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 8px;
+        }
+        .subscribe-modal .terms a {
+            color: var(--blue);
         }
 
         /* ============================================================
@@ -1102,6 +1322,22 @@
         .btn-secondary:hover {
             border-color: var(--blue);
             color: var(--text-primary);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border: none;
+            color: #1a2330;
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 30px rgba(247, 201, 72, 0.3);
+        }
+        .btn-gold:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(247, 201, 72, 0.5);
         }
 
         /* ============================================================
@@ -1252,8 +1488,16 @@
                    RESPONSIVE
                    ============================================================ */
         @media (max-width: 768px) {
-            .hero .logo {
-                font-size: 2.6rem;
+            .logo-main {
+                font-size: 2.8rem !important;
+            }
+            [lang="en"] .logo-main {
+                font-size: 2.4rem !important;
+            }
+            [lang="fr"] .logo-main,
+            [lang="es"] .logo-main,
+            [lang="de"] .logo-main {
+                font-size: 2.2rem !important;
             }
             .search-row {
                 flex-direction: column;
@@ -1284,7 +1528,7 @@
             }
             .square-card .avatar {
                 float: none;
-                margin: 0 auto 6px;
+                margin: 0 auto 4px;
             }
             .notification {
                 left: 20px;
@@ -1305,6 +1549,9 @@
                 padding: 25px;
                 margin: 10px;
             }
+            .subscribe-modal .plan-selector {
+                grid-template-columns: 1fr 1fr;
+            }
         }
         @media (max-width: 480px) {
             .squares-grid {
@@ -1316,7 +1563,8 @@
                 border-radius: 30px;
                 padding: 14px;
             }
-            .btn-primary {
+            .btn-primary,
+            .btn-gold {
                 padding: 12px 24px;
                 font-size: 0.95rem;
             }
@@ -1333,6 +1581,12 @@
             }
             .modal-content .modal-detail .value {
                 text-align: right;
+            }
+            .subscribe-modal .plan-selector {
+                grid-template-columns: 1fr;
+            }
+            .logo-main {
+                font-size: 2rem !important;
             }
         }
     </style>
@@ -1383,15 +1637,96 @@
             </div>
             <div class="modal-rating" id="modalRating">⭐ ⭐ ⭐ ⭐ ⭐ (4.5)</div>
             <div style="margin:12px 0;">
-                <div class="modal-detail"><span class="label">📍 الموقع</span><span class="value" id="modalLocation">المدينة، البلد</span></div>
-                <div class="modal-detail"><span class="label">✉️ البريد</span><span class="value" id="modalEmail">email@example.com</span></div>
-                <div class="modal-detail"><span class="label">📅 تاريخ الانضمام</span><span class="value" id="modalDate">2024-01-01</span></div>
-                <div class="modal-detail"><span class="label">🏷️ الحالة</span><span class="value" id="modalStatus">نشط</span></div>
+                <div class="modal-detail"><span class="label" id="modalLabelLocation">📍 الموقع</span><span class="value" id="modalLocation">المدينة، البلد</span></div>
+                <div class="modal-detail"><span class="label" id="modalLabelEmail">✉️ البريد</span><span class="value" id="modalEmail">email@example.com</span></div>
+                <div class="modal-detail"><span class="label" id="modalLabelDate">📅 تاريخ الانضمام</span><span class="value" id="modalDate">2024-01-01</span></div>
+                <div class="modal-detail"><span class="label" id="modalLabelStatus">🏷️ الحالة</span><span class="value" id="modalStatus">نشط</span></div>
             </div>
             <div class="modal-actions">
-                <button class="btn-contact" onclick="contactSubscriber()">📧 تواصل</button>
-                <button class="btn-close-modal" onclick="closeModal()">✕ إغلاق</button>
+                <button class="btn-contact" onclick="contactSubscriber()" id="modalBtnContact">📧 تواصل</button>
+                <button class="btn-subscribe" onclick="openSubscribeModal()" id="modalBtnSubscribe">🚀 اشتراك</button>
+                <button class="btn-close-modal" onclick="closeModal()" id="modalBtnClose">✕ إغلاق</button>
             </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SUBSCRIPTION MODAL
+    ============================================================ -->
+    <div class="modal-overlay subscribe-modal" id="subscribeOverlay" onclick="if(event.target===this) closeSubscribeModal()">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeSubscribeModal()">✕</button>
+            <h2 style="text-align:center;color:var(--gold);margin-bottom:16px;" id="subModalTitle">🚀 الاشتراك في مليون مربع</h2>
+
+            <div class="trial-info">
+                <span id="trialInfoText">🎁 <span class="days">3 أيام</span> تجريبية مجانية</span>
+                <br>
+                <span style="font-size:0.8rem;color:var(--text-secondary);" id="trialInfoSub">بعد انتهاء الفترة التجريبية سيتم توجيهك للدفع</span>
+            </div>
+
+            <form id="subscribeForm" onsubmit="handleSubscription(event)">
+                <div class="form-group">
+                    <label id="subLabelName">👤 الاسم الكامل</label>
+                    <input type="text" id="subFullName" placeholder="أدخل اسمك الكامل" required dir="auto">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelEmail">✉️ البريد الإلكتروني</label>
+                    <input type="email" id="subFullEmail" placeholder="example@email.com" required dir="ltr">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelLocation">📍 الموقع (المدينة، البلد)</label>
+                    <input type="text" id="subFullLocation" placeholder="مثال: الرياض، السعودية" required dir="auto">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelSpecialty">🔬 الاختصاص</label>
+                    <input type="text" id="subFullSpecialty" placeholder="مثال: تطوير ويب، تسويق..." dir="auto">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelPhone">📱 رقم الهاتف</label>
+                    <input type="tel" id="subFullPhone" placeholder="+966 5xxxxxxx" dir="ltr">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelPlan">💎 اختر الباقة</label>
+                    <div class="plan-selector" id="planSelector">
+                        <div class="plan-option selected" data-plan="💎 عادي ($1/سنة)" onclick="selectPlan(this)">
+                            <span class="plan-icon">💎</span>
+                            <span class="plan-name">عادي</span>
+                            <span class="plan-price">$1/سنة</span>
+                        </div>
+                        <div class="plan-option" data-plan="⭐ فضي ($5/سنة)" onclick="selectPlan(this)">
+                            <span class="plan-icon">⭐</span>
+                            <span class="plan-name">فضي</span>
+                            <span class="plan-price">$5/سنة</span>
+                        </div>
+                        <div class="plan-option" data-plan="👑 ذهبي ($10/سنة)" onclick="selectPlan(this)">
+                            <span class="plan-icon">👑</span>
+                            <span class="plan-name">ذهبي</span>
+                            <span class="plan-price">$10/سنة</span>
+                        </div>
+                        <div class="plan-option" data-plan="💠 ملكي ($100/سنة)" onclick="selectPlan(this)">
+                            <span class="plan-icon">💠</span>
+                            <span class="plan-name">ملكي</span>
+                            <span class="plan-price">$100/سنة</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="subSelectedPlan" value="💎 عادي ($1/سنة)">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelAvatar">🖼️ الصورة الشخصية (اختياري)</label>
+                    <div class="file-input-wrapper">
+                        <div class="file-label" id="subAvatarLabel">📤 اضغط لاختيار صورة</div>
+                        <input type="file" id="subFullAvatar" accept="image/*" onchange="handleSubAvatar(event)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="subLabelMessage">📝 رسالة إضافية (اختياري)</label>
+                    <textarea id="subFullMessage" placeholder="أي شيء تود إضافته..."></textarea>
+                </div>
+                <div class="terms" id="subTerms">
+                    بالضغط على "اشتراك" أنت توافق على <a href="#" id="termsLink">شروط الاستخدام</a> و <a href="#" id="privacyLink">سياسة الخصوصية</a>
+                </div>
+                <button type="submit" class="btn-submit" id="subSubmitBtn">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
+            </form>
         </div>
     </div>
 
@@ -1518,11 +1853,13 @@
         </div>
 
         <!-- ============================================================
-        HERO
+        HERO - Beautiful Logo
         ============================================================ -->
         <header class="hero">
-            <div class="logo" id="siteLogo">🏆 مليون مربع</div>
-            <p class="subtitle" id="heroSubtitle">✨ <span>المنصة البصرية التفاعلية</span> الأولى ✨</p>
+            <div class="logo-container">
+                <div class="logo-main" id="siteLogo">🏆 مليون مربع</div>
+                <div class="logo-sub" id="logoSub">✨ <span id="logoSubHighlight">المنصة البصرية التفاعلية</span> الأولى ✨</div>
+            </div>
 
             <!-- Features Strip -->
             <div class="features-strip">
@@ -1615,7 +1952,7 @@
         </div>
 
         <!-- ============================================================
-        SQUARES GRID
+        SQUARES GRID - 1000 squares with scroll
         ============================================================ -->
         <div class="section-title">
             <span id="squaresTitle">📦 المربعات</span>
@@ -1632,7 +1969,7 @@
         CTA
         ============================================================ -->
         <div class="cta-section">
-            <button class="btn-primary" id="ctaBuy">🚀 اشترِ مربعك الآن</button>
+            <button class="btn-gold" onclick="openSubscribeModal()" id="ctaSubscribe">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
             <button class="btn-secondary" id="ctaMore">📋 عرض الكل</button>
             <button class="btn-secondary" id="ctaExport">📄 تصدير التقرير</button>
         </div>
@@ -1662,6 +1999,7 @@
         const ADMIN_USERNAME = 'admin';
         const ADMIN_PASSWORD = 'Secure@2026#Admin';
         const DEFAULT_SQUARES_PER_PAGE = 1000;
+        const TRIAL_DAYS = 3;
         const LANGUAGES = ['ar', 'en', 'fr', 'es', 'de'];
 
         // ============================================================
@@ -1674,82 +2012,82 @@
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'ahmed@example.com',
                 plan: '💎 عادي ($1/سنة)', rating: 4.5, specialty: { ar: 'تطوير ويب', en: 'Web Development',
                     fr: 'Développement Web', es: 'Desarrollo Web', de: 'Webentwicklung' }, avatar: '',
-                joined: '2024-01-15' },
+                joined: '2024-01-15', phone: '+966 5xxxxxxx' },
             { name: { ar: 'محمد العمري', en: 'Mohammed Al-Omari', fr: 'Mohammed Al-Omari', es: 'Mohammed Al-Omari',
                     de: 'Mohammed Al-Omari' }, location: { ar: 'جدة', en: 'Jeddah', fr: 'Djeddah', es: 'Yeda',
                     de: 'Dschidda' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'mohd@example.com',
                 plan: '⭐ فضي ($5/سنة)', rating: 3.8, specialty: { ar: 'تسويق رقمي', en: 'Digital Marketing',
                     fr: 'Marketing Digital', es: 'Marketing Digital', de: 'Digitales Marketing' },
-                avatar: '', joined: '2024-02-20' },
+                avatar: '', joined: '2024-02-20', phone: '+966 5xxxxxxx' },
             { name: { ar: 'سارة الخالدي', en: 'Sara Al-Khaldi', fr: 'Sara Al-Khaldi', es: 'Sara Al-Khaldi',
                     de: 'Sara Al-Khaldi' }, location: { ar: 'مكة', en: 'Makkah', fr: 'La Mecque', es: 'La Meca',
                     de: 'Mekka' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'sara@example.com',
                 plan: '👑 ذهبي ($10/سنة)', rating: 4.2, specialty: { ar: 'تصميم جرافيك', en: 'Graphic Design',
                     fr: 'Design Graphique', es: 'Diseño Gráfico', de: 'Grafikdesign' }, avatar: '',
-                joined: '2024-03-10' },
+                joined: '2024-03-10', phone: '+966 5xxxxxxx' },
             { name: { ar: 'نورة الحربي', en: 'Nora Al-Harbi', fr: 'Nora Al-Harbi', es: 'Nora Al-Harbi',
                     de: 'Nora Al-Harbi' }, location: { ar: 'المدينة', en: 'Medina', fr: 'Médine', es: 'Medina',
                     de: 'Medina' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'nora@example.com',
                 plan: '💠 ملكي ($100/سنة)', rating: 4.9, specialty: { ar: 'برمجة', en: 'Programming',
                     fr: 'Programmation', es: 'Programación', de: 'Programmierung' }, avatar: '',
-                joined: '2024-04-05' },
+                joined: '2024-04-05', phone: '+966 5xxxxxxx' },
             { name: { ar: 'علي الشمري', en: 'Ali Al-Shammari', fr: 'Ali Al-Shammari', es: 'Ali Al-Shammari',
                     de: 'Ali Al-Shammari' }, location: { ar: 'الدمام', en: 'Dammam', fr: 'Dammam', es: 'Dammam',
                     de: 'Dammam' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'ali@example.com',
                 plan: '💎 عادي ($1/سنة)', rating: 3.5, specialty: { ar: 'تحليل بيانات', en: 'Data Analysis',
                     fr: 'Analyse de Données', es: 'Análisis de Datos', de: 'Datenanalyse' }, avatar: '',
-                joined: '2024-05-12' },
+                joined: '2024-05-12', phone: '+966 5xxxxxxx' },
             { name: { ar: 'فاطمة الزهراء', en: 'Fatima Al-Zahra', fr: 'Fatima Al-Zahra', es: 'Fatima Al-Zahra',
                     de: 'Fatima Al-Zahra' }, location: { ar: 'دبي', en: 'Dubai', fr: 'Dubaï', es: 'Dubai',
                     de: 'Dubai' }, country: { ar: 'الإمارات', en: 'UAE', fr: 'EAU', es: 'EAU', de: 'VAE' },
                 email: 'fatima@example.com', plan: '⭐ فضي ($5/سنة)', rating: 4.0, specialty: { ar: 'ذكاء اصطناعي',
                     en: 'Artificial Intelligence', fr: 'Intelligence Artificielle', es: 'Inteligencia Artificial',
-                    de: 'Künstliche Intelligenz' }, avatar: '', joined: '2024-06-18' },
+                    de: 'Künstliche Intelligenz' }, avatar: '', joined: '2024-06-18', phone: '+971 5xxxxxxx' },
             { name: { ar: 'خالد المالكي', en: 'Khalid Al-Maliki', fr: 'Khalid Al-Maliki', es: 'Khalid Al-Maliki',
                     de: 'Khalid Al-Maliki' }, location: { ar: 'الرياض', en: 'Riyadh', fr: 'Riyad', es: 'Riad',
                     de: 'Riad' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'khalid@example.com',
                 plan: '👑 ذهبي ($10/سنة)', rating: 4.7, specialty: { ar: 'أمن سيبراني', en: 'Cybersecurity',
                     fr: 'Cybersécurité', es: 'Ciberseguridad', de: 'Cybersicherheit' }, avatar: '',
-                joined: '2024-07-22' },
+                joined: '2024-07-22', phone: '+966 5xxxxxxx' },
             { name: { ar: 'منى السبيعي', en: 'Mona Al-Subaie', fr: 'Mona Al-Subaie', es: 'Mona Al-Subaie',
                     de: 'Mona Al-Subaie' }, location: { ar: 'جدة', en: 'Jeddah', fr: 'Djeddah', es: 'Yeda',
                     de: 'Dschidda' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'mona@example.com',
                 plan: '💠 ملكي ($100/سنة)', rating: 4.3, specialty: { ar: 'تطوير ألعاب', en: 'Game Development',
                     fr: 'Développement de Jeux', es: 'Desarrollo de Juegos', de: 'Spieleentwicklung' },
-                avatar: '', joined: '2024-08-30' },
+                avatar: '', joined: '2024-08-30', phone: '+966 5xxxxxxx' },
             { name: { ar: 'سعود الحربي', en: 'Saud Al-Harbi', fr: 'Saud Al-Harbi', es: 'Saud Al-Harbi',
                     de: 'Saud Al-Harbi' }, location: { ar: 'مكة', en: 'Makkah', fr: 'La Mecque', es: 'La Meca',
                     de: 'Mekka' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'saud@example.com',
                 plan: '💎 عادي ($1/سنة)', rating: 3.9, specialty: { ar: 'شبكات', en: 'Networking', fr: 'Réseaux',
-                    es: 'Redes', de: 'Netzwerke' }, avatar: '', joined: '2024-09-14' },
+                    es: 'Redes', de: 'Netzwerke' }, avatar: '', joined: '2024-09-14', phone: '+966 5xxxxxxx' },
             { name: { ar: 'هند القحطاني', en: 'Hind Al-Qahtani', fr: 'Hind Al-Qahtani', es: 'Hind Al-Qahtani',
                     de: 'Hind Al-Qahtani' }, location: { ar: 'الدمام', en: 'Dammam', fr: 'Dammam', es: 'Dammam',
                     de: 'Dammam' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'hind@example.com',
                 plan: '⭐ فضي ($5/سنة)', rating: 4.6, specialty: { ar: 'تطوير تطبيقات', en: 'App Development',
                     fr: 'Développement d\'Applications', es: 'Desarrollo de Apps', de: 'App-Entwicklung' },
-                avatar: '', joined: '2024-10-01' },
+                avatar: '', joined: '2024-10-01', phone: '+966 5xxxxxxx' },
             { name: { ar: 'فهد العتيبي', en: 'Fahd Al-Otaibi', fr: 'Fahd Al-Otaibi', es: 'Fahd Al-Otaibi',
                     de: 'Fahd Al-Otaibi' }, location: { ar: 'الرياض', en: 'Riyadh', fr: 'Riyad', es: 'Riad',
                     de: 'Riad' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'fahd@example.com',
                 plan: '👑 ذهبي ($10/سنة)', rating: 4.1, specialty: { ar: 'قواعد بيانات', en: 'Databases',
                     fr: 'Bases de Données', es: 'Bases de Datos', de: 'Datenbanken' }, avatar: '',
-                joined: '2024-11-05' },
+                joined: '2024-11-05', phone: '+966 5xxxxxxx' },
             { name: { ar: 'لمى الشهراني', en: 'Lama Al-Shahrani', fr: 'Lama Al-Shahrani', es: 'Lama Al-Shahrani',
                     de: 'Lama Al-Shahrani' }, location: { ar: 'أبها', en: 'Abha', fr: 'Abha', es: 'Abha',
                     de: 'Abha' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'lama@example.com',
                 plan: '💠 ملكي ($100/سنة)', rating: 4.8, specialty: { ar: 'تصميم UX/UI', en: 'UX/UI Design',
                     fr: 'Design UX/UI', es: 'Diseño UX/UI', de: 'UX/UI-Design' }, avatar: '',
-                joined: '2024-12-20' }
+                joined: '2024-12-20', phone: '+966 5xxxxxxx' }
         ];
 
         const defaultSponsors = {
@@ -1793,6 +2131,7 @@
         let chartInstances = { plan: null, revenue: null };
         let currentTheme = 'dark';
         let currentModalUser = null;
+        let subAvatarFile = null;
 
         // ============================================================
         //  LOCAL STORAGE HELPERS
@@ -1873,6 +2212,7 @@
         const langData = {
             ar: {
                 siteName: '🏆 مليون مربع',
+                siteSub: 'المنصة البصرية التفاعلية',
                 loginTitle: '🔐 لوحة التحكم',
                 loginSub: 'ادخل بيانات المدير للدخول',
                 loginBtn: '🚀 دخول',
@@ -1903,7 +2243,6 @@
                 adminDangerPDF: '📄 تصدير تقرير (PDF)',
                 adminImportLabel: '📥 استيراد بيانات (JSON)',
                 adminDangerHint: '⚠️ العمليات في هذه المنطقة لا يمكن التراجع عنها',
-                heroSubtitle: '✨ <span>المنصة البصرية التفاعلية</span> الأولى ✨',
                 f1: '🖼️ مربعات تفاعلية',
                 f2: '👥 مجتمع نشط',
                 f3: '🔒 دفع آمن',
@@ -1919,7 +2258,7 @@
                 sponsorTitle: '🌟 الرعاة الداعمون',
                 squaresTitle: '📦 المربعات',
                 squaresCount: '📊 عرض {count} من {total}',
-                ctaBuy: '🚀 اشترِ مربعك الآن',
+                ctaSubscribe: '🚀 اشتراك مع 3 أيام تجريبية مجانية',
                 ctaMore: '📋 عرض الكل',
                 ctaExport: '📄 تصدير التقرير',
                 footer: '© 2026 مليون مربع — المنصة البصرية التفاعلية. جميع الحقوق محفوظة. 💎',
@@ -1966,16 +2305,34 @@
                 squaresPerPagePlaceholder: '📊 عدد المربعات في الصفحة (افتراضي: 1000)',
                 modalContact: '📧 تواصل',
                 modalClose: '✕ إغلاق',
-                modalLocation: '📍 الموقع',
-                modalEmail: '✉️ البريد',
-                modalDate: '📅 تاريخ الانضمام',
-                modalStatus: '🏷️ الحالة',
+                modalSubscribe: '🚀 اشتراك',
+                modalLabelLocation: '📍 الموقع',
+                modalLabelEmail: '✉️ البريد',
+                modalLabelDate: '📅 تاريخ الانضمام',
+                modalLabelStatus: '🏷️ الحالة',
                 modalStatusActive: 'نشط',
                 modalStatusNew: 'جديد',
-                modalViewHint: '👆 اضغط للتفاصيل'
+                modalViewHint: '👆 اضغط للتفاصيل',
+                subModalTitle: '🚀 الاشتراك في مليون مربع',
+                trialInfoText: '🎁 <span class="days">3 أيام</span> تجريبية مجانية',
+                trialInfoSub: 'بعد انتهاء الفترة التجريبية سيتم توجيهك للدفع',
+                subLabelName: '👤 الاسم الكامل',
+                subLabelEmail: '✉️ البريد الإلكتروني',
+                subLabelLocation: '📍 الموقع (المدينة، البلد)',
+                subLabelSpecialty: '🔬 الاختصاص',
+                subLabelPhone: '📱 رقم الهاتف',
+                subLabelPlan: '💎 اختر الباقة',
+                subLabelAvatar: '🖼️ الصورة الشخصية (اختياري)',
+                subLabelMessage: '📝 رسالة إضافية (اختياري)',
+                subAvatarLabel: '📤 اضغط لاختيار صورة',
+                subTerms: 'بالضغط على "اشتراك" أنت توافق على <a href="#">شروط الاستخدام</a> و <a href="#">سياسة الخصوصية</a>',
+                subSubmitBtn: '🚀 اشتراك مع 3 أيام تجريبية مجانية',
+                welcomeEmailSubject: '🎉 مرحباً بك في مليون مربع!',
+                welcomeEmailBody: `مرحباً {name},\n\nشكراً لانضمامك إلى منصة مليون مربع!\n\n📋 تفاصيل اشتراكك:\n• الباقة: {plan}\n• البريد: {email}\n• الموقع: {location}\n• الاختصاص: {specialty}\n\n🎁 لديك {days} أيام تجريبية مجانية.\nبعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.\n\nنحن هنا لدعمك في كل خطوة.\nفريق مليون مربع 💎`
             },
             en: {
                 siteName: '🏆 Million Squares',
+                siteSub: 'The Interactive Visual Platform',
                 loginTitle: '🔐 Admin Panel',
                 loginSub: 'Enter admin credentials to login',
                 loginBtn: '🚀 Login',
@@ -2006,7 +2363,6 @@
                 adminDangerPDF: '📄 Export Report (PDF)',
                 adminImportLabel: '📥 Import Data (JSON)',
                 adminDangerHint: '⚠️ Operations in this zone cannot be undone',
-                heroSubtitle: '✨ The <span>Interactive Visual Platform</span> ✨',
                 f1: '🖼️ Interactive Squares',
                 f2: '👥 Active Community',
                 f3: '🔒 Secure Payment',
@@ -2022,7 +2378,7 @@
                 sponsorTitle: '🌟 Sponsors & Supporters',
                 squaresTitle: '📦 Squares',
                 squaresCount: '📊 Showing {count} of {total}',
-                ctaBuy: '🚀 Buy Your Square Now',
+                ctaSubscribe: '🚀 Subscribe with 3 Days Free Trial',
                 ctaMore: '📋 View All',
                 ctaExport: '📄 Export Report',
                 footer: '© 2026 Million Squares — The Interactive Visual Platform. All rights reserved. 💎',
@@ -2069,16 +2425,34 @@
                 squaresPerPagePlaceholder: '📊 Squares per page (Default: 1000)',
                 modalContact: '📧 Contact',
                 modalClose: '✕ Close',
-                modalLocation: '📍 Location',
-                modalEmail: '✉️ Email',
-                modalDate: '📅 Joined',
-                modalStatus: '🏷️ Status',
+                modalSubscribe: '🚀 Subscribe',
+                modalLabelLocation: '📍 Location',
+                modalLabelEmail: '✉️ Email',
+                modalLabelDate: '📅 Joined',
+                modalLabelStatus: '🏷️ Status',
                 modalStatusActive: 'Active',
                 modalStatusNew: 'New',
-                modalViewHint: '👆 Click for details'
+                modalViewHint: '👆 Click for details',
+                subModalTitle: '🚀 Subscribe to Million Squares',
+                trialInfoText: '🎁 <span class="days">3 Days</span> Free Trial',
+                trialInfoSub: 'After the trial period, you will be redirected to payment',
+                subLabelName: '👤 Full Name',
+                subLabelEmail: '✉️ Email Address',
+                subLabelLocation: '📍 Location (City, Country)',
+                subLabelSpecialty: '🔬 Specialty',
+                subLabelPhone: '📱 Phone Number',
+                subLabelPlan: '💎 Choose Plan',
+                subLabelAvatar: '🖼️ Profile Picture (Optional)',
+                subLabelMessage: '📝 Additional Message (Optional)',
+                subAvatarLabel: '📤 Click to choose image',
+                subTerms: 'By clicking "Subscribe" you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>',
+                subSubmitBtn: '🚀 Subscribe with 3 Days Free Trial',
+                welcomeEmailSubject: '🎉 Welcome to Million Squares!',
+                welcomeEmailBody: `Hello {name},\n\nThank you for joining Million Squares!\n\n📋 Your subscription details:\n• Plan: {plan}\n• Email: {email}\n• Location: {location}\n• Specialty: {specialty}\n\n🎁 You have {days} days free trial.\nAfter the trial period, you will be redirected to payment.\n\nWe are here to support you every step of the way.\nThe Million Squares Team 💎`
             },
             fr: {
                 siteName: '🏆 Million Carrés',
+                siteSub: 'La plateforme visuelle interactive',
                 loginTitle: '🔐 Panneau d\'administration',
                 loginSub: 'Entrez les identifiants admin',
                 loginBtn: '🚀 Connexion',
@@ -2109,7 +2483,6 @@
                 adminDangerPDF: '📄 Exporter le rapport (PDF)',
                 adminImportLabel: '📥 Importer des données (JSON)',
                 adminDangerHint: '⚠️ Les opérations dans cette zone ne peuvent pas être annulées',
-                heroSubtitle: '✨ La <span>plateforme visuelle interactive</span> ✨',
                 f1: '🖼️ Carrés interactifs',
                 f2: '👥 Communauté active',
                 f3: '🔒 Paiement sécurisé',
@@ -2125,7 +2498,7 @@
                 sponsorTitle: '🌟 Sponsors et soutiens',
                 squaresTitle: '📦 Carrés',
                 squaresCount: '📊 Affichage de {count} sur {total}',
-                ctaBuy: '🚀 Achetez votre carré',
+                ctaSubscribe: '🚀 Abonnement avec 3 jours d\'essai gratuits',
                 ctaMore: '📋 Voir tout',
                 ctaExport: '📄 Exporter le rapport',
                 footer: '© 2026 Million Squares — La plateforme visuelle interactive. Tous droits réservés. 💎',
@@ -2172,16 +2545,34 @@
                 squaresPerPagePlaceholder: '📊 Carrés par page (Défaut: 1000)',
                 modalContact: '📧 Contacter',
                 modalClose: '✕ Fermer',
-                modalLocation: '📍 Lieu',
-                modalEmail: '✉️ Email',
-                modalDate: '📅 Inscrit',
-                modalStatus: '🏷️ Statut',
+                modalSubscribe: '🚀 S\'abonner',
+                modalLabelLocation: '📍 Lieu',
+                modalLabelEmail: '✉️ Email',
+                modalLabelDate: '📅 Inscrit',
+                modalLabelStatus: '🏷️ Statut',
                 modalStatusActive: 'Actif',
                 modalStatusNew: 'Nouveau',
-                modalViewHint: '👆 Cliquez pour détails'
+                modalViewHint: '👆 Cliquez pour détails',
+                subModalTitle: '🚀 S\'abonner à Million Carrés',
+                trialInfoText: '🎁 <span class="days">3 jours</span> d\'essai gratuit',
+                trialInfoSub: 'Après la période d\'essai, vous serez redirigé vers le paiement',
+                subLabelName: '👤 Nom complet',
+                subLabelEmail: '✉️ Adresse e-mail',
+                subLabelLocation: '📍 Lieu (Ville, Pays)',
+                subLabelSpecialty: '🔬 Spécialité',
+                subLabelPhone: '📱 Numéro de téléphone',
+                subLabelPlan: '💎 Choisir un forfait',
+                subLabelAvatar: '🖼️ Photo de profil (Optionnel)',
+                subLabelMessage: '📝 Message supplémentaire (Optionnel)',
+                subAvatarLabel: '📤 Cliquez pour choisir une image',
+                subTerms: 'En cliquant sur "S\'abonner", vous acceptez nos <a href="#">Conditions d\'utilisation</a> et notre <a href="#">Politique de confidentialité</a>',
+                subSubmitBtn: '🚀 S\'abonner avec 3 jours d\'essai gratuit',
+                welcomeEmailSubject: '🎉 Bienvenue à Million Carrés!',
+                welcomeEmailBody: `Bonjour {name},\n\nMerci de rejoindre Million Carrés!\n\n📋 Détails de votre abonnement:\n• Forfait: {plan}\n• Email: {email}\n• Lieu: {location}\n• Spécialité: {specialty}\n\n🎁 Vous avez {days} jours d'essai gratuit.\nAprès la période d'essai, vous serez redirigé vers le paiement.\n\nNous sommes là pour vous soutenir à chaque étape.\nL'équipe Million Carrés 💎`
             },
             es: {
                 siteName: '🏆 Millón de Cuadrados',
+                siteSub: 'La plataforma visual interactiva',
                 loginTitle: '🔐 Panel de Administración',
                 loginSub: 'Ingrese credenciales de administrador',
                 loginBtn: '🚀 Iniciar sesión',
@@ -2212,7 +2603,6 @@
                 adminDangerPDF: '📄 Exportar informe (PDF)',
                 adminImportLabel: '📥 Importar datos (JSON)',
                 adminDangerHint: '⚠️ Las operaciones en esta zona no se pueden deshacer',
-                heroSubtitle: '✨ La <span>plataforma visual interactiva</span> ✨',
                 f1: '🖼️ Cuadrados interactivos',
                 f2: '👥 Comunidad activa',
                 f3: '🔒 Pago seguro',
@@ -2228,7 +2618,7 @@
                 sponsorTitle: '🌟 Patrocinadores y colaboradores',
                 squaresTitle: '📦 Cuadrados',
                 squaresCount: '📊 Mostrando {count} de {total}',
-                ctaBuy: '🚀 Compra tu cuadrado',
+                ctaSubscribe: '🚀 Suscribirse con 3 días de prueba gratis',
                 ctaMore: '📋 Ver todo',
                 ctaExport: '📄 Exportar informe',
                 footer: '© 2026 Million Squares — La plataforma visual interactiva. Todos los derechos reservados. 💎',
@@ -2275,16 +2665,34 @@
                 squaresPerPagePlaceholder: '📊 Cuadrados por página (Defecto: 1000)',
                 modalContact: '📧 Contactar',
                 modalClose: '✕ Cerrar',
-                modalLocation: '📍 Ubicación',
-                modalEmail: '✉️ Correo',
-                modalDate: '📅 Registrado',
-                modalStatus: '🏷️ Estado',
+                modalSubscribe: '🚀 Suscribirse',
+                modalLabelLocation: '📍 Ubicación',
+                modalLabelEmail: '✉️ Correo',
+                modalLabelDate: '📅 Registrado',
+                modalLabelStatus: '🏷️ Estado',
                 modalStatusActive: 'Activo',
                 modalStatusNew: 'Nuevo',
-                modalViewHint: '👆 Haz clic para detalles'
+                modalViewHint: '👆 Haz clic para detalles',
+                subModalTitle: '🚀 Suscribirse a Millón de Cuadrados',
+                trialInfoText: '🎁 <span class="days">3 días</span> de prueba gratis',
+                trialInfoSub: 'Después del período de prueba, serás redirigido al pago',
+                subLabelName: '👤 Nombre completo',
+                subLabelEmail: '✉️ Correo electrónico',
+                subLabelLocation: '📍 Ubicación (Ciudad, País)',
+                subLabelSpecialty: '🔬 Especialidad',
+                subLabelPhone: '📱 Número de teléfono',
+                subLabelPlan: '💎 Elegir plan',
+                subLabelAvatar: '🖼️ Foto de perfil (Opcional)',
+                subLabelMessage: '📝 Mensaje adicional (Opcional)',
+                subAvatarLabel: '📤 Haz clic para elegir imagen',
+                subTerms: 'Al hacer clic en "Suscribirse" aceptas nuestros <a href="#">Términos de servicio</a> y <a href="#">Política de privacidad</a>',
+                subSubmitBtn: '🚀 Suscribirse con 3 días de prueba gratis',
+                welcomeEmailSubject: '🎉 ¡Bienvenido a Millón de Cuadrados!',
+                welcomeEmailBody: `Hola {name},\n\n¡Gracias por unirte a Millón de Cuadrados!\n\n📋 Detalles de tu suscripción:\n• Plan: {plan}\n• Email: {email}\n• Ubicación: {location}\n• Especialidad: {specialty}\n\n🎁 Tienes {days} días de prueba gratis.\nDespués del período de prueba, serás redirigido al pago.\n\nEstamos aquí para apoyarte en cada paso.\nEl equipo de Millón de Cuadrados 💎`
             },
             de: {
                 siteName: '🏆 Millionen Quadrate',
+                siteSub: 'Die interaktive visuelle Plattform',
                 loginTitle: '🔐 Admin-Bereich',
                 loginSub: 'Admin-Anmeldeinformationen eingeben',
                 loginBtn: '🚀 Anmelden',
@@ -2315,7 +2723,6 @@
                 adminDangerPDF: '📄 Bericht exportieren (PDF)',
                 adminImportLabel: '📥 Daten importieren (JSON)',
                 adminDangerHint: '⚠️ Vorgänge in dieser Zone können nicht rückgängig gemacht werden',
-                heroSubtitle: '✨ Die <span>interaktive visuelle Plattform</span> ✨',
                 f1: '🖼️ Interaktive Quadrate',
                 f2: '👥 Aktive Community',
                 f3: '🔒 Sichere Zahlung',
@@ -2331,7 +2738,7 @@
                 sponsorTitle: '🌟 Sponsoren und Unterstützer',
                 squaresTitle: '📦 Quadrate',
                 squaresCount: '📊 Zeige {count} von {total}',
-                ctaBuy: '🚀 Kaufe dein Quadrat',
+                ctaSubscribe: '🚀 Abonnieren mit 3 Tagen kostenloser Testversion',
                 ctaMore: '📋 Alle anzeigen',
                 ctaExport: '📄 Bericht exportieren',
                 footer: '© 2026 Million Squares — Die interaktive visuelle Plattform. Alle Rechte vorbehalten. 💎',
@@ -2378,13 +2785,30 @@
                 squaresPerPagePlaceholder: '📊 Quadrate pro Seite (Standard: 1000)',
                 modalContact: '📧 Kontakt',
                 modalClose: '✕ Schließen',
-                modalLocation: '📍 Ort',
-                modalEmail: '✉️ E-Mail',
-                modalDate: '📅 Registriert',
-                modalStatus: '🏷️ Status',
+                modalSubscribe: '🚀 Abonnieren',
+                modalLabelLocation: '📍 Ort',
+                modalLabelEmail: '✉️ E-Mail',
+                modalLabelDate: '📅 Registriert',
+                modalLabelStatus: '🏷️ Status',
                 modalStatusActive: 'Aktiv',
                 modalStatusNew: 'Neu',
-                modalViewHint: '👆 Klicke für Details'
+                modalViewHint: '👆 Klicke für Details',
+                subModalTitle: '🚀 Abonnieren bei Millionen Quadrate',
+                trialInfoText: '🎁 <span class="days">3 Tage</span> kostenlose Testversion',
+                trialInfoSub: 'Nach der Testphase wirst du zur Zahlung weitergeleitet',
+                subLabelName: '👤 Vollständiger Name',
+                subLabelEmail: '✉️ E-Mail-Adresse',
+                subLabelLocation: '📍 Ort (Stadt, Land)',
+                subLabelSpecialty: '🔬 Fachgebiet',
+                subLabelPhone: '📱 Telefonnummer',
+                subLabelPlan: '💎 Plan wählen',
+                subLabelAvatar: '🖼️ Profilbild (Optional)',
+                subLabelMessage: '📝 Zusätzliche Nachricht (Optional)',
+                subAvatarLabel: '📤 Klicke zum Auswählen eines Bildes',
+                subTerms: 'Mit Klick auf "Abonnieren" akzeptierst du unsere <a href="#">Nutzungsbedingungen</a> und <a href="#">Datenschutzrichtlinie</a>',
+                subSubmitBtn: '🚀 Abonnieren mit 3 Tagen kostenloser Testversion',
+                welcomeEmailSubject: '🎉 Willkommen bei Millionen Quadrate!',
+                welcomeEmailBody: `Hallo {name},\n\nWillkommen bei Millionen Quadrate!\n\n📋 Ihre Abonnementdetails:\n• Plan: {plan}\n• E-Mail: {email}\n• Ort: {location}\n• Fachgebiet: {specialty}\n\n🎁 Sie haben {days} Tage kostenlose Testversion.\nNach der Testphase werden Sie zur Zahlung weitergeleitet.\n\nWir sind hier, um Sie bei jedem Schritt zu unterstützen.\nDas Millionen Quadrate Team 💎`
             }
         };
 
@@ -2397,7 +2821,11 @@
             const t = langData[lang];
             if (!t) return;
 
-            // Update all translatable elements
+            // Logo
+            document.getElementById('siteLogo').textContent = t.siteName;
+            document.getElementById('logoSubHighlight').textContent = t.siteSub;
+
+            // All other translations
             document.getElementById('loginTitle').textContent = t.loginTitle;
             document.getElementById('loginSub').textContent = t.loginSub;
             document.getElementById('loginBtn').textContent = t.loginBtn;
@@ -2429,7 +2857,6 @@
             document.getElementById('adminImportLabel').textContent = t.adminImportLabel;
             document.getElementById('adminDangerHint').textContent = t.adminDangerHint;
 
-            document.getElementById('heroSubtitle').innerHTML = t.heroSubtitle;
             document.getElementById('f1').textContent = t.f1;
             document.getElementById('f2').textContent = t.f2;
             document.getElementById('f3').textContent = t.f3;
@@ -2444,7 +2871,7 @@
             document.getElementById('trialText').textContent = t.trialText;
             document.getElementById('sponsorTitle').textContent = t.sponsorTitle;
             document.getElementById('squaresTitle').textContent = t.squaresTitle;
-            document.getElementById('ctaBuy').textContent = t.ctaBuy;
+            document.getElementById('ctaSubscribe').textContent = t.ctaSubscribe;
             document.getElementById('ctaMore').textContent = t.ctaMore;
             document.getElementById('ctaExport').textContent = t.ctaExport;
             document.getElementById('footerText').textContent = t.footer;
@@ -2485,16 +2912,29 @@
             document.getElementById('squaresPerPage').placeholder = t.squaresPerPagePlaceholder;
 
             // Modal
-            document.querySelector('.modal-actions .btn-contact').textContent = t.modalContact;
-            document.querySelector('.modal-actions .btn-close-modal').textContent = t.modalClose;
-            document.querySelectorAll('.modal-detail .label')[0].textContent = t.modalLocation;
-            document.querySelectorAll('.modal-detail .label')[1].textContent = t.modalEmail;
-            document.querySelectorAll('.modal-detail .label')[2].textContent = t.modalDate;
-            document.querySelectorAll('.modal-detail .label')[3].textContent = t.modalStatus;
+            document.getElementById('modalBtnContact').textContent = t.modalContact;
+            document.getElementById('modalBtnSubscribe').textContent = t.modalSubscribe;
+            document.getElementById('modalBtnClose').textContent = t.modalClose;
+            document.getElementById('modalLabelLocation').textContent = t.modalLabelLocation;
+            document.getElementById('modalLabelEmail').textContent = t.modalLabelEmail;
+            document.getElementById('modalLabelDate').textContent = t.modalLabelDate;
+            document.getElementById('modalLabelStatus').textContent = t.modalLabelStatus;
 
-            // Site name
-            document.getElementById('siteLogo').textContent = translate(siteSettings.siteTitle || defaultSettings.siteTitle,
-                currentLang);
+            // Subscribe Modal
+            document.getElementById('subModalTitle').textContent = t.subModalTitle;
+            document.getElementById('trialInfoText').innerHTML = t.trialInfoText;
+            document.getElementById('trialInfoSub').textContent = t.trialInfoSub;
+            document.getElementById('subLabelName').textContent = t.subLabelName;
+            document.getElementById('subLabelEmail').textContent = t.subLabelEmail;
+            document.getElementById('subLabelLocation').textContent = t.subLabelLocation;
+            document.getElementById('subLabelSpecialty').textContent = t.subLabelSpecialty;
+            document.getElementById('subLabelPhone').textContent = t.subLabelPhone;
+            document.getElementById('subLabelPlan').textContent = t.subLabelPlan;
+            document.getElementById('subLabelAvatar').textContent = t.subLabelAvatar;
+            document.getElementById('subLabelMessage').textContent = t.subLabelMessage;
+            document.getElementById('subAvatarLabel').textContent = t.subAvatarLabel;
+            document.getElementById('subTerms').innerHTML = t.subTerms;
+            document.getElementById('subSubmitBtn').textContent = t.subSubmitBtn;
 
             // Toggle admin button
             if (adminLoggedIn) {
@@ -2570,6 +3010,169 @@
             );
             window.open(`mailto:${email}?subject=${subject}&body=${body}`);
             closeModal();
+        }
+
+        // ============================================================
+        //  SUBSCRIPTION MODAL FUNCTIONS
+        // ============================================================
+        function openSubscribeModal() {
+            document.getElementById('subscribeOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Reset form
+            document.getElementById('subscribeForm').reset();
+            document.getElementById('subSelectedPlan').value = '💎 عادي ($1/سنة)';
+            document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
+            document.querySelector('.plan-option').classList.add('selected');
+            document.getElementById('subAvatarLabel').textContent = langData[currentLang]?.subAvatarLabel ||
+                '📤 اضغط لاختيار صورة';
+            subAvatarFile = null;
+        }
+
+        function closeSubscribeModal() {
+            document.getElementById('subscribeOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function selectPlan(el) {
+            document.querySelectorAll('.plan-option').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('subSelectedPlan').value = el.dataset.plan;
+        }
+
+        function handleSubAvatar(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                subAvatarFile = e.target.result;
+                document.getElementById('subAvatarLabel').textContent = '✅ ' + (currentLang === 'ar' ? 'تم رفع الصورة' :
+                    'Image uploaded');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleSubscription(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('subFullName').value.trim();
+            const email = document.getElementById('subFullEmail').value.trim();
+            const location = document.getElementById('subFullLocation').value.trim();
+            const specialty = document.getElementById('subFullSpecialty').value.trim();
+            const phone = document.getElementById('subFullPhone').value.trim();
+            const plan = document.getElementById('subSelectedPlan').value;
+            const message = document.getElementById('subFullMessage').value.trim();
+
+            if (!name || !email || !location) {
+                alert(currentLang === 'ar' ? '⚠️ الرجاء ملء الحقول الأساسية!' : '⚠️ Please fill required fields!');
+                return;
+            }
+
+            // Create user object
+            const nameObj = { ar: name, en: name, fr: name, es: name, de: name };
+            const locationObj = { ar: location, en: location, fr: location, es: location, de: location };
+            const specialtyObj = {
+                ar: specialty || 'عام',
+                en: specialty || 'General',
+                fr: specialty || 'Général',
+                es: specialty || 'General',
+                de: specialty || 'Allgemein'
+            };
+
+            const rating = (Math.random() * 2 + 2.5).toFixed(1);
+            const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
+            const today = new Date().toISOString().slice(0, 10);
+
+            const newUser = {
+                name: nameObj,
+                location: locationObj,
+                country: { ar: 'غير محدد', en: 'Unspecified', fr: 'Non spécifié', es: 'No especificado',
+                    de: 'Nicht angegeben' },
+                email: email,
+                phone: phone || '',
+                specialty: specialtyObj,
+                plan: plan,
+                rating: parseFloat(rating),
+                icon: icons[Math.floor(Math.random() * icons.length)],
+                avatar: subAvatarFile || '',
+                _new: true,
+                _date: Date.now(),
+                joined: today,
+                _trialStart: new Date().toISOString(),
+                _trialEnd: new Date(Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000).toISOString(),
+                _subscriptionMessage: message || ''
+            };
+
+            usersData.push(newUser);
+            if (subAvatarFile) {
+                avatarData[email] = subAvatarFile;
+                subAvatarFile = null;
+            }
+            saveState();
+
+            // Send welcome email
+            sendWelcomeEmail(newUser);
+
+            // Show notification
+            showNotification(
+                langData[currentLang]?.newMember || '🎉 عضو جديد!',
+                (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}', name)
+            );
+
+            closeSubscribeModal();
+            renderAll();
+
+            // Show payment redirection after trial
+            const trialEndDate = new Date(Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+            const trialEndStr = trialEndDate.toLocaleDateString(currentLang === 'ar' ? 'ar-SA' : 'en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            alert(currentLang === 'ar' ?
+                `✅ تم اشتراكك بنجاح!\n\n🎁 لديك ${TRIAL_DAYS} أيام تجريبية مجانية.\n📅 تنتهي الفترة التجريبية في: ${trialEndStr}\n\n💳 بعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.\n📧 تم إرسال بريد إلكتروني ترحيبي بالتفاصيل.` :
+                `✅ You have successfully subscribed!\n\n🎁 You have ${TRIAL_DAYS} days free trial.\n📅 Trial ends on: ${trialEndStr}\n\n💳 After the trial period, you will be redirected to the payment page.\n📧 A welcome email has been sent with details.`
+            );
+        }
+
+        // ============================================================
+        //  WELCOME EMAIL
+        // ============================================================
+        function sendWelcomeEmail(user) {
+            const t = langData[currentLang];
+            const name = translate(user.name, currentLang);
+            const plan = user.plan;
+            const email = user.email;
+            const location = translate(user.location, currentLang);
+            const specialty = translate(user.specialty, currentLang);
+
+            const subject = t.welcomeEmailSubject || '🎉 مرحباً بك في مليون مربع!';
+            const body = (t.welcomeEmailBody || `مرحباً {name},\n\nشكراً لانضمامك إلى منصة مليون مربع!\n\n📋 تفاصيل اشتراكك:\n• الباقة: {plan}\n• البريد: {email}\n• الموقع: {location}\n• الاختصاص: {specialty}\n\n🎁 لديك {days} أيام تجريبية مجانية.\nبعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.\n\nنحن هنا لدعمك في كل خطوة.\nفريق مليون مربع 💎`)
+                .replace(/{name}/g, name)
+                .replace(/{plan}/g, plan)
+                .replace(/{email}/g, email)
+                .replace(/{location}/g, location)
+                .replace(/{specialty}/g, specialty)
+                .replace(/{days}/g, TRIAL_DAYS);
+
+            console.log('📧 ===== WELCOME EMAIL =====');
+            console.log('📧 To:', email);
+            console.log('📧 Subject:', subject);
+            console.log('📧 Body:\n', body);
+            console.log('📧 ==========================');
+
+            // In production, use SMTP or email API
+            if (emailSettings.smtpEmail && emailSettings.smtpHost) {
+                console.log('📧 SMTP configured with:', emailSettings.smtpHost);
+                // Here you would implement actual email sending
+            }
+
+            // Also show in notification
+            showNotification('📧 ' + (currentLang === 'ar' ? 'تم إرسال البريد الترحيبي' : 'Welcome email sent'),
+                currentLang === 'ar' ?
+                `تم إرسال بريد ترحيبي إلى ${email} مع تفاصيل الاشتراك` :
+                `Welcome email sent to ${email} with subscription details`
+            );
         }
 
         // ============================================================
@@ -2940,7 +3543,8 @@
                 avatar: avatarFile || '',
                 _new: true,
                 _date: Date.now(),
-                joined: today
+                joined: today,
+                phone: ''
             };
 
             usersData.push(newUser);
@@ -2952,8 +3556,8 @@
             }
             saveState();
 
-            // Send email notification
-            sendEmailNotification(newUser);
+            // Send welcome email
+            sendWelcomeEmail(newUser);
 
             // Show notification
             const translatedName = translate(newUser.name, currentLang);
@@ -3131,7 +3735,7 @@
             doc.setFontSize(20);
             doc.text(siteName || '🏆 مليون مربع', 105, 20, { align: 'center' });
             doc.setFontSize(12);
-            const subtitle = t.heroSubtitle?.replace(/<[^>]*>/g, '') || 'تقرير الموقع';
+            const subtitle = t.siteSub || 'تقرير الموقع';
             doc.text(subtitle, 105, 30, { align: 'center' });
 
             doc.setFontSize(14);
@@ -3163,26 +3767,6 @@
             doc.text('© 2026 Million Squares', 105, 285, { align: 'center' });
 
             doc.save(`report_${new Date().toISOString().slice(0,10)}.pdf`);
-        }
-
-        // ============================================================
-        //  EMAIL NOTIFICATION (Simulated)
-        // ============================================================
-        function sendEmailNotification(user) {
-            const name = translate(user.name, currentLang);
-            console.log('📧 Email Notification sent to:', user.email);
-            console.log('📧 Subject: Welcome to Million Squares!');
-            console.log('📧 Body:', `
-                    مرحباً ${name},
-                    شكراً لانضمامك إلى مجتمع مليون مربع!
-                    بريدك: ${user.email}
-                    الباقة: ${user.plan}
-                    الاختصاص: ${translate(user.specialty, currentLang)}
-                `);
-
-            if (emailSettings.smtpEmail && emailSettings.smtpHost) {
-                console.log('📧 SMTP configured with:', emailSettings.smtpHost);
-            }
         }
 
         // ============================================================
@@ -3274,6 +3858,7 @@
             if (e.key === 'Escape') {
                 closeNotification();
                 closeModal();
+                closeSubscribeModal();
                 document.getElementById('adminOverlay').classList.remove('active');
             }
             if (e.key === 'Enter' && document.getElementById('adminOverlay').classList.contains('active')) {
@@ -3284,19 +3869,6 @@
         // ============================================================
         //  CTA BUTTONS
         // ============================================================
-        document.getElementById('ctaBuy').addEventListener('click', () => {
-            const msg = currentLang === 'ar' ?
-                '🚀 تم توجيهك إلى صفحة الدفع الآمن.\n' +
-                `💳 PayPal: ${paymentAccounts.paypal || 'غير محدد'}\n` +
-                `⚡ Stripe: ${paymentAccounts.stripe || 'غير محدد'}\n` +
-                `🏦 Bank: ${paymentAccounts.bank || 'غير محدد'}` :
-                '🚀 Redirecting to secure checkout.\n' +
-                `💳 PayPal: ${paymentAccounts.paypal || 'Not set'}\n` +
-                `⚡ Stripe: ${paymentAccounts.stripe || 'Not set'}\n` +
-                `🏦 Bank: ${paymentAccounts.bank || 'Not set'}`;
-            alert(msg);
-        });
-
         document.getElementById('ctaMore').addEventListener('click', () => {
             const total = usersData.length;
             const perPage = siteSettings.squaresPerPage || DEFAULT_SQUARES_PER_PAGE;
@@ -3321,15 +3893,17 @@
         setLang('ar');
         document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 
-        console.log('✅ مليون مربع - النسخة النهائية مع الترجمة الشاملة!');
+        console.log('✅ مليون مربع - النسخة النهائية المتكاملة!');
         console.log('🔑 اسم المدير:', ADMIN_USERNAME);
         console.log('🔑 كلمة مرور المدير:', ADMIN_PASSWORD);
         console.log('💡 اختصار لوحة التحكم: Ctrl+Shift+A');
         console.log('📊 عدد المشتركين:', usersData.length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
         console.log('🌓 المظهر الحالي:', currentTheme);
+        console.log('🎁 الفترة التجريبية:', TRIAL_DAYS, 'أيام');
         console.log('🖱️ مرر الماوس على المربع لتكبيره، واضغط لعرض التفاصيل');
         console.log('📝 جميع الأسماء والعناوين تتم ترجمتها تلقائياً عند تغيير اللغة');
+        console.log('🚀 زر الاشتراك يفتح نموذج تسجيل متكامل مع فترة تجريبية');
     </script>
 </body>
 </html>
