@@ -6,16 +6,30 @@ const TIERS = {
     royal: { name: { ar: 'ملكي', en: 'Royal', fr: 'Royal', es: 'Real', de: 'Königlich' }, price: 100, color: '#9B59B6', label: '💠' }
 };
 
-// ===== الترجمات الكاملة لكل عناصر الموقع =====
+// ===== الترجمات الشاملة =====
 const TRANSLATIONS = {
     ar: {
-        // الشريط العلوي
+        // عام
+        site_title: 'مليون مربع',
+        subtitle: 'منصة التواصل البصرية الأولى',
         banner: '🚀 انضم الآن واحجز مربعك المميز',
         available: 'المربعات المتاحة',
         members: 'مشترك',
         revenue: 'إيرادات',
-        site_title: 'مليون مربع',
-        subtitle: 'منصة التواصل البصرية الأولى',
+        year: 'سنة',
+        loading: '⏳ جاري تحميل مليون مربع...',
+        loading_grid: '⏳ جاري تحميل المربعات...',
+        total_squares: 'إجمالي المربعات',
+        virtual_members: 'افتراضي',
+        online: 'متصلون',
+        today: 'جديد اليوم',
+        
+        // أزرار اللغة
+        lang_ar: '🇸🇦 عربي',
+        lang_en: '🇬🇧 English',
+        lang_fr: '🇫🇷 Français',
+        lang_es: '🇪🇸 Español',
+        lang_de: '🇩🇪 Deutsch',
         
         // الرعاة
         sponsors_title: '🌟 الرعاة الداعمون',
@@ -32,17 +46,10 @@ const TRANSLATIONS = {
         sort_location: 'ترتيب حسب البلد',
         sort_tier: 'ترتيب حسب الفئة',
         sort_date: 'الأحدث أولاً',
-        year: 'سنة',
         
-        // شاشات التحميل
-        loading: '⏳ جاري تحميل مليون مربع...',
-        loading_grid: '⏳ جاري تحميل المربعات...',
-        
-        // إحصائيات الجريد
-        total_squares: 'إجمالي المربعات',
-        virtual_members: 'افتراضي',
-        online: 'متصلون',
-        today: 'جديد اليوم',
+        // زر الحجز
+        book_square: 'احجز مربعك الآن',
+        book_hint: 'انقر هنا لحجز مربع جديد في أي مكان بالجدار',
         
         // معلومات الموقع
         what_is: '🎯 ما هو مليون مربع؟',
@@ -54,7 +61,30 @@ const TRANSLATIONS = {
         step4: 'ادفع بأمان - عبر PayPal أو Stripe أو IBAN',
         step5: 'انطلق! - سيظهر مربعك فوراً',
         
-        // نظام الدفع للرعاة
+        // مميزات المستويات
+        badge_normal: 'مبتدئ',
+        badge_silver: 'شائع',
+        badge_gold: 'مميز',
+        badge_royal: 'VIP',
+        f_normal_1: '✅ عرض الاسم',
+        f_normal_2: '✅ عرض الموقع',
+        f_silver_1: '✅ عرض الاسم',
+        f_silver_2: '✅ عرض الموقع',
+        f_silver_3: '✅ رابط الموقع',
+        f_silver_4: '✅ إطار فضي لامع',
+        f_gold_1: '✅ عرض الاسم',
+        f_gold_2: '✅ عرض الموقع',
+        f_gold_3: '✅ رابط الموقع',
+        f_gold_4: '✅ صورة شخصية',
+        f_gold_5: '✅ إطار ذهبي لامع',
+        f_gold_6: '✅ أولوية الظهور',
+        f_royal_1: '✅ جميع ميزات الذهبي',
+        f_royal_2: '✅ خلفية شفافة متحركة',
+        f_royal_3: '✅ تأثير نبض مميز',
+        f_royal_4: '✅ صورة خلفية مخصصة',
+        f_royal_5: '✅ ظهور في الأعلى',
+        
+        // نظام دفع الرعاة
         sponsor_payment_title: '🌟 نظام الدفع للرعاة',
         sponsor_payment_desc: 'اختر الباقة المناسبة لشركتك وادفع مباشرة.',
         weekly: 'أسبوعي',
@@ -79,13 +109,14 @@ const TRANSLATIONS = {
         admin_hint: 'انقر مرتين للدخول إلى لوحة المدير',
         admin_login: 'الدخول إلى لوحة التحكم',
         login: 'دخول',
+        login_error: 'اسم المستخدم أو كلمة السر غير صحيحة',
+        username: 'اسم المستخدم',
+        password: 'كلمة السر',
         payments: 'الدفع',
         sponsors: 'الرعاة',
         social: 'وسائل التواصل',
         suggestions: 'الاقتراحات',
         settings: 'الإعدادات',
-        
-        // إدارة المشتركين
         add_member: 'إضافة مشترك',
         export: 'تصدير',
         refresh: 'تحديث',
@@ -96,33 +127,32 @@ const TRANSLATIONS = {
         type: 'النوع',
         actions: 'الإجراءات',
         total_members: 'إجمالي المشتركين',
-        real_members: 'المشتركين الحقيقيين',
-        virtual_members_list: 'المشتركين الافتراضيين',
-        real_revenue: 'الأرباح الحقيقية',
-        virtual_revenue: 'الأرباح الافتراضية',
+        real_members: 'حقيقي',
+        virtual_members_list: 'افتراضي',
+        real_revenue: 'أرباح حقيقية',
+        virtual_revenue: 'أرباح افتراضية',
         total_revenue: 'إجمالي الأرباح',
-        
-        // إعدادات الدفع
         payment_settings: 'إعدادات الدفع',
         save: 'حفظ الإعدادات',
-        
-        // إدارة الرعاة
         sponsor_management: 'إدارة الرعاة',
         add_sponsor: 'إضافة راعي',
-        
-        // وسائل التواصل
         social_media: 'إدارة وسائل التواصل الاجتماعي',
-        
-        // الاقتراحات
         suggestions_title: 'اقتراحات المشتركين',
         no_suggestions: 'لا توجد اقتراحات حالياً',
-        
-        // الإعدادات
         settings_title: 'إعدادات الموقع',
         admin_email: 'بريد المدير:',
         admin_name: 'اسم المدير:',
         change_password: 'تغيير كلمة السر',
         change: 'تغيير',
+        paypal_placeholder: 'بريد PayPal',
+        stripe_placeholder: 'مفتاح Stripe',
+        iban_placeholder: 'رقم IBAN',
+        sponsor_name: 'اسم الراعي',
+        sponsor_link: 'رابط الموقع',
+        sponsor_amount: 'المبلغ',
+        admin_email_placeholder: 'بريد المدير',
+        admin_name_placeholder: 'اسم المدير',
+        new_password: 'كلمة سر جديدة',
         
         // نموذج الاقتراحات
         suggest_idea: '💡 شاركنا اقتراحك',
@@ -136,73 +166,27 @@ const TRANSLATIONS = {
         about_us: '📍 عن الموقع',
         about_text: 'منصة مليون مربع - حيث الإبداع يلتقي بالفرص',
         follow_us: '📱 تابعنا',
-        rights: 'جميع الحقوق محفوظة',
-        
-        // مميزات المستويات
-        badge_normal: 'مبتدئ',
-        badge_silver: 'شائع',
-        badge_gold: 'مميز',
-        badge_royal: 'VIP',
-        
-        // زر الحجز
-        book_square: 'احجز مربعك الآن',
-        book_hint: 'انقر هنا لحجز مربع جديد في أي مكان بالجدار',
-        
-        // مميزات المستويات
-        f_normal_1: '✅ عرض الاسم',
-        f_normal_2: '✅ عرض الموقع',
-        f_silver_1: '✅ عرض الاسم',
-        f_silver_2: '✅ عرض الموقع',
-        f_silver_3: '✅ رابط الموقع',
-        f_silver_4: '✅ إطار فضي لامع',
-        f_gold_1: '✅ عرض الاسم',
-        f_gold_2: '✅ عرض الموقع',
-        f_gold_3: '✅ رابط الموقع',
-        f_gold_4: '✅ صورة شخصية',
-        f_gold_5: '✅ إطار ذهبي لامع',
-        f_gold_6: '✅ أولوية الظهور',
-        f_royal_1: '✅ جميع ميزات الذهبي',
-        f_royal_2: '✅ خلفية شفافة متحركة',
-        f_royal_3: '✅ تأثير نبض مميز',
-        f_royal_4: '✅ صورة خلفية مخصصة',
-        f_royal_5: '✅ ظهور في الأعلى',
-        
-        // أزرار لوحة التحكم
-        dashboard: 'لوحة التحكم',
-        members_management: 'إدارة المشتركين',
-        payments_management: 'إدارة الدفع',
-        sponsors_management: 'إدارة الرعاة',
-        social_management: 'إدارة وسائل التواصل',
-        suggestions_management: 'إدارة الاقتراحات',
-        settings_management: 'الإعدادات',
-        add_new_member: 'إضافة مشترك جديد',
-        export_data: 'تصدير البيانات',
-        refresh_data: 'تحديث البيانات',
-        delete: 'حذف',
-        save_settings: 'حفظ الإعدادات',
-        change_password_btn: 'تغيير كلمة السر',
-        send_suggestion: 'إرسال الاقتراح',
-        your_full_name: 'اسمك الكامل',
-        your_email_address: 'بريدك الإلكتروني',
-        your_idea: 'فكرتك لتطوير الموقع',
-        contact: 'تواصل معنا',
-        about: 'عن الموقع',
-        follow: 'تابعنا',
-        rights_reserved: 'جميع الحقوق محفوظة',
-        total: 'الإجمالي',
-        available_squares: 'المربعات المتاحة',
-        subscribers: 'المشتركين',
-        virtual: 'افتراضي',
-        sort_by: 'ترتيب حسب',
-        all: 'الكل'
+        rights: 'جميع الحقوق محفوظة'
     },
     en: {
+        site_title: 'Million Squares',
+        subtitle: 'The First Visual Communication Platform',
         banner: '🚀 Join now and book your special square',
         available: 'Available squares',
         members: 'Members',
         revenue: 'Revenue',
-        site_title: 'Million Squares',
-        subtitle: 'The First Visual Communication Platform',
+        year: 'year',
+        loading: '⏳ Loading Million Squares...',
+        loading_grid: '⏳ Loading squares...',
+        total_squares: 'Total squares',
+        virtual_members: 'Virtual',
+        online: 'Online',
+        today: 'Today',
+        lang_ar: '🇸🇦 Arabic',
+        lang_en: '🇬🇧 English',
+        lang_fr: '🇫🇷 French',
+        lang_es: '🇪🇸 Spanish',
+        lang_de: '🇩🇪 German',
         sponsors_title: '🌟 Supporting Sponsors',
         become_sponsor: 'Become a Sponsor',
         search: '🔎 Search members...',
@@ -215,13 +199,8 @@ const TRANSLATIONS = {
         sort_location: 'Sort by Location',
         sort_tier: 'Sort by Tier',
         sort_date: 'Latest First',
-        year: 'year',
-        loading: '⏳ Loading Million Squares...',
-        loading_grid: '⏳ Loading squares...',
-        total_squares: 'Total squares',
-        virtual_members: 'Virtual',
-        online: 'Online',
-        today: 'Today',
+        book_square: 'Book Your Square Now',
+        book_hint: 'Click here to book a new square anywhere on the wall',
         what_is: '🎯 What is Million Squares?',
         description: 'A revolutionary platform for interactive digital space.',
         steps_title: '📋 Subscription Steps',
@@ -230,6 +209,27 @@ const TRANSLATIONS = {
         step3: 'Fill your data - Name, email, website, image',
         step4: 'Pay securely - Via PayPal, Stripe, or IBAN',
         step5: 'Go! - Your square will appear immediately',
+        badge_normal: 'Beginner',
+        badge_silver: 'Popular',
+        badge_gold: 'Featured',
+        badge_royal: 'VIP',
+        f_normal_1: '✅ Show name',
+        f_normal_2: '✅ Show location',
+        f_silver_1: '✅ Show name',
+        f_silver_2: '✅ Show location',
+        f_silver_3: '✅ Website link',
+        f_silver_4: '✅ Shiny silver border',
+        f_gold_1: '✅ Show name',
+        f_gold_2: '✅ Show location',
+        f_gold_3: '✅ Website link',
+        f_gold_4: '✅ Profile image',
+        f_gold_5: '✅ Shiny gold border',
+        f_gold_6: '✅ Priority display',
+        f_royal_1: '✅ All gold features',
+        f_royal_2: '✅ Animated transparent background',
+        f_royal_3: '✅ Distinct pulse effect',
+        f_royal_4: '✅ Custom background image',
+        f_royal_5: '✅ Top display',
         sponsor_payment_title: '🌟 Sponsor Payment System',
         sponsor_payment_desc: 'Choose the right package for your company.',
         weekly: 'Weekly',
@@ -252,6 +252,9 @@ const TRANSLATIONS = {
         admin_hint: 'Double click to access admin panel',
         admin_login: 'Login to Dashboard',
         login: 'Login',
+        login_error: 'Invalid username or password',
+        username: 'Username',
+        password: 'Password',
         payments: 'Payments',
         sponsors: 'Sponsors',
         social: 'Social Media',
@@ -267,8 +270,8 @@ const TRANSLATIONS = {
         type: 'Type',
         actions: 'Actions',
         total_members: 'Total Members',
-        real_members: 'Real Members',
-        virtual_members_list: 'Virtual Members',
+        real_members: 'Real',
+        virtual_members_list: 'Virtual',
         real_revenue: 'Real Revenue',
         virtual_revenue: 'Virtual Revenue',
         total_revenue: 'Total Revenue',
@@ -284,6 +287,15 @@ const TRANSLATIONS = {
         admin_name: 'Admin Name:',
         change_password: 'Change Password',
         change: 'Change',
+        paypal_placeholder: 'PayPal email',
+        stripe_placeholder: 'Stripe key',
+        iban_placeholder: 'IBAN number',
+        sponsor_name: 'Sponsor name',
+        sponsor_link: 'Website link',
+        sponsor_amount: 'Amount',
+        admin_email_placeholder: 'Admin email',
+        admin_name_placeholder: 'Admin name',
+        new_password: 'New password',
         suggest_idea: '💡 Share Your Suggestion',
         send: 'Send Suggestion',
         your_name: 'Your name',
@@ -293,65 +305,27 @@ const TRANSLATIONS = {
         about_us: '📍 About Us',
         about_text: 'Million Squares Platform - Where Creativity Meets Opportunity',
         follow_us: '📱 Follow Us',
-        rights: 'All Rights Reserved',
-        badge_normal: 'Beginner',
-        badge_silver: 'Popular',
-        badge_gold: 'Featured',
-        badge_royal: 'VIP',
-        book_square: 'Book Your Square Now',
-        book_hint: 'Click here to book a new square anywhere on the wall',
-        f_normal_1: '✅ Show name',
-        f_normal_2: '✅ Show location',
-        f_silver_1: '✅ Show name',
-        f_silver_2: '✅ Show location',
-        f_silver_3: '✅ Website link',
-        f_silver_4: '✅ Shiny silver border',
-        f_gold_1: '✅ Show name',
-        f_gold_2: '✅ Show location',
-        f_gold_3: '✅ Website link',
-        f_gold_4: '✅ Profile image',
-        f_gold_5: '✅ Shiny gold border',
-        f_gold_6: '✅ Priority display',
-        f_royal_1: '✅ All gold features',
-        f_royal_2: '✅ Animated transparent background',
-        f_royal_3: '✅ Distinct pulse effect',
-        f_royal_4: '✅ Custom background image',
-        f_royal_5: '✅ Top display',
-        dashboard: 'Dashboard',
-        members_management: 'Members Management',
-        payments_management: 'Payments Management',
-        sponsors_management: 'Sponsors Management',
-        social_management: 'Social Media Management',
-        suggestions_management: 'Suggestions Management',
-        settings_management: 'Settings',
-        add_new_member: 'Add New Member',
-        export_data: 'Export Data',
-        refresh_data: 'Refresh Data',
-        delete: 'Delete',
-        save_settings: 'Save Settings',
-        change_password_btn: 'Change Password',
-        send_suggestion: 'Send Suggestion',
-        your_full_name: 'Your full name',
-        your_email_address: 'Your email address',
-        your_idea: 'Your idea to improve the site',
-        contact: 'Contact Us',
-        about: 'About Us',
-        follow: 'Follow Us',
-        rights_reserved: 'All Rights Reserved',
-        total: 'Total',
-        available_squares: 'Available squares',
-        subscribers: 'Subscribers',
-        virtual: 'Virtual',
-        sort_by: 'Sort by',
-        all: 'All'
+        rights: 'All Rights Reserved'
     },
     fr: {
+        site_title: 'Million de Carrés',
+        subtitle: 'La première plateforme de communication visuelle',
         banner: '🚀 Rejoignez maintenant et réservez votre carré spécial',
         available: 'Carrés disponibles',
         members: 'Membres',
         revenue: 'Revenus',
-        site_title: 'Million de Carrés',
-        subtitle: 'La première plateforme de communication visuelle',
+        year: 'an',
+        loading: '⏳ Chargement de Million de Carrés...',
+        loading_grid: '⏳ Chargement des carrés...',
+        total_squares: 'Total des carrés',
+        virtual_members: 'Virtuel',
+        online: 'En ligne',
+        today: "Aujourd'hui",
+        lang_ar: '🇸🇦 Arabe',
+        lang_en: '🇬🇧 Anglais',
+        lang_fr: '🇫🇷 Français',
+        lang_es: '🇪🇸 Espagnol',
+        lang_de: '🇩🇪 Allemand',
         sponsors_title: '🌟 Sponsors soutenant',
         become_sponsor: 'Devenir Sponsor',
         search: '🔎 Rechercher des membres...',
@@ -364,13 +338,8 @@ const TRANSLATIONS = {
         sort_location: 'Trier par lieu',
         sort_tier: 'Trier par niveau',
         sort_date: 'Plus récent',
-        year: 'an',
-        loading: '⏳ Chargement de Million de Carrés...',
-        loading_grid: '⏳ Chargement des carrés...',
-        total_squares: 'Total des carrés',
-        virtual_members: 'Virtuel',
-        online: 'En ligne',
-        today: "Aujourd'hui",
+        book_square: 'Réservez votre carré',
+        book_hint: 'Cliquez ici pour réserver un nouveau carré',
         what_is: "🎯 Qu'est-ce que Million de Carrés?",
         description: 'Une plateforme révolutionnaire pour espace numérique interactif.',
         steps_title: "📋 Étapes d'abonnement",
@@ -379,6 +348,27 @@ const TRANSLATIONS = {
         step3: 'Remplissez vos données - Nom, email, site web, image',
         step4: 'Payez en toute sécurité - Via PayPal, Stripe, ou IBAN',
         step5: 'Go! - Votre carré apparaîtra immédiatement',
+        badge_normal: 'Débutant',
+        badge_silver: 'Populaire',
+        badge_gold: 'En vedette',
+        badge_royal: 'VIP',
+        f_normal_1: '✅ Afficher le nom',
+        f_normal_2: "✅ Afficher l'emplacement",
+        f_silver_1: '✅ Afficher le nom',
+        f_silver_2: "✅ Afficher l'emplacement",
+        f_silver_3: '✅ Lien site web',
+        f_silver_4: '✅ Bordure argentée',
+        f_gold_1: '✅ Afficher le nom',
+        f_gold_2: "✅ Afficher l'emplacement",
+        f_gold_3: '✅ Lien site web',
+        f_gold_4: '✅ Photo de profil',
+        f_gold_5: '✅ Bordure dorée',
+        f_gold_6: '✅ Affichage prioritaire',
+        f_royal_1: '✅ Toutes les fonctionnalités Or',
+        f_royal_2: '✅ Fond transparent animé',
+        f_royal_3: '✅ Effet de pulsation',
+        f_royal_4: '✅ Image de fond personnalisée',
+        f_royal_5: '✅ Affichage en haut',
         sponsor_payment_title: '🌟 Système de paiement des sponsors',
         sponsor_payment_desc: 'Choisissez le forfait adapté à votre entreprise.',
         weekly: 'Hebdomadaire',
@@ -401,6 +391,9 @@ const TRANSLATIONS = {
         admin_hint: 'Double-cliquez pour accéder au panneau',
         admin_login: 'Connexion au tableau de bord',
         login: 'Connexion',
+        login_error: "Nom d'utilisateur ou mot de passe incorrect",
+        username: "Nom d'utilisateur",
+        password: 'Mot de passe',
         payments: 'Paiements',
         sponsors: 'Sponsors',
         social: 'Réseaux sociaux',
@@ -416,8 +409,8 @@ const TRANSLATIONS = {
         type: 'Type',
         actions: 'Actions',
         total_members: 'Total des membres',
-        real_members: 'Membres réels',
-        virtual_members_list: 'Membres virtuels',
+        real_members: 'Réel',
+        virtual_members_list: 'Virtuel',
         real_revenue: 'Revenus réels',
         virtual_revenue: 'Revenus virtuels',
         total_revenue: 'Revenus totaux',
@@ -433,6 +426,15 @@ const TRANSLATIONS = {
         admin_name: "Nom de l'administrateur:",
         change_password: 'Changer le mot de passe',
         change: 'Changer',
+        paypal_placeholder: 'Email PayPal',
+        stripe_placeholder: 'Clé Stripe',
+        iban_placeholder: 'Numéro IBAN',
+        sponsor_name: "Nom du sponsor",
+        sponsor_link: "Lien du site",
+        sponsor_amount: 'Montant',
+        admin_email_placeholder: "Email de l'admin",
+        admin_name_placeholder: "Nom de l'admin",
+        new_password: 'Nouveau mot de passe',
         suggest_idea: '💡 Partagez votre suggestion',
         send: 'Envoyer',
         your_name: 'Votre nom',
@@ -442,65 +444,27 @@ const TRANSLATIONS = {
         about_us: '📍 À propos de nous',
         about_text: 'Plateforme Million de Carrés',
         follow_us: '📱 Suivez-nous',
-        rights: 'Tous droits réservés',
-        badge_normal: 'Débutant',
-        badge_silver: 'Populaire',
-        badge_gold: 'En vedette',
-        badge_royal: 'VIP',
-        book_square: 'Réservez votre carré',
-        book_hint: 'Cliquez ici pour réserver un nouveau carré',
-        f_normal_1: '✅ Afficher le nom',
-        f_normal_2: "✅ Afficher l'emplacement",
-        f_silver_1: '✅ Afficher le nom',
-        f_silver_2: "✅ Afficher l'emplacement",
-        f_silver_3: '✅ Lien site web',
-        f_silver_4: '✅ Bordure argentée',
-        f_gold_1: '✅ Afficher le nom',
-        f_gold_2: "✅ Afficher l'emplacement",
-        f_gold_3: '✅ Lien site web',
-        f_gold_4: '✅ Photo de profil',
-        f_gold_5: '✅ Bordure dorée',
-        f_gold_6: '✅ Affichage prioritaire',
-        f_royal_1: '✅ Toutes les fonctionnalités Or',
-        f_royal_2: '✅ Fond transparent animé',
-        f_royal_3: '✅ Effet de pulsation',
-        f_royal_4: '✅ Image de fond personnalisée',
-        f_royal_5: '✅ Affichage en haut',
-        dashboard: 'Tableau de bord',
-        members_management: 'Gestion des membres',
-        payments_management: 'Gestion des paiements',
-        sponsors_management: 'Gestion des sponsors',
-        social_management: 'Gestion des réseaux sociaux',
-        suggestions_management: 'Gestion des suggestions',
-        settings_management: 'Paramètres',
-        add_new_member: 'Ajouter un membre',
-        export_data: 'Exporter',
-        refresh_data: 'Rafraîchir',
-        delete: 'Supprimer',
-        save_settings: 'Enregistrer',
-        change_password_btn: 'Changer le mot de passe',
-        send_suggestion: 'Envoyer',
-        your_full_name: 'Votre nom complet',
-        your_email_address: 'Votre adresse email',
-        your_idea: 'Votre idée pour améliorer le site',
-        contact: 'Contactez-nous',
-        about: 'À propos',
-        follow: 'Suivez-nous',
-        rights_reserved: 'Tous droits réservés',
-        total: 'Total',
-        available_squares: 'Carrés disponibles',
-        subscribers: 'Abonnés',
-        virtual: 'Virtuel',
-        sort_by: 'Trier par',
-        all: 'Tous'
+        rights: 'Tous droits réservés'
     },
     es: {
+        site_title: 'Millón de Cuadrados',
+        subtitle: 'La primera plataforma de comunicación visual',
         banner: '🚀 Únete ahora y reserva tu cuadrado especial',
         available: 'Cuadrados disponibles',
         members: 'Miembros',
         revenue: 'Ingresos',
-        site_title: 'Millón de Cuadrados',
-        subtitle: 'La primera plataforma de comunicación visual',
+        year: 'año',
+        loading: '⏳ Cargando Millón de Cuadrados...',
+        loading_grid: '⏳ Cargando cuadrados...',
+        total_squares: 'Total de cuadrados',
+        virtual_members: 'Virtual',
+        online: 'En línea',
+        today: 'Hoy',
+        lang_ar: '🇸🇦 Árabe',
+        lang_en: '🇬🇧 Inglés',
+        lang_fr: '🇫🇷 Francés',
+        lang_es: '🇪🇸 Español',
+        lang_de: '🇩🇪 Alemán',
         sponsors_title: '🌟 Patrocinadores',
         become_sponsor: 'Ser Patrocinador',
         search: '🔎 Buscar miembros...',
@@ -513,13 +477,8 @@ const TRANSLATIONS = {
         sort_location: 'Ordenar por ubicación',
         sort_tier: 'Ordenar por nivel',
         sort_date: 'Más reciente',
-        year: 'año',
-        loading: '⏳ Cargando Millón de Cuadrados...',
-        loading_grid: '⏳ Cargando cuadrados...',
-        total_squares: 'Total de cuadrados',
-        virtual_members: 'Virtual',
-        online: 'En línea',
-        today: 'Hoy',
+        book_square: 'Reserva tu cuadrado',
+        book_hint: 'Haz clic aquí para reservar un nuevo cuadrado',
         what_is: '🎯 ¿Qué es Millón de Cuadrados?',
         description: 'Una plataforma revolucionaria para espacio digital interactivo.',
         steps_title: '📋 Pasos de suscripción',
@@ -528,6 +487,27 @@ const TRANSLATIONS = {
         step3: 'Completa tus datos - Nombre, email, sitio web, imagen',
         step4: 'Paga con seguridad - Vía PayPal, Stripe o IBAN',
         step5: '¡Adelante! - Tu cuadrado aparecerá',
+        badge_normal: 'Principiante',
+        badge_silver: 'Popular',
+        badge_gold: 'Destacado',
+        badge_royal: 'VIP',
+        f_normal_1: '✅ Mostrar nombre',
+        f_normal_2: '✅ Mostrar ubicación',
+        f_silver_1: '✅ Mostrar nombre',
+        f_silver_2: '✅ Mostrar ubicación',
+        f_silver_3: '✅ Enlace web',
+        f_silver_4: '✅ Borde plateado',
+        f_gold_1: '✅ Mostrar nombre',
+        f_gold_2: '✅ Mostrar ubicación',
+        f_gold_3: '✅ Enlace web',
+        f_gold_4: '✅ Imagen de perfil',
+        f_gold_5: '✅ Borde dorado',
+        f_gold_6: '✅ Visualización prioritaria',
+        f_royal_1: '✅ Todas las características Oro',
+        f_royal_2: '✅ Fondo transparente animado',
+        f_royal_3: '✅ Efecto de pulso',
+        f_royal_4: '✅ Imagen de fondo personalizada',
+        f_royal_5: '✅ Visualización superior',
         sponsor_payment_title: '🌟 Sistema de pago para patrocinadores',
         sponsor_payment_desc: 'Elige el paquete adecuado para tu empresa.',
         weekly: 'Semanal',
@@ -550,6 +530,9 @@ const TRANSLATIONS = {
         admin_hint: 'Haga doble clic para acceder al panel',
         admin_login: 'Iniciar sesión en el panel',
         login: 'Iniciar sesión',
+        login_error: 'Usuario o contraseña incorrectos',
+        username: 'Usuario',
+        password: 'Contraseña',
         payments: 'Pagos',
         sponsors: 'Patrocinadores',
         social: 'Redes sociales',
@@ -565,8 +548,8 @@ const TRANSLATIONS = {
         type: 'Tipo',
         actions: 'Acciones',
         total_members: 'Total de miembros',
-        real_members: 'Miembros reales',
-        virtual_members_list: 'Miembros virtuales',
+        real_members: 'Real',
+        virtual_members_list: 'Virtual',
         real_revenue: 'Ingresos reales',
         virtual_revenue: 'Ingresos virtuales',
         total_revenue: 'Ingresos totales',
@@ -582,6 +565,15 @@ const TRANSLATIONS = {
         admin_name: 'Nombre del administrador:',
         change_password: 'Cambiar contraseña',
         change: 'Cambiar',
+        paypal_placeholder: 'Email PayPal',
+        stripe_placeholder: 'Clave Stripe',
+        iban_placeholder: 'Número IBAN',
+        sponsor_name: 'Nombre del patrocinador',
+        sponsor_link: 'Enlace del sitio',
+        sponsor_amount: 'Monto',
+        admin_email_placeholder: 'Email del admin',
+        admin_name_placeholder: 'Nombre del admin',
+        new_password: 'Nueva contraseña',
         suggest_idea: '💡 Comparte tu sugerencia',
         send: 'Enviar',
         your_name: 'Tu nombre',
@@ -591,65 +583,27 @@ const TRANSLATIONS = {
         about_us: '📍 Sobre nosotros',
         about_text: 'Plataforma Millón de Cuadrados',
         follow_us: '📱 Síguenos',
-        rights: 'Todos los derechos reservados',
-        badge_normal: 'Principiante',
-        badge_silver: 'Popular',
-        badge_gold: 'Destacado',
-        badge_royal: 'VIP',
-        book_square: 'Reserva tu cuadrado',
-        book_hint: 'Haz clic aquí para reservar un nuevo cuadrado',
-        f_normal_1: '✅ Mostrar nombre',
-        f_normal_2: '✅ Mostrar ubicación',
-        f_silver_1: '✅ Mostrar nombre',
-        f_silver_2: '✅ Mostrar ubicación',
-        f_silver_3: '✅ Enlace web',
-        f_silver_4: '✅ Borde plateado',
-        f_gold_1: '✅ Mostrar nombre',
-        f_gold_2: '✅ Mostrar ubicación',
-        f_gold_3: '✅ Enlace web',
-        f_gold_4: '✅ Imagen de perfil',
-        f_gold_5: '✅ Borde dorado',
-        f_gold_6: '✅ Visualización prioritaria',
-        f_royal_1: '✅ Todas las características Oro',
-        f_royal_2: '✅ Fondo transparente animado',
-        f_royal_3: '✅ Efecto de pulso',
-        f_royal_4: '✅ Imagen de fondo personalizada',
-        f_royal_5: '✅ Visualización superior',
-        dashboard: 'Panel de control',
-        members_management: 'Gestión de miembros',
-        payments_management: 'Gestión de pagos',
-        sponsors_management: 'Gestión de patrocinadores',
-        social_management: 'Gestión de redes sociales',
-        suggestions_management: 'Gestión de sugerencias',
-        settings_management: 'Configuración',
-        add_new_member: 'Agregar miembro',
-        export_data: 'Exportar',
-        refresh_data: 'Actualizar',
-        delete: 'Eliminar',
-        save_settings: 'Guardar',
-        change_password_btn: 'Cambiar contraseña',
-        send_suggestion: 'Enviar',
-        your_full_name: 'Tu nombre completo',
-        your_email_address: 'Tu correo electrónico',
-        your_idea: 'Tu idea para mejorar el sitio',
-        contact: 'Contáctanos',
-        about: 'Sobre nosotros',
-        follow: 'Síguenos',
-        rights_reserved: 'Todos los derechos reservados',
-        total: 'Total',
-        available_squares: 'Cuadrados disponibles',
-        subscribers: 'Suscriptores',
-        virtual: 'Virtual',
-        sort_by: 'Ordenar por',
-        all: 'Todos'
+        rights: 'Todos los derechos reservados'
     },
     de: {
+        site_title: 'Million Quadrate',
+        subtitle: 'Die erste visuelle Kommunikationsplattform',
         banner: '🚀 Jetzt beitreten und dein spezielles Quadrat buchen',
         available: 'Verfügbare Quadrate',
         members: 'Mitglieder',
         revenue: 'Einnahmen',
-        site_title: 'Million Quadrate',
-        subtitle: 'Die erste visuelle Kommunikationsplattform',
+        year: 'Jahr',
+        loading: '⏳ Million Quadrate werden geladen...',
+        loading_grid: '⏳ Quadrate werden geladen...',
+        total_squares: 'Gesamt Quadrate',
+        virtual_members: 'Virtuell',
+        online: 'Online',
+        today: 'Heute',
+        lang_ar: '🇸🇦 Arabisch',
+        lang_en: '🇬🇧 Englisch',
+        lang_fr: '🇫🇷 Französisch',
+        lang_es: '🇪🇸 Spanisch',
+        lang_de: '🇩🇪 Deutsch',
         sponsors_title: '🌟 Unterstützende Sponsoren',
         become_sponsor: 'Sponsor werden',
         search: '🔎 Mitglieder suchen...',
@@ -662,13 +616,8 @@ const TRANSLATIONS = {
         sort_location: 'Sortieren nach Ort',
         sort_tier: 'Sortieren nach Stufe',
         sort_date: 'Neueste zuerst',
-        year: 'Jahr',
-        loading: '⏳ Million Quadrate werden geladen...',
-        loading_grid: '⏳ Quadrate werden geladen...',
-        total_squares: 'Gesamt Quadrate',
-        virtual_members: 'Virtuell',
-        online: 'Online',
-        today: 'Heute',
+        book_square: 'Buche dein Quadrat',
+        book_hint: 'Klicke hier, um ein neues Quadrat zu buchen',
         what_is: '🎯 Was ist Million Quadrate?',
         description: 'Eine revolutionäre Plattform für interaktive digitale Räume.',
         steps_title: '📋 Abonnementschritte',
@@ -677,6 +626,27 @@ const TRANSLATIONS = {
         step3: 'Fülle deine Daten aus - Name, E-Mail, Webseite, Bild',
         step4: 'Sicher bezahlen - Über PayPal, Stripe oder IBAN',
         step5: 'Los! - Dein Quadrat erscheint sofort',
+        badge_normal: 'Anfänger',
+        badge_silver: 'Beliebt',
+        badge_gold: 'Hervorgehoben',
+        badge_royal: 'VIP',
+        f_normal_1: '✅ Name anzeigen',
+        f_normal_2: '✅ Standort anzeigen',
+        f_silver_1: '✅ Name anzeigen',
+        f_silver_2: '✅ Standort anzeigen',
+        f_silver_3: '✅ Weblink',
+        f_silver_4: '✅ Silberner Rand',
+        f_gold_1: '✅ Name anzeigen',
+        f_gold_2: '✅ Standort anzeigen',
+        f_gold_3: '✅ Weblink',
+        f_gold_4: '✅ Profilbild',
+        f_gold_5: '✅ Goldener Rand',
+        f_gold_6: '✅ Prioritätsanzeige',
+        f_royal_1: '✅ Alle Gold-Funktionen',
+        f_royal_2: '✅ Animierter transparenter Hintergrund',
+        f_royal_3: '✅ Deutlicher Pulseffekt',
+        f_royal_4: '✅ Benutzerdefiniertes Hintergrundbild',
+        f_royal_5: '✅ Oben anzeigen',
         sponsor_payment_title: '🌟 Sponsor-Zahlungssystem',
         sponsor_payment_desc: 'Wähle das passende Paket für dein Unternehmen.',
         weekly: 'Wöchentlich',
@@ -699,6 +669,9 @@ const TRANSLATIONS = {
         admin_hint: 'Doppelklick für Admin-Panel',
         admin_login: 'Zum Dashboard anmelden',
         login: 'Anmelden',
+        login_error: 'Benutzername oder Passwort falsch',
+        username: 'Benutzername',
+        password: 'Passwort',
         payments: 'Zahlungen',
         sponsors: 'Sponsoren',
         social: 'Soziale Medien',
@@ -714,8 +687,8 @@ const TRANSLATIONS = {
         type: 'Typ',
         actions: 'Aktionen',
         total_members: 'Gesamt Mitglieder',
-        real_members: 'Echte Mitglieder',
-        virtual_members_list: 'Virtuelle Mitglieder',
+        real_members: 'Echt',
+        virtual_members_list: 'Virtuell',
         real_revenue: 'Echte Einnahmen',
         virtual_revenue: 'Virtuelle Einnahmen',
         total_revenue: 'Gesamteinnahmen',
@@ -731,6 +704,15 @@ const TRANSLATIONS = {
         admin_name: 'Admin-Name:',
         change_password: 'Passwort ändern',
         change: 'Ändern',
+        paypal_placeholder: 'PayPal-E-Mail',
+        stripe_placeholder: 'Stripe-Schlüssel',
+        iban_placeholder: 'IBAN-Nummer',
+        sponsor_name: 'Sponsor-Name',
+        sponsor_link: 'Website-Link',
+        sponsor_amount: 'Betrag',
+        admin_email_placeholder: 'Admin-E-Mail',
+        admin_name_placeholder: 'Admin-Name',
+        new_password: 'Neues Passwort',
         suggest_idea: '💡 Teile deinen Vorschlag',
         send: 'Senden',
         your_name: 'Dein Name',
@@ -740,57 +722,7 @@ const TRANSLATIONS = {
         about_us: '📍 Über uns',
         about_text: 'Million Quadrate Plattform',
         follow_us: '📱 Folge uns',
-        rights: 'Alle Rechte vorbehalten',
-        badge_normal: 'Anfänger',
-        badge_silver: 'Beliebt',
-        badge_gold: 'Hervorgehoben',
-        badge_royal: 'VIP',
-        book_square: 'Buche dein Quadrat',
-        book_hint: 'Klicke hier, um ein neues Quadrat zu buchen',
-        f_normal_1: '✅ Name anzeigen',
-        f_normal_2: '✅ Standort anzeigen',
-        f_silver_1: '✅ Name anzeigen',
-        f_silver_2: '✅ Standort anzeigen',
-        f_silver_3: '✅ Weblink',
-        f_silver_4: '✅ Silberner Rand',
-        f_gold_1: '✅ Name anzeigen',
-        f_gold_2: '✅ Standort anzeigen',
-        f_gold_3: '✅ Weblink',
-        f_gold_4: '✅ Profilbild',
-        f_gold_5: '✅ Goldener Rand',
-        f_gold_6: '✅ Prioritätsanzeige',
-        f_royal_1: '✅ Alle Gold-Funktionen',
-        f_royal_2: '✅ Animierter transparenter Hintergrund',
-        f_royal_3: '✅ Deutlicher Pulseffekt',
-        f_royal_4: '✅ Benutzerdefiniertes Hintergrundbild',
-        f_royal_5: '✅ Oben anzeigen',
-        dashboard: 'Dashboard',
-        members_management: 'Mitgliederverwaltung',
-        payments_management: 'Zahlungsverwaltung',
-        sponsors_management: 'Sponsorenverwaltung',
-        social_management: 'Social Media Verwaltung',
-        suggestions_management: 'Vorschlagsverwaltung',
-        settings_management: 'Einstellungen',
-        add_new_member: 'Mitglied hinzufügen',
-        export_data: 'Exportieren',
-        refresh_data: 'Aktualisieren',
-        delete: 'Löschen',
-        save_settings: 'Speichern',
-        change_password_btn: 'Passwort ändern',
-        send_suggestion: 'Senden',
-        your_full_name: 'Dein vollständiger Name',
-        your_email_address: 'Deine E-Mail-Adresse',
-        your_idea: 'Deine Idee zur Verbesserung',
-        contact: 'Kontaktiere uns',
-        about: 'Über uns',
-        follow: 'Folge uns',
-        rights_reserved: 'Alle Rechte vorbehalten',
-        total: 'Gesamt',
-        available_squares: 'Verfügbare Quadrate',
-        subscribers: 'Abonnenten',
-        virtual: 'Virtuell',
-        sort_by: 'Sortieren nach',
-        all: 'Alle'
+        rights: 'Alle Rechte vorbehalten'
     }
 };
 
@@ -812,11 +744,7 @@ var LOCATIONS = [
 
 // ===== المتغيرات العامة =====
 var members = [];
-var sponsors = [
-    { name: 'شركة الاتصالات', link: '#', amount: 1000, duration: 'monthly' },
-    { name: 'بنك الرياض', link: '#', amount: 500, duration: 'weekly' },
-    { name: 'أكاديمية البرمجة', link: '#', amount: 2000, duration: 'monthly' }
-];
+var sponsors = [];
 var suggestions = [];
 var socialLinks = { facebook: '', twitter: '', instagram: '', youtube: '', linkedin: '', tiktok: '' };
 var totalRevenue = 0;
@@ -824,6 +752,10 @@ var virtualRevenue = 0;
 var currentZoom = 1;
 var currentLang = 'ar';
 var totalCellsToShow = 2000;
+var adminClickCount = 0;
+var adminClickTimer = null;
+var royalInterval = null;
+var royalIndex = 0;
 
 // ===== عناصر DOM =====
 var gridCanvas, searchInput, filterTier, sortBy, liveClock;
@@ -845,7 +777,7 @@ function calculateRevenue() {
     return { real: realRevenue, virtual: virtualRev, total: realRevenue + virtualRev };
 }
 
-// ===== إنشاء مشتركين افتراضيين (100 فقط) =====
+// ===== إنشاء مشتركين افتراضيين =====
 function generateVirtualMembers(count) {
     var result = [];
     var tierKeys = ['normal', 'silver', 'gold', 'royal'];
@@ -898,8 +830,8 @@ function loadData() {
         if (saved) {
             var data = JSON.parse(saved);
             members = data.members || [];
-            sponsors = data.sponsors || sponsors;
-            suggestions = data.suggestions || suggestions;
+            sponsors = data.sponsors || [];
+            suggestions = data.suggestions || [];
             totalRevenue = data.totalRevenue || 0;
             virtualRevenue = data.virtualRevenue || 0;
             socialLinks = data.socialLinks || socialLinks;
@@ -922,7 +854,6 @@ if (!loadData() || members.length === 0) {
 // ===== عرض المربعات =====
 function renderGrid() {
     if (!gridCanvas) return;
-    
     if (loadingIndicator) loadingIndicator.classList.add('active');
     
     setTimeout(function() {
@@ -934,7 +865,6 @@ function renderGrid() {
         for (var i = 0; i < totalCells; i++) {
             var cell = document.createElement('div');
             cell.className = 'pixel-cell';
-            
             var memberIndex = i % memberCount;
             var member = members[memberIndex];
             
@@ -974,30 +904,24 @@ function renderGrid() {
                 cell.textContent = '+';
                 cell.addEventListener('click', showPaymentDialog);
             }
-            
             fragment.appendChild(cell);
         }
         
         gridCanvas.appendChild(fragment);
-        
         if (loadingIndicator) loadingIndicator.classList.remove('active');
         applyZoom();
         updateStats();
-        
     }, 50);
 }
 
 // ===== دوال العرض =====
 function updateStats() {
-    var virtualCount = 0;
-    var realCount = 0;
+    var virtualCount = 0, realCount = 0;
     for (var i = 0; i < members.length; i++) {
         if (members[i].isVirtual) virtualCount++;
         else realCount++;
     }
     var totalCount = members.length;
-    
-    // حساب الإيرادات
     var rev = calculateRevenue();
     totalRevenue = rev.real;
     virtualRevenue = rev.virtual;
@@ -1011,6 +935,16 @@ function updateStats() {
     if (virtualCountEl) virtualCountEl.textContent = virtualCount;
     var tableVirtualCount = document.getElementById('tableVirtualCount');
     if (tableVirtualCount) tableVirtualCount.textContent = virtualCount;
+    
+    var tableRealCount = document.getElementById('tableRealCount');
+    if (tableRealCount) tableRealCount.textContent = realCount;
+    
+    var tableRealRevenue = document.getElementById('tableRealRevenue');
+    if (tableRealRevenue) tableRealRevenue.textContent = '$' + totalRevenue.toFixed(0);
+    
+    var tableVirtualRevenue = document.getElementById('tableVirtualRevenue');
+    if (tableVirtualRevenue) tableVirtualRevenue.textContent = '$' + virtualRevenue.toFixed(0);
+    
     updateGridStats();
 }
 
@@ -1029,10 +963,16 @@ function showMemberInfo(member) {
     var tierName = tierInfo.name[currentLang] || tierInfo.name.ar;
     var stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
     var type = member.isVirtual ? (currentLang === 'ar' ? '(افتراضي)' : '(Virtual)') : (currentLang === 'ar' ? '(حقيقي)' : '(Real)');
-    alert('👤 ' + member.name + ' ' + type + '\n📧 ' + member.email + '\n📍 ' + member.location + '\n' + 
-          (member.website ? '🔗 ' + member.website + '\n' : '') + '💬 ' + member.message + '\n⭐ التقييم: ' + stars + 
-          ' (' + (member.votes || 0) + ' صوت)\n\n🏷️ المستوى: ' + tierInfo.label + ' ' + tierName + 
-          '\n💰 السعر: $' + tierInfo.price + '/' + TRANSLATIONS[currentLang].year);
+    var msg = currentLang === 'ar' ? 
+        '👤 ' + member.name + ' ' + type + '\n📧 ' + member.email + '\n📍 ' + member.location + '\n' + 
+        (member.website ? '🔗 ' + member.website + '\n' : '') + '💬 ' + member.message + '\n⭐ التقييم: ' + stars + 
+        ' (' + (member.votes || 0) + ' صوت)\n\n🏷️ المستوى: ' + tierInfo.label + ' ' + tierName + 
+        '\n💰 السعر: $' + tierInfo.price + '/' + TRANSLATIONS[currentLang].year :
+        '👤 ' + member.name + ' ' + type + '\n📧 ' + member.email + '\n📍 ' + member.location + '\n' + 
+        (member.website ? '🔗 ' + member.website + '\n' : '') + '💬 ' + member.message + '\n⭐ Rating: ' + stars + 
+        ' (' + (member.votes || 0) + ' votes)\n\n🏷️ Tier: ' + tierInfo.label + ' ' + tierName + 
+        '\n💰 Price: $' + tierInfo.price + '/' + TRANSLATIONS[currentLang].year;
+    alert(msg);
 }
 
 // ===== دالة الحجز =====
@@ -1106,7 +1046,6 @@ function bookSquare() {
           (lang === 'ar' ? '\nالمبلغ: $' : '\nAmount: $') + tierInfo.price);
 }
 
-// ===== دالة الدفع من المربع الفارغ =====
 function showPaymentDialog() {
     bookSquare();
 }
@@ -1134,9 +1073,6 @@ function renderSponsors() {
 }
 
 // ===== خلفية الملكيين =====
-var royalInterval = null;
-var royalIndex = 0;
-
 function updateRoyalBackground() {
     var royals = [];
     for (var i = 0; i < members.length; i++) {
@@ -1144,7 +1080,6 @@ function updateRoyalBackground() {
             royals.push(members[i]);
         }
     }
-    
     if (royals.length === 0) {
         if (siteBackground) {
             siteBackground.classList.remove('active');
@@ -1153,7 +1088,6 @@ function updateRoyalBackground() {
         if (royalInterval) clearInterval(royalInterval);
         return;
     }
-    
     if (royalInterval) clearInterval(royalInterval);
     royalIndex = 0;
     setRoyalImage(royals[0]);
@@ -1171,18 +1105,12 @@ function setRoyalImage(member) {
 }
 
 // ===== لوحة التحكم =====
-var adminClickCount = 0;
-var adminClickTimer = null;
-
 function renderMembersTable() {
     if (!membersTableBody) return;
     membersTableBody.innerHTML = '';
     
-    // فصل المشتركين الحقيقيين عن الافتراضيين
     var realMembers = members.filter(function(m) { return !m.isVirtual; });
     var virtualMembers = members.filter(function(m) { return m.isVirtual; });
-    
-    // عرض الحقيقيين أولاً
     var allMembers = realMembers.concat(virtualMembers);
     
     for (var i = 0; i < allMembers.length; i++) {
@@ -1269,7 +1197,6 @@ function renderFooterSocialLinks() {
     if (!container) return;
     container.innerHTML = '';
     var hasLinks = false;
-    
     var socialIcons = {
         facebook: 'fab fa-facebook',
         twitter: 'fab fa-twitter',
@@ -1278,7 +1205,6 @@ function renderFooterSocialLinks() {
         linkedin: 'fab fa-linkedin',
         tiktok: 'fab fa-tiktok'
     };
-    
     for (var key in socialIcons) {
         if (socialLinks[key] && socialLinks[key].trim() !== '') {
             hasLinks = true;
@@ -1290,32 +1216,27 @@ function renderFooterSocialLinks() {
             container.appendChild(link);
         }
     }
-    
     if (!hasLinks) {
         container.innerHTML = '<span style="color: var(--text-muted); font-size: 0.8rem;">' + (currentLang === 'ar' ? 'لا توجد روابط' : 'No links') + '</span>';
     }
 }
 
-// ===== الترجمة الكاملة =====
+// ===== الترجمة الشاملة =====
 function translatePage(lang) {
     var translations = TRANSLATIONS[lang];
     if (!translations) return;
     
-    // ترجمة جميع العناصر التي تحمل data-i18n
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
         var key = el.dataset.i18n;
         if (translations[key]) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = translations[key];
-            } else if (el.tagName === 'SELECT') {
-                // معالجة خاصة للـ select
             } else {
                 el.innerHTML = translations[key];
             }
         }
     });
     
-    // ترجمة العناصر التي تحمل data-i18n-placeholder
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
         var key = el.dataset.i18nPlaceholder;
         if (translations[key]) {
@@ -1323,7 +1244,6 @@ function translatePage(lang) {
         }
     });
     
-    // ترجمة خيارات select
     document.querySelectorAll('select option[data-i18n]').forEach(function(opt) {
         var key = opt.dataset.i18n;
         if (translations[key]) {
@@ -1331,7 +1251,7 @@ function translatePage(lang) {
         }
     });
     
-    // ترجمة زر الحجز
+    // تحديث زر الحجز
     var bookBtn = document.getElementById('bookSquareBtn');
     if (bookBtn) {
         var span = bookBtn.querySelector('span');
@@ -1339,26 +1259,22 @@ function translatePage(lang) {
             span.textContent = translations.book_square;
         }
     }
-    
-    // ترجمة تلميح الحجز
     var bookHint = document.querySelector('.book-hint');
     if (bookHint && translations.book_hint) {
         bookHint.textContent = translations.book_hint;
     }
     
-    // ترجمة شاشة التحميل
+    // تحديث شاشة التحميل
     var loadingText = document.getElementById('loadingText');
     if (loadingText && translations.loading) {
         loadingText.textContent = translations.loading;
     }
-    
-    // ترجمة مؤشر تحميل المربعات
     var loadingIndicatorText = document.querySelector('#loadingIndicator span');
     if (loadingIndicatorText && translations.loading_grid) {
         loadingIndicatorText.textContent = translations.loading_grid;
     }
     
-    // ترجمة الفوتر
+    // تحديث الفوتر
     var footerTexts = document.querySelectorAll('.footer-bottom p, .footer-section p, .footer-section h4, .footer-section a');
     footerTexts.forEach(function(el) {
         if (el.innerHTML) {
@@ -1369,7 +1285,7 @@ function translatePage(lang) {
         }
     });
     
-    // ترجمة عنوان الصفحة
+    // تحديث عنوان الصفحة
     document.title = '🏆 ' + (translations.site_title || 'مليون مربع') + ' - ' + (translations.subtitle || 'المنصة التفاعلية');
 }
 
@@ -1379,22 +1295,15 @@ function setLanguage(lang) {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
     
-    // تحديث أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
     
-    // ترجمة الصفحة بالكامل
     translatePage(lang);
-    
-    // حفظ اللغة
     saveData();
-    
-    // إعادة تحميل المربعات لتحديث النصوص
-    if (typeof renderGrid === 'function') {
-        renderGrid();
-    }
-    
+    renderGrid();
+    renderMembersTable();
+    updateStats();
     console.log('🌐 تم تغيير اللغة إلى: ' + lang);
 }
 
@@ -1446,41 +1355,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 
-    // عرض المربعات
     renderGrid();
 
-    // زر حجز مربع مستقل
+    // زر الحجز
     document.getElementById('bookSquareBtn').addEventListener('click', bookSquare);
 
-    // أحداث البحث
+    // البحث
     if (searchInput) {
         searchInput.addEventListener('input', filterGrid);
     }
 
-    // التحكم بالزوم
+    // الزوم
     document.getElementById('zoomInBtn').addEventListener('click', function() {
         currentZoom = Math.min(2, currentZoom + 0.1);
         applyZoom();
     });
-
     document.getElementById('zoomOutBtn').addEventListener('click', function() {
         currentZoom = Math.max(0.5, currentZoom - 0.1);
         applyZoom();
     });
-
     document.getElementById('resetViewBtn').addEventListener('click', function() {
         currentZoom = 1;
         applyZoom();
     });
 
-    // تبديل الثيم
+    // الثيم
     document.getElementById('themeToggle').addEventListener('click', function() {
         document.body.classList.toggle('light-mode');
         var isLight = document.body.classList.contains('light-mode');
         this.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
-
     if (localStorage.getItem('theme') === 'light') {
         document.body.classList.add('light-mode');
         var toggle = document.getElementById('themeToggle');
@@ -1499,8 +1404,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+    document.addEventListener('fullscreenchange', function() {
+        var btn = document.getElementById('fullscreenBtn');
+        if (btn) {
+            btn.innerHTML = document.fullscreenElement ? '<i class="fas fa-compress"></i>' : '<i class="fas fa-expand"></i>';
+        }
+    });
 
-    // زر العودة للأعلى
+    // العودة للأعلى
     var backBtn = document.getElementById('backToTop');
     if (backBtn) {
         window.addEventListener('scroll', function() {
@@ -1511,7 +1422,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // زر الدخول المخفي للوحة التحكم
+    // لوحة التحكم - زر الدخول المخفي
     document.getElementById('adminSecretBtn').addEventListener('click', function() {
         adminClickCount++;
         if (adminClickCount === 1) {
@@ -1534,7 +1445,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // الدخول إلى لوحة التحكم
+    // لوحة التحكم - تسجيل الدخول
     document.getElementById('adminLoginBtn').addEventListener('click', function() {
         var email = document.getElementById('adminEmail').value;
         var password = document.getElementById('adminPassword').value;
@@ -1558,13 +1469,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // تبويبات
     document.querySelectorAll('.tab-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
-            document.querySelectorAll('.tab-btn').forEach(function(b) {
-                b.classList.remove('active');
-            });
+            document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
             this.classList.add('active');
-            document.querySelectorAll('.tab-content').forEach(function(tc) {
-                tc.classList.remove('active');
-            });
+            document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
             document.getElementById(this.dataset.tab).classList.add('active');
         });
     });
@@ -1578,27 +1485,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!email) return;
         var location = prompt(lang === 'ar' ? '📍 الموقع:' : '📍 Location:') || (lang === 'ar' ? 'غير محدد' : 'Not specified');
         var tier = prompt(lang === 'ar' ? '🏷️ المستوى (normal/silver/gold/royal):' : '🏷️ Tier (normal/silver/gold/royal):') || 'normal';
-        if (!TIERS[tier]) {
-            alert(lang === 'ar' ? '❌ مستوى غير صحيح' : '❌ Invalid tier');
-            return;
-        }
+        if (!TIERS[tier]) { alert(lang === 'ar' ? '❌ مستوى غير صحيح' : '❌ Invalid tier'); return; }
         var image = prompt(lang === 'ar' ? '🖼️ رابط الصورة:' : '🖼️ Image URL:') || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
 
         members.push({
             id: 'm' + Date.now(),
-            name: name,
-            email: email,
-            location: location,
-            tier: tier,
-            image: image,
-            website: '',
-            message: (lang === 'ar' ? 'مرحباً، أنا ' : 'Hello, I am ') + name,
-            isRoyal: tier === 'royal',
-            isVirtual: false,
-            position: members.length,
-            rating: 0,
-            votes: 0,
-            joinDate: new Date().toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US')
+            name: name, email: email, location: location, tier: tier, image: image,
+            website: '', message: (lang === 'ar' ? 'مرحباً، أنا ' : 'Hello, I am ') + name,
+            isRoyal: tier === 'royal', isVirtual: false, position: members.length,
+            rating: 0, votes: 0, joinDate: new Date().toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US')
         });
 
         totalRevenue += TIERS[tier].price;
@@ -1620,8 +1515,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var blob = new Blob([csv], { type: 'text/csv' });
         var url = URL.createObjectURL(blob);
         var a = document.createElement('a');
-        a.href = url;
-        a.download = 'المشتركين.csv';
+        a.href = url; a.download = 'المشتركين.csv';
         a.click();
         URL.revokeObjectURL(url);
     });
@@ -1639,10 +1533,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var link = document.getElementById('sponsorLink').value.trim();
         var amount = parseFloat(document.getElementById('sponsorAmount').value);
         var duration = document.getElementById('sponsorDuration').value;
-        if (!name || !amount || isNaN(amount)) {
-            alert((currentLang === 'ar' ? '❌ أدخل البيانات' : '❌ Enter data'));
-            return;
-        }
+        if (!name || !amount || isNaN(amount)) { alert((currentLang === 'ar' ? '❌ أدخل البيانات' : '❌ Enter data')); return; }
         sponsors.push({ name: name, link: link, amount: amount, duration: duration });
         saveData();
         renderSponsorList();
@@ -1653,7 +1544,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert((currentLang === 'ar' ? '✅ تم إضافة الراعي' : '✅ Sponsor added'));
     });
 
-    // حفظ إعدادات التواصل الاجتماعي
+    // حفظ إعدادات التواصل
     document.getElementById('saveSocialSettings').addEventListener('click', function() {
         socialLinks.facebook = document.getElementById('socialFacebook').value.trim();
         socialLinks.twitter = document.getElementById('socialTwitter').value.trim();
@@ -1684,10 +1575,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // تغيير كلمة السر
     document.getElementById('changePasswordBtn').addEventListener('click', function() {
         var pass = document.getElementById('newPassword').value.trim();
-        if (pass.length < 4) {
-            alert((currentLang === 'ar' ? '❌ 4 أحرف على الأقل' : '❌ At least 4 characters'));
-            return;
-        }
+        if (pass.length < 4) { alert((currentLang === 'ar' ? '❌ 4 أحرف على الأقل' : '❌ At least 4 characters')); return; }
         localStorage.setItem('adminPassword', pass);
         alert((currentLang === 'ar' ? '✅ تم تغيير كلمة السر' : '✅ Password changed'));
         document.getElementById('newPassword').value = '';
@@ -1699,10 +1587,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var name = document.getElementById('suggesterName').value.trim();
         var email = document.getElementById('suggesterEmail').value.trim();
         var text = document.getElementById('suggestionText').value.trim();
-        if (!name || !email || !text) {
-            alert((currentLang === 'ar' ? '❌ ملء جميع الحقول' : '❌ Fill all fields'));
-            return;
-        }
+        if (!name || !email || !text) { alert((currentLang === 'ar' ? '❌ ملء جميع الحقول' : '❌ Fill all fields')); return; }
         suggestions.push({ name: name, email: email, text: text, date: new Date().toLocaleDateString() });
         saveData();
         updateSuggestions();
@@ -1728,43 +1613,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // رعاة الدفع
     document.querySelectorAll('.sponsor-pay-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
-            var plan = this.dataset.plan;
-            var amount = this.dataset.amount;
+            var plan = this.dataset.plan, amount = this.dataset.amount;
             var planMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
             var lang = currentLang;
-            
             var name = prompt(lang === 'ar' ? '🏢 أدخل اسم الشركة:' : '🏢 Enter company name:');
             if (!name) return;
             var link = prompt(lang === 'ar' ? '🔗 أدخل رابط الموقع:' : '🔗 Enter website link:');
             if (!link) return;
-            
-            var method = prompt(lang === 'ar' ? 
-                '💳 طريقة الدفع:\n1. PayPal\n2. Stripe\n3. IBAN\n\nأدخل الرقم (1-3):' :
-                '💳 Payment method:\n1. PayPal\n2. Stripe\n3. IBAN\n\nEnter number (1-3):');
-            if (!method || !['1','2','3'].includes(method)) {
-                alert(lang === 'ar' ? '❌ طريقة غير صحيحة' : '❌ Invalid method');
-                return;
-            }
-            
+            var method = prompt(lang === 'ar' ? '💳 طريقة الدفع:\n1. PayPal\n2. Stripe\n3. IBAN\n\nأدخل الرقم (1-3):' : '💳 Payment method:\n1. PayPal\n2. Stripe\n3. IBAN\n\nEnter number (1-3):');
+            if (!method || !['1','2','3'].includes(method)) { alert(lang === 'ar' ? '❌ طريقة غير صحيحة' : '❌ Invalid method'); return; }
             var methods = ['PayPal','Stripe','IBAN'];
-            alert((lang === 'ar' ? '✅ جارٍ التحويل إلى ' : '✅ Redirecting to ') + methods[parseInt(method)-1] + 
-                  (lang === 'ar' ? '\nالمبلغ: $' : '\nAmount: $') + amount);
-            
+            alert((lang === 'ar' ? '✅ جارٍ التحويل إلى ' : '✅ Redirecting to ') + methods[parseInt(method)-1] + (lang === 'ar' ? '\nالمبلغ: $' : '\nAmount: $') + amount);
             sponsors.push({ name: name, link: link, amount: parseInt(amount), duration: plan });
             saveData();
             renderSponsorList();
             renderSponsors();
-            alert((lang === 'ar' ? '🎉 تمت الرعاية بنجاح!\nالشركة: ' : '🎉 Sponsorship successful!\nCompany: ') + 
-                  name + (lang === 'ar' ? '\nالمبلغ: $' : '\nAmount: $') + amount + 
-                  (lang === 'ar' ? '\nالمدة: ' : '\nDuration: ') + planMap[plan]);
+            alert((lang === 'ar' ? '🎉 تمت الرعاية بنجاح!\nالشركة: ' : '🎉 Sponsorship successful!\nCompany: ') + name + (lang === 'ar' ? '\nالمبلغ: $' : '\nAmount: $') + amount + (lang === 'ar' ? '\nالمدة: ' : '\nDuration: ') + planMap[plan]);
         });
     });
 
-    // ===== أزرار اللغة (مع تفعيل الترجمة) =====
+    // أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
-            var lang = this.dataset.lang;
-            setLanguage(lang);
+            setLanguage(this.dataset.lang);
         });
     });
 
@@ -1784,7 +1655,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('stripeSetting').value = localStorage.getItem('stripe') || '';
     document.getElementById('ibanSetting').value = localStorage.getItem('iban') || '';
 
-    // تطبيق اللغة المحفوظة مع الترجمة الكاملة
+    // تطبيق اللغة
     setLanguage(currentLang);
 
     // إخفاء شاشة التحميل
@@ -1797,7 +1668,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('👥 المشتركين: ' + members.length);
     console.log('💰 الإيرادات الحقيقية: $' + totalRevenue);
     console.log('💰 الإيرادات الافتراضية: $' + virtualRevenue);
-    console.log('📦 المربعات المعروضة: ' + totalCellsToShow);
-    console.log('🔐 لوحة التحكم: انقر مرتين على زر 🔐');
     console.log('🌐 اللغة الحالية: ' + currentLang);
 });
