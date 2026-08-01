@@ -6,6 +6,520 @@ const TIERS = {
     royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
 };
 
+// ===== الترجمات الكاملة =====
+const TRANSLATIONS = {
+    ar: {
+        banner: '🚀 انضم الآن واحجز مربعك المميز',
+        available: 'المربعات المتاحة',
+        members: 'مشترك',
+        revenue: 'إيرادات',
+        site_title: 'مليون مربع',
+        subtitle: 'منصة التواصل البصرية الأولى',
+        sponsors_title: '🌟 الرعاة الداعمون',
+        become_sponsor: 'كن راعياً',
+        all_tiers: 'جميع المستويات',
+        normal: '💎 عادي',
+        silver: '⭐ فضي',
+        gold: '👑 ذهبي',
+        royal: '💠 ملكي',
+        search: '🔎 بحث عن مشترك...',
+        year: 'سنة',
+        loading: '⏳ جاري تحميل المربعات...',
+        total_squares: 'إجمالي المربعات',
+        what_is: '🎯 ما هو مليون مربع؟',
+        description: 'منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية لعرض هويتهم.',
+        steps_title: '📋 خطوات الاشتراك',
+        step1: '<span class="step-number">1</span> <strong>اختر موقعك</strong> - انقر على أي مربع فارغ',
+        step2: '<span class="step-number">2</span> <strong>حدد المستوى</strong> - عادي، فضي، ذهبي، أو ملكي',
+        step3: '<span class="step-number">3</span> <strong>املأ بياناتك</strong> - الاسم، البريد، الموقع، صورة',
+        step4: '<span class="step-number">4</span> <strong>ادفع بأمان</strong> - عبر PayPal أو Stripe أو IBAN',
+        step5: '<span class="step-number">5</span> <strong>انطلق!</strong> - سيظهر مربعك فوراً',
+        sponsor_payment_title: '🌟 نظام الدفع للرعاة',
+        sponsor_payment_desc: 'اختر الباقة المناسبة لشركتك وادفع مباشرة عبر بوابة الدفع الإلكتروني',
+        weekly: 'أسبوعي',
+        monthly: 'شهري',
+        yearly: 'سنوي',
+        choose: 'اختر',
+        popular: 'الأكثر طلباً',
+        sp_weekly_1: '✅ عرض اسم الشركة',
+        sp_weekly_2: '✅ مدة: 7 أيام',
+        sp_weekly_3: '✅ رابط موقعك',
+        sp_monthly_1: '✅ عرض اسم الشركة',
+        sp_monthly_2: '✅ مدة: 30 يوماً',
+        sp_monthly_3: '✅ رابط موقعك',
+        sp_monthly_4: '✅ شعار مميز',
+        sp_yearly_1: '✅ عرض اسم الشركة',
+        sp_yearly_2: '✅ مدة: 365 يوماً',
+        sp_yearly_3: '✅ رابط موقعك',
+        sp_yearly_4: '✅ شعار مميز',
+        sp_yearly_5: '✅ فيديو تعريفي',
+        admin_hint: 'انقر مرتين للدخول إلى لوحة المدير',
+        admin_login: 'الدخول إلى لوحة التحكم',
+        login: 'دخول',
+        payments: 'الدفع',
+        sponsors: 'الرعاة',
+        social: 'وسائل التواصل',
+        suggestions: 'الاقتراحات',
+        settings: 'الإعدادات',
+        add_member: 'إضافة مشترك',
+        export: 'تصدير',
+        refresh: 'تحديث',
+        name: 'الاسم',
+        email: 'البريد',
+        tier: 'المستوى',
+        location: 'الموقع',
+        actions: 'الإجراءات',
+        total_members: 'إجمالي المشتركين',
+        payment_settings: 'إعدادات الدفع',
+        save: 'حفظ الإعدادات',
+        sponsor_management: 'إدارة الرعاة',
+        add_sponsor: 'إضافة راعي',
+        social_media: 'إدارة وسائل التواصل الاجتماعي',
+        suggestions_title: 'اقتراحات المشتركين',
+        no_suggestions: 'لا توجد اقتراحات حالياً',
+        settings_title: 'إعدادات الموقع',
+        admin_email: 'بريد المدير:',
+        admin_name: 'اسم المدير:',
+        change_password: 'تغيير كلمة السر',
+        change: 'تغيير',
+        suggest_idea: '💡 شاركنا اقتراحك',
+        send: 'إرسال الاقتراح',
+        your_name: 'اسمك',
+        your_email: 'بريدك الإلكتروني',
+        your_suggestion: 'ما هي فكرتك لتطوير الموقع؟',
+        contact_us: '📧 تواصل معنا',
+        about_us: '📍 عن الموقع',
+        about_text: 'منصة مليون مربع - حيث الإبداع يلتقي بالفرص',
+        follow_us: '📱 تابعنا',
+        rights: 'جميع الحقوق محفوظة',
+        f_normal_1: '✅ عرض الاسم',
+        f_normal_2: '✅ عرض الموقع',
+        f_silver_1: '✅ عرض الاسم',
+        f_silver_2: '✅ عرض الموقع',
+        f_silver_3: '✅ رابط الموقع',
+        f_silver_4: '✅ إطار فضي لامع',
+        f_gold_1: '✅ عرض الاسم',
+        f_gold_2: '✅ عرض الموقع',
+        f_gold_3: '✅ رابط الموقع',
+        f_gold_4: '✅ صورة شخصية',
+        f_gold_5: '✅ إطار ذهبي لامع',
+        f_gold_6: '✅ أولوية الظهور',
+        f_royal_1: '✅ جميع ميزات الذهبي',
+        f_royal_2: '✅ خلفية شفافة متحركة',
+        f_royal_3: '✅ تأثير نبض مميز',
+        f_royal_4: '✅ صورة خلفية مخصصة',
+        f_royal_5: '✅ ظهور في الأعلى'
+    },
+    en: {
+        banner: '🚀 Join now and book your special square',
+        available: 'Available squares',
+        members: 'Members',
+        revenue: 'Revenue',
+        site_title: 'Million Squares',
+        subtitle: 'The First Visual Communication Platform',
+        sponsors_title: '🌟 Supporting Sponsors',
+        become_sponsor: 'Become a Sponsor',
+        all_tiers: 'All Tiers',
+        normal: '💎 Normal',
+        silver: '⭐ Silver',
+        gold: '👑 Gold',
+        royal: '💠 Royal',
+        search: '🔎 Search members...',
+        year: 'year',
+        loading: '⏳ Loading squares...',
+        total_squares: 'Total squares',
+        what_is: '🎯 What is Million Squares?',
+        description: 'A revolutionary platform that allows individuals and companies to own an interactive digital space.',
+        steps_title: '📋 Subscription Steps',
+        step1: '<span class="step-number">1</span> <strong>Choose your spot</strong> - Click on any empty square',
+        step2: '<span class="step-number">2</span> <strong>Select tier</strong> - Normal, Silver, Gold, or Royal',
+        step3: '<span class="step-number">3</span> <strong>Fill your data</strong> - Name, email, website, image',
+        step4: '<span class="step-number">4</span> <strong>Pay securely</strong> - Via PayPal, Stripe, or IBAN',
+        step5: '<span class="step-number">5</span> <strong>Go!</strong> - Your square will appear immediately',
+        sponsor_payment_title: '🌟 Sponsor Payment System',
+        sponsor_payment_desc: 'Choose the right package for your company and pay directly.',
+        weekly: 'Weekly',
+        monthly: 'Monthly',
+        yearly: 'Yearly',
+        choose: 'Choose',
+        popular: 'Most Popular',
+        sp_weekly_1: '✅ Display company name',
+        sp_weekly_2: '✅ Duration: 7 days',
+        sp_weekly_3: '✅ Your website link',
+        sp_monthly_1: '✅ Display company name',
+        sp_monthly_2: '✅ Duration: 30 days',
+        sp_monthly_3: '✅ Your website link',
+        sp_monthly_4: '✅ Featured logo',
+        sp_yearly_1: '✅ Display company name',
+        sp_yearly_2: '✅ Duration: 365 days',
+        sp_yearly_3: '✅ Your website link',
+        sp_yearly_4: '✅ Featured logo',
+        sp_yearly_5: '✅ Promotional video',
+        admin_hint: 'Double click to access admin panel',
+        admin_login: 'Login to Dashboard',
+        login: 'Login',
+        payments: 'Payments',
+        sponsors: 'Sponsors',
+        social: 'Social Media',
+        suggestions: 'Suggestions',
+        settings: 'Settings',
+        add_member: 'Add Member',
+        export: 'Export',
+        refresh: 'Refresh',
+        name: 'Name',
+        email: 'Email',
+        tier: 'Tier',
+        location: 'Location',
+        actions: 'Actions',
+        total_members: 'Total Members',
+        payment_settings: 'Payment Settings',
+        save: 'Save Settings',
+        sponsor_management: 'Sponsor Management',
+        add_sponsor: 'Add Sponsor',
+        social_media: 'Social Media Management',
+        suggestions_title: 'Member Suggestions',
+        no_suggestions: 'No suggestions yet',
+        settings_title: 'Site Settings',
+        admin_email: 'Admin Email:',
+        admin_name: 'Admin Name:',
+        change_password: 'Change Password',
+        change: 'Change',
+        suggest_idea: '💡 Share Your Suggestion',
+        send: 'Send Suggestion',
+        your_name: 'Your name',
+        your_email: 'Your email',
+        your_suggestion: 'What is your idea to improve the site?',
+        contact_us: '📧 Contact Us',
+        about_us: '📍 About Us',
+        about_text: 'Million Squares Platform - Where Creativity Meets Opportunity',
+        follow_us: '📱 Follow Us',
+        rights: 'All Rights Reserved',
+        f_normal_1: '✅ Show name',
+        f_normal_2: '✅ Show location',
+        f_silver_1: '✅ Show name',
+        f_silver_2: '✅ Show location',
+        f_silver_3: '✅ Website link',
+        f_silver_4: '✅ Shiny silver border',
+        f_gold_1: '✅ Show name',
+        f_gold_2: '✅ Show location',
+        f_gold_3: '✅ Website link',
+        f_gold_4: '✅ Profile image',
+        f_gold_5: '✅ Shiny gold border',
+        f_gold_6: '✅ Priority display',
+        f_royal_1: '✅ All gold features',
+        f_royal_2: '✅ Animated transparent background',
+        f_royal_3: '✅ Distinct pulse effect',
+        f_royal_4: '✅ Custom background image',
+        f_royal_5: '✅ Top display'
+    },
+    fr: {
+        banner: '🚀 Rejoignez maintenant et réservez votre carré spécial',
+        available: 'Carrés disponibles',
+        members: 'Membres',
+        revenue: 'Revenus',
+        site_title: 'Million de Carrés',
+        subtitle: 'La première plateforme de communication visuelle',
+        sponsors_title: '🌟 Sponsors soutenant',
+        become_sponsor: 'Devenir Sponsor',
+        all_tiers: 'Tous les niveaux',
+        normal: '💎 Normal',
+        silver: '⭐ Argent',
+        gold: '👑 Or',
+        royal: '💠 Royal',
+        search: '🔎 Rechercher des membres...',
+        year: 'an',
+        loading: '⏳ Chargement des carrés...',
+        total_squares: 'Total des carrés',
+        what_is: '🎯 Qu\'est-ce que Million de Carrés?',
+        description: 'Une plateforme révolutionnaire qui permet de posséder un espace numérique interactif.',
+        steps_title: '📋 Étapes d\'abonnement',
+        step1: '<span class="step-number">1</span> <strong>Choisissez votre emplacement</strong> - Cliquez sur un carré vide',
+        step2: '<span class="step-number">2</span> <strong>Sélectionnez le niveau</strong> - Normal, Argent, Or, ou Royal',
+        step3: '<span class="step-number">3</span> <strong>Remplissez vos données</strong> - Nom, email, site web, image',
+        step4: '<span class="step-number">4</span> <strong>Payez en toute sécurité</strong> - Via PayPal, Stripe, ou IBAN',
+        step5: '<span class="step-number">5</span> <strong>Go!</strong> - Votre carré apparaîtra immédiatement',
+        sponsor_payment_title: '🌟 Système de paiement des sponsors',
+        sponsor_payment_desc: 'Choisissez le forfait adapté à votre entreprise.',
+        weekly: 'Hebdomadaire',
+        monthly: 'Mensuel',
+        yearly: 'Annuel',
+        choose: 'Choisir',
+        popular: 'Le plus populaire',
+        sp_weekly_1: '✅ Afficher le nom de l\'entreprise',
+        sp_weekly_2: '✅ Durée: 7 jours',
+        sp_weekly_3: '✅ Lien vers votre site',
+        sp_monthly_1: '✅ Afficher le nom de l\'entreprise',
+        sp_monthly_2: '✅ Durée: 30 jours',
+        sp_monthly_3: '✅ Lien vers votre site',
+        sp_monthly_4: '✅ Logo en vedette',
+        sp_yearly_1: '✅ Afficher le nom de l\'entreprise',
+        sp_yearly_2: '✅ Durée: 365 jours',
+        sp_yearly_3: '✅ Lien vers votre site',
+        sp_yearly_4: '✅ Logo en vedette',
+        sp_yearly_5: '✅ Vidéo promotionnelle',
+        admin_hint: 'Double-cliquez pour accéder au panneau',
+        admin_login: 'Connexion au tableau de bord',
+        login: 'Connexion',
+        payments: 'Paiements',
+        sponsors: 'Sponsors',
+        social: 'Réseaux sociaux',
+        suggestions: 'Suggestions',
+        settings: 'Paramètres',
+        add_member: 'Ajouter un membre',
+        export: 'Exporter',
+        refresh: 'Rafraîchir',
+        name: 'Nom',
+        email: 'Email',
+        tier: 'Niveau',
+        location: 'Emplacement',
+        actions: 'Actions',
+        total_members: 'Total des membres',
+        payment_settings: 'Paramètres de paiement',
+        save: 'Enregistrer',
+        sponsor_management: 'Gestion des sponsors',
+        add_sponsor: 'Ajouter un sponsor',
+        social_media: 'Gestion des réseaux sociaux',
+        suggestions_title: 'Suggestions des membres',
+        no_suggestions: 'Aucune suggestion',
+        settings_title: 'Paramètres du site',
+        admin_email: 'Email de l\'administrateur:',
+        admin_name: 'Nom de l\'administrateur:',
+        change_password: 'Changer le mot de passe',
+        change: 'Changer',
+        suggest_idea: '💡 Partagez votre suggestion',
+        send: 'Envoyer',
+        your_name: 'Votre nom',
+        your_email: 'Votre email',
+        your_suggestion: 'Quelle est votre idée?',
+        contact_us: '📧 Contactez-nous',
+        about_us: '📍 À propos de nous',
+        about_text: 'Plateforme Million de Carrés',
+        follow_us: '📱 Suivez-nous',
+        rights: 'Tous droits réservés',
+        f_normal_1: '✅ Afficher le nom',
+        f_normal_2: '✅ Afficher l\'emplacement',
+        f_silver_1: '✅ Afficher le nom',
+        f_silver_2: '✅ Afficher l\'emplacement',
+        f_silver_3: '✅ Lien site web',
+        f_silver_4: '✅ Bordure argentée',
+        f_gold_1: '✅ Afficher le nom',
+        f_gold_2: '✅ Afficher l\'emplacement',
+        f_gold_3: '✅ Lien site web',
+        f_gold_4: '✅ Photo de profil',
+        f_gold_5: '✅ Bordure dorée',
+        f_gold_6: '✅ Affichage prioritaire',
+        f_royal_1: '✅ Toutes les fonctionnalités Or',
+        f_royal_2: '✅ Fond transparent animé',
+        f_royal_3: '✅ Effet de pulsation',
+        f_royal_4: '✅ Image de fond personnalisée',
+        f_royal_5: '✅ Affichage en haut'
+    },
+    es: {
+        banner: '🚀 Únete ahora y reserva tu cuadrado especial',
+        available: 'Cuadrados disponibles',
+        members: 'Miembros',
+        revenue: 'Ingresos',
+        site_title: 'Millón de Cuadrados',
+        subtitle: 'La primera plataforma de comunicación visual',
+        sponsors_title: '🌟 Patrocinadores',
+        become_sponsor: 'Ser Patrocinador',
+        all_tiers: 'Todos los niveles',
+        normal: '💎 Normal',
+        silver: '⭐ Plata',
+        gold: '👑 Oro',
+        royal: '💠 Real',
+        search: '🔎 Buscar miembros...',
+        year: 'año',
+        loading: '⏳ Cargando cuadrados...',
+        total_squares: 'Total de cuadrados',
+        what_is: '🎯 ¿Qué es Millón de Cuadrados?',
+        description: 'Una plataforma revolucionaria para poseer un espacio digital interactivo.',
+        steps_title: '📋 Pasos de suscripción',
+        step1: '<span class="step-number">1</span> <strong>Elige tu lugar</strong> - Haz clic en un cuadrado vacío',
+        step2: '<span class="step-number">2</span> <strong>Selecciona el nivel</strong> - Normal, Plata, Oro o Real',
+        step3: '<span class="step-number">3</span> <strong>Completa tus datos</strong> - Nombre, email, sitio web, imagen',
+        step4: '<span class="step-number">4</span> <strong>Paga con seguridad</strong> - Vía PayPal, Stripe o IBAN',
+        step5: '<span class="step-number">5</span> <strong>¡Adelante!</strong> - Tu cuadrado aparecerá',
+        sponsor_payment_title: '🌟 Sistema de pago para patrocinadores',
+        sponsor_payment_desc: 'Elige el paquete adecuado para tu empresa.',
+        weekly: 'Semanal',
+        monthly: 'Mensual',
+        yearly: 'Anual',
+        choose: 'Elegir',
+        popular: 'Más popular',
+        sp_weekly_1: '✅ Mostrar nombre de empresa',
+        sp_weekly_2: '✅ Duración: 7 días',
+        sp_weekly_3: '✅ Enlace a tu sitio',
+        sp_monthly_1: '✅ Mostrar nombre de empresa',
+        sp_monthly_2: '✅ Duración: 30 días',
+        sp_monthly_3: '✅ Enlace a tu sitio',
+        sp_monthly_4: '✅ Logo destacado',
+        sp_yearly_1: '✅ Mostrar nombre de empresa',
+        sp_yearly_2: '✅ Duración: 365 días',
+        sp_yearly_3: '✅ Enlace a tu sitio',
+        sp_yearly_4: '✅ Logo destacado',
+        sp_yearly_5: '✅ Video promocional',
+        admin_hint: 'Haga doble clic para acceder al panel',
+        admin_login: 'Iniciar sesión en el panel',
+        login: 'Iniciar sesión',
+        payments: 'Pagos',
+        sponsors: 'Patrocinadores',
+        social: 'Redes sociales',
+        suggestions: 'Sugerencias',
+        settings: 'Configuración',
+        add_member: 'Agregar miembro',
+        export: 'Exportar',
+        refresh: 'Actualizar',
+        name: 'Nombre',
+        email: 'Email',
+        tier: 'Nivel',
+        location: 'Ubicación',
+        actions: 'Acciones',
+        total_members: 'Total de miembros',
+        payment_settings: 'Configuración de pago',
+        save: 'Guardar configuración',
+        sponsor_management: 'Gestión de patrocinadores',
+        add_sponsor: 'Agregar patrocinador',
+        social_media: 'Gestión de redes sociales',
+        suggestions_title: 'Sugerencias de miembros',
+        no_suggestions: 'No hay sugerencias',
+        settings_title: 'Configuración del sitio',
+        admin_email: 'Email del administrador:',
+        admin_name: 'Nombre del administrador:',
+        change_password: 'Cambiar contraseña',
+        change: 'Cambiar',
+        suggest_idea: '💡 Comparte tu sugerencia',
+        send: 'Enviar',
+        your_name: 'Tu nombre',
+        your_email: 'Tu email',
+        your_suggestion: '¿Cuál es tu idea?',
+        contact_us: '📧 Contáctanos',
+        about_us: '📍 Sobre nosotros',
+        about_text: 'Plataforma Millón de Cuadrados',
+        follow_us: '📱 Síguenos',
+        rights: 'Todos los derechos reservados',
+        f_normal_1: '✅ Mostrar nombre',
+        f_normal_2: '✅ Mostrar ubicación',
+        f_silver_1: '✅ Mostrar nombre',
+        f_silver_2: '✅ Mostrar ubicación',
+        f_silver_3: '✅ Enlace web',
+        f_silver_4: '✅ Borde plateado',
+        f_gold_1: '✅ Mostrar nombre',
+        f_gold_2: '✅ Mostrar ubicación',
+        f_gold_3: '✅ Enlace web',
+        f_gold_4: '✅ Imagen de perfil',
+        f_gold_5: '✅ Borde dorado',
+        f_gold_6: '✅ Visualización prioritaria',
+        f_royal_1: '✅ Todas las características Oro',
+        f_royal_2: '✅ Fondo transparente animado',
+        f_royal_3: '✅ Efecto de pulso',
+        f_royal_4: '✅ Imagen de fondo personalizada',
+        f_royal_5: '✅ Visualización superior'
+    },
+    de: {
+        banner: '🚀 Jetzt beitreten und dein spezielles Quadrat buchen',
+        available: 'Verfügbare Quadrate',
+        members: 'Mitglieder',
+        revenue: 'Einnahmen',
+        site_title: 'Million Quadrate',
+        subtitle: 'Die erste visuelle Kommunikationsplattform',
+        sponsors_title: '🌟 Unterstützende Sponsoren',
+        become_sponsor: 'Sponsor werden',
+        all_tiers: 'Alle Stufen',
+        normal: '💎 Normal',
+        silver: '⭐ Silber',
+        gold: '👑 Gold',
+        royal: '💠 Königlich',
+        search: '🔎 Mitglieder suchen...',
+        year: 'Jahr',
+        loading: '⏳ Quadrate werden geladen...',
+        total_squares: 'Gesamt Quadrate',
+        what_is: '🎯 Was ist Million Quadrate?',
+        description: 'Eine revolutionäre Plattform für interaktive digitale Räume.',
+        steps_title: '📋 Abonnementschritte',
+        step1: '<span class="step-number">1</span> <strong>Wähle deinen Platz</strong> - Klicke auf ein leeres Quadrat',
+        step2: '<span class="step-number">2</span> <strong>Wähle die Stufe</strong> - Normal, Silber, Gold oder Königlich',
+        step3: '<span class="step-number">3</span> <strong>Fülle deine Daten aus</strong> - Name, E-Mail, Webseite, Bild',
+        step4: '<span class="step-number">4</span> <strong>Sicher bezahlen</strong> - Über PayPal, Stripe oder IBAN',
+        step5: '<span class="step-number">5</span> <strong>Los!</strong> - Dein Quadrat erscheint sofort',
+        sponsor_payment_title: '🌟 Sponsor-Zahlungssystem',
+        sponsor_payment_desc: 'Wähle das passende Paket für dein Unternehmen.',
+        weekly: 'Wöchentlich',
+        monthly: 'Monatlich',
+        yearly: 'Jährlich',
+        choose: 'Wählen',
+        popular: 'Am beliebtesten',
+        sp_weekly_1: '✅ Firmennamen anzeigen',
+        sp_weekly_2: '✅ Dauer: 7 Tage',
+        sp_weekly_3: '✅ Link zu deiner Website',
+        sp_monthly_1: '✅ Firmennamen anzeigen',
+        sp_monthly_2: '✅ Dauer: 30 Tage',
+        sp_monthly_3: '✅ Link zu deiner Website',
+        sp_monthly_4: '✅ Hervorgehobenes Logo',
+        sp_yearly_1: '✅ Firmennamen anzeigen',
+        sp_yearly_2: '✅ Dauer: 365 Tage',
+        sp_yearly_3: '✅ Link zu deiner Website',
+        sp_yearly_4: '✅ Hervorgehobenes Logo',
+        sp_yearly_5: '✅ Werbevideo',
+        admin_hint: 'Doppelklick für Admin-Panel',
+        admin_login: 'Zum Dashboard anmelden',
+        login: 'Anmelden',
+        payments: 'Zahlungen',
+        sponsors: 'Sponsoren',
+        social: 'Soziale Medien',
+        suggestions: 'Vorschläge',
+        settings: 'Einstellungen',
+        add_member: 'Mitglied hinzufügen',
+        export: 'Exportieren',
+        refresh: 'Aktualisieren',
+        name: 'Name',
+        email: 'E-Mail',
+        tier: 'Stufe',
+        location: 'Standort',
+        actions: 'Aktionen',
+        total_members: 'Gesamt Mitglieder',
+        payment_settings: 'Zahlungseinstellungen',
+        save: 'Einstellungen speichern',
+        sponsor_management: 'Sponsorenverwaltung',
+        add_sponsor: 'Sponsor hinzufügen',
+        social_media: 'Social Media Verwaltung',
+        suggestions_title: 'Mitgliedervorschläge',
+        no_suggestions: 'Noch keine Vorschläge',
+        settings_title: 'Website-Einstellungen',
+        admin_email: 'Admin-E-Mail:',
+        admin_name: 'Admin-Name:',
+        change_password: 'Passwort ändern',
+        change: 'Ändern',
+        suggest_idea: '💡 Teile deinen Vorschlag',
+        send: 'Senden',
+        your_name: 'Dein Name',
+        your_email: 'Deine E-Mail',
+        your_suggestion: 'Was ist deine Idee?',
+        contact_us: '📧 Kontaktiere uns',
+        about_us: '📍 Über uns',
+        about_text: 'Million Quadrate Plattform',
+        follow_us: '📱 Folge uns',
+        rights: 'Alle Rechte vorbehalten',
+        f_normal_1: '✅ Name anzeigen',
+        f_normal_2: '✅ Standort anzeigen',
+        f_silver_1: '✅ Name anzeigen',
+        f_silver_2: '✅ Standort anzeigen',
+        f_silver_3: '✅ Weblink',
+        f_silver_4: '✅ Silberner Rand',
+        f_gold_1: '✅ Name anzeigen',
+        f_gold_2: '✅ Standort anzeigen',
+        f_gold_3: '✅ Weblink',
+        f_gold_4: '✅ Profilbild',
+        f_gold_5: '✅ Goldener Rand',
+        f_gold_6: '✅ Prioritätsanzeige',
+        f_royal_1: '✅ Alle Gold-Funktionen',
+        f_royal_2: '✅ Animierter transparenter Hintergrund',
+        f_royal_3: '✅ Deutlicher Pulseffekt',
+        f_royal_4: '✅ Benutzerdefiniertes Hintergrundbild',
+        f_royal_5: '✅ Oben anzeigen'
+    }
+};
+
 // ===== بيانات افتراضية =====
 const NAMES = ['أحمد','محمد','سارة','نورة','علي','فاطمة','حسن','زينب','خالد','ليلى','عمر','منى','سعيد','هدى','ياسر','سمية','ماجد','رانيا','إبراهيم','سعاد'];
 const LOCATIONS = ['الرياض','جدة','دبي','القاهرة','بيروت','عمان','الكويت','الدوحة','المنامة','مسقط'];
@@ -18,6 +532,15 @@ let sponsors = [
     { name: 'أكاديمية البرمجة', link: '#', amount: 2000, duration: 'monthly' }
 ];
 let suggestions = [];
+let socialLinks = {
+    facebook: '',
+    twitter: '',
+    instagram: '',
+    youtube: '',
+    linkedin: '',
+    tiktok: '',
+    snapchat: ''
+};
 let totalRevenue = 0;
 let currentZoom = 1;
 let currentLang = 'ar';
@@ -59,7 +582,7 @@ function generateVirtualMembers(count) {
 // ===== التخزين المحلي =====
 function saveData() {
     localStorage.setItem('millionSquaresData', JSON.stringify({
-        members, sponsors, suggestions, totalRevenue
+        members, sponsors, suggestions, totalRevenue, socialLinks
     }));
 }
 
@@ -72,6 +595,7 @@ function loadData() {
             sponsors = data.sponsors || sponsors;
             suggestions = data.suggestions || suggestions;
             totalRevenue = data.totalRevenue || 0;
+            socialLinks = data.socialLinks || socialLinks;
             return true;
         } catch(e) { return false; }
     }
@@ -162,7 +686,8 @@ class VirtualGrid {
                 setTimeout(() => this.loadMore(), 50);
             } else {
                 if (loadingIndicator) {
-                    loadingIndicator.innerHTML = '<span>✅ تم تحميل جميع المربعات!</span>';
+                    const loadingText = document.querySelector('[data-i18n="loading"]');
+                    loadingIndicator.innerHTML = `<span>✅ ${loadingText ? loadingText.textContent.replace('⏳ ', '') : 'تم تحميل جميع المربعات!'}</span>`;
                     setTimeout(() => loadingIndicator.classList.remove('active'), 2000);
                 }
             }
@@ -387,38 +912,134 @@ window.removeSponsor = function(i) {
     }
 };
 
-// ===== الترجمة =====
+// ===== تحديث روابط التواصل الاجتماعي =====
+function updateSocialLinks() {
+    const socialFields = {
+        facebook: document.getElementById('socialFacebook'),
+        twitter: document.getElementById('socialTwitter'),
+        instagram: document.getElementById('socialInstagram'),
+        youtube: document.getElementById('socialYoutube'),
+        linkedin: document.getElementById('socialLinkedin'),
+        tiktok: document.getElementById('socialTiktok'),
+        snapchat: document.getElementById('socialSnapchat')
+    };
+    
+    // تحميل الروابط المحفوظة
+    for (const [key, field] of Object.entries(socialFields)) {
+        if (field && socialLinks[key]) {
+            field.value = socialLinks[key];
+        }
+    }
+    
+    // تحديث الفوتر
+    renderFooterSocialLinks();
+}
+
+function renderFooterSocialLinks() {
+    const container = document.getElementById('footerSocialLinks');
+    if (!container) return;
+    
+    const socialIcons = {
+        facebook: 'fab fa-facebook',
+        twitter: 'fab fa-twitter',
+        instagram: 'fab fa-instagram',
+        youtube: 'fab fa-youtube',
+        linkedin: 'fab fa-linkedin',
+        tiktok: 'fab fa-tiktok',
+        snapchat: 'fab fa-snapchat'
+    };
+    
+    const socialColors = {
+        facebook: '#1877F2',
+        twitter: '#000000',
+        instagram: '#E4405F',
+        youtube: '#FF0000',
+        linkedin: '#0A66C2',
+        tiktok: '#000000',
+        snapchat: '#FFFC00'
+    };
+    
+    container.innerHTML = '';
+    let hasLinks = false;
+    
+    for (const [key, icon] of Object.entries(socialIcons)) {
+        if (socialLinks[key] && socialLinks[key].trim() !== '') {
+            hasLinks = true;
+            const link = document.createElement('a');
+            link.href = socialLinks[key];
+            link.target = '_blank';
+            link.title = key.charAt(0).toUpperCase() + key.slice(1);
+            link.style.color = socialColors[key];
+            link.innerHTML = `<i class="${icon}"></i>`;
+            container.appendChild(link);
+        }
+    }
+    
+    if (!hasLinks) {
+        container.innerHTML = '<span style="color: var(--text-muted); font-size: 0.8rem;">لا توجد روابط</span>';
+    }
+}
+
+// ===== الترجمة الكاملة =====
+function translatePage(lang) {
+    const translations = TRANSLATIONS[lang];
+    if (!translations) return;
+    
+    // ترجمة العناصر ذات data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = translations[key];
+            } else if (el.tagName === 'SELECT' && el.options) {
+                // معالجة خاصة للـ select
+            } else {
+                el.innerHTML = translations[key];
+            }
+        }
+    });
+    
+    // ترجمة العناصر ذات data-i18n-placeholder
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (translations[key]) {
+            el.placeholder = translations[key];
+        }
+    });
+    
+    // ترجمة خيارات select
+    document.querySelectorAll('select option[data-i18n]').forEach(opt => {
+        const key = opt.dataset.i18n;
+        if (translations[key]) {
+            opt.textContent = translations[key];
+        }
+    });
+}
+
 function setLanguage(lang) {
     currentLang = lang;
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
     
+    // تحديث أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
     
-    // تحديث النصوص البسيطة (يمكن توسيعها)
-    const texts = {
-        ar: { search: '🔎 بحث عن مشترك...', all: 'جميع المستويات' },
-        en: { search: '🔎 Search members...', all: 'All Tiers' },
-        fr: { search: '🔎 Rechercher...', all: 'Tous les niveaux' },
-        es: { search: '🔎 Buscar...', all: 'Todos los niveles' },
-        de: { search: '🔎 Suchen...', all: 'Alle Stufen' }
-    };
+    // ترجمة الصفحة
+    translatePage(lang);
     
-    const searchInput = document.getElementById('searchInput');
-    const filterTier = document.getElementById('filterTier');
-    
-    if (searchInput && texts[lang]) {
-        searchInput.placeholder = texts[lang].search;
-    }
-    if (filterTier && texts[lang]) {
-        filterTier.options[0].text = texts[lang].all;
+    // تحديث نص التحميل
+    const loadingText = document.getElementById('loadingText');
+    if (loadingText && TRANSLATIONS[lang]) {
+        loadingText.textContent = TRANSLATIONS[lang].loading || '⏳ جاري تحميل مليون مربع...';
     }
     
-    // إعادة إنشاء المشتركين باللغة الجديدة
-    members = generateVirtualMembers(500);
+    // إعادة إنشاء المشتركين باللغة الجديدة (لأسماء المشتركين فقط)
+    // نحتفظ بالمشتركين الحاليين ولكن نغير الأسماء بناءً على اللغة
+    // هذا اختياري حسب رغبتك
+    
     saveData();
     
     if (virtualGrid) virtualGrid.reset();
@@ -516,12 +1137,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ===== تبديل الثيم =====
+    // ===== تبديل الثيم (محسّن) =====
     document.getElementById('themeToggle')?.addEventListener('click', function() {
         document.body.classList.toggle('light-mode');
         const isLight = document.body.classList.contains('light-mode');
         this.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        
+        // تطبيق التغيير على جميع العناصر
+        document.querySelectorAll('.pixel-cell, .grid-wrapper, .info-card, .plan-card, .feature').forEach(el => {
+            el.style.transition = 'all 0.3s ease';
+        });
     });
 
     // تحميل الثيم المحفوظ
@@ -599,6 +1225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.admin-login').style.display = 'none';
             renderMembersTable();
             renderSponsorList();
+            updateSocialLinks();
             alert('✅ تم الدخول إلى لوحة التحكم');
         } else {
             if (loginError) loginError.classList.remove('hidden');
@@ -678,6 +1305,21 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('sponsorLink').value = '';
         document.getElementById('sponsorAmount').value = '';
         alert('✅ تم إضافة الراعي');
+    });
+
+    // ===== حفظ إعدادات التواصل الاجتماعي =====
+    document.getElementById('saveSocialSettings')?.addEventListener('click', function() {
+        socialLinks.facebook = document.getElementById('socialFacebook').value.trim();
+        socialLinks.twitter = document.getElementById('socialTwitter').value.trim();
+        socialLinks.instagram = document.getElementById('socialInstagram').value.trim();
+        socialLinks.youtube = document.getElementById('socialYoutube').value.trim();
+        socialLinks.linkedin = document.getElementById('socialLinkedin').value.trim();
+        socialLinks.tiktok = document.getElementById('socialTiktok').value.trim();
+        socialLinks.snapchat = document.getElementById('socialSnapchat').value.trim();
+        
+        saveData();
+        renderFooterSocialLinks();
+        alert('✅ تم حفظ روابط التواصل الاجتماعي');
     });
 
     // ===== إعدادات الدفع =====
@@ -769,6 +1411,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSuggestions();
     updateStats();
     updateRoyalBackground();
+    updateSocialLinks();
 
     // تحميل الإعدادات
     document.getElementById('adminEmailSetting').value = localStorage.getItem('adminEmail') || '';
@@ -776,6 +1419,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('paypalSetting').value = localStorage.getItem('paypal') || '';
     document.getElementById('stripeSetting').value = localStorage.getItem('stripe') || '';
     document.getElementById('ibanSetting').value = localStorage.getItem('iban') || '';
+    
+    // تحميل روابط التواصل
+    for (const [key, value] of Object.entries(socialLinks)) {
+        const field = document.getElementById(`social${key.charAt(0).toUpperCase() + key.slice(1)}`);
+        if (field && value) {
+            field.value = value;
+        }
+    }
 
     // إخفاء شاشة التحميل
     setTimeout(() => {
@@ -788,4 +1439,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(`💰 الإيرادات: $${totalRevenue}`);
     console.log(`📦 المربعات: 1,000,000 (تحميل تدريجي)`);
     console.log(`🔐 لوحة التحكم: انقر مرتين على زر 🔐`);
+    console.log(`🌐 اللغة الحالية: ${currentLang}`);
 });
