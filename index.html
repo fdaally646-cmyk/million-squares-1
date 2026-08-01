@@ -36,6 +36,7 @@
             --radius: 16px;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --card-scale: 1.05;
         }
 
         /* Light Theme */
@@ -769,14 +770,18 @@
             border-radius: var(--radius);
             padding: 14px;
             border: 1px solid var(--border-color);
-            transition: var(--transition);
+            transition: all var(--transition);
             position: relative;
             animation: fadeInUp 0.3s ease;
+            cursor: pointer;
+            transform: scale(1);
         }
         .square-card:hover {
-            border-color: var(--blue);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow);
+            border-color: var(--gold);
+            transform: scale(var(--card-scale));
+            box-shadow: 0 12px 40px rgba(247, 201, 72, 0.2);
+            z-index: 10;
+            border-width: 2px;
         }
         .square-card .avatar {
             width: 45px;
@@ -792,6 +797,10 @@
             overflow: hidden;
             float: left;
             margin-left: 10px;
+            transition: var(--transition);
+        }
+        .square-card:hover .avatar {
+            border-color: var(--gold);
         }
         .square-card .avatar img {
             width: 100%;
@@ -802,6 +811,10 @@
             font-size: 1rem;
             font-weight: 700;
             margin: 2px 0;
+            transition: var(--transition);
+        }
+        .square-card:hover .s-name {
+            color: var(--gold);
         }
         .square-card .s-location {
             font-size: 0.75rem;
@@ -854,6 +867,7 @@
             font-size: 10px;
             opacity: 0;
             transition: var(--transition);
+            z-index: 20;
         }
         .square-card:hover .delete-btn {
             opacity: 1;
@@ -872,6 +886,163 @@
             border-radius: 20px;
             font-weight: 700;
             animation: pulse 2s infinite;
+        }
+        .square-card .view-details-hint {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .square-card:hover .view-details-hint {
+            opacity: 1;
+        }
+
+        /* ============================================================
+                   MODAL / POPUP FOR DETAILS
+                   ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 2px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 35px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            animation: slideUp 0.4s ease;
+            position: relative;
+        }
+        .modal-content .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .modal-content .modal-close:hover {
+            color: var(--red);
+            transform: rotate(90deg);
+        }
+        .modal-content .modal-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            overflow: hidden;
+            background: var(--bg-input);
+        }
+        .modal-content .modal-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .modal-content .modal-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--gold);
+        }
+        .modal-content .modal-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+        .modal-content .modal-detail .label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .modal-content .modal-detail .value {
+            color: var(--text-primary);
+            text-align: left;
+            direction: ltr;
+        }
+        .modal-content .modal-plan-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+            background: var(--bg-input);
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin: 4px auto;
+        }
+        .modal-content .modal-rating {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin: 6px 0;
+        }
+        .modal-content .modal-specialty {
+            text-align: center;
+            background: var(--bg-input);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 4px auto;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .modal-content .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            justify-content: center;
+        }
+        .modal-content .modal-actions button {
+            padding: 8px 24px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .modal-content .modal-actions .btn-close-modal {
+            background: var(--red);
+            color: #fff;
+        }
+        .modal-content .modal-actions .btn-close-modal:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+        .modal-content .modal-actions .btn-contact {
+            background: var(--blue);
+            color: #fff;
+        }
+        .modal-content .modal-actions .btn-contact:hover {
+            background: var(--blue-dark);
+            transform: scale(1.05);
         }
 
         /* ============================================================
@@ -1130,6 +1301,10 @@
                 height: 40px;
                 font-size: 1.2rem;
             }
+            .modal-content {
+                padding: 25px;
+                margin: 10px;
+            }
         }
         @media (max-width: 480px) {
             .squares-grid {
@@ -1151,6 +1326,13 @@
             }
             .features-strip {
                 grid-template-columns: 1fr 1fr;
+            }
+            .modal-content .modal-detail {
+                flex-direction: column;
+                gap: 4px;
+            }
+            .modal-content .modal-detail .value {
+                text-align: right;
             }
         }
     </style>
@@ -1183,6 +1365,34 @@
         <button class="notif-close" onclick="closeNotification()">✕</button>
         <div class="notif-title" id="notifTitle">🎉 عضو جديد!</div>
         <div class="notif-text" id="notifText">مرحباً بك في مجتمع مليون مربع</div>
+    </div>
+
+    <!-- ============================================================
+    MODAL FOR SUBSCRIBER DETAILS
+    ============================================================ -->
+    <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-avatar" id="modalAvatar">🧑</div>
+            <div class="modal-name" id="modalName">اسم المشترك</div>
+            <div style="text-align:center;margin:4px 0;">
+                <span class="modal-specialty" id="modalSpecialty">🔬 اختصاص</span>
+            </div>
+            <div style="text-align:center;margin:6px 0;">
+                <span class="modal-plan-badge" id="modalPlan">💎 الباقة</span>
+            </div>
+            <div class="modal-rating" id="modalRating">⭐ ⭐ ⭐ ⭐ ⭐ (4.5)</div>
+            <div style="margin:12px 0;">
+                <div class="modal-detail"><span class="label">📍 الموقع</span><span class="value" id="modalLocation">المدينة، البلد</span></div>
+                <div class="modal-detail"><span class="label">✉️ البريد</span><span class="value" id="modalEmail">email@example.com</span></div>
+                <div class="modal-detail"><span class="label">📅 تاريخ الانضمام</span><span class="value" id="modalDate">2024-01-01</span></div>
+                <div class="modal-detail"><span class="label">🏷️ الحالة</span><span class="value" id="modalStatus">نشط</span></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-contact" onclick="contactSubscriber()">📧 تواصل</button>
+                <button class="btn-close-modal" onclick="closeModal()">✕ إغلاق</button>
+            </div>
+        </div>
     </div>
 
     <!-- ============================================================
@@ -1463,93 +1673,83 @@
                     de: 'Riad' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'ahmed@example.com',
                 plan: '💎 عادي ($1/سنة)', rating: 4.5, specialty: { ar: 'تطوير ويب', en: 'Web Development',
-                    fr: 'Développement Web', es: 'Desarrollo Web', de: 'Webentwicklung' }, avatar: '' },
+                    fr: 'Développement Web', es: 'Desarrollo Web', de: 'Webentwicklung' }, avatar: '',
+                joined: '2024-01-15' },
             { name: { ar: 'محمد العمري', en: 'Mohammed Al-Omari', fr: 'Mohammed Al-Omari', es: 'Mohammed Al-Omari',
                     de: 'Mohammed Al-Omari' }, location: { ar: 'جدة', en: 'Jeddah', fr: 'Djeddah', es: 'Yeda',
                     de: 'Dschidda' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'mohd@example.com',
                 plan: '⭐ فضي ($5/سنة)', rating: 3.8, specialty: { ar: 'تسويق رقمي', en: 'Digital Marketing',
-                    fr: 'Marketing Digital', es: 'Marketing Digital', de: 'Digitales Marketing' }, avatar: '' },
+                    fr: 'Marketing Digital', es: 'Marketing Digital', de: 'Digitales Marketing' },
+                avatar: '', joined: '2024-02-20' },
             { name: { ar: 'سارة الخالدي', en: 'Sara Al-Khaldi', fr: 'Sara Al-Khaldi', es: 'Sara Al-Khaldi',
                     de: 'Sara Al-Khaldi' }, location: { ar: 'مكة', en: 'Makkah', fr: 'La Mecque', es: 'La Meca',
                     de: 'Mekka' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'sara@example.com',
                 plan: '👑 ذهبي ($10/سنة)', rating: 4.2, specialty: { ar: 'تصميم جرافيك', en: 'Graphic Design',
-                    fr: 'Design Graphique', es: 'Diseño Gráfico', de: 'Grafikdesign' }, avatar: '' },
+                    fr: 'Design Graphique', es: 'Diseño Gráfico', de: 'Grafikdesign' }, avatar: '',
+                joined: '2024-03-10' },
             { name: { ar: 'نورة الحربي', en: 'Nora Al-Harbi', fr: 'Nora Al-Harbi', es: 'Nora Al-Harbi',
                     de: 'Nora Al-Harbi' }, location: { ar: 'المدينة', en: 'Medina', fr: 'Médine', es: 'Medina',
                     de: 'Medina' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'nora@example.com',
                 plan: '💠 ملكي ($100/سنة)', rating: 4.9, specialty: { ar: 'برمجة', en: 'Programming',
-                    fr: 'Programmation', es: 'Programación', de: 'Programmierung' }, avatar: '' },
+                    fr: 'Programmation', es: 'Programación', de: 'Programmierung' }, avatar: '',
+                joined: '2024-04-05' },
             { name: { ar: 'علي الشمري', en: 'Ali Al-Shammari', fr: 'Ali Al-Shammari', es: 'Ali Al-Shammari',
                     de: 'Ali Al-Shammari' }, location: { ar: 'الدمام', en: 'Dammam', fr: 'Dammam', es: 'Dammam',
                     de: 'Dammam' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'ali@example.com',
                 plan: '💎 عادي ($1/سنة)', rating: 3.5, specialty: { ar: 'تحليل بيانات', en: 'Data Analysis',
-                    fr: 'Analyse de Données', es: 'Análisis de Datos', de: 'Datenanalyse' }, avatar: '' },
+                    fr: 'Analyse de Données', es: 'Análisis de Datos', de: 'Datenanalyse' }, avatar: '',
+                joined: '2024-05-12' },
             { name: { ar: 'فاطمة الزهراء', en: 'Fatima Al-Zahra', fr: 'Fatima Al-Zahra', es: 'Fatima Al-Zahra',
                     de: 'Fatima Al-Zahra' }, location: { ar: 'دبي', en: 'Dubai', fr: 'Dubaï', es: 'Dubai',
                     de: 'Dubai' }, country: { ar: 'الإمارات', en: 'UAE', fr: 'EAU', es: 'EAU', de: 'VAE' },
                 email: 'fatima@example.com', plan: '⭐ فضي ($5/سنة)', rating: 4.0, specialty: { ar: 'ذكاء اصطناعي',
                     en: 'Artificial Intelligence', fr: 'Intelligence Artificielle', es: 'Inteligencia Artificial',
-                    de: 'Künstliche Intelligenz' }, avatar: '' },
+                    de: 'Künstliche Intelligenz' }, avatar: '', joined: '2024-06-18' },
             { name: { ar: 'خالد المالكي', en: 'Khalid Al-Maliki', fr: 'Khalid Al-Maliki', es: 'Khalid Al-Maliki',
                     de: 'Khalid Al-Maliki' }, location: { ar: 'الرياض', en: 'Riyadh', fr: 'Riyad', es: 'Riad',
                     de: 'Riad' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'khalid@example.com',
                 plan: '👑 ذهبي ($10/سنة)', rating: 4.7, specialty: { ar: 'أمن سيبراني', en: 'Cybersecurity',
-                    fr: 'Cybersécurité', es: 'Ciberseguridad', de: 'Cybersicherheit' }, avatar: '' },
+                    fr: 'Cybersécurité', es: 'Ciberseguridad', de: 'Cybersicherheit' }, avatar: '',
+                joined: '2024-07-22' },
             { name: { ar: 'منى السبيعي', en: 'Mona Al-Subaie', fr: 'Mona Al-Subaie', es: 'Mona Al-Subaie',
                     de: 'Mona Al-Subaie' }, location: { ar: 'جدة', en: 'Jeddah', fr: 'Djeddah', es: 'Yeda',
                     de: 'Dschidda' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'mona@example.com',
                 plan: '💠 ملكي ($100/سنة)', rating: 4.3, specialty: { ar: 'تطوير ألعاب', en: 'Game Development',
                     fr: 'Développement de Jeux', es: 'Desarrollo de Juegos', de: 'Spieleentwicklung' },
-                avatar: '' },
+                avatar: '', joined: '2024-08-30' },
             { name: { ar: 'سعود الحربي', en: 'Saud Al-Harbi', fr: 'Saud Al-Harbi', es: 'Saud Al-Harbi',
                     de: 'Saud Al-Harbi' }, location: { ar: 'مكة', en: 'Makkah', fr: 'La Mecque', es: 'La Meca',
                     de: 'Mekka' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'saud@example.com',
                 plan: '💎 عادي ($1/سنة)', rating: 3.9, specialty: { ar: 'شبكات', en: 'Networking', fr: 'Réseaux',
-                    es: 'Redes', de: 'Netzwerke' }, avatar: '' },
+                    es: 'Redes', de: 'Netzwerke' }, avatar: '', joined: '2024-09-14' },
             { name: { ar: 'هند القحطاني', en: 'Hind Al-Qahtani', fr: 'Hind Al-Qahtani', es: 'Hind Al-Qahtani',
                     de: 'Hind Al-Qahtani' }, location: { ar: 'الدمام', en: 'Dammam', fr: 'Dammam', es: 'Dammam',
                     de: 'Dammam' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'hind@example.com',
                 plan: '⭐ فضي ($5/سنة)', rating: 4.6, specialty: { ar: 'تطوير تطبيقات', en: 'App Development',
                     fr: 'Développement d\'Applications', es: 'Desarrollo de Apps', de: 'App-Entwicklung' },
-                avatar: '' },
+                avatar: '', joined: '2024-10-01' },
             { name: { ar: 'فهد العتيبي', en: 'Fahd Al-Otaibi', fr: 'Fahd Al-Otaibi', es: 'Fahd Al-Otaibi',
                     de: 'Fahd Al-Otaibi' }, location: { ar: 'الرياض', en: 'Riyadh', fr: 'Riyad', es: 'Riad',
                     de: 'Riad' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'fahd@example.com',
                 plan: '👑 ذهبي ($10/سنة)', rating: 4.1, specialty: { ar: 'قواعد بيانات', en: 'Databases',
-                    fr: 'Bases de Données', es: 'Bases de Datos', de: 'Datenbanken' }, avatar: '' },
+                    fr: 'Bases de Données', es: 'Bases de Datos', de: 'Datenbanken' }, avatar: '',
+                joined: '2024-11-05' },
             { name: { ar: 'لمى الشهراني', en: 'Lama Al-Shahrani', fr: 'Lama Al-Shahrani', es: 'Lama Al-Shahrani',
                     de: 'Lama Al-Shahrani' }, location: { ar: 'أبها', en: 'Abha', fr: 'Abha', es: 'Abha',
                     de: 'Abha' }, country: { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite',
                     es: 'Arabia Saudita', de: 'Saudi-Arabien' }, email: 'lama@example.com',
                 plan: '💠 ملكي ($100/سنة)', rating: 4.8, specialty: { ar: 'تصميم UX/UI', en: 'UX/UI Design',
-                    fr: 'Design UX/UI', es: 'Diseño UX/UI', de: 'UX/UI-Design' }, avatar: '' },
-            { name: { ar: 'يوسف المنصور', en: 'Yousef Al-Mansour', fr: 'Yousef Al-Mansour', es: 'Yousef Al-Mansour',
-                    de: 'Yousef Al-Mansour' }, location: { ar: 'الدوحة', en: 'Doha', fr: 'Doha', es: 'Doha',
-                    de: 'Doha' }, country: { ar: 'قطر', en: 'Qatar', fr: 'Qatar', es: 'Qatar', de: 'Katar' },
-                email: 'yousef@example.com', plan: '👑 ذهبي ($10/سنة)', rating: 4.4, specialty: { ar: 'هندسة برمجيات',
-                    en: 'Software Engineering', fr: 'Génie Logiciel', es: 'Ingeniería de Software',
-                    de: 'Softwareentwicklung' }, avatar: '' },
-            { name: { ar: 'ليلى الشمري', en: 'Laila Al-Shammari', fr: 'Laila Al-Shammari', es: 'Laila Al-Shammari',
-                    de: 'Laila Al-Shammari' }, location: { ar: 'الكويت', en: 'Kuwait', fr: 'Koweït', es: 'Kuwait',
-                    de: 'Kuwait' }, country: { ar: 'الكويت', en: 'Kuwait', fr: 'Koweït', es: 'Kuwait',
-                    de: 'Kuwait' }, email: 'laila@example.com', plan: '⭐ فضي ($5/سنة)', rating: 3.7,
-                specialty: { ar: 'تسويق إلكتروني', en: 'E-Marketing', fr: 'E-Marketing', es: 'E-Marketing',
-                    de: 'E-Marketing' }, avatar: '' },
-            { name: { ar: 'عبدالله الناصر', en: 'Abdullah Al-Nasser', fr: 'Abdullah Al-Nasser',
-                    es: 'Abdullah Al-Nasser', de: 'Abdullah Al-Nasser' }, location: { ar: 'المنامة', en: 'Manama',
-                    fr: 'Manama', es: 'Manama', de: 'Manama' }, country: { ar: 'البحرين', en: 'Bahrain',
-                    fr: 'Bahreïn', es: 'Baréin', de: 'Bahrain' }, email: 'abdullah@example.com',
-                plan: '💎 عادي ($1/سنة)', rating: 3.2, specialty: { ar: 'محاسبة', en: 'Accounting',
-                    fr: 'Comptabilité', es: 'Contabilidad', de: 'Buchhaltung' }, avatar: '' }
+                    fr: 'Design UX/UI', es: 'Diseño UX/UI', de: 'UX/UI-Design' }, avatar: '',
+                joined: '2024-12-20' }
         ];
 
         const defaultSponsors = {
@@ -1565,8 +1765,13 @@
         const defaultPayment = { paypal: '', stripe: '', bank: '' };
         const defaultEmail = { smtpEmail: '', smtpPassword: '', smtpHost: '', smtpPort: 587 };
         const defaultSettings = {
-            siteTitle: { ar: '🏆 مليون مربع', en: '🏆 Million Squares', fr: '🏆 Million Carrés',
-                es: '🏆 Millón de Cuadrados', de: '🏆 Millionen Quadrate' },
+            siteTitle: {
+                ar: '🏆 مليون مربع',
+                en: '🏆 Million Squares',
+                fr: '🏆 Million Carrés',
+                es: '🏆 Millón de Cuadrados',
+                de: '🏆 Millionen Quadrate'
+            },
             siteDescription: { ar: 'المنصة البصرية التفاعلية الأولى', en: 'The Interactive Visual Platform',
                 fr: 'La plateforme visuelle interactive', es: 'La plataforma visual interactiva',
                 de: 'Die interaktive visuelle Plattform' },
@@ -1587,6 +1792,7 @@
         let sponsorAvatarData = { weekly: '', monthly: '', yearly: '' };
         let chartInstances = { plan: null, revenue: null };
         let currentTheme = 'dark';
+        let currentModalUser = null;
 
         // ============================================================
         //  LOCAL STORAGE HELPERS
@@ -1659,18 +1865,6 @@
                 return obj[lang] || obj['ar'] || Object.values(obj)[0] || '';
             }
             return String(obj);
-        }
-
-        function getTranslatedNames() {
-            const result = {};
-            usersData.forEach((u, index) => {
-                const name = translate(u.name, currentLang);
-                const location = translate(u.location, currentLang);
-                const country = translate(u.country, currentLang);
-                const specialty = translate(u.specialty, currentLang);
-                result[index] = { name, location, country, specialty };
-            });
-            return result;
         }
 
         // ============================================================
@@ -1769,7 +1963,16 @@
                 smtpPortPlaceholder: '🔢 SMTP Port (مثال: 587)',
                 siteTitlePlaceholder: '🏷️ عنوان الموقع',
                 siteDescPlaceholder: '📝 وصف الموقع',
-                squaresPerPagePlaceholder: '📊 عدد المربعات في الصفحة (افتراضي: 1000)'
+                squaresPerPagePlaceholder: '📊 عدد المربعات في الصفحة (افتراضي: 1000)',
+                modalContact: '📧 تواصل',
+                modalClose: '✕ إغلاق',
+                modalLocation: '📍 الموقع',
+                modalEmail: '✉️ البريد',
+                modalDate: '📅 تاريخ الانضمام',
+                modalStatus: '🏷️ الحالة',
+                modalStatusActive: 'نشط',
+                modalStatusNew: 'جديد',
+                modalViewHint: '👆 اضغط للتفاصيل'
             },
             en: {
                 siteName: '🏆 Million Squares',
@@ -1863,7 +2066,16 @@
                 smtpPortPlaceholder: '🔢 SMTP Port (e.g. 587)',
                 siteTitlePlaceholder: '🏷️ Site Title',
                 siteDescPlaceholder: '📝 Site Description',
-                squaresPerPagePlaceholder: '📊 Squares per page (Default: 1000)'
+                squaresPerPagePlaceholder: '📊 Squares per page (Default: 1000)',
+                modalContact: '📧 Contact',
+                modalClose: '✕ Close',
+                modalLocation: '📍 Location',
+                modalEmail: '✉️ Email',
+                modalDate: '📅 Joined',
+                modalStatus: '🏷️ Status',
+                modalStatusActive: 'Active',
+                modalStatusNew: 'New',
+                modalViewHint: '👆 Click for details'
             },
             fr: {
                 siteName: '🏆 Million Carrés',
@@ -1957,7 +2169,16 @@
                 smtpPortPlaceholder: '🔢 Port SMTP (ex: 587)',
                 siteTitlePlaceholder: '🏷️ Titre du site',
                 siteDescPlaceholder: '📝 Description du site',
-                squaresPerPagePlaceholder: '📊 Carrés par page (Défaut: 1000)'
+                squaresPerPagePlaceholder: '📊 Carrés par page (Défaut: 1000)',
+                modalContact: '📧 Contacter',
+                modalClose: '✕ Fermer',
+                modalLocation: '📍 Lieu',
+                modalEmail: '✉️ Email',
+                modalDate: '📅 Inscrit',
+                modalStatus: '🏷️ Statut',
+                modalStatusActive: 'Actif',
+                modalStatusNew: 'Nouveau',
+                modalViewHint: '👆 Cliquez pour détails'
             },
             es: {
                 siteName: '🏆 Millón de Cuadrados',
@@ -2051,7 +2272,16 @@
                 smtpPortPlaceholder: '🔢 Puerto SMTP (ej: 587)',
                 siteTitlePlaceholder: '🏷️ Título del sitio',
                 siteDescPlaceholder: '📝 Descripción del sitio',
-                squaresPerPagePlaceholder: '📊 Cuadrados por página (Defecto: 1000)'
+                squaresPerPagePlaceholder: '📊 Cuadrados por página (Defecto: 1000)',
+                modalContact: '📧 Contactar',
+                modalClose: '✕ Cerrar',
+                modalLocation: '📍 Ubicación',
+                modalEmail: '✉️ Correo',
+                modalDate: '📅 Registrado',
+                modalStatus: '🏷️ Estado',
+                modalStatusActive: 'Activo',
+                modalStatusNew: 'Nuevo',
+                modalViewHint: '👆 Haz clic para detalles'
             },
             de: {
                 siteName: '🏆 Millionen Quadrate',
@@ -2145,7 +2375,16 @@
                 smtpPortPlaceholder: '🔢 SMTP-Port (z.B. 587)',
                 siteTitlePlaceholder: '🏷️ Seitentitel',
                 siteDescPlaceholder: '📝 Seitenbeschreibung',
-                squaresPerPagePlaceholder: '📊 Quadrate pro Seite (Standard: 1000)'
+                squaresPerPagePlaceholder: '📊 Quadrate pro Seite (Standard: 1000)',
+                modalContact: '📧 Kontakt',
+                modalClose: '✕ Schließen',
+                modalLocation: '📍 Ort',
+                modalEmail: '✉️ E-Mail',
+                modalDate: '📅 Registriert',
+                modalStatus: '🏷️ Status',
+                modalStatusActive: 'Aktiv',
+                modalStatusNew: 'Neu',
+                modalViewHint: '👆 Klicke für Details'
             }
         };
 
@@ -2245,6 +2484,14 @@
             document.getElementById('siteDescription').placeholder = t.siteDescPlaceholder;
             document.getElementById('squaresPerPage').placeholder = t.squaresPerPagePlaceholder;
 
+            // Modal
+            document.querySelector('.modal-actions .btn-contact').textContent = t.modalContact;
+            document.querySelector('.modal-actions .btn-close-modal').textContent = t.modalClose;
+            document.querySelectorAll('.modal-detail .label')[0].textContent = t.modalLocation;
+            document.querySelectorAll('.modal-detail .label')[1].textContent = t.modalEmail;
+            document.querySelectorAll('.modal-detail .label')[2].textContent = t.modalDate;
+            document.querySelectorAll('.modal-detail .label')[3].textContent = t.modalStatus;
+
             // Site name
             document.getElementById('siteLogo').textContent = translate(siteSettings.siteTitle || defaultSettings.siteTitle,
                 currentLang);
@@ -2265,6 +2512,64 @@
 
             renderAll();
             updateCharts();
+        }
+
+        // ============================================================
+        //  MODAL FUNCTIONS
+        // ============================================================
+        function openModal(user) {
+            currentModalUser = user;
+            const t = langData[currentLang];
+            const name = translate(user.name, currentLang);
+            const location = translate(user.location, currentLang);
+            const country = translate(user.country, currentLang);
+            const specialty = translate(user.specialty, currentLang);
+            const avatarSrc = avatarData[user.email] || user.avatar || '';
+            const isNew = user._new || false;
+            const joined = user.joined || new Date(user._date || Date.now()).toLocaleDateString();
+
+            document.getElementById('modalName').textContent = name;
+            document.getElementById('modalLocation').textContent = `${location}${country ? `, ${country}` : ''}`;
+            document.getElementById('modalEmail').textContent = user.email;
+            document.getElementById('modalDate').textContent = joined;
+            document.getElementById('modalStatus').textContent = isNew ? t.modalStatusNew : t.modalStatusActive;
+            document.getElementById('modalPlan').textContent = user.plan;
+            document.getElementById('modalSpecialty').textContent = `🔬 ${specialty}`;
+
+            const fullStars = Math.floor(user.rating || 0);
+            const halfStar = (user.rating - fullStars) >= 0.5 ? '☆' : '';
+            const starStr = '⭐'.repeat(fullStars) + halfStar + '☆'.repeat(5 - fullStars - (halfStar ? 1 : 0));
+            document.getElementById('modalRating').textContent = `${starStr} (${user.rating || 0})`;
+
+            const avatarEl = document.getElementById('modalAvatar');
+            if (avatarSrc) {
+                avatarEl.innerHTML = `<img src="${avatarSrc}" alt="${name}">`;
+            } else {
+                avatarEl.textContent = user.icon || '🧑';
+            }
+
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            currentModalUser = null;
+        }
+
+        function contactSubscriber() {
+            if (!currentModalUser) return;
+            const email = currentModalUser.email;
+            const name = translate(currentModalUser.name, currentLang);
+            const subject = encodeURIComponent(currentLang === 'ar' ? 'تواصل من مليون مربع' : 'Contact from Million Squares');
+            const body = encodeURIComponent(
+                currentLang === 'ar' ?
+                `مرحباً ${name},\n\nنحن من منصة مليون مربع. نود التواصل معك بخصوص حسابك.\n\nشكراً لك.` :
+                `Hello ${name},\n\nWe are from Million Squares platform. We would like to contact you regarding your account.\n\nThank you.`
+            );
+            window.open(`mailto:${email}?subject=${subject}&body=${body}`);
+            closeModal();
         }
 
         // ============================================================
@@ -2340,9 +2645,14 @@
 
                 const card = document.createElement('div');
                 card.className = 'square-card';
+                card.setAttribute('data-email', u.email);
+                card.onclick = function(e) {
+                    if (e.target.closest('.delete-btn')) return;
+                    openModal(u);
+                };
                 card.innerHTML = `
                         ${isNew ? '<div class="new-badge">🎉 جديد</div>' : ''}
-                        <button class="delete-btn" onclick="deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
+                        <button class="delete-btn" onclick="event.stopPropagation();deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
                         <div class="avatar">
                             ${avatarSrc ? `<img src="${avatarSrc}" alt="${translatedName}">` : (u.icon || '🧑')}
                         </div>
@@ -2352,6 +2662,7 @@
                         <div class="s-email">✉️ ${u.email}</div>
                         <div class="s-plan">${u.plan}</div>
                         <div class="s-rating">${starStr} <span class="count">(${u.rating || 0})</span></div>
+                        <div class="view-details-hint">${t.modalViewHint || '👆 اضغط للتفاصيل'}</div>
                     `;
                 grid.appendChild(card);
             });
@@ -2596,21 +2907,8 @@
                 return;
             }
 
-            // Create translated versions (for demo, we use the same name with slight variations)
-            const nameObj = {
-                ar: nameAr,
-                en: nameAr,
-                fr: nameAr,
-                es: nameAr,
-                de: nameAr
-            };
-            const locationObj = {
-                ar: locationAr,
-                en: locationAr,
-                fr: locationAr,
-                es: locationAr,
-                de: locationAr
-            };
+            const nameObj = { ar: nameAr, en: nameAr, fr: nameAr, es: nameAr, de: nameAr };
+            const locationObj = { ar: locationAr, en: locationAr, fr: locationAr, es: locationAr, de: locationAr };
             const countryObj = {
                 ar: countryAr || 'غير محدد',
                 en: countryAr || 'Unspecified',
@@ -2628,6 +2926,7 @@
 
             const rating = (Math.random() * 2 + 2.5).toFixed(1);
             const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
+            const today = new Date().toISOString().slice(0, 10);
 
             const newUser = {
                 name: nameObj,
@@ -2640,7 +2939,8 @@
                 icon: icons[Math.floor(Math.random() * icons.length)],
                 avatar: avatarFile || '',
                 _new: true,
-                _date: Date.now()
+                _date: Date.now(),
+                joined: today
             };
 
             usersData.push(newUser);
@@ -2681,6 +2981,9 @@
             delete avatarData[email];
             saveState();
             renderAll();
+            if (currentModalUser && currentModalUser.email === email) {
+                closeModal();
+            }
         }
 
         function updateSponsors() {
@@ -2689,31 +2992,13 @@
             const yearlyAr = document.getElementById('sponsorYearlyName').value.trim();
 
             if (weeklyAr) {
-                sponsors.weekly.name = {
-                    ar: weeklyAr,
-                    en: weeklyAr,
-                    fr: weeklyAr,
-                    es: weeklyAr,
-                    de: weeklyAr
-                };
+                sponsors.weekly.name = { ar: weeklyAr, en: weeklyAr, fr: weeklyAr, es: weeklyAr, de: weeklyAr };
             }
             if (monthlyAr) {
-                sponsors.monthly.name = {
-                    ar: monthlyAr,
-                    en: monthlyAr,
-                    fr: monthlyAr,
-                    es: monthlyAr,
-                    de: monthlyAr
-                };
+                sponsors.monthly.name = { ar: monthlyAr, en: monthlyAr, fr: monthlyAr, es: monthlyAr, de: monthlyAr };
             }
             if (yearlyAr) {
-                sponsors.yearly.name = {
-                    ar: yearlyAr,
-                    en: yearlyAr,
-                    fr: yearlyAr,
-                    es: yearlyAr,
-                    de: yearlyAr
-                };
+                sponsors.yearly.name = { ar: yearlyAr, en: yearlyAr, fr: yearlyAr, es: yearlyAr, de: yearlyAr };
             }
 
             const keys = ['weekly', 'monthly', 'yearly'];
@@ -2759,22 +3044,10 @@
             const perPage = parseInt(document.getElementById('squaresPerPage').value) || DEFAULT_SQUARES_PER_PAGE;
 
             if (titleAr) {
-                siteSettings.siteTitle = {
-                    ar: titleAr,
-                    en: titleAr,
-                    fr: titleAr,
-                    es: titleAr,
-                    de: titleAr
-                };
+                siteSettings.siteTitle = { ar: titleAr, en: titleAr, fr: titleAr, es: titleAr, de: titleAr };
             }
             if (descAr) {
-                siteSettings.siteDescription = {
-                    ar: descAr,
-                    en: descAr,
-                    fr: descAr,
-                    es: descAr,
-                    de: descAr
-                };
+                siteSettings.siteDescription = { ar: descAr, en: descAr, fr: descAr, es: descAr, de: descAr };
             }
             siteSettings.squaresPerPage = Math.max(10, Math.min(5000, perPage));
 
@@ -2882,8 +3155,8 @@
             });
 
             if (usersData.length > 20) {
-                doc.text(`... ${currentLang === 'ar' ? 'و' : 'and'} ${usersData.length - 20} ${currentLang === 'ar' ? 'مشترك إضافي' : 'more subscribers'}`, 20,
-                    y + 5);
+                doc.text(`... ${currentLang === 'ar' ? 'و' : 'and'} ${usersData.length - 20} ${currentLang === 'ar' ? 'مشترك إضافي' : 'more subscribers'}`,
+                    20, y + 5);
             }
 
             doc.setFontSize(10);
@@ -3000,6 +3273,7 @@
             }
             if (e.key === 'Escape') {
                 closeNotification();
+                closeModal();
                 document.getElementById('adminOverlay').classList.remove('active');
             }
             if (e.key === 'Enter' && document.getElementById('adminOverlay').classList.contains('active')) {
@@ -3054,6 +3328,7 @@
         console.log('📊 عدد المشتركين:', usersData.length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
         console.log('🌓 المظهر الحالي:', currentTheme);
+        console.log('🖱️ مرر الماوس على المربع لتكبيره، واضغط لعرض التفاصيل');
         console.log('📝 جميع الأسماء والعناوين تتم ترجمتها تلقائياً عند تغيير اللغة');
     </script>
 </body>
