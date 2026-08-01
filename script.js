@@ -6,7 +6,7 @@ const TIERS = {
     royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
 };
 
-// ===== أسماء متنوعة (غير مكررة) =====
+// ===== أسماء متنوعة =====
 const NAMES = [
     'أحمد محمد السيد', 'محمد عبدالله العمري', 'سارة خالد الخالدي', 'نورة سعيد الحربي',
     'علي حسن الشمري', 'فاطمة محمد الزهراء', 'حسن علي الغامدي', 'زينب عبدالله العلي',
@@ -18,7 +18,6 @@ const NAMES = [
     'طارق ناصر الشهري', 'مها عبدالعزيز العبدالله', 'زياد خالد الفيصل', 'نادية حسن الحسن',
     'فهد ناصر النفيسي', 'ريما سعود السالم', 'سلطان عبدالعزيز القحطاني', 'نوال خالد الحمود',
     'مشاري عبدالله العجاجي', 'حياة سعد الموسى', 'بدر خالد العنزي', 'أمل صالح السيف',
-    // أسماء شركات
     'شركة التقنية الرقمية المحدودة', 'مؤسسة الإبداع للاستشارات', 'أكاديمية المستقبل للتدريب',
     'مركز الابتكار التقني', 'مجموعة الرواد الدولية', 'شركة الحلول الذكية المتقدمة',
     'مختبر التصميم الإبداعي', 'استوديو إبداع للإنتاج', 'منصة الأعمال الرقمية',
@@ -39,7 +38,7 @@ const LOCATIONS = [
     'مسقط', 'صحار', 'صلالة', 'نزوى', 'البريمي'
 ];
 
-// ===== رسائل متنوعة حسب المستوى =====
+// ===== رسائل حسب المستوى =====
 const MESSAGES = {
     normal: [
         'سعيد بانضمامي للمنصة! نتطلع للتعاون مع الجميع.',
@@ -68,7 +67,7 @@ const MESSAGES = {
     ]
 };
 
-// ===== الترجمات (مختصرة) =====
+// ===== الترجمات =====
 const TRANSLATIONS = {
     ar: {
         banner: '🚀 انضم الآن واحجز مربعك المميز',
@@ -94,7 +93,7 @@ const TRANSLATIONS = {
         sort_tier: 'ترتيب حسب الفئة',
         sort_date: 'الأحدث أولاً',
         what_is: '🎯 ما هو مليون مربع؟',
-        description: 'منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية لعرض هويتهم.',
+        description: 'منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.',
         steps_title: '📋 خطوات الاشتراك',
         step1: '<span class="step-number">1</span> <strong>اختر موقعك</strong> - انقر على أي مربع فارغ',
         step2: '<span class="step-number">2</span> <strong>حدد المستوى</strong> - عادي، فضي، ذهبي، أو ملكي',
@@ -620,14 +619,11 @@ let sponsors = [
     { name: 'أكاديمية البرمجة', link: '#', amount: 2000, duration: 'monthly' }
 ];
 let suggestions = [];
-let socialLinks = {
-    facebook: '', twitter: '', instagram: '', youtube: '', linkedin: '', tiktok: '', snapchat: ''
-};
+let socialLinks = { facebook: '', twitter: '', instagram: '', youtube: '', linkedin: '', tiktok: '', snapchat: '' };
 let totalRevenue = 0;
 let currentZoom = 1;
 let currentLang = 'ar';
 let virtualGrid = null;
-let isVirtual = true; // تحديد إذا كان المشترك افتراضي أم حقيقي
 
 // ===== عناصر DOM =====
 let gridCanvas, searchInput, filterTier, sortBy, liveClock;
@@ -710,15 +706,11 @@ function loadData() {
             totalRevenue = data.totalRevenue || 0;
             socialLinks = data.socialLinks || socialLinks;
             
-            // التحقق من عدد المشتركين الحقيقيين
             const realMembers = members.filter(m => !m.isVirtual);
-            
-            // إذا تجاوز عدد المشتركين الحقيقيين 1000، احذف جميع المشتركين الافتراضيين
             if (realMembers.length >= 1000) {
                 members = members.filter(m => !m.isVirtual);
                 saveData();
             }
-            
             return true;
         } catch(e) { return false; }
     }
@@ -731,10 +723,8 @@ if (!loadData() || members.length === 0) {
     totalRevenue = members.reduce((sum, m) => sum + TIERS[m.tier].price, 0);
     saveData();
 } else {
-    // التأكد من وجود مشتركين افتراضيين إذا كان العدد أقل من 100
     const virtualCount = members.filter(m => m.isVirtual).length;
     const realCount = members.filter(m => !m.isVirtual).length;
-    
     if (virtualCount === 0 && realCount < 100) {
         const newVirtual = generateVirtualMembers(100 - realCount);
         members = [...members, ...newVirtual];
@@ -742,94 +732,54 @@ if (!loadData() || members.length === 0) {
     }
 }
 
-// ===== محاكاة متصلين حقيقيين =====
+// ===== محاكاة متصلين =====
 function simulateLiveUsers() {
     const liveUsers = document.getElementById('liveUsers');
     const todayMembers = document.getElementById('todayMembers');
-    
-    if (liveUsers) {
-        const count = Math.floor(Math.random() * 33) + 12;
-        liveUsers.textContent = count;
-    }
-    
-    if (todayMembers) {
-        const count = Math.floor(Math.random() * 12) + 3;
-        todayMembers.textContent = count;
-    }
+    if (liveUsers) liveUsers.textContent = Math.floor(Math.random() * 33) + 12;
+    if (todayMembers) todayMembers.textContent = Math.floor(Math.random() * 12) + 3;
 }
-
 setInterval(simulateLiveUsers, 10000);
 simulateLiveUsers();
 
-// ===== إشعارات جديدة =====
+// ===== إشعارات =====
 function showNotification() {
     const realMembers = members.filter(m => !m.isVirtual);
     if (realMembers.length === 0) return;
-    
     const randomMember = realMembers[Math.floor(Math.random() * realMembers.length)];
     const tierLabels = { normal: '💎 عادي', silver: '⭐ فضي', gold: '👑 ذهبي', royal: '💠 ملكي' };
-    
     const notification = document.createElement('div');
     notification.className = 'notification-popup';
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-icon">🎉</span>
-            <span>${randomMember.name} من ${randomMember.location} اشترك في ${tierLabels[randomMember.tier]}</span>
-        </div>
-    `;
-    
+    notification.innerHTML = `<div class="notification-content"><span class="notification-icon">🎉</span><span>${randomMember.name} من ${randomMember.location} اشترك في ${tierLabels[randomMember.tier]}</span></div>`;
     document.body.appendChild(notification);
-    
     setTimeout(() => notification.classList.add('show'), 100);
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 500);
-    }, 5000);
+    setTimeout(() => { notification.classList.remove('show'); setTimeout(() => notification.remove(), 500); }, 5000);
 }
-
-// عرض الإشعارات فقط إذا كان هناك مشتركين حقيقيين
-setInterval(() => {
-    const realMembers = members.filter(m => !m.isVirtual);
-    if (realMembers.length > 0) {
-        showNotification();
-    }
-}, Math.random() * 30000 + 30000);
+setInterval(() => { if (members.filter(m => !m.isVirtual).length > 0) showNotification(); }, Math.random() * 30000 + 30000);
 
 // ===== نظام الترتيب =====
 function sortMembers(sortByValue) {
     const sorted = [...members];
     switch(sortByValue) {
-        case 'name':
-            sorted.sort((a, b) => a.name.localeCompare(b.name));
-            break;
-        case 'location':
-            sorted.sort((a, b) => a.location.localeCompare(b.location));
-            break;
-        case 'tier':
-            const tierOrder = { royal: 0, gold: 1, silver: 2, normal: 3 };
-            sorted.sort((a, b) => (tierOrder[a.tier] || 4) - (tierOrder[b.tier] || 4));
-            break;
-        case 'date':
-            sorted.sort((a, b) => new Date(b.joinDate) - new Date(a.joinDate));
-            break;
-        default:
-            break;
+        case 'name': sorted.sort((a, b) => a.name.localeCompare(b.name)); break;
+        case 'location': sorted.sort((a, b) => a.location.localeCompare(b.location)); break;
+        case 'tier': { const order = { royal: 0, gold: 1, silver: 2, normal: 3 }; sorted.sort((a, b) => (order[a.tier] || 4) - (order[b.tier] || 4)); break; }
+        case 'date': sorted.sort((a, b) => new Date(b.joinDate) - new Date(a.joinDate)); break;
     }
     return sorted;
 }
 
-// ===== نظام التحميل التدريجي (محسّن للسرعة) =====
+// ===== نظام التحميل التدريجي =====
 class VirtualGrid {
     constructor(container, totalCells = 1000000) {
         this.container = container;
         this.totalCells = totalCells;
         this.loadedCount = 0;
-        this.batchSize = 5000; // زيادة حجم الدفعة للسرعة
+        this.batchSize = 5000;
         this.isLoading = false;
         this.allCells = [];
         this.filtered = false;
         this.sortByValue = 'name';
-        
         this.container.addEventListener('scroll', () => this.handleScroll());
         this.loadMore();
     }
@@ -837,9 +787,7 @@ class VirtualGrid {
     handleScroll() {
         if (this.filtered) return;
         const { scrollTop, clientHeight, scrollHeight } = this.container;
-        if (scrollTop + clientHeight >= scrollHeight - 300) {
-            this.loadMore();
-        }
+        if (scrollTop + clientHeight >= scrollHeight - 300) this.loadMore();
     }
 
     loadMore() {
@@ -851,7 +799,6 @@ class VirtualGrid {
             const start = this.loadedCount;
             const end = Math.min(start + this.batchSize, this.totalCells);
             const fragment = document.createDocumentFragment();
-
             const sortedMembers = sortMembers(this.sortByValue);
             const memberCount = sortedMembers.length;
             const step = memberCount > 0 ? Math.floor(this.totalCells / memberCount) : 1;
@@ -860,7 +807,6 @@ class VirtualGrid {
                 const cell = document.createElement('div');
                 cell.className = 'pixel-cell';
                 cell.dataset.index = i;
-
                 let member = sortedMembers.find(m => m.position === i);
                 if (!member && memberCount > 0) {
                     const memberIndex = Math.floor(i / step) % memberCount;
@@ -870,7 +816,6 @@ class VirtualGrid {
                 if (member) {
                     const tierInfo = TIERS[member.tier];
                     const stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
-                    
                     cell.className = `pixel-cell tier-${member.tier}`;
                     cell.innerHTML = `
                         ${member.image ? `<img src="${member.image}" class="cell-image" loading="lazy">` : ''}
@@ -878,21 +823,11 @@ class VirtualGrid {
                         <div class="cell-tier">${tierInfo.label}</div>
                         ${member.isVirtual ? '<div class="cell-virtual-badge">افتراضي</div>' : ''}
                         <div class="cell-tooltip">
-                            <strong>${member.name}</strong><br>
-                            📍 ${member.location}<br>
-                            ✉️ ${member.email}<br>
-                            ${member.website ? `🔗 ${member.website}` : ''}<br>
-                            💬 ${member.message || 'مرحباً!'}<br>
-                            <span style="color:${tierInfo.color};font-weight:700">
-                                ${tierInfo.label} ${tierInfo.name} ($${tierInfo.price}/سنة)
-                            </span>
-                            <br><small>⭐ ${stars} (${member.votes || 0} تقييم)</small>
-                            ${member.isVirtual ? '<br><small>🔄 مشترك افتراضي</small>' : ''}
+                            <strong>${member.name}</strong><br>📍 ${member.location}<br>✉️ ${member.email}<br>${member.website ? `🔗 ${member.website}` : ''}<br>💬 ${member.message || 'مرحباً!'}<br>
+                            <span style="color:${tierInfo.color};font-weight:700">${tierInfo.label} ${tierInfo.name} ($${tierInfo.price}/سنة)</span>
+                            <br><small>⭐ ${stars} (${member.votes || 0} تقييم)</small>${member.isVirtual ? '<br><small>🔄 مشترك افتراضي</small>' : ''}
                         </div>
-                        <div class="cell-rating">
-                            <span class="stars">${stars}</span>
-                            <span class="votes">(${member.votes || 0})</span>
-                        </div>
+                        <div class="cell-rating"><span class="stars">${stars}</span><span class="votes">(${member.votes || 0})</span></div>
                         ${member.isRoyal ? '<div class="royal-crown">👑</div>' : ''}
                     `;
                     cell.addEventListener('click', () => showMemberInfo(member));
@@ -901,7 +836,6 @@ class VirtualGrid {
                     cell.textContent = '+';
                     cell.addEventListener('click', showPaymentDialog);
                 }
-
                 fragment.appendChild(cell);
                 this.allCells.push(cell);
             }
@@ -910,23 +844,13 @@ class VirtualGrid {
             this.loadedCount = end;
             this.isLoading = false;
             if (loadingIndicator) loadingIndicator.classList.remove('active');
-
-            if (this.loadedCount < this.totalCells) {
-                setTimeout(() => this.loadMore(), 20);
-            } else {
-                if (loadingIndicator) {
-                    loadingIndicator.innerHTML = `<span>✅ تم تحميل جميع المربعات!</span>`;
-                    setTimeout(() => loadingIndicator.classList.remove('active'), 2000);
-                }
-            }
+            if (this.loadedCount < this.totalCells) setTimeout(() => this.loadMore(), 20);
+            else if (loadingIndicator) { loadingIndicator.innerHTML = '<span>✅ تم تحميل جميع المربعات!</span>'; setTimeout(() => loadingIndicator.classList.remove('active'), 2000); }
             updateStats();
         });
     }
 
-    updateSort(sortValue) {
-        this.sortByValue = sortValue;
-        this.reset();
-    }
+    updateSort(sortValue) { this.sortByValue = sortValue; this.reset(); }
 
     filter(text, tier) {
         this.filtered = true;
@@ -934,38 +858,18 @@ class VirtualGrid {
         const sortedMembers = sortMembers(this.sortByValue);
         const memberCount = sortedMembers.length;
         const step = memberCount > 0 ? Math.floor(this.totalCells / memberCount) : 1;
-        
         this.allCells.forEach((cell, index) => {
             let member = sortedMembers.find(m => m.position === index);
-            if (!member && memberCount > 0) {
-                const memberIndex = Math.floor(index / step) % memberCount;
-                member = sortedMembers[memberIndex];
-            }
-            
-            if (!member) {
-                cell.style.display = 'block';
-                return;
-            }
-            const matchText = member.name.includes(lowerText) || 
-                             member.email.includes(lowerText) || 
-                             member.location.includes(lowerText);
+            if (!member && memberCount > 0) { const mi = Math.floor(index / step) % memberCount; member = sortedMembers[mi]; }
+            if (!member) { cell.style.display = 'block'; return; }
+            const matchText = member.name.includes(lowerText) || member.email.includes(lowerText) || member.location.includes(lowerText);
             const matchTier = tier === 'all' || member.tier === tier;
             cell.style.display = (matchText && matchTier) ? 'block' : 'none';
         });
     }
 
-    resetFilter() {
-        this.filtered = false;
-        this.allCells.forEach(cell => cell.style.display = 'block');
-    }
-
-    reset() {
-        this.container.innerHTML = '';
-        this.allCells = [];
-        this.loadedCount = 0;
-        this.filtered = false;
-        this.loadMore();
-    }
+    resetFilter() { this.filtered = false; this.allCells.forEach(cell => cell.style.display = 'block'); }
+    reset() { this.container.innerHTML = ''; this.allCells = []; this.loadedCount = 0; this.filtered = false; this.loadMore(); }
 }
 
 // ===== دوال العرض =====
@@ -973,26 +877,15 @@ function updateStats() {
     const realCount = members.filter(m => !m.isVirtual).length;
     const virtualCount = members.filter(m => m.isVirtual).length;
     const totalCount = members.length;
-    
-    // حذف المشتركين الافتراضيين إذا تجاوز عدد الحقيقيين 1000
-    if (realCount >= 1000) {
-        members = members.filter(m => !m.isVirtual);
-        saveData();
-        updateStats();
-        return;
-    }
-    
+    if (realCount >= 1000) { members = members.filter(m => !m.isVirtual); saveData(); updateStats(); return; }
     if (totalMembers) totalMembers.textContent = totalCount;
     if (totalMembersDisplay) totalMembersDisplay.textContent = totalCount;
     if (availableSquares) availableSquares.textContent = (1000000 - totalCount).toLocaleString();
     if (totalRevenueEl) totalRevenueEl.textContent = `$${totalRevenue.toFixed(0)}`;
-    
     const virtualCountEl = document.getElementById('virtualCount');
     if (virtualCountEl) virtualCountEl.textContent = virtualCount;
-    
     const tableVirtualCount = document.getElementById('tableVirtualCount');
     if (tableVirtualCount) tableVirtualCount.textContent = virtualCount;
-    
     updateGridStats();
 }
 
@@ -1001,7 +894,6 @@ function updateGridStats() {
     const gridMemberCount = document.getElementById('gridMemberCount');
     const gridAvailableCount = document.getElementById('gridAvailableCount');
     const tableTotal = document.getElementById('tableTotalMembers');
-    
     if (gridMemberCount) gridMemberCount.textContent = totalCount;
     if (gridAvailableCount) gridAvailableCount.textContent = (1000000 - totalCount).toLocaleString();
     if (tableTotal) tableTotal.textContent = totalCount;
@@ -1015,15 +907,9 @@ function showMemberInfo(member) {
 }
 
 function showPaymentDialog() {
-    const options = Object.entries(TIERS).map(([k,v]) => 
-        `${k}: ${v.label} ${v.name} - $${v.price}/سنة`
-    ).join('\n');
-    
+    const options = Object.entries(TIERS).map(([k,v]) => `${k}: ${v.label} ${v.name} - $${v.price}/سنة`).join('\n');
     const choice = prompt(`💳 اختر مستوى الاشتراك:\n${options}\n\nأدخل نوع المستوى (normal, silver, gold, royal):`);
-    if (!choice || !TIERS[choice]) { 
-        alert('❌ مستوى غير صحيح'); 
-        return; 
-    }
+    if (!choice || !TIERS[choice]) { alert('❌ مستوى غير صحيح'); return; }
 
     const tierInfo = TIERS[choice];
     const name = prompt('👤 أدخل اسمك الكامل:');
@@ -1035,31 +921,20 @@ function showPaymentDialog() {
     const image = prompt('🖼️ رابط الصورة (اختياري):') || `https://picsum.photos/seed/${Date.now()}/100/100`;
 
     const method = prompt('💳 طريقة الدفع:\n1. PayPal\n2. Stripe\n3. IBAN\n\nأدخل الرقم (1-3):');
-    if (!method || !['1','2','3'].includes(method)) { 
-        alert('❌ طريقة غير صحيحة'); 
-        return; 
-    }
+    if (!method || !['1','2','3'].includes(method)) { alert('❌ طريقة غير صحيحة'); return; }
 
     const methods = ['PayPal','Stripe','IBAN'];
     alert(`✅ جارٍ التحويل إلى ${methods[parseInt(method)-1]}\nالمبلغ: $${tierInfo.price}`);
 
-    // حساب موقع جديد للمشترك
     const maxPosition = members.reduce((max, m) => Math.max(max, m.position || 0), 0);
     const newPosition = maxPosition + 1000;
-    
     const newMember = {
-        id: `m${Date.now()}`,
-        name, email, location, tier: choice, website, image,
+        id: `m${Date.now()}`, name, email, location, tier: choice, website, image,
         message: `مرحباً، أنا ${name} من ${location}`,
-        isRoyal: choice === 'royal',
-        isCompany: false,
-        isVirtual: false,
-        position: newPosition,
-        rating: 0,
-        votes: 0,
+        isRoyal: choice === 'royal', isCompany: false, isVirtual: false,
+        position: newPosition, rating: 0, votes: 0,
         joinDate: new Date().toLocaleDateString('ar-EG')
     };
-    
     members.push(newMember);
     totalRevenue += tierInfo.price;
     saveData();
@@ -1067,11 +942,10 @@ function showPaymentDialog() {
     renderMembersTable();
     updateStats();
     updateRoyalBackground();
-    
     alert(`🎉 تم الاشتراك بنجاح!\nالمستوى: ${tierInfo.label} ${tierInfo.name}\nالمبلغ: $${tierInfo.price}`);
 }
 
-// ===== دوال الرعاة والخلفية =====
+// ===== الرعاة =====
 function renderSponsors() {
     const track = document.getElementById('marqueeTrack');
     if (!track) return;
@@ -1091,20 +965,17 @@ function renderSponsors() {
     });
 }
 
+// ===== خلفية الملكيين =====
 let royalInterval = null;
 let royalIndex = 0;
 
 function updateRoyalBackground() {
     const royals = members.filter(m => m.tier === 'royal' && m.image);
     if (royals.length === 0) {
-        if (siteBackground) {
-            siteBackground.classList.remove('active');
-            siteBackground.style.backgroundImage = '';
-        }
+        if (siteBackground) { siteBackground.classList.remove('active'); siteBackground.style.backgroundImage = ''; }
         if (royalInterval) clearInterval(royalInterval);
         return;
     }
-    
     if (royalInterval) clearInterval(royalInterval);
     royalIndex = 0;
     setRoyalImage(royals[0]);
@@ -1128,40 +999,24 @@ let adminClickTimer = null;
 function renderMembersTable() {
     if (!membersTableBody) return;
     membersTableBody.innerHTML = '';
-    
-    // عرض المشتركين الحقيقيين أولاً ثم الافتراضيين
     const sortedForTable = [...members].sort((a, b) => {
         if (a.isVirtual && !b.isVirtual) return 1;
         if (!a.isVirtual && b.isVirtual) return -1;
         return 0;
     });
-    
     sortedForTable.forEach((m, i) => {
         const tr = document.createElement('tr');
         const tierInfo = TIERS[m.tier];
         const type = m.isVirtual ? '🔄 افتراضي' : '✅ حقيقي';
-        tr.innerHTML = `
-            <td>${m.name}</td>
-            <td>${m.email}</td>
-            <td><span style="color:${tierInfo.color}">${tierInfo.label} ${tierInfo.name}</span></td>
-            <td>${m.location}</td>
-            <td>${type}</td>
-            <td>
-                <button class="delete-btn" data-index="${members.indexOf(m)}">🗑️ حذف</button>
-            </td>
-        `;
+        tr.innerHTML = `<td>${m.name}</td><td>${m.email}</td><td><span style="color:${tierInfo.color}">${tierInfo.label} ${tierInfo.name}</span></td><td>${m.location}</td><td>${type}</td><td><button class="delete-btn" data-index="${members.indexOf(m)}">🗑️ حذف</button></td>`;
         membersTableBody.appendChild(tr);
     });
-
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const index = parseInt(this.dataset.index);
             const member = members[index];
-            if (member.isVirtual) {
-                if (!confirm('هذا مشترك افتراضي. هل أنت متأكد من حذفه؟')) return;
-            } else {
-                if (!confirm('هل أنت متأكد من حذف هذا المشترك؟')) return;
-            }
+            if (member.isVirtual && !confirm('هذا مشترك افتراضي. هل أنت متأكد من حذفه؟')) return;
+            if (!member.isVirtual && !confirm('هل أنت متأكد من حذف هذا المشترك؟')) return;
             totalRevenue -= TIERS[members[index].tier].price;
             members.splice(index, 1);
             saveData();
@@ -1181,10 +1036,7 @@ function renderSponsorList() {
     const durationMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
     sponsors.forEach((s, i) => {
         const li = document.createElement('li');
-        li.innerHTML = `
-            <span>🏢 ${s.name} - $${s.amount} (${durationMap[s.duration]})</span>
-            <button onclick="removeSponsor(${i})">🗑️</button>
-        `;
+        li.innerHTML = `<span>🏢 ${s.name} - $${s.amount} (${durationMap[s.duration]})</span><button onclick="removeSponsor(${i})">🗑️</button>`;
         list.appendChild(li);
     });
 }
@@ -1198,44 +1050,21 @@ window.removeSponsor = function(i) {
     }
 };
 
-// ===== روابط التواصل الاجتماعي =====
+// ===== روابط التواصل =====
 function updateSocialLinks() {
-    const socialFields = {
-        facebook: document.getElementById('socialFacebook'),
-        twitter: document.getElementById('socialTwitter'),
-        instagram: document.getElementById('socialInstagram'),
-        youtube: document.getElementById('socialYoutube'),
-        linkedin: document.getElementById('socialLinkedin'),
-        tiktok: document.getElementById('socialTiktok'),
-        snapchat: document.getElementById('socialSnapchat')
-    };
-    
+    const socialFields = { facebook: document.getElementById('socialFacebook'), twitter: document.getElementById('socialTwitter'), instagram: document.getElementById('socialInstagram'), youtube: document.getElementById('socialYoutube'), linkedin: document.getElementById('socialLinkedin'), tiktok: document.getElementById('socialTiktok'), snapchat: document.getElementById('socialSnapchat') };
     for (const [key, field] of Object.entries(socialFields)) {
-        if (field && socialLinks[key]) {
-            field.value = socialLinks[key];
-        }
+        if (field && socialLinks[key]) field.value = socialLinks[key];
     }
-    
     renderFooterSocialLinks();
 }
 
 function renderFooterSocialLinks() {
     const container = document.getElementById('footerSocialLinks');
     if (!container) return;
-    
-    const socialIcons = {
-        facebook: 'fab fa-facebook',
-        twitter: 'fab fa-twitter',
-        instagram: 'fab fa-instagram',
-        youtube: 'fab fa-youtube',
-        linkedin: 'fab fa-linkedin',
-        tiktok: 'fab fa-tiktok',
-        snapchat: 'fab fa-snapchat'
-    };
-    
+    const socialIcons = { facebook: 'fab fa-facebook', twitter: 'fab fa-twitter', instagram: 'fab fa-instagram', youtube: 'fab fa-youtube', linkedin: 'fab fa-linkedin', tiktok: 'fab fa-tiktok', snapchat: 'fab fa-snapchat' };
     container.innerHTML = '';
     let hasLinks = false;
-    
     for (const [key, icon] of Object.entries(socialIcons)) {
         if (socialLinks[key] && socialLinks[key].trim() !== '') {
             hasLinks = true;
@@ -1247,40 +1076,27 @@ function renderFooterSocialLinks() {
             container.appendChild(link);
         }
     }
-    
-    if (!hasLinks) {
-        container.innerHTML = '<span style="color: var(--text-muted); font-size: 0.8rem;">لا توجد روابط</span>';
-    }
+    if (!hasLinks) container.innerHTML = '<span style="color: var(--text-muted); font-size: 0.8rem;">لا توجد روابط</span>';
 }
 
 // ===== الترجمة =====
 function translatePage(lang) {
     const translations = TRANSLATIONS[lang];
     if (!translations) return;
-    
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if (translations[key]) {
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = translations[key];
-            } else {
-                el.innerHTML = translations[key];
-            }
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = translations[key];
+            else el.innerHTML = translations[key];
         }
     });
-    
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.dataset.i18nPlaceholder;
-        if (translations[key]) {
-            el.placeholder = translations[key];
-        }
+        if (translations[key]) el.placeholder = translations[key];
     });
-    
     document.querySelectorAll('select option[data-i18n]').forEach(opt => {
         const key = opt.dataset.i18n;
-        if (translations[key]) {
-            opt.textContent = translations[key];
-        }
+        if (translations[key]) opt.textContent = translations[key];
     });
 }
 
@@ -1289,18 +1105,10 @@ function setLanguage(lang) {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-    });
-    
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
     translatePage(lang);
-    
     const loadingText = document.getElementById('loadingText');
-    if (loadingText && TRANSLATIONS[lang]) {
-        loadingText.textContent = TRANSLATIONS[lang].loading || '⏳ جاري تحميل مليون مربع...';
-    }
-    
+    if (loadingText && TRANSLATIONS[lang]) loadingText.textContent = TRANSLATIONS[lang].loading || '⏳ جاري تحميل مليون مربع...';
     saveData();
     if (virtualGrid) virtualGrid.reset();
     renderSponsors();
@@ -1325,30 +1133,17 @@ document.addEventListener('DOMContentLoaded', function() {
     siteBackground = document.getElementById('siteBackground');
     loadingIndicator = document.getElementById('loadingIndicator');
 
-    // الساعة
-    setInterval(() => {
-        if (liveClock) {
-            const now = new Date();
-            liveClock.textContent = now.toLocaleTimeString('ar-EG');
-        }
-    }, 1000);
+    setInterval(() => { if (liveClock) { const now = new Date(); liveClock.textContent = now.toLocaleTimeString('ar-EG'); } }, 1000);
 
-    // تهيئة الشبكة
-    if (gridCanvas) {
-        virtualGrid = new VirtualGrid(gridCanvas, 1000000);
-    }
+    if (gridCanvas) virtualGrid = new VirtualGrid(gridCanvas, 1000000);
 
-    // أحداث البحث والفلترة
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             if (virtualGrid) {
                 const text = this.value.toLowerCase();
                 const tier = filterTier ? filterTier.value : 'all';
-                if (text || tier !== 'all') {
-                    virtualGrid.filter(text, tier);
-                } else {
-                    virtualGrid.resetFilter();
-                }
+                if (text || tier !== 'all') virtualGrid.filter(text, tier);
+                else virtualGrid.resetFilter();
             }
         });
     }
@@ -1357,110 +1152,55 @@ document.addEventListener('DOMContentLoaded', function() {
         filterTier.addEventListener('change', function() {
             if (virtualGrid) {
                 const text = searchInput ? searchInput.value.toLowerCase() : '';
-                if (text || this.value !== 'all') {
-                    virtualGrid.filter(text, this.value);
-                } else {
-                    virtualGrid.resetFilter();
-                }
+                if (text || this.value !== 'all') virtualGrid.filter(text, this.value);
+                else virtualGrid.resetFilter();
             }
         });
     }
 
-    // ===== حدث الترتيب =====
     if (sortBy) {
         sortBy.addEventListener('change', function() {
-            if (virtualGrid) {
-                virtualGrid.updateSort(this.value);
-            }
+            if (virtualGrid) virtualGrid.updateSort(this.value);
         });
     }
 
-    // التحكم بالزوم
-    document.getElementById('zoomInBtn')?.addEventListener('click', () => {
-        currentZoom = Math.min(2, currentZoom + 0.1);
-        applyZoom();
-    });
-
-    document.getElementById('zoomOutBtn')?.addEventListener('click', () => {
-        currentZoom = Math.max(0.5, currentZoom - 0.1);
-        applyZoom();
-    });
-
-    document.getElementById('resetViewBtn')?.addEventListener('click', () => {
-        currentZoom = 1;
-        applyZoom();
-    });
+    document.getElementById('zoomInBtn')?.addEventListener('click', () => { currentZoom = Math.min(2, currentZoom + 0.1); applyZoom(); });
+    document.getElementById('zoomOutBtn')?.addEventListener('click', () => { currentZoom = Math.max(0.5, currentZoom - 0.1); applyZoom(); });
+    document.getElementById('resetViewBtn')?.addEventListener('click', () => { currentZoom = 1; applyZoom(); });
 
     function applyZoom() {
         const size = Math.max(30, 60 * currentZoom);
-        document.querySelectorAll('.pixel-cell').forEach(cell => {
-            cell.style.minHeight = size + 'px';
-            cell.style.fontSize = (size * 0.015) + 'rem';
-        });
+        document.querySelectorAll('.pixel-cell').forEach(cell => { cell.style.minHeight = size + 'px'; cell.style.fontSize = (size * 0.015) + 'rem'; });
     }
 
-    // أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            setLanguage(this.dataset.lang);
-        });
+        btn.addEventListener('click', function() { setLanguage(this.dataset.lang); });
     });
 
-    // تبديل الثيم
     document.getElementById('themeToggle')?.addEventListener('click', function() {
         document.body.classList.toggle('light-mode');
         const isLight = document.body.classList.contains('light-mode');
         this.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
+    if (localStorage.getItem('theme') === 'light') { document.body.classList.add('light-mode'); const toggle = document.getElementById('themeToggle'); if (toggle) toggle.innerHTML = '<i class="fas fa-sun"></i>'; }
 
-    if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-        const toggle = document.getElementById('themeToggle');
-        if (toggle) toggle.innerHTML = '<i class="fas fa-sun"></i>';
-    }
-
-    // الشاشة الكاملة
     document.getElementById('fullscreenBtn')?.addEventListener('click', function() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-            this.innerHTML = '<i class="fas fa-compress"></i>';
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-                this.innerHTML = '<i class="fas fa-expand"></i>';
-            }
-        }
+        if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); this.innerHTML = '<i class="fas fa-compress"></i>'; }
+        else { if (document.exitFullscreen) { document.exitFullscreen(); this.innerHTML = '<i class="fas fa-expand"></i>'; } }
     });
+    document.addEventListener('fullscreenchange', () => { const btn = document.getElementById('fullscreenBtn'); if (btn) btn.innerHTML = document.fullscreenElement ? '<i class="fas fa-compress"></i>' : '<i class="fas fa-expand"></i>'; });
 
-    document.addEventListener('fullscreenchange', () => {
-        const btn = document.getElementById('fullscreenBtn');
-        if (btn) {
-            btn.innerHTML = document.fullscreenElement ? 
-                '<i class="fas fa-compress"></i>' : 
-                '<i class="fas fa-expand"></i>';
-        }
-    });
-
-    // زر العودة للأعلى
     const backBtn = document.getElementById('backToTop');
     if (backBtn) {
-        window.addEventListener('scroll', () => {
-            backBtn.classList.toggle('visible', window.scrollY > 300);
-        });
-        backBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        window.addEventListener('scroll', () => { backBtn.classList.toggle('visible', window.scrollY > 300); });
+        backBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     }
 
-    // زر الدخول المخفي
     document.getElementById('adminSecretBtn')?.addEventListener('click', function() {
         adminClickCount++;
-        if (adminClickCount === 1) {
-            adminClickTimer = setTimeout(() => {
-                adminClickCount = 0;
-            }, 500);
-        } else if (adminClickCount === 2) {
+        if (adminClickCount === 1) adminClickTimer = setTimeout(() => { adminClickCount = 0; }, 500);
+        else if (adminClickCount === 2) {
             clearTimeout(adminClickTimer);
             adminClickCount = 0;
             const panel = document.getElementById('adminPanel');
@@ -1476,13 +1216,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // الدخول إلى لوحة التحكم
     document.getElementById('adminLoginBtn')?.addEventListener('click', function() {
         const email = document.getElementById('adminEmail').value;
         const password = document.getElementById('adminPassword').value;
         const storedEmail = localStorage.getItem('adminEmail') || 'fedaaali';
         const storedPassword = localStorage.getItem('adminPassword') || 'fida1271980';
-        
         if (email === storedEmail && password === storedPassword) {
             document.getElementById('adminContent').classList.remove('hidden');
             document.querySelector('.admin-login').style.display = 'none';
@@ -1497,7 +1235,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // تبويبات
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1507,7 +1244,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // إضافة مشترك
     document.getElementById('addMemberBtn')?.addEventListener('click', function() {
         const name = prompt('👤 اسم المشترك الكامل:');
         if (!name) return;
@@ -1517,22 +1253,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const tier = prompt('🏷️ المستوى (normal/silver/gold/royal):') || 'normal';
         if (!TIERS[tier]) { alert('❌ مستوى غير صحيح'); return; }
         const image = prompt('🖼️ رابط الصورة:') || `https://picsum.photos/seed/${Date.now()}/100/100`;
-
         const maxPosition = members.reduce((max, m) => Math.max(max, m.position || 0), 0);
         const newPosition = maxPosition + 1000;
-
-        members.push({
-            id: `m${Date.now()}`,
-            name, email, location, tier, image,
-            website: '', message: `مرحباً، أنا ${name}`,
-            isRoyal: tier === 'royal',
-            isCompany: false,
-            isVirtual: false,
-            position: newPosition,
-            rating: 0, votes: 0,
-            joinDate: new Date().toLocaleDateString('ar-EG')
-        });
-
+        members.push({ id: `m${Date.now()}`, name, email, location, tier, image, website: '', message: `مرحباً، أنا ${name}`, isRoyal: tier === 'royal', isCompany: false, isVirtual: false, position: newPosition, rating: 0, votes: 0, joinDate: new Date().toLocaleDateString('ar-EG') });
         totalRevenue += TIERS[tier].price;
         saveData();
         renderMembersTable();
@@ -1542,7 +1265,6 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ تم إضافة المشترك');
     });
 
-    // تصدير
     document.getElementById('exportMembersBtn')?.addEventListener('click', function() {
         let csv = 'الاسم,البريد,المستوى,الموقع,النوع\n';
         members.forEach(m => csv += `${m.name},${m.email},${m.tier},${m.location},${m.isVirtual ? 'افتراضي' : 'حقيقي'}\n`);
@@ -1554,14 +1276,12 @@ document.addEventListener('DOMContentLoaded', function() {
         URL.revokeObjectURL(url);
     });
 
-    // تحديث الجدول
     document.getElementById('refreshMembersBtn')?.addEventListener('click', function() {
         renderMembersTable();
         updateStats();
         alert('✅ تم تحديث البيانات');
     });
 
-    // إضافة راعي
     document.getElementById('addSponsorBtn')?.addEventListener('click', function() {
         const name = document.getElementById('sponsorName').value.trim();
         const link = document.getElementById('sponsorLink').value.trim();
@@ -1578,7 +1298,6 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ تم إضافة الراعي');
     });
 
-    // حفظ إعدادات التواصل الاجتماعي
     document.getElementById('saveSocialSettings')?.addEventListener('click', function() {
         socialLinks.facebook = document.getElementById('socialFacebook').value.trim();
         socialLinks.twitter = document.getElementById('socialTwitter').value.trim();
@@ -1587,13 +1306,11 @@ document.addEventListener('DOMContentLoaded', function() {
         socialLinks.linkedin = document.getElementById('socialLinkedin').value.trim();
         socialLinks.tiktok = document.getElementById('socialTiktok').value.trim();
         socialLinks.snapchat = document.getElementById('socialSnapchat').value.trim();
-        
         saveData();
         renderFooterSocialLinks();
         alert('✅ تم حفظ روابط التواصل الاجتماعي');
     });
 
-    // إعدادات الدفع
     document.getElementById('savePaymentSettings')?.addEventListener('click', function() {
         localStorage.setItem('paypal', document.getElementById('paypalSetting').value);
         localStorage.setItem('stripe', document.getElementById('stripeSetting').value);
@@ -1601,14 +1318,12 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ تم حفظ إعدادات الدفع');
     });
 
-    // إعدادات المدير
     document.getElementById('saveSettingsBtn')?.addEventListener('click', function() {
         localStorage.setItem('adminEmail', document.getElementById('adminEmailSetting').value);
         localStorage.setItem('adminName', document.getElementById('adminNameSetting').value);
         alert('✅ تم حفظ إعدادات المدير');
     });
 
-    // تغيير كلمة السر
     document.getElementById('changePasswordBtn')?.addEventListener('click', function() {
         const pass = document.getElementById('newPassword').value.trim();
         if (pass.length < 4) { alert('❌ 4 أحرف على الأقل'); return; }
@@ -1617,7 +1332,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('newPassword').value = '';
     });
 
-    // الاقتراحات
     document.getElementById('suggestionForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('suggesterName').value.trim();
@@ -1634,39 +1348,23 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateSuggestions() {
         const list = document.getElementById('suggestionsList');
         if (!list) return;
-        if (suggestions.length === 0) {
-            list.innerHTML = '<p class="empty-msg">لا توجد اقتراحات حالياً</p>';
-            return;
-        }
-        list.innerHTML = suggestions.slice().reverse().map(s => `
-            <div class="suggestion-item">
-                <strong>${s.name}</strong> (${s.email}) - ${s.date}
-                <p>${s.text}</p>
-            </div>
-        `).join('');
+        if (suggestions.length === 0) { list.innerHTML = '<p class="empty-msg">لا توجد اقتراحات حالياً</p>'; return; }
+        list.innerHTML = suggestions.slice().reverse().map(s => `<div class="suggestion-item"><strong>${s.name}</strong> (${s.email}) - ${s.date}<p>${s.text}</p></div>`).join('');
     }
 
-    // رعاة الدفع
     document.querySelectorAll('.sponsor-pay-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const plan = this.dataset.plan;
             const amount = this.dataset.amount;
             const planMap = { weekly: 'أسبوعي', monthly: 'شهري', yearly: 'سنوي' };
-            
             const name = prompt('🏢 أدخل اسم الشركة:');
             if (!name) return;
             const link = prompt('🔗 أدخل رابط الموقع:');
             if (!link) return;
-            
             const method = prompt('💳 طريقة الدفع:\n1. PayPal\n2. Stripe\n3. IBAN\n\nأدخل الرقم (1-3):');
-            if (!method || !['1','2','3'].includes(method)) { 
-                alert('❌ طريقة غير صحيحة'); 
-                return; 
-            }
-            
+            if (!method || !['1','2','3'].includes(method)) { alert('❌ طريقة غير صحيحة'); return; }
             const methods = ['PayPal','Stripe','IBAN'];
             alert(`✅ جارٍ التحويل إلى ${methods[parseInt(method)-1]}\nالمبلغ: $${amount}`);
-            
             sponsors.push({ name, link, amount: parseInt(amount), duration: plan });
             saveData();
             renderSponsorList();
@@ -1675,7 +1373,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // تهيئة العناصر
     renderSponsors();
     renderMembersTable();
     renderSponsorList();
@@ -1684,7 +1381,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateRoyalBackground();
     updateSocialLinks();
 
-    // تحميل الإعدادات
     document.getElementById('adminEmailSetting').value = localStorage.getItem('adminEmail') || '';
     document.getElementById('adminNameSetting').value = localStorage.getItem('adminName') || '';
     document.getElementById('paypalSetting').value = localStorage.getItem('paypal') || '';
@@ -1693,16 +1389,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     for (const [key, value] of Object.entries(socialLinks)) {
         const field = document.getElementById(`social${key.charAt(0).toUpperCase() + key.slice(1)}`);
-        if (field && value) {
-            field.value = value;
-        }
+        if (field && value) field.value = value;
     }
 
-    // إخفاء شاشة التحميل
-    setTimeout(() => {
-        const loading = document.getElementById('loadingScreen');
-        if (loading) loading.classList.add('hidden');
-    }, 1500);
+    setTimeout(() => { const loading = document.getElementById('loadingScreen'); if (loading) loading.classList.add('hidden'); }, 1500);
 
     console.log('🚀 مليون مربع - تم التحميل بنجاح');
     console.log(`👥 المشتركين: ${members.length}`);
@@ -1710,6 +1400,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(`📦 المربعات: 1,000,000 (تحميل تدريجي)`);
     console.log(`🔐 لوحة التحكم: انقر مرتين على زر 🔐`);
     console.log(`🌐 اللغة الحالية: ${currentLang}`);
-    console.log(`⭐ نظام التقييم والإشعارات مفعل`);
     console.log(`🔄 عدد المشتركين الافتراضيين: ${members.filter(m => m.isVirtual).length}`);
 });
