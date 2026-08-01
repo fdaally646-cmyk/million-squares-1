@@ -6,7 +6,7 @@ const TIERS = {
     royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
 };
 
-// ===== الترجمات الكاملة =====
+// ===== الترجمات الكاملة (نفس السابق) =====
 const TRANSLATIONS = {
     ar: {
         banner: '🚀 انضم الآن واحجز مربعك المميز',
@@ -551,7 +551,7 @@ let gridCanvas, searchInput, filterTier, liveClock;
 let totalMembersDisplay, totalMembers, totalRevenueEl, availableSquares;
 let membersTableBody, loginError, siteBackground, loadingIndicator;
 
-// ===== إنشاء مشتركين افتراضيين =====
+// ===== إنشاء مشتركين افتراضيين (مُصلح) =====
 function generateVirtualMembers(count) {
     const result = [];
     const tierKeys = ['normal', 'silver', 'gold', 'royal'];
@@ -609,7 +609,7 @@ if (!loadData() || members.length === 0) {
     saveData();
 }
 
-// ===== نظام التحميل التدريجي =====
+// ===== نظام التحميل التدريجي (المُصلح) =====
 class VirtualGrid {
     constructor(container, totalCells = 1000000) {
         this.container = container;
@@ -642,13 +642,28 @@ class VirtualGrid {
             const end = Math.min(start + this.batchSize, this.totalCells);
             const fragment = document.createDocumentFragment();
 
+            // حساب عدد المشتركين ومواقعهم
+            const memberCount = members.length;
+            const step = memberCount > 0 ? Math.floor(this.totalCells / memberCount) : 1;
+
             for (let i = start; i < end; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'pixel-cell';
                 cell.dataset.index = i;
 
-                const member = members.find(m => m.position === i || m.position === i % members.length);
-                if (member && i < members.length * 100) {
+                // التحقق من وجود مشترك في هذا الموقع
+                let member = null;
+                
+                // طريقة 1: البحث عن مشترك في position = i
+                member = members.find(m => m.position === i);
+                
+                // طريقة 2: إذا لم يوجد، نوزع المشتركين بالتساوي
+                if (!member && memberCount > 0) {
+                    const memberIndex = Math.floor(i / step) % memberCount;
+                    member = members[memberIndex];
+                }
+
+                if (member) {
                     const tierInfo = TIERS[member.tier];
                     cell.className = `pixel-cell tier-${member.tier}`;
                     cell.innerHTML = `
@@ -660,7 +675,7 @@ class VirtualGrid {
                             📍 ${member.location}<br>
                             ✉️ ${member.email}<br>
                             ${member.website ? `🔗 ${member.website}` : ''}<br>
-                            💬 ${member.message}<br>
+                            💬 ${member.message || 'مرحباً!'}<br>
                             <span style="color:${tierInfo.color};font-weight:700">
                                 ${tierInfo.label} ${tierInfo.name} ($${tierInfo.price}/سنة)
                             </span>
@@ -698,8 +713,16 @@ class VirtualGrid {
     filter(text, tier) {
         this.filtered = true;
         const lowerText = text.toLowerCase();
+        const memberCount = members.length;
+        const step = memberCount > 0 ? Math.floor(this.totalCells / memberCount) : 1;
+        
         this.allCells.forEach((cell, index) => {
-            const member = members.find(m => m.position === index || m.position === index % members.length);
+            let member = members.find(m => m.position === index);
+            if (!member && memberCount > 0) {
+                const memberIndex = Math.floor(index / step) % memberCount;
+                member = members[memberIndex];
+            }
+            
             if (!member) {
                 cell.style.display = 'block';
                 return;
@@ -786,7 +809,7 @@ function showPaymentDialog() {
         name, email, location, tier: choice, website, image,
         message: `مرحباً، أنا ${name} من ${location}`,
         isRoyal: choice === 'royal',
-        position: members.length
+        position: members.length > 0 ? members[members.length - 1].position + 1000 : 1000
     };
     
     members.push(newMember);
@@ -924,14 +947,12 @@ function updateSocialLinks() {
         snapchat: document.getElementById('socialSnapchat')
     };
     
-    // تحميل الروابط المحفوظة
     for (const [key, field] of Object.entries(socialFields)) {
         if (field && socialLinks[key]) {
             field.value = socialLinks[key];
         }
     }
     
-    // تحديث الفوتر
     renderFooterSocialLinks();
 }
 
@@ -949,16 +970,6 @@ function renderFooterSocialLinks() {
         snapchat: 'fab fa-snapchat'
     };
     
-    const socialColors = {
-        facebook: '#1877F2',
-        twitter: '#000000',
-        instagram: '#E4405F',
-        youtube: '#FF0000',
-        linkedin: '#0A66C2',
-        tiktok: '#000000',
-        snapchat: '#FFFC00'
-    };
-    
     container.innerHTML = '';
     let hasLinks = false;
     
@@ -969,7 +980,6 @@ function renderFooterSocialLinks() {
             link.href = socialLinks[key];
             link.target = '_blank';
             link.title = key.charAt(0).toUpperCase() + key.slice(1);
-            link.style.color = socialColors[key];
             link.innerHTML = `<i class="${icon}"></i>`;
             container.appendChild(link);
         }
@@ -980,26 +990,22 @@ function renderFooterSocialLinks() {
     }
 }
 
-// ===== الترجمة الكاملة =====
+// ===== الترجمة =====
 function translatePage(lang) {
     const translations = TRANSLATIONS[lang];
     if (!translations) return;
     
-    // ترجمة العناصر ذات data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if (translations[key]) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = translations[key];
-            } else if (el.tagName === 'SELECT' && el.options) {
-                // معالجة خاصة للـ select
             } else {
                 el.innerHTML = translations[key];
             }
         }
     });
     
-    // ترجمة العناصر ذات data-i18n-placeholder
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.dataset.i18nPlaceholder;
         if (translations[key]) {
@@ -1007,7 +1013,6 @@ function translatePage(lang) {
         }
     });
     
-    // ترجمة خيارات select
     document.querySelectorAll('select option[data-i18n]').forEach(opt => {
         const key = opt.dataset.i18n;
         if (translations[key]) {
@@ -1022,26 +1027,18 @@ function setLanguage(lang) {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
     
-    // تحديث أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
     
-    // ترجمة الصفحة
     translatePage(lang);
     
-    // تحديث نص التحميل
     const loadingText = document.getElementById('loadingText');
     if (loadingText && TRANSLATIONS[lang]) {
         loadingText.textContent = TRANSLATIONS[lang].loading || '⏳ جاري تحميل مليون مربع...';
     }
     
-    // إعادة إنشاء المشتركين باللغة الجديدة (لأسماء المشتركين فقط)
-    // نحتفظ بالمشتركين الحاليين ولكن نغير الأسماء بناءً على اللغة
-    // هذا اختياري حسب رغبتك
-    
     saveData();
-    
     if (virtualGrid) virtualGrid.reset();
     renderSponsors();
     renderMembersTable();
@@ -1051,7 +1048,6 @@ function setLanguage(lang) {
 
 // ===== تهيئة الموقع =====
 document.addEventListener('DOMContentLoaded', function() {
-    // تهيئة العناصر
     gridCanvas = document.getElementById('gridCanvas');
     searchInput = document.getElementById('searchInput');
     filterTier = document.getElementById('filterTier');
@@ -1073,12 +1069,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 
-    // ===== تهيئة الشبكة =====
+    // تهيئة الشبكة
     if (gridCanvas) {
         virtualGrid = new VirtualGrid(gridCanvas, 1000000);
     }
 
-    // ===== أحداث البحث والفلترة =====
+    // أحداث البحث والفلترة
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             if (virtualGrid) {
@@ -1106,7 +1102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== التحكم بالزوم =====
+    // التحكم بالزوم
     document.getElementById('zoomInBtn')?.addEventListener('click', () => {
         currentZoom = Math.min(2, currentZoom + 0.1);
         applyZoom();
@@ -1130,34 +1126,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== أزرار اللغة =====
+    // أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             setLanguage(this.dataset.lang);
         });
     });
 
-    // ===== تبديل الثيم (محسّن) =====
+    // تبديل الثيم
     document.getElementById('themeToggle')?.addEventListener('click', function() {
         document.body.classList.toggle('light-mode');
         const isLight = document.body.classList.contains('light-mode');
         this.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
-        
-        // تطبيق التغيير على جميع العناصر
-        document.querySelectorAll('.pixel-cell, .grid-wrapper, .info-card, .plan-card, .feature').forEach(el => {
-            el.style.transition = 'all 0.3s ease';
-        });
     });
 
-    // تحميل الثيم المحفوظ
     if (localStorage.getItem('theme') === 'light') {
         document.body.classList.add('light-mode');
         const toggle = document.getElementById('themeToggle');
         if (toggle) toggle.innerHTML = '<i class="fas fa-sun"></i>';
     }
 
-    // ===== الشاشة الكاملة =====
+    // الشاشة الكاملة
     document.getElementById('fullscreenBtn')?.addEventListener('click', function() {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen();
@@ -1179,7 +1169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ===== زر العودة للأعلى =====
+    // زر العودة للأعلى
     const backBtn = document.getElementById('backToTop');
     if (backBtn) {
         window.addEventListener('scroll', () => {
@@ -1190,7 +1180,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== زر الدخول المخفي =====
+    // زر الدخول المخفي
     document.getElementById('adminSecretBtn')?.addEventListener('click', function() {
         adminClickCount++;
         if (adminClickCount === 1) {
@@ -1213,7 +1203,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ===== الدخول إلى لوحة التحكم =====
+    // الدخول إلى لوحة التحكم
     document.getElementById('adminLoginBtn')?.addEventListener('click', function() {
         const email = document.getElementById('adminEmail').value;
         const password = document.getElementById('adminPassword').value;
@@ -1234,7 +1224,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ===== تبويبات =====
+    // تبويبات
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1244,7 +1234,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ===== إضافة مشترك =====
+    // إضافة مشترك
     document.getElementById('addMemberBtn')?.addEventListener('click', function() {
         const name = prompt('👤 اسم المشترك:');
         if (!name) return;
@@ -1259,7 +1249,8 @@ document.addEventListener('DOMContentLoaded', function() {
             id: `m${Date.now()}`,
             name, email, location, tier, image,
             website: '', message: `مرحباً، أنا ${name}`,
-            isRoyal: tier === 'royal'
+            isRoyal: tier === 'royal',
+            position: members.length > 0 ? members[members.length - 1].position + 1000 : 1000
         });
 
         totalRevenue += TIERS[tier].price;
@@ -1271,7 +1262,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ تم إضافة المشترك');
     });
 
-    // ===== تصدير =====
+    // تصدير
     document.getElementById('exportMembersBtn')?.addEventListener('click', function() {
         let csv = 'الاسم,البريد,المستوى,الموقع\n';
         members.forEach(m => csv += `${m.name},${m.email},${m.tier},${m.location}\n`);
@@ -1283,14 +1274,14 @@ document.addEventListener('DOMContentLoaded', function() {
         URL.revokeObjectURL(url);
     });
 
-    // ===== تحديث الجدول =====
+    // تحديث الجدول
     document.getElementById('refreshMembersBtn')?.addEventListener('click', function() {
         renderMembersTable();
         updateStats();
         alert('✅ تم تحديث البيانات');
     });
 
-    // ===== إضافة راعي =====
+    // إضافة راعي
     document.getElementById('addSponsorBtn')?.addEventListener('click', function() {
         const name = document.getElementById('sponsorName').value.trim();
         const link = document.getElementById('sponsorLink').value.trim();
@@ -1307,7 +1298,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ تم إضافة الراعي');
     });
 
-    // ===== حفظ إعدادات التواصل الاجتماعي =====
+    // حفظ إعدادات التواصل الاجتماعي
     document.getElementById('saveSocialSettings')?.addEventListener('click', function() {
         socialLinks.facebook = document.getElementById('socialFacebook').value.trim();
         socialLinks.twitter = document.getElementById('socialTwitter').value.trim();
@@ -1322,7 +1313,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ تم حفظ روابط التواصل الاجتماعي');
     });
 
-    // ===== إعدادات الدفع =====
+    // إعدادات الدفع
     document.getElementById('savePaymentSettings')?.addEventListener('click', function() {
         localStorage.setItem('paypal', document.getElementById('paypalSetting').value);
         localStorage.setItem('stripe', document.getElementById('stripeSetting').value);
@@ -1330,14 +1321,14 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ تم حفظ إعدادات الدفع');
     });
 
-    // ===== إعدادات المدير =====
+    // إعدادات المدير
     document.getElementById('saveSettingsBtn')?.addEventListener('click', function() {
         localStorage.setItem('adminEmail', document.getElementById('adminEmailSetting').value);
         localStorage.setItem('adminName', document.getElementById('adminNameSetting').value);
         alert('✅ تم حفظ إعدادات المدير');
     });
 
-    // ===== تغيير كلمة السر =====
+    // تغيير كلمة السر
     document.getElementById('changePasswordBtn')?.addEventListener('click', function() {
         const pass = document.getElementById('newPassword').value.trim();
         if (pass.length < 4) { alert('❌ 4 أحرف على الأقل'); return; }
@@ -1346,7 +1337,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('newPassword').value = '';
     });
 
-    // ===== الاقتراحات =====
+    // الاقتراحات
     document.getElementById('suggestionForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('suggesterName').value.trim();
@@ -1375,7 +1366,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
     }
 
-    // ===== رعاة الدفع =====
+    // رعاة الدفع
     document.querySelectorAll('.sponsor-pay-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const plan = this.dataset.plan;
@@ -1404,7 +1395,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ===== تهيئة العناصر =====
+    // تهيئة العناصر
     renderSponsors();
     renderMembersTable();
     renderSponsorList();
@@ -1420,7 +1411,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('stripeSetting').value = localStorage.getItem('stripe') || '';
     document.getElementById('ibanSetting').value = localStorage.getItem('iban') || '';
     
-    // تحميل روابط التواصل
     for (const [key, value] of Object.entries(socialLinks)) {
         const field = document.getElementById(`social${key.charAt(0).toUpperCase() + key.slice(1)}`);
         if (field && value) {
