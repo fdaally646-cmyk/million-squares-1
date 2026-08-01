@@ -21,10 +21,10 @@
     <!-- الشريط العلوي -->
     <div class="top-banner">
         <div class="banner-content">
-            <span>🚀 انضم الآن واحجز مربعك المميز</span>
-            <span>📊 المربعات المتاحة: <strong id="availableSquares">0</strong></span>
-            <span>🕐 <span id="liveClock">00:00:00</span></span>
-            <span>👥 <strong id="totalMembersDisplay">0</strong> مشترك</span>
+            <span class="banner-text">🚀 انضم الآن واحجز مربعك المميز</span>
+            <span class="banner-counter">📊 المربعات المتاحة: <strong id="availableSquares">0</strong></span>
+            <span class="banner-clock">🕐 <span id="liveClock">00:00:00</span></span>
+            <span class="banner-counter">👥 <strong id="totalMembersDisplay">0</strong> مشترك</span>
         </div>
     </div>
 
@@ -32,17 +32,17 @@
     <header class="main-header">
         <div class="header-content">
             <div class="logo-section">
-                <h1>🏆 <span class="gradient-text">مليون مربع</span></h1>
-                <p class="subtitle">منصة التواصل البصرية الأولى</p>
+                <h1>🏆 <span class="gradient-text" id="siteTitle">مليون مربع</span></h1>
+                <p class="subtitle" id="siteSubtitle">منصة التواصل البصرية الأولى</p>
             </div>
             <div class="header-controls">
                 <div class="lang-selector">
-                    <button class="lang-btn active" data-lang="ar">🇸🇦 عربي</button>
-                    <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+                    <button class="lang-btn active" data-lang="ar" id="langAr">🇸🇦 عربي</button>
+                    <button class="lang-btn" data-lang="en" id="langEn">🇬🇧 EN</button>
                 </div>
                 <div class="header-stats">
-                    <div><span class="stat-number" id="totalMembers">0</span><span class="stat-label">مشترك</span></div>
-                    <div><span class="stat-number" id="totalRevenue">$0</span><span class="stat-label">إيرادات</span></div>
+                    <div><span class="stat-number" id="totalMembers">0</span><span class="stat-label" id="membersLabel">مشترك</span></div>
+                    <div><span class="stat-number" id="totalRevenue">$0</span><span class="stat-label" id="revenueLabel">إيرادات</span></div>
                 </div>
                 <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
             </div>
@@ -52,14 +52,17 @@
     <!-- زر الحجز -->
     <div class="book-section">
         <button id="bookSquareBtn" class="book-btn">
-            <i class="fas fa-plus-circle"></i> احجز مربعك الآن
+            <i class="fas fa-plus-circle"></i> <span id="bookBtnText">احجز مربعك الآن</span>
         </button>
-        <span class="book-hint">🎁 3 أيام تجريبية مجانية</span>
+        <span class="book-hint" id="bookHint">🎁 3 أيام تجريبية مجانية</span>
     </div>
 
     <!-- الرعاة -->
     <div class="sponsors-section">
-        <div class="sponsors-header"><span>🌟 الرعاة</span><a href="#" class="sponsor-cta">كن راعياً</a></div>
+        <div class="sponsors-header">
+            <span id="sponsorsTitle">🌟 الرعاة</span>
+            <a href="#" class="sponsor-cta" id="sponsorCta">كن راعياً</a>
+        </div>
         <div class="marquee-track" id="marqueeTrack"></div>
     </div>
 
@@ -85,78 +88,91 @@
     <!-- الجريد -->
     <div class="grid-container">
         <div class="grid-stats-bar">
-            <span>إجمالي المربعات: <strong>1,000,000</strong></span>
-            <span>المشتركين: <strong id="gridMemberCount">0</strong></span>
-            <span>المتاح: <strong id="gridAvailableCount">0</strong></span>
+            <span id="totalSquaresLabel">إجمالي المربعات: <strong>1,000,000</strong></span>
+            <span id="gridMembersLabel">المشتركين: <strong id="gridMemberCount">0</strong></span>
+            <span id="gridAvailableLabel">المتاح: <strong id="gridAvailableCount">0</strong></span>
         </div>
         <div class="grid-wrapper">
             <div class="grid-canvas" id="gridCanvas"></div>
-            <div class="loading-indicator" id="loadingIndicator"><div class="spinner"></div><span>⏳ جاري التحميل...</span></div>
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="spinner"></div>
+                <span id="loadingText">⏳ جاري التحميل...</span>
+            </div>
         </div>
     </div>
 
     <!-- معلومات الموقع -->
     <section class="info-section">
         <div class="info-card">
-            <h2>🎯 ما هو مليون مربع؟</h2>
-            <p>منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.</p>
+            <h2 id="whatIsTitle">🎯 ما هو مليون مربع؟</h2>
+            <p id="whatIsDesc">منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.</p>
             <div class="features-grid">
-                <div class="feature normal-tier"><div class="feature-icon">💎</div><h4>عادي</h4><p class="price">$1/سنة</p>
-                    <ul><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li></ul></div>
-                <div class="feature silver-tier"><div class="feature-icon">⭐</div><h4>فضي</h4><p class="price">$5/سنة</p>
-                    <ul><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li><li>✅ رابط الموقع</li></ul></div>
-                <div class="feature gold-tier"><div class="feature-icon">👑</div><h4>ذهبي</h4><p class="price">$10/سنة</p>
-                    <ul><li>✅ عرض الاسم</li><li>✅ عرض الموقع</li><li>✅ رابط الموقع</li><li>✅ صورة شخصية</li></ul></div>
-                <div class="feature royal-tier"><div class="feature-icon">💠</div><h4>ملكي</h4><p class="price">$100/سنة</p>
-                    <ul><li>✅ جميع الميزات</li><li>✅ خلفية متحركة</li><li>✅ ظهور مميز</li></ul></div>
+                <div class="feature normal-tier"><div class="feature-icon">💎</div><h4 id="normalLabel">عادي</h4><p class="price">$1/<span id="yearLabel">سنة</span></p>
+                    <ul><li id="f1_1">✅ عرض الاسم</li><li id="f1_2">✅ عرض الموقع</li></ul></div>
+                <div class="feature silver-tier"><div class="feature-icon">⭐</div><h4 id="silverLabel">فضي</h4><p class="price">$5/<span id="yearLabel2">سنة</span></p>
+                    <ul><li id="f2_1">✅ عرض الاسم</li><li id="f2_2">✅ عرض الموقع</li><li id="f2_3">✅ رابط الموقع</li></ul></div>
+                <div class="feature gold-tier"><div class="feature-icon">👑</div><h4 id="goldLabel">ذهبي</h4><p class="price">$10/<span id="yearLabel3">سنة</span></p>
+                    <ul><li id="f3_1">✅ عرض الاسم</li><li id="f3_2">✅ عرض الموقع</li><li id="f3_3">✅ رابط الموقع</li><li id="f3_4">✅ صورة شخصية</li></ul></div>
+                <div class="feature royal-tier"><div class="feature-icon">💠</div><h4 id="royalLabel">ملكي</h4><p class="price">$100/<span id="yearLabel4">سنة</span></p>
+                    <ul><li id="f4_1">✅ جميع الميزات</li><li id="f4_2">✅ خلفية متحركة</li><li id="f4_3">✅ ظهور مميز</li></ul></div>
             </div>
         </div>
         <div class="info-card">
-            <h2>📋 خطوات الاشتراك</h2>
-            <ol><li><span class="step-number">1</span> اختر موقعك</li>
-                <li><span class="step-number">2</span> حدد المستوى</li>
-                <li><span class="step-number">3</span> املأ بياناتك</li>
-                <li><span class="step-number">4</span> 3 أيام تجريبية مجانية</li>
-                <li><span class="step-number">5</span> انطلق!</li>
+            <h2 id="stepsTitle">📋 خطوات الاشتراك</h2>
+            <ol>
+                <li id="step1"><span class="step-number">1</span> اختر موقعك</li>
+                <li id="step2"><span class="step-number">2</span> حدد المستوى</li>
+                <li id="step3"><span class="step-number">3</span> املأ بياناتك</li>
+                <li id="step4"><span class="step-number">4</span> 3 أيام تجريبية مجانية</li>
+                <li id="step5"><span class="step-number">5</span> انطلق!</li>
             </ol>
-            <div class="trial-banner">🎁 3 أيام تجريبية مجانية</div>
+            <div class="trial-banner" id="trialBanner">🎁 3 أيام تجريبية مجانية</div>
         </div>
     </section>
 
     <!-- لوحة التحكم -->
     <div class="admin-section">
         <button id="adminSecretBtn" class="admin-secret-btn"><i class="fas fa-user-shield"></i></button>
-        <span class="admin-hint">انقر مرتين للدخول</span>
+        <span class="admin-hint" id="adminHint">انقر مرتين للدخول</span>
         <div id="adminPanel" class="admin-panel hidden">
             <div class="admin-login">
-                <h3>🔐 الدخول إلى لوحة التحكم</h3>
+                <h3 id="adminLoginTitle">🔐 الدخول إلى لوحة التحكم</h3>
                 <input type="text" id="adminEmail" placeholder="اسم المستخدم">
                 <input type="password" id="adminPassword" placeholder="كلمة السر">
-                <button id="adminLoginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
+                <button id="adminLoginBtn"><i class="fas fa-sign-in-alt"></i> <span id="loginBtnText">دخول</span></button>
                 <div id="loginError" class="login-error hidden">❌ اسم المستخدم أو كلمة السر غير صحيحة</div>
             </div>
             <div id="adminContent" class="admin-content hidden">
                 <div class="admin-tabs">
-                    <button class="tab-btn active" data-tab="tabMembers"><i class="fas fa-users"></i> المشتركين</button>
-                    <button class="tab-btn" data-tab="tabSettings"><i class="fas fa-cog"></i> الإعدادات</button>
+                    <button class="tab-btn active" data-tab="tabMembers"><i class="fas fa-users"></i> <span id="membersTab">المشتركين</span></button>
+                    <button class="tab-btn" data-tab="tabSettings"><i class="fas fa-cog"></i> <span id="settingsTab">الإعدادات</span></button>
                 </div>
                 <div id="tabMembers" class="tab-content active">
                     <div class="admin-controls">
                         <input type="text" id="adminSearchInput" placeholder="🔍 بحث...">
-                        <button id="addMemberBtn"><i class="fas fa-user-plus"></i> إضافة</button>
-                        <button id="refreshMembersBtn"><i class="fas fa-sync"></i> تحديث</button>
+                        <button id="addMemberBtn"><i class="fas fa-user-plus"></i> <span id="addBtnText">إضافة</span></button>
+                        <button id="refreshMembersBtn"><i class="fas fa-sync"></i> <span id="refreshBtnText">تحديث</span></button>
                     </div>
                     <table id="membersTable">
-                        <thead><tr><th>الاسم</th><th>البريد</th><th>المستوى</th><th>الموقع</th><th>النوع</th><th>الإجراءات</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th id="thName">الاسم</th>
+                                <th id="thEmail">البريد</th>
+                                <th id="thTier">المستوى</th>
+                                <th id="thLocation">الموقع</th>
+                                <th id="thType">النوع</th>
+                                <th id="thActions">الإجراءات</th>
+                            </tr>
+                        </thead>
                         <tbody id="membersTableBody"></tbody>
                     </table>
                 </div>
                 <div id="tabSettings" class="tab-content hidden">
-                    <h4>الإعدادات</h4>
-                    <div><label>بريد المدير:</label><input type="email" id="adminEmailSetting" placeholder="بريد المدير">
-                    <button id="saveSettingsBtn"><i class="fas fa-save"></i> حفظ</button></div>
-                    <div><h5>تغيير كلمة السر</h5><input type="password" id="newPassword" placeholder="كلمة سر جديدة">
-                    <button id="changePasswordBtn"><i class="fas fa-exchange-alt"></i> تغيير</button></div>
+                    <h4 id="settingsTitle">الإعدادات</h4>
+                    <div><label id="adminEmailLabel">بريد المدير:</label><input type="email" id="adminEmailSetting" placeholder="بريد المدير">
+                    <button id="saveSettingsBtn"><i class="fas fa-save"></i> <span id="saveBtnText">حفظ</span></button></div>
+                    <div><h5 id="changePassTitle">تغيير كلمة السر</h5><input type="password" id="newPassword" placeholder="كلمة سر جديدة">
+                    <button id="changePasswordBtn"><i class="fas fa-exchange-alt"></i> <span id="changeBtnText">تغيير</span></button></div>
                 </div>
             </div>
         </div>
@@ -164,21 +180,21 @@
 
     <!-- نموذج الاقتراحات -->
     <section class="suggestion-section">
-        <h2>💡 شاركنا اقتراحك</h2>
+        <h2 id="suggestionTitle">💡 شاركنا اقتراحك</h2>
         <form id="suggestionForm">
             <input type="text" id="suggesterName" placeholder="اسمك" required>
             <input type="email" id="suggesterEmail" placeholder="بريدك" required>
             <textarea id="suggestionText" placeholder="فكرتك لتطوير الموقع" required></textarea>
-            <button type="submit"><i class="fas fa-paper-plane"></i> إرسال</button>
+            <button type="submit"><i class="fas fa-paper-plane"></i> <span id="sendBtnText">إرسال</span></button>
         </form>
     </section>
 
     <footer class="main-footer">
         <div class="footer-content">
-            <div><h4>📧 تواصل معنا</h4><a href="mailto:fdaally646@gmail.com">fdaally646@gmail.com</a></div>
-            <div><h4>📍 عن الموقع</h4><p>منصة مليون مربع</p></div>
+            <div><h4 id="contactTitle">📧 تواصل معنا</h4><a href="mailto:fdaally646@gmail.com">fdaally646@gmail.com</a></div>
+            <div><h4 id="aboutTitle">📍 عن الموقع</h4><p id="aboutText">منصة مليون مربع</p></div>
         </div>
-        <div class="footer-bottom"><p>© 2026 مليون مربع - جميع الحقوق محفوظة</p></div>
+        <div class="footer-bottom"><p id="footerRights">© 2026 مليون مربع - جميع الحقوق محفوظة</p></div>
     </footer>
 
     <script src="script.js"></script>
