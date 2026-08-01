@@ -1,39 +1,50 @@
 // ===== بيانات المستويات =====
 const TIERS = {
-    normal: { name: 'عادي', price: 1, color: '#4A90D9', label: '💎' },
-    silver: { name: 'فضي', price: 5, color: '#C0C0C0', label: '⭐' },
-    gold: { name: 'ذهبي', price: 10, color: '#FFD700', label: '👑' },
-    royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
+    normal: { name: { ar: 'عادي', en: 'Normal', fr: 'Normal', es: 'Normal', de: 'Normal' }, price: 1, color: '#4A90D9', label: '💎' },
+    silver: { name: { ar: 'فضي', en: 'Silver', fr: 'Argent', es: 'Plata', de: 'Silber' }, price: 5, color: '#C0C0C0', label: '⭐' },
+    gold: { name: { ar: 'ذهبي', en: 'Gold', fr: 'Or', es: 'Oro', de: 'Gold' }, price: 10, color: '#FFD700', label: '👑' },
+    royal: { name: { ar: 'ملكي', en: 'Royal', fr: 'Royal', es: 'Real', de: 'Königlich' }, price: 100, color: '#9B59B6', label: '💠' }
 };
 
-// ===== الترجمات الكاملة =====
+// ===== الترجمات الكاملة لكل عناصر الموقع =====
 const TRANSLATIONS = {
     ar: {
+        // الشريط العلوي
         banner: '🚀 انضم الآن واحجز مربعك المميز',
         available: 'المربعات المتاحة',
         members: 'مشترك',
         revenue: 'إيرادات',
         site_title: 'مليون مربع',
         subtitle: 'منصة التواصل البصرية الأولى',
+        
+        // الرعاة
         sponsors_title: '🌟 الرعاة الداعمون',
         become_sponsor: 'كن راعياً',
+        
+        // البحث والفلترة
+        search: '🔎 بحث عن مشترك...',
         all_tiers: 'جميع المستويات',
         normal: '💎 عادي',
         silver: '⭐ فضي',
         gold: '👑 ذهبي',
         royal: '💠 ملكي',
-        search: '🔎 بحث عن مشترك...',
-        year: 'سنة',
-        loading: '⏳ جاري تحميل مليون مربع...',
-        loading_grid: '⏳ جاري تحميل المربعات...',
-        total_squares: 'إجمالي المربعات',
-        virtual_members: 'افتراضي',
-        online: 'متصلون',
-        today: 'جديد اليوم',
         sort_name: 'ترتيب حسب الاسم',
         sort_location: 'ترتيب حسب البلد',
         sort_tier: 'ترتيب حسب الفئة',
         sort_date: 'الأحدث أولاً',
+        year: 'سنة',
+        
+        // شاشات التحميل
+        loading: '⏳ جاري تحميل مليون مربع...',
+        loading_grid: '⏳ جاري تحميل المربعات...',
+        
+        // إحصائيات الجريد
+        total_squares: 'إجمالي المربعات',
+        virtual_members: 'افتراضي',
+        online: 'متصلون',
+        today: 'جديد اليوم',
+        
+        // معلومات الموقع
         what_is: '🎯 ما هو مليون مربع؟',
         description: 'منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية.',
         steps_title: '📋 خطوات الاشتراك',
@@ -42,6 +53,8 @@ const TRANSLATIONS = {
         step3: 'املأ بياناتك - الاسم، البريد، الموقع، صورة',
         step4: 'ادفع بأمان - عبر PayPal أو Stripe أو IBAN',
         step5: 'انطلق! - سيظهر مربعك فوراً',
+        
+        // نظام الدفع للرعاة
         sponsor_payment_title: '🌟 نظام الدفع للرعاة',
         sponsor_payment_desc: 'اختر الباقة المناسبة لشركتك وادفع مباشرة.',
         weekly: 'أسبوعي',
@@ -61,6 +74,8 @@ const TRANSLATIONS = {
         sp_yearly_3: '✅ رابط موقعك',
         sp_yearly_4: '✅ شعار مميز',
         sp_yearly_5: '✅ فيديو تعريفي',
+        
+        // لوحة التحكم
         admin_hint: 'انقر مرتين للدخول إلى لوحة المدير',
         admin_login: 'الدخول إلى لوحة التحكم',
         login: 'دخول',
@@ -69,6 +84,8 @@ const TRANSLATIONS = {
         social: 'وسائل التواصل',
         suggestions: 'الاقتراحات',
         settings: 'الإعدادات',
+        
+        // إدارة المشتركين
         add_member: 'إضافة مشترك',
         export: 'تصدير',
         refresh: 'تحديث',
@@ -79,53 +96,85 @@ const TRANSLATIONS = {
         type: 'النوع',
         actions: 'الإجراءات',
         total_members: 'إجمالي المشتركين',
+        real_members: 'المشتركين الحقيقيين',
+        virtual_members_list: 'المشتركين الافتراضيين',
+        real_revenue: 'الأرباح الحقيقية',
+        virtual_revenue: 'الأرباح الافتراضية',
+        total_revenue: 'إجمالي الأرباح',
+        
+        // إعدادات الدفع
         payment_settings: 'إعدادات الدفع',
         save: 'حفظ الإعدادات',
+        
+        // إدارة الرعاة
         sponsor_management: 'إدارة الرعاة',
         add_sponsor: 'إضافة راعي',
+        
+        // وسائل التواصل
         social_media: 'إدارة وسائل التواصل الاجتماعي',
+        
+        // الاقتراحات
         suggestions_title: 'اقتراحات المشتركين',
         no_suggestions: 'لا توجد اقتراحات حالياً',
+        
+        // الإعدادات
         settings_title: 'إعدادات الموقع',
         admin_email: 'بريد المدير:',
         admin_name: 'اسم المدير:',
         change_password: 'تغيير كلمة السر',
         change: 'تغيير',
+        
+        // نموذج الاقتراحات
         suggest_idea: '💡 شاركنا اقتراحك',
         send: 'إرسال الاقتراح',
         your_name: 'اسمك',
         your_email: 'بريدك الإلكتروني',
         your_suggestion: 'ما هي فكرتك لتطوير الموقع؟',
+        
+        // الفوتر
         contact_us: '📧 تواصل معنا',
         about_us: '📍 عن الموقع',
         about_text: 'منصة مليون مربع - حيث الإبداع يلتقي بالفرص',
         follow_us: '📱 تابعنا',
         rights: 'جميع الحقوق محفوظة',
+        
+        // مميزات المستويات
         badge_normal: 'مبتدئ',
         badge_silver: 'شائع',
         badge_gold: 'مميز',
         badge_royal: 'VIP',
+        
+        // زر الحجز
         book_square: 'احجز مربعك الآن',
         book_hint: 'انقر هنا لحجز مربع جديد في أي مكان بالجدار',
-        total: 'الإجمالي',
-        available_squares: 'المربعات المتاحة',
-        subscribers: 'المشتركين',
-        virtual: 'افتراضي',
-        sort_by: 'ترتيب حسب',
-        all: 'الكل',
-        normal_tier: 'عادي',
-        silver_tier: 'فضي',
-        gold_tier: 'ذهبي',
-        royal_tier: 'ملكي',
-        search_placeholder: '🔎 بحث عن مشترك...',
-        admin_panel: 'لوحة المدير',
+        
+        // مميزات المستويات
+        f_normal_1: '✅ عرض الاسم',
+        f_normal_2: '✅ عرض الموقع',
+        f_silver_1: '✅ عرض الاسم',
+        f_silver_2: '✅ عرض الموقع',
+        f_silver_3: '✅ رابط الموقع',
+        f_silver_4: '✅ إطار فضي لامع',
+        f_gold_1: '✅ عرض الاسم',
+        f_gold_2: '✅ عرض الموقع',
+        f_gold_3: '✅ رابط الموقع',
+        f_gold_4: '✅ صورة شخصية',
+        f_gold_5: '✅ إطار ذهبي لامع',
+        f_gold_6: '✅ أولوية الظهور',
+        f_royal_1: '✅ جميع ميزات الذهبي',
+        f_royal_2: '✅ خلفية شفافة متحركة',
+        f_royal_3: '✅ تأثير نبض مميز',
+        f_royal_4: '✅ صورة خلفية مخصصة',
+        f_royal_5: '✅ ظهور في الأعلى',
+        
+        // أزرار لوحة التحكم
         dashboard: 'لوحة التحكم',
         members_management: 'إدارة المشتركين',
         payments_management: 'إدارة الدفع',
         sponsors_management: 'إدارة الرعاة',
         social_management: 'إدارة وسائل التواصل',
         suggestions_management: 'إدارة الاقتراحات',
-        settings_management: 'إدارة الإعدادات',
+        settings_management: 'الإعدادات',
         add_new_member: 'إضافة مشترك جديد',
         export_data: 'تصدير البيانات',
         refresh_data: 'تحديث البيانات',
@@ -139,7 +188,13 @@ const TRANSLATIONS = {
         contact: 'تواصل معنا',
         about: 'عن الموقع',
         follow: 'تابعنا',
-        rights_reserved: 'جميع الحقوق محفوظة'
+        rights_reserved: 'جميع الحقوق محفوظة',
+        total: 'الإجمالي',
+        available_squares: 'المربعات المتاحة',
+        subscribers: 'المشتركين',
+        virtual: 'افتراضي',
+        sort_by: 'ترتيب حسب',
+        all: 'الكل'
     },
     en: {
         banner: '🚀 Join now and book your special square',
@@ -150,12 +205,16 @@ const TRANSLATIONS = {
         subtitle: 'The First Visual Communication Platform',
         sponsors_title: '🌟 Supporting Sponsors',
         become_sponsor: 'Become a Sponsor',
+        search: '🔎 Search members...',
         all_tiers: 'All Tiers',
         normal: '💎 Normal',
         silver: '⭐ Silver',
         gold: '👑 Gold',
         royal: '💠 Royal',
-        search: '🔎 Search members...',
+        sort_name: 'Sort by Name',
+        sort_location: 'Sort by Location',
+        sort_tier: 'Sort by Tier',
+        sort_date: 'Latest First',
         year: 'year',
         loading: '⏳ Loading Million Squares...',
         loading_grid: '⏳ Loading squares...',
@@ -163,10 +222,6 @@ const TRANSLATIONS = {
         virtual_members: 'Virtual',
         online: 'Online',
         today: 'Today',
-        sort_name: 'Sort by Name',
-        sort_location: 'Sort by Location',
-        sort_tier: 'Sort by Tier',
-        sort_date: 'Latest First',
         what_is: '🎯 What is Million Squares?',
         description: 'A revolutionary platform for interactive digital space.',
         steps_title: '📋 Subscription Steps',
@@ -212,6 +267,11 @@ const TRANSLATIONS = {
         type: 'Type',
         actions: 'Actions',
         total_members: 'Total Members',
+        real_members: 'Real Members',
+        virtual_members_list: 'Virtual Members',
+        real_revenue: 'Real Revenue',
+        virtual_revenue: 'Virtual Revenue',
+        total_revenue: 'Total Revenue',
         payment_settings: 'Payment Settings',
         save: 'Save Settings',
         sponsor_management: 'Sponsor Management',
@@ -240,25 +300,30 @@ const TRANSLATIONS = {
         badge_royal: 'VIP',
         book_square: 'Book Your Square Now',
         book_hint: 'Click here to book a new square anywhere on the wall',
-        total: 'Total',
-        available_squares: 'Available squares',
-        subscribers: 'Subscribers',
-        virtual: 'Virtual',
-        sort_by: 'Sort by',
-        all: 'All',
-        normal_tier: 'Normal',
-        silver_tier: 'Silver',
-        gold_tier: 'Gold',
-        royal_tier: 'Royal',
-        search_placeholder: '🔎 Search members...',
-        admin_panel: 'Admin Panel',
+        f_normal_1: '✅ Show name',
+        f_normal_2: '✅ Show location',
+        f_silver_1: '✅ Show name',
+        f_silver_2: '✅ Show location',
+        f_silver_3: '✅ Website link',
+        f_silver_4: '✅ Shiny silver border',
+        f_gold_1: '✅ Show name',
+        f_gold_2: '✅ Show location',
+        f_gold_3: '✅ Website link',
+        f_gold_4: '✅ Profile image',
+        f_gold_5: '✅ Shiny gold border',
+        f_gold_6: '✅ Priority display',
+        f_royal_1: '✅ All gold features',
+        f_royal_2: '✅ Animated transparent background',
+        f_royal_3: '✅ Distinct pulse effect',
+        f_royal_4: '✅ Custom background image',
+        f_royal_5: '✅ Top display',
         dashboard: 'Dashboard',
         members_management: 'Members Management',
         payments_management: 'Payments Management',
         sponsors_management: 'Sponsors Management',
         social_management: 'Social Media Management',
         suggestions_management: 'Suggestions Management',
-        settings_management: 'Settings Management',
+        settings_management: 'Settings',
         add_new_member: 'Add New Member',
         export_data: 'Export Data',
         refresh_data: 'Refresh Data',
@@ -272,7 +337,13 @@ const TRANSLATIONS = {
         contact: 'Contact Us',
         about: 'About Us',
         follow: 'Follow Us',
-        rights_reserved: 'All Rights Reserved'
+        rights_reserved: 'All Rights Reserved',
+        total: 'Total',
+        available_squares: 'Available squares',
+        subscribers: 'Subscribers',
+        virtual: 'Virtual',
+        sort_by: 'Sort by',
+        all: 'All'
     },
     fr: {
         banner: '🚀 Rejoignez maintenant et réservez votre carré spécial',
@@ -283,12 +354,16 @@ const TRANSLATIONS = {
         subtitle: 'La première plateforme de communication visuelle',
         sponsors_title: '🌟 Sponsors soutenant',
         become_sponsor: 'Devenir Sponsor',
+        search: '🔎 Rechercher des membres...',
         all_tiers: 'Tous les niveaux',
         normal: '💎 Normal',
         silver: '⭐ Argent',
         gold: '👑 Or',
         royal: '💠 Royal',
-        search: '🔎 Rechercher des membres...',
+        sort_name: 'Trier par nom',
+        sort_location: 'Trier par lieu',
+        sort_tier: 'Trier par niveau',
+        sort_date: 'Plus récent',
         year: 'an',
         loading: '⏳ Chargement de Million de Carrés...',
         loading_grid: '⏳ Chargement des carrés...',
@@ -296,10 +371,6 @@ const TRANSLATIONS = {
         virtual_members: 'Virtuel',
         online: 'En ligne',
         today: "Aujourd'hui",
-        sort_name: 'Trier par nom',
-        sort_location: 'Trier par lieu',
-        sort_tier: 'Trier par niveau',
-        sort_date: 'Plus récent',
         what_is: "🎯 Qu'est-ce que Million de Carrés?",
         description: 'Une plateforme révolutionnaire pour espace numérique interactif.',
         steps_title: "📋 Étapes d'abonnement",
@@ -345,6 +416,11 @@ const TRANSLATIONS = {
         type: 'Type',
         actions: 'Actions',
         total_members: 'Total des membres',
+        real_members: 'Membres réels',
+        virtual_members_list: 'Membres virtuels',
+        real_revenue: 'Revenus réels',
+        virtual_revenue: 'Revenus virtuels',
+        total_revenue: 'Revenus totaux',
         payment_settings: 'Paramètres de paiement',
         save: 'Enregistrer',
         sponsor_management: 'Gestion des sponsors',
@@ -373,25 +449,30 @@ const TRANSLATIONS = {
         badge_royal: 'VIP',
         book_square: 'Réservez votre carré',
         book_hint: 'Cliquez ici pour réserver un nouveau carré',
-        total: 'Total',
-        available_squares: 'Carrés disponibles',
-        subscribers: 'Abonnés',
-        virtual: 'Virtuel',
-        sort_by: 'Trier par',
-        all: 'Tous',
-        normal_tier: 'Normal',
-        silver_tier: 'Argent',
-        gold_tier: 'Or',
-        royal_tier: 'Royal',
-        search_placeholder: '🔎 Rechercher...',
-        admin_panel: 'Panneau admin',
+        f_normal_1: '✅ Afficher le nom',
+        f_normal_2: "✅ Afficher l'emplacement",
+        f_silver_1: '✅ Afficher le nom',
+        f_silver_2: "✅ Afficher l'emplacement",
+        f_silver_3: '✅ Lien site web',
+        f_silver_4: '✅ Bordure argentée',
+        f_gold_1: '✅ Afficher le nom',
+        f_gold_2: "✅ Afficher l'emplacement",
+        f_gold_3: '✅ Lien site web',
+        f_gold_4: '✅ Photo de profil',
+        f_gold_5: '✅ Bordure dorée',
+        f_gold_6: '✅ Affichage prioritaire',
+        f_royal_1: '✅ Toutes les fonctionnalités Or',
+        f_royal_2: '✅ Fond transparent animé',
+        f_royal_3: '✅ Effet de pulsation',
+        f_royal_4: '✅ Image de fond personnalisée',
+        f_royal_5: '✅ Affichage en haut',
         dashboard: 'Tableau de bord',
         members_management: 'Gestion des membres',
         payments_management: 'Gestion des paiements',
         sponsors_management: 'Gestion des sponsors',
         social_management: 'Gestion des réseaux sociaux',
         suggestions_management: 'Gestion des suggestions',
-        settings_management: 'Gestion des paramètres',
+        settings_management: 'Paramètres',
         add_new_member: 'Ajouter un membre',
         export_data: 'Exporter',
         refresh_data: 'Rafraîchir',
@@ -405,7 +486,13 @@ const TRANSLATIONS = {
         contact: 'Contactez-nous',
         about: 'À propos',
         follow: 'Suivez-nous',
-        rights_reserved: 'Tous droits réservés'
+        rights_reserved: 'Tous droits réservés',
+        total: 'Total',
+        available_squares: 'Carrés disponibles',
+        subscribers: 'Abonnés',
+        virtual: 'Virtuel',
+        sort_by: 'Trier par',
+        all: 'Tous'
     },
     es: {
         banner: '🚀 Únete ahora y reserva tu cuadrado especial',
@@ -416,12 +503,16 @@ const TRANSLATIONS = {
         subtitle: 'La primera plataforma de comunicación visual',
         sponsors_title: '🌟 Patrocinadores',
         become_sponsor: 'Ser Patrocinador',
+        search: '🔎 Buscar miembros...',
         all_tiers: 'Todos los niveles',
         normal: '💎 Normal',
         silver: '⭐ Plata',
         gold: '👑 Oro',
         royal: '💠 Real',
-        search: '🔎 Buscar miembros...',
+        sort_name: 'Ordenar por nombre',
+        sort_location: 'Ordenar por ubicación',
+        sort_tier: 'Ordenar por nivel',
+        sort_date: 'Más reciente',
         year: 'año',
         loading: '⏳ Cargando Millón de Cuadrados...',
         loading_grid: '⏳ Cargando cuadrados...',
@@ -429,10 +520,6 @@ const TRANSLATIONS = {
         virtual_members: 'Virtual',
         online: 'En línea',
         today: 'Hoy',
-        sort_name: 'Ordenar por nombre',
-        sort_location: 'Ordenar por ubicación',
-        sort_tier: 'Ordenar por nivel',
-        sort_date: 'Más reciente',
         what_is: '🎯 ¿Qué es Millón de Cuadrados?',
         description: 'Una plataforma revolucionaria para espacio digital interactivo.',
         steps_title: '📋 Pasos de suscripción',
@@ -478,6 +565,11 @@ const TRANSLATIONS = {
         type: 'Tipo',
         actions: 'Acciones',
         total_members: 'Total de miembros',
+        real_members: 'Miembros reales',
+        virtual_members_list: 'Miembros virtuales',
+        real_revenue: 'Ingresos reales',
+        virtual_revenue: 'Ingresos virtuales',
+        total_revenue: 'Ingresos totales',
         payment_settings: 'Configuración de pago',
         save: 'Guardar configuración',
         sponsor_management: 'Gestión de patrocinadores',
@@ -506,25 +598,30 @@ const TRANSLATIONS = {
         badge_royal: 'VIP',
         book_square: 'Reserva tu cuadrado',
         book_hint: 'Haz clic aquí para reservar un nuevo cuadrado',
-        total: 'Total',
-        available_squares: 'Cuadrados disponibles',
-        subscribers: 'Suscriptores',
-        virtual: 'Virtual',
-        sort_by: 'Ordenar por',
-        all: 'Todos',
-        normal_tier: 'Normal',
-        silver_tier: 'Plata',
-        gold_tier: 'Oro',
-        royal_tier: 'Real',
-        search_placeholder: '🔎 Buscar...',
-        admin_panel: 'Panel admin',
+        f_normal_1: '✅ Mostrar nombre',
+        f_normal_2: '✅ Mostrar ubicación',
+        f_silver_1: '✅ Mostrar nombre',
+        f_silver_2: '✅ Mostrar ubicación',
+        f_silver_3: '✅ Enlace web',
+        f_silver_4: '✅ Borde plateado',
+        f_gold_1: '✅ Mostrar nombre',
+        f_gold_2: '✅ Mostrar ubicación',
+        f_gold_3: '✅ Enlace web',
+        f_gold_4: '✅ Imagen de perfil',
+        f_gold_5: '✅ Borde dorado',
+        f_gold_6: '✅ Visualización prioritaria',
+        f_royal_1: '✅ Todas las características Oro',
+        f_royal_2: '✅ Fondo transparente animado',
+        f_royal_3: '✅ Efecto de pulso',
+        f_royal_4: '✅ Imagen de fondo personalizada',
+        f_royal_5: '✅ Visualización superior',
         dashboard: 'Panel de control',
         members_management: 'Gestión de miembros',
         payments_management: 'Gestión de pagos',
         sponsors_management: 'Gestión de patrocinadores',
         social_management: 'Gestión de redes sociales',
         suggestions_management: 'Gestión de sugerencias',
-        settings_management: 'Gestión de configuraciones',
+        settings_management: 'Configuración',
         add_new_member: 'Agregar miembro',
         export_data: 'Exportar',
         refresh_data: 'Actualizar',
@@ -538,7 +635,13 @@ const TRANSLATIONS = {
         contact: 'Contáctanos',
         about: 'Sobre nosotros',
         follow: 'Síguenos',
-        rights_reserved: 'Todos los derechos reservados'
+        rights_reserved: 'Todos los derechos reservados',
+        total: 'Total',
+        available_squares: 'Cuadrados disponibles',
+        subscribers: 'Suscriptores',
+        virtual: 'Virtual',
+        sort_by: 'Ordenar por',
+        all: 'Todos'
     },
     de: {
         banner: '🚀 Jetzt beitreten und dein spezielles Quadrat buchen',
@@ -549,12 +652,16 @@ const TRANSLATIONS = {
         subtitle: 'Die erste visuelle Kommunikationsplattform',
         sponsors_title: '🌟 Unterstützende Sponsoren',
         become_sponsor: 'Sponsor werden',
+        search: '🔎 Mitglieder suchen...',
         all_tiers: 'Alle Stufen',
         normal: '💎 Normal',
         silver: '⭐ Silber',
         gold: '👑 Gold',
         royal: '💠 Königlich',
-        search: '🔎 Mitglieder suchen...',
+        sort_name: 'Sortieren nach Name',
+        sort_location: 'Sortieren nach Ort',
+        sort_tier: 'Sortieren nach Stufe',
+        sort_date: 'Neueste zuerst',
         year: 'Jahr',
         loading: '⏳ Million Quadrate werden geladen...',
         loading_grid: '⏳ Quadrate werden geladen...',
@@ -562,10 +669,6 @@ const TRANSLATIONS = {
         virtual_members: 'Virtuell',
         online: 'Online',
         today: 'Heute',
-        sort_name: 'Sortieren nach Name',
-        sort_location: 'Sortieren nach Ort',
-        sort_tier: 'Sortieren nach Stufe',
-        sort_date: 'Neueste zuerst',
         what_is: '🎯 Was ist Million Quadrate?',
         description: 'Eine revolutionäre Plattform für interaktive digitale Räume.',
         steps_title: '📋 Abonnementschritte',
@@ -611,6 +714,11 @@ const TRANSLATIONS = {
         type: 'Typ',
         actions: 'Aktionen',
         total_members: 'Gesamt Mitglieder',
+        real_members: 'Echte Mitglieder',
+        virtual_members_list: 'Virtuelle Mitglieder',
+        real_revenue: 'Echte Einnahmen',
+        virtual_revenue: 'Virtuelle Einnahmen',
+        total_revenue: 'Gesamteinnahmen',
         payment_settings: 'Zahlungseinstellungen',
         save: 'Einstellungen speichern',
         sponsor_management: 'Sponsorenverwaltung',
@@ -639,25 +747,30 @@ const TRANSLATIONS = {
         badge_royal: 'VIP',
         book_square: 'Buche dein Quadrat',
         book_hint: 'Klicke hier, um ein neues Quadrat zu buchen',
-        total: 'Gesamt',
-        available_squares: 'Verfügbare Quadrate',
-        subscribers: 'Abonnenten',
-        virtual: 'Virtuell',
-        sort_by: 'Sortieren nach',
-        all: 'Alle',
-        normal_tier: 'Normal',
-        silver_tier: 'Silber',
-        gold_tier: 'Gold',
-        royal_tier: 'Königlich',
-        search_placeholder: '🔎 Suchen...',
-        admin_panel: 'Admin-Panel',
+        f_normal_1: '✅ Name anzeigen',
+        f_normal_2: '✅ Standort anzeigen',
+        f_silver_1: '✅ Name anzeigen',
+        f_silver_2: '✅ Standort anzeigen',
+        f_silver_3: '✅ Weblink',
+        f_silver_4: '✅ Silberner Rand',
+        f_gold_1: '✅ Name anzeigen',
+        f_gold_2: '✅ Standort anzeigen',
+        f_gold_3: '✅ Weblink',
+        f_gold_4: '✅ Profilbild',
+        f_gold_5: '✅ Goldener Rand',
+        f_gold_6: '✅ Prioritätsanzeige',
+        f_royal_1: '✅ Alle Gold-Funktionen',
+        f_royal_2: '✅ Animierter transparenter Hintergrund',
+        f_royal_3: '✅ Deutlicher Pulseffekt',
+        f_royal_4: '✅ Benutzerdefiniertes Hintergrundbild',
+        f_royal_5: '✅ Oben anzeigen',
         dashboard: 'Dashboard',
         members_management: 'Mitgliederverwaltung',
         payments_management: 'Zahlungsverwaltung',
         sponsors_management: 'Sponsorenverwaltung',
         social_management: 'Social Media Verwaltung',
         suggestions_management: 'Vorschlagsverwaltung',
-        settings_management: 'Einstellungsverwaltung',
+        settings_management: 'Einstellungen',
         add_new_member: 'Mitglied hinzufügen',
         export_data: 'Exportieren',
         refresh_data: 'Aktualisieren',
@@ -671,7 +784,13 @@ const TRANSLATIONS = {
         contact: 'Kontaktiere uns',
         about: 'Über uns',
         follow: 'Folge uns',
-        rights_reserved: 'Alle Rechte vorbehalten'
+        rights_reserved: 'Alle Rechte vorbehalten',
+        total: 'Gesamt',
+        available_squares: 'Verfügbare Quadrate',
+        subscribers: 'Abonnenten',
+        virtual: 'Virtuell',
+        sort_by: 'Sortieren nach',
+        all: 'Alle'
     }
 };
 
@@ -701,6 +820,7 @@ var sponsors = [
 var suggestions = [];
 var socialLinks = { facebook: '', twitter: '', instagram: '', youtube: '', linkedin: '', tiktok: '' };
 var totalRevenue = 0;
+var virtualRevenue = 0;
 var currentZoom = 1;
 var currentLang = 'ar';
 var totalCellsToShow = 2000;
@@ -709,6 +829,21 @@ var totalCellsToShow = 2000;
 var gridCanvas, searchInput, filterTier, sortBy, liveClock;
 var totalMembersDisplay, totalMembers, totalRevenueEl, availableSquares;
 var membersTableBody, loginError, siteBackground, loadingIndicator;
+
+// ===== حساب الإيرادات =====
+function calculateRevenue() {
+    var realRevenue = 0;
+    var virtualRev = 0;
+    for (var i = 0; i < members.length; i++) {
+        var price = TIERS[members[i].tier].price;
+        if (members[i].isVirtual) {
+            virtualRev += price;
+        } else {
+            realRevenue += price;
+        }
+    }
+    return { real: realRevenue, virtual: virtualRev, total: realRevenue + virtualRev };
+}
 
 // ===== إنشاء مشتركين افتراضيين (100 فقط) =====
 function generateVirtualMembers(count) {
@@ -748,6 +883,7 @@ function saveData() {
         sponsors: sponsors,
         suggestions: suggestions,
         totalRevenue: totalRevenue,
+        virtualRevenue: virtualRevenue,
         socialLinks: socialLinks,
         currentLang: currentLang
     };
@@ -765,6 +901,7 @@ function loadData() {
             sponsors = data.sponsors || sponsors;
             suggestions = data.suggestions || suggestions;
             totalRevenue = data.totalRevenue || 0;
+            virtualRevenue = data.virtualRevenue || 0;
             socialLinks = data.socialLinks || socialLinks;
             if (data.currentLang) currentLang = data.currentLang;
             return true;
@@ -776,10 +913,9 @@ function loadData() {
 // ===== تهيئة البيانات =====
 if (!loadData() || members.length === 0) {
     members = generateVirtualMembers(100);
-    totalRevenue = 0;
-    for (var i = 0; i < members.length; i++) {
-        totalRevenue += TIERS[members[i].tier].price;
-    }
+    var rev = calculateRevenue();
+    totalRevenue = rev.real;
+    virtualRevenue = rev.virtual;
     saveData();
 }
 
@@ -804,6 +940,7 @@ function renderGrid() {
             
             if (member) {
                 var tierInfo = TIERS[member.tier];
+                var tierName = tierInfo.name[currentLang] || tierInfo.name.ar;
                 var stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
                 cell.className = 'pixel-cell tier-' + member.tier;
                 
@@ -811,7 +948,7 @@ function renderGrid() {
                     (member.image ? '<img src="' + member.image + '" class="cell-image" loading="lazy">' : '') +
                     '<div class="cell-name">' + member.name + '</div>' +
                     '<div class="cell-tier">' + tierInfo.label + '</div>' +
-                    (member.isVirtual ? '<div class="cell-virtual-badge">افتراضي</div>' : '') +
+                    (member.isVirtual ? '<div class="cell-virtual-badge">' + (currentLang === 'ar' ? 'افتراضي' : 'Virtual') + '</div>' : '') +
                     '<div class="cell-tooltip">' +
                         '<strong>' + member.name + '</strong><br>' +
                         '📍 ' + member.location + '<br>' +
@@ -819,10 +956,10 @@ function renderGrid() {
                         (member.website ? '🔗 ' + member.website + '<br>' : '') +
                         '💬 ' + member.message + '<br>' +
                         '<span style="color:' + tierInfo.color + ';font-weight:700">' +
-                            tierInfo.label + ' ' + tierInfo.name + ' ($' + tierInfo.price + '/سنة)' +
+                            tierInfo.label + ' ' + tierName + ' ($' + tierInfo.price + '/' + TRANSLATIONS[currentLang].year + ')' +
                         '</span><br>' +
                         '<small>⭐ ' + stars + ' (' + (member.votes || 0) + ')</small>' +
-                        (member.isVirtual ? '<br><small>🔄 مشترك افتراضي</small>' : '') +
+                        (member.isVirtual ? '<br><small>🔄 ' + (currentLang === 'ar' ? 'مشترك افتراضي' : 'Virtual Member') + '</small>' : '') +
                     '</div>' +
                     '<div class="cell-rating"><span class="stars">' + stars + '</span><span class="votes">(' + (member.votes || 0) + ')</span></div>' +
                     (member.isRoyal ? '<div class="royal-crown">👑</div>' : '');
@@ -853,15 +990,22 @@ function renderGrid() {
 // ===== دوال العرض =====
 function updateStats() {
     var virtualCount = 0;
+    var realCount = 0;
     for (var i = 0; i < members.length; i++) {
         if (members[i].isVirtual) virtualCount++;
+        else realCount++;
     }
     var totalCount = members.length;
+    
+    // حساب الإيرادات
+    var rev = calculateRevenue();
+    totalRevenue = rev.real;
+    virtualRevenue = rev.virtual;
     
     if (totalMembers) totalMembers.textContent = totalCount;
     if (totalMembersDisplay) totalMembersDisplay.textContent = totalCount;
     if (availableSquares) availableSquares.textContent = (1000000 - totalCount).toLocaleString();
-    if (totalRevenueEl) totalRevenueEl.textContent = '$' + totalRevenue.toFixed(0);
+    if (totalRevenueEl) totalRevenueEl.textContent = '$' + (totalRevenue + virtualRevenue).toFixed(0);
     
     var virtualCountEl = document.getElementById('virtualCount');
     if (virtualCountEl) virtualCountEl.textContent = virtualCount;
@@ -882,12 +1026,13 @@ function updateGridStats() {
 
 function showMemberInfo(member) {
     var tierInfo = TIERS[member.tier];
+    var tierName = tierInfo.name[currentLang] || tierInfo.name.ar;
     var stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
-    var type = member.isVirtual ? '(افتراضي)' : '(حقيقي)';
+    var type = member.isVirtual ? (currentLang === 'ar' ? '(افتراضي)' : '(Virtual)') : (currentLang === 'ar' ? '(حقيقي)' : '(Real)');
     alert('👤 ' + member.name + ' ' + type + '\n📧 ' + member.email + '\n📍 ' + member.location + '\n' + 
           (member.website ? '🔗 ' + member.website + '\n' : '') + '💬 ' + member.message + '\n⭐ التقييم: ' + stars + 
-          ' (' + (member.votes || 0) + ' صوت)\n\n🏷️ المستوى: ' + tierInfo.label + ' ' + tierInfo.name + 
-          '\n💰 السعر: $' + tierInfo.price + '/سنة');
+          ' (' + (member.votes || 0) + ' صوت)\n\n🏷️ المستوى: ' + tierInfo.label + ' ' + tierName + 
+          '\n💰 السعر: $' + tierInfo.price + '/' + TRANSLATIONS[currentLang].year);
 }
 
 // ===== دالة الحجز =====
@@ -895,7 +1040,9 @@ function bookSquare() {
     var lang = currentLang;
     var options = '';
     for (var key in TIERS) {
-        options += key + ': ' + TIERS[key].label + ' ' + TIERS[key].name + ' - $' + TIERS[key].price + '/سنة\n';
+        var tier = TIERS[key];
+        var tierName = tier.name[lang] || tier.name.ar;
+        options += key + ': ' + tier.label + ' ' + tierName + ' - $' + tier.price + '/' + TRANSLATIONS[lang].year + '\n';
     }
     
     var choice = prompt((lang === 'ar' ? '💳 اختر مستوى الاشتراك:\n' : '💳 Choose subscription tier:\n') + options + 
@@ -906,6 +1053,7 @@ function bookSquare() {
     }
 
     var tierInfo = TIERS[choice];
+    var tierName = tierInfo.name[lang] || tierInfo.name.ar;
     var name = prompt(lang === 'ar' ? '👤 أدخل اسمك الكامل:' : '👤 Enter your full name:');
     if (!name) return;
     var email = prompt(lang === 'ar' ? '✉️ أدخل بريدك الإلكتروني:' : '✉️ Enter your email:');
@@ -944,7 +1092,9 @@ function bookSquare() {
     };
     
     members.push(newMember);
-    totalRevenue += tierInfo.price;
+    var rev = calculateRevenue();
+    totalRevenue = rev.real;
+    virtualRevenue = rev.virtual;
     saveData();
     renderGrid();
     renderMembersTable();
@@ -952,7 +1102,7 @@ function bookSquare() {
     updateRoyalBackground();
     
     alert((lang === 'ar' ? '🎉 تم الاشتراك بنجاح!\nالمستوى: ' : '🎉 Subscription successful!\nTier: ') + 
-          tierInfo.label + ' ' + tierInfo.name + 
+          tierInfo.label + ' ' + tierName + 
           (lang === 'ar' ? '\nالمبلغ: $' : '\nAmount: $') + tierInfo.price);
 }
 
@@ -1028,14 +1178,25 @@ function renderMembersTable() {
     if (!membersTableBody) return;
     membersTableBody.innerHTML = '';
     
-    for (var i = 0; i < members.length; i++) {
-        var m = members[i];
+    // فصل المشتركين الحقيقيين عن الافتراضيين
+    var realMembers = members.filter(function(m) { return !m.isVirtual; });
+    var virtualMembers = members.filter(function(m) { return m.isVirtual; });
+    
+    // عرض الحقيقيين أولاً
+    var allMembers = realMembers.concat(virtualMembers);
+    
+    for (var i = 0; i < allMembers.length; i++) {
+        var m = allMembers[i];
         var tr = document.createElement('tr');
         var tierInfo = TIERS[m.tier];
-        var type = m.isVirtual ? '🔄 ' + (currentLang === 'ar' ? 'افتراضي' : 'Virtual') : '✅ ' + (currentLang === 'ar' ? 'حقيقي' : 'Real');
+        var tierName = tierInfo.name[currentLang] || tierInfo.name.ar;
+        var type = m.isVirtual ? 
+            '🔄 ' + (currentLang === 'ar' ? 'افتراضي' : 'Virtual') : 
+            '✅ ' + (currentLang === 'ar' ? 'حقيقي' : 'Real');
+        var index = members.indexOf(m);
         tr.innerHTML = '<td>' + m.name + '</td><td>' + m.email + '</td><td><span style="color:' + tierInfo.color + '">' + 
-                       tierInfo.label + ' ' + tierInfo.name + '</span></td><td>' + m.location + '</td><td>' + type + 
-                       '</td><td><button class="delete-btn" data-index="' + i + '">🗑️ ' + (currentLang === 'ar' ? 'حذف' : 'Delete') + '</button></td>';
+                       tierInfo.label + ' ' + tierName + '</span></td><td>' + m.location + '</td><td>' + type + 
+                       '</td><td><button class="delete-btn" data-index="' + index + '">🗑️ ' + (currentLang === 'ar' ? 'حذف' : 'Delete') + '</button></td>';
         membersTableBody.appendChild(tr);
     }
     
@@ -1046,10 +1207,11 @@ function renderMembersTable() {
             var member = members[index];
             if (member.isVirtual) {
                 if (!confirm((currentLang === 'ar' ? 'هذا مشترك افتراضي. هل أنت متأكد من حذفه؟' : 'This is a virtual member. Are you sure?'))) return;
+                virtualRevenue -= TIERS[member.tier].price;
             } else {
                 if (!confirm((currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا المشترك؟' : 'Are you sure you want to delete this member?'))) return;
+                totalRevenue -= TIERS[member.tier].price;
             }
-            totalRevenue -= TIERS[members[index].tier].price;
             members.splice(index, 1);
             saveData();
             renderMembersTable();
@@ -1197,10 +1359,13 @@ function translatePage(lang) {
     }
     
     // ترجمة الفوتر
-    var footerTexts = document.querySelectorAll('.footer-bottom p, .footer-section p');
+    var footerTexts = document.querySelectorAll('.footer-bottom p, .footer-section p, .footer-section h4, .footer-section a');
     footerTexts.forEach(function(el) {
-        if (el.innerHTML.includes('جميع الحقوق محفوظة') || el.innerHTML.includes('All Rights Reserved')) {
-            el.innerHTML = '© 2026 ' + (translations.site_title || 'مليون مربع') + ' - ' + (translations.rights || 'جميع الحقوق محفوظة');
+        if (el.innerHTML) {
+            var text = el.innerHTML;
+            if (text.includes('جميع الحقوق محفوظة') || text.includes('All Rights Reserved')) {
+                el.innerHTML = '© 2026 ' + (translations.site_title || 'مليون مربع') + ' - ' + (translations.rights || 'جميع الحقوق محفوظة');
+            }
         }
     });
     
@@ -1620,8 +1785,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('ibanSetting').value = localStorage.getItem('iban') || '';
 
     // تطبيق اللغة المحفوظة مع الترجمة الكاملة
-    var savedLang = localStorage.getItem('lang') || 'ar';
-    // تطبيق اللغة مع الترجمة
     setLanguage(currentLang);
 
     // إخفاء شاشة التحميل
@@ -1632,7 +1795,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('🚀 مليون مربع - تم التحميل بنجاح');
     console.log('👥 المشتركين: ' + members.length);
-    console.log('💰 الإيرادات: $' + totalRevenue);
+    console.log('💰 الإيرادات الحقيقية: $' + totalRevenue);
+    console.log('💰 الإيرادات الافتراضية: $' + virtualRevenue);
     console.log('📦 المربعات المعروضة: ' + totalCellsToShow);
     console.log('🔐 لوحة التحكم: انقر مرتين على زر 🔐');
     console.log('🌐 اللغة الحالية: ' + currentLang);
