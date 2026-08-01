@@ -6,24 +6,23 @@ const TIERS = {
     royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
 };
 
-// ===== أسماء متنوعة =====
+// ===== أسماء متنوعة (غير مكررة) =====
 const NAMES = [
-    // أسماء عربية
-    'أحمد السيد', 'محمد العمري', 'سارة الخالدي', 'نورة الحربي', 
-    'علي الشمري', 'فاطمة الزهراء', 'حسن الغامدي', 'زينب العلي',
-    'خالد المالكي', 'ليلى القحطاني', 'عمر العتيبي', 'منى الشهراني',
-    'سعيد الدوسري', 'هدى الفهد', 'ياسر المطيري', 'سمية العيسى',
-    'ماجد البلوي', 'رانيا العنزي', 'إبراهيم السبيعي', 'سعاد الزهراني',
-    'عبدالله الناصر', 'نجوى الخريف', 'ناصر السديري', 'غادة الغامدي',
-    'سامر الحربي', 'دينا الشريف', 'رامي الزيد', 'شيرين المصري',
-    'طارق الشهري', 'مها العبدالله', 'زياد الفيصل', 'نادية الحسن',
-    'فهد النفيسي', 'ريما السالم', 'سلطان القحطاني', 'نوال الحمود',
-    'مشاري العجاجي', 'حياة الموسى', 'بدر العنزي', 'أمل السيف',
-    // شركات
-    'شركة التقنية الرقمية', 'مؤسسة الإبداع', 'أكاديمية المستقبل',
-    'مركز الابتكار', 'مجموعة الرواد', 'شركة الحلول الذكية',
-    'مختبر التصميم', 'استوديو إبداع', 'منصة الأعمال',
-    'شركة التطوير المتقدم'
+    'أحمد محمد السيد', 'محمد عبدالله العمري', 'سارة خالد الخالدي', 'نورة سعيد الحربي',
+    'علي حسن الشمري', 'فاطمة محمد الزهراء', 'حسن علي الغامدي', 'زينب عبدالله العلي',
+    'خالد إبراهيم المالكي', 'ليلى عبدالرحمن القحطاني', 'عمر سعود العتيبي', 'منى صالح الشهراني',
+    'سعيد مبارك الدوسري', 'هدى فيصل الفهد', 'ياسر ناصر المطيري', 'سمية خالد العيسى',
+    'ماجد عبدالعزيز البلوي', 'رانيا محمد العنزي', 'إبراهيم علي السبيعي', 'سعاد عبدالله الزهراني',
+    'عبدالله خالد الناصر', 'نجوى سليمان الخريف', 'ناصر عبدالرحمن السديري', 'غادة محمد الغامدي',
+    'سامر عبدالله الحربي', 'دينا خالد الشريف', 'رامي فيصل الزيد', 'شيرين محمود المصري',
+    'طارق ناصر الشهري', 'مها عبدالعزيز العبدالله', 'زياد خالد الفيصل', 'نادية حسن الحسن',
+    'فهد ناصر النفيسي', 'ريما سعود السالم', 'سلطان عبدالعزيز القحطاني', 'نوال خالد الحمود',
+    'مشاري عبدالله العجاجي', 'حياة سعد الموسى', 'بدر خالد العنزي', 'أمل صالح السيف',
+    // أسماء شركات
+    'شركة التقنية الرقمية المحدودة', 'مؤسسة الإبداع للاستشارات', 'أكاديمية المستقبل للتدريب',
+    'مركز الابتكار التقني', 'مجموعة الرواد الدولية', 'شركة الحلول الذكية المتقدمة',
+    'مختبر التصميم الإبداعي', 'استوديو إبداع للإنتاج', 'منصة الأعمال الرقمية',
+    'شركة التطوير المتقدم للبرمجيات'
 ];
 
 // ===== مواقع متنوعة =====
@@ -43,36 +42,33 @@ const LOCATIONS = [
 // ===== رسائل متنوعة حسب المستوى =====
 const MESSAGES = {
     normal: [
-        'سعيد بانضمامي للمنصة!',
-        'نتطلع للتعاون مع الجميع',
-        'شكراً لهذه الفرصة الرائعة',
-        'نحن هنا لنصنع الفرق',
-        'بداية مشوار جديد'
+        'سعيد بانضمامي للمنصة! نتطلع للتعاون مع الجميع.',
+        'شكراً لهذه الفرصة الرائعة. نحن هنا لنصنع الفرق.',
+        'بداية مشوار جديد مع منصة مليون مربع.',
+        'نتطلع لبناء علاقات مميزة مع الجميع.'
     ],
     silver: [
-        'نحن رواد في مجال التقنية',
-        'نسعى للتميز والإبداع',
-        'شريككم الموثوق في النجاح',
-        'نبني المستقبل معاً',
-        'نحو آفاق جديدة'
+        'نحن رواد في مجال التقنية ونسعى للتميز والإبداع.',
+        'شريككم الموثوق في النجاح. نبني المستقبل معاً.',
+        'نحو آفاق جديدة مع منصة مليون مربع.',
+        'نسعى لتقديم أفضل الحلول التقنية.'
     ],
     gold: [
-        '⭐ قادة في الصناعة',
-        '🌟 نصنع التميز كل يوم',
-        '👑 رواد التغيير الإيجابي',
-        '💡 نبتكر حلولاً ذكية',
-        '🚀 نطلق الإبداع'
+        '⭐ قادة في الصناعة نصنع التميز كل يوم.',
+        '👑 رواد التغيير الإيجابي في المجتمع.',
+        '💡 نبتكر حلولاً ذكية لمستقبل أفضل.',
+        '🚀 نطلق الإبداع ونحقق الطموحات.'
     ],
     royal: [
-        '💠 نمثل قمة التميز',
-        '👑 القيادة الحقيقية',
-        '🌟 نلهم العالم',
-        '💫 نصنع التاريخ',
-        '🏆 رواد بلا منافس'
+        '💠 نمثل قمة التميز والاحترافية في العمل.',
+        '👑 القيادة الحقيقية تبدأ من هنا.',
+        '🌟 نلهم العالم بأفكارنا المبتكرة.',
+        '💫 نصنع التاريخ ونترك بصمة مميزة.',
+        '🏆 رواد بلا منافس في مجالنا.'
     ]
 };
 
-// ===== الترجمات (مختصرة للاختصار) =====
+// ===== الترجمات (مختصرة) =====
 const TRANSLATIONS = {
     ar: {
         banner: '🚀 انضم الآن واحجز مربعك المميز',
@@ -92,6 +88,11 @@ const TRANSLATIONS = {
         year: 'سنة',
         loading: '⏳ جاري تحميل المربعات...',
         total_squares: 'إجمالي المربعات',
+        virtual_members: 'افتراضي',
+        sort_name: 'ترتيب حسب الاسم',
+        sort_location: 'ترتيب حسب البلد',
+        sort_tier: 'ترتيب حسب الفئة',
+        sort_date: 'الأحدث أولاً',
         what_is: '🎯 ما هو مليون مربع؟',
         description: 'منصة ثورية تتيح للأفراد والشركات امتلاك مساحة رقمية تفاعلية لعرض هويتهم.',
         steps_title: '📋 خطوات الاشتراك',
@@ -134,6 +135,7 @@ const TRANSLATIONS = {
         email: 'البريد',
         tier: 'المستوى',
         location: 'الموقع',
+        type: 'النوع',
         actions: 'الإجراءات',
         total_members: 'إجمالي المشتركين',
         payment_settings: 'إعدادات الدفع',
@@ -194,6 +196,11 @@ const TRANSLATIONS = {
         year: 'year',
         loading: '⏳ Loading squares...',
         total_squares: 'Total squares',
+        virtual_members: 'Virtual',
+        sort_name: 'Sort by Name',
+        sort_location: 'Sort by Location',
+        sort_tier: 'Sort by Tier',
+        sort_date: 'Latest First',
         what_is: '🎯 What is Million Squares?',
         description: 'A revolutionary platform that allows individuals and companies to own an interactive digital space.',
         steps_title: '📋 Subscription Steps',
@@ -236,6 +243,7 @@ const TRANSLATIONS = {
         email: 'Email',
         tier: 'Tier',
         location: 'Location',
+        type: 'Type',
         actions: 'Actions',
         total_members: 'Total Members',
         payment_settings: 'Payment Settings',
@@ -296,6 +304,11 @@ const TRANSLATIONS = {
         year: 'an',
         loading: '⏳ Chargement des carrés...',
         total_squares: 'Total des carrés',
+        virtual_members: 'Virtuel',
+        sort_name: 'Trier par nom',
+        sort_location: 'Trier par lieu',
+        sort_tier: 'Trier par niveau',
+        sort_date: 'Plus récent',
         what_is: '🎯 Qu\'est-ce que Million de Carrés?',
         description: 'Une plateforme révolutionnaire qui permet de posséder un espace numérique interactif.',
         steps_title: '📋 Étapes d\'abonnement',
@@ -338,6 +351,7 @@ const TRANSLATIONS = {
         email: 'Email',
         tier: 'Niveau',
         location: 'Emplacement',
+        type: 'Type',
         actions: 'Actions',
         total_members: 'Total des membres',
         payment_settings: 'Paramètres de paiement',
@@ -398,6 +412,11 @@ const TRANSLATIONS = {
         year: 'año',
         loading: '⏳ Cargando cuadrados...',
         total_squares: 'Total de cuadrados',
+        virtual_members: 'Virtual',
+        sort_name: 'Ordenar por nombre',
+        sort_location: 'Ordenar por ubicación',
+        sort_tier: 'Ordenar por nivel',
+        sort_date: 'Más reciente',
         what_is: '🎯 ¿Qué es Millón de Cuadrados?',
         description: 'Una plataforma revolucionaria para poseer un espacio digital interactivo.',
         steps_title: '📋 Pasos de suscripción',
@@ -440,6 +459,7 @@ const TRANSLATIONS = {
         email: 'Email',
         tier: 'Nivel',
         location: 'Ubicación',
+        type: 'Tipo',
         actions: 'Acciones',
         total_members: 'Total de miembros',
         payment_settings: 'Configuración de pago',
@@ -500,6 +520,11 @@ const TRANSLATIONS = {
         year: 'Jahr',
         loading: '⏳ Quadrate werden geladen...',
         total_squares: 'Gesamt Quadrate',
+        virtual_members: 'Virtuell',
+        sort_name: 'Sortieren nach Name',
+        sort_location: 'Sortieren nach Ort',
+        sort_tier: 'Sortieren nach Stufe',
+        sort_date: 'Neueste zuerst',
         what_is: '🎯 Was ist Million Quadrate?',
         description: 'Eine revolutionäre Plattform für interaktive digitale Räume.',
         steps_title: '📋 Abonnementschritte',
@@ -542,6 +567,7 @@ const TRANSLATIONS = {
         email: 'E-Mail',
         tier: 'Stufe',
         location: 'Standort',
+        type: 'Typ',
         actions: 'Aktionen',
         total_members: 'Gesamt Mitglieder',
         payment_settings: 'Zahlungseinstellungen',
@@ -601,13 +627,14 @@ let totalRevenue = 0;
 let currentZoom = 1;
 let currentLang = 'ar';
 let virtualGrid = null;
+let isVirtual = true; // تحديد إذا كان المشترك افتراضي أم حقيقي
 
 // ===== عناصر DOM =====
-let gridCanvas, searchInput, filterTier, liveClock;
+let gridCanvas, searchInput, filterTier, sortBy, liveClock;
 let totalMembersDisplay, totalMembers, totalRevenueEl, availableSquares;
 let membersTableBody, loginError, siteBackground, loadingIndicator;
 
-// ===== إنشاء مشتركين افتراضيين (متنوعين) =====
+// ===== إنشاء مشتركين افتراضيين (100 فقط) =====
 function generateVirtualMembers(count) {
     const result = [];
     const tierKeys = ['normal', 'silver', 'gold', 'royal'];
@@ -615,13 +642,17 @@ function generateVirtualMembers(count) {
     
     for (let i = 0; i < count; i++) {
         const tier = tierKeys[i % tierKeys.length];
-        const isCompany = i % 5 === 0;
+        const isCompany = i % 5 === 0 && i > 10;
         
         let name, email;
         if (isCompany) {
-            const companyNames = ['شركة التقنية', 'مؤسسة الإبداع', 'أكاديمية المستقبل', 'مركز الابتكار', 'مجموعة الرواد'];
-            name = companyNames[i % companyNames.length] + ' ' + (Math.floor(i / companyNames.length) + 1);
-            email = `info@${name.replace(/ /g, '').toLowerCase()}.com`;
+            const companyNames = [
+                'شركة التقنية الرقمية المحدودة', 'مؤسسة الإبداع للاستشارات', 
+                'أكاديمية المستقبل للتدريب', 'مركز الابتكار التقني', 
+                'مجموعة الرواد الدولية', 'شركة الحلول الذكية المتقدمة'
+            ];
+            name = companyNames[i % companyNames.length];
+            email = `info@${name.replace(/شركة |مؤسسة |أكاديمية |مركز |مجموعة /g, '').replace(/ /g, '').toLowerCase()}.com`;
         } else {
             const nameIndex = i % NAMES.length;
             name = NAMES[nameIndex];
@@ -636,7 +667,7 @@ function generateVirtualMembers(count) {
         const message = tierMessages[i % tierMessages.length];
         
         result.push({
-            id: `m${i + 1}`,
+            id: `v${i + 1}`,
             name: name,
             email: email,
             location: location,
@@ -646,6 +677,7 @@ function generateVirtualMembers(count) {
             image: imageUrl,
             isRoyal: tier === 'royal',
             isCompany: isCompany,
+            isVirtual: true,
             position: i * step,
             joinDate: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString('ar-EG'),
             rating: Math.floor(Math.random() * 5) + 1,
@@ -657,9 +689,14 @@ function generateVirtualMembers(count) {
 
 // ===== التخزين المحلي =====
 function saveData() {
-    localStorage.setItem('millionSquaresData', JSON.stringify({
-        members, sponsors, suggestions, totalRevenue, socialLinks
-    }));
+    const dataToSave = {
+        members: members.map(m => ({ ...m, isVirtual: m.isVirtual || false })),
+        sponsors: sponsors,
+        suggestions: suggestions,
+        totalRevenue: totalRevenue,
+        socialLinks: socialLinks
+    };
+    localStorage.setItem('millionSquaresData', JSON.stringify(dataToSave));
 }
 
 function loadData() {
@@ -667,11 +704,21 @@ function loadData() {
     if (saved) {
         try {
             const data = JSON.parse(saved);
-            members = data.members || members;
+            members = data.members || [];
             sponsors = data.sponsors || sponsors;
             suggestions = data.suggestions || suggestions;
             totalRevenue = data.totalRevenue || 0;
             socialLinks = data.socialLinks || socialLinks;
+            
+            // التحقق من عدد المشتركين الحقيقيين
+            const realMembers = members.filter(m => !m.isVirtual);
+            
+            // إذا تجاوز عدد المشتركين الحقيقيين 1000، احذف جميع المشتركين الافتراضيين
+            if (realMembers.length >= 1000) {
+                members = members.filter(m => !m.isVirtual);
+                saveData();
+            }
+            
             return true;
         } catch(e) { return false; }
     }
@@ -680,9 +727,19 @@ function loadData() {
 
 // ===== تهيئة البيانات =====
 if (!loadData() || members.length === 0) {
-    members = generateVirtualMembers(500);
+    members = generateVirtualMembers(100);
     totalRevenue = members.reduce((sum, m) => sum + TIERS[m.tier].price, 0);
     saveData();
+} else {
+    // التأكد من وجود مشتركين افتراضيين إذا كان العدد أقل من 100
+    const virtualCount = members.filter(m => m.isVirtual).length;
+    const realCount = members.filter(m => !m.isVirtual).length;
+    
+    if (virtualCount === 0 && realCount < 100) {
+        const newVirtual = generateVirtualMembers(100 - realCount);
+        members = [...members, ...newVirtual];
+        saveData();
+    }
 }
 
 // ===== محاكاة متصلين حقيقيين =====
@@ -706,21 +763,18 @@ simulateLiveUsers();
 
 // ===== إشعارات جديدة =====
 function showNotification() {
-    const names = ['أحمد', 'سارة', 'علي', 'نورة', 'خالد', 'منى', 'يوسف', 'ليلى'];
-    const locations = ['الرياض', 'جدة', 'دبي', 'القاهرة', 'بيروت', 'عمان', 'الكويت'];
-    const tiers = ['normal', 'silver', 'gold', 'royal'];
-    const tierLabels = { normal: '💎 عادي', silver: '⭐ فضي', gold: '👑 ذهبي', royal: '💠 ملكي' };
+    const realMembers = members.filter(m => !m.isVirtual);
+    if (realMembers.length === 0) return;
     
-    const randomName = names[Math.floor(Math.random() * names.length)];
-    const randomLocation = locations[Math.floor(Math.random() * locations.length)];
-    const randomTier = tiers[Math.floor(Math.random() * tiers.length)];
+    const randomMember = realMembers[Math.floor(Math.random() * realMembers.length)];
+    const tierLabels = { normal: '💎 عادي', silver: '⭐ فضي', gold: '👑 ذهبي', royal: '💠 ملكي' };
     
     const notification = document.createElement('div');
     notification.className = 'notification-popup';
     notification.innerHTML = `
         <div class="notification-content">
             <span class="notification-icon">🎉</span>
-            <span>${randomName} من ${randomLocation} اشترك في ${tierLabels[randomTier]}</span>
+            <span>${randomMember.name} من ${randomMember.location} اشترك في ${tierLabels[randomMember.tier]}</span>
         </div>
     `;
     
@@ -733,18 +787,48 @@ function showNotification() {
     }, 5000);
 }
 
-setInterval(showNotification, Math.random() * 30000 + 30000);
+// عرض الإشعارات فقط إذا كان هناك مشتركين حقيقيين
+setInterval(() => {
+    const realMembers = members.filter(m => !m.isVirtual);
+    if (realMembers.length > 0) {
+        showNotification();
+    }
+}, Math.random() * 30000 + 30000);
 
-// ===== نظام التحميل التدريجي =====
+// ===== نظام الترتيب =====
+function sortMembers(sortByValue) {
+    const sorted = [...members];
+    switch(sortByValue) {
+        case 'name':
+            sorted.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'location':
+            sorted.sort((a, b) => a.location.localeCompare(b.location));
+            break;
+        case 'tier':
+            const tierOrder = { royal: 0, gold: 1, silver: 2, normal: 3 };
+            sorted.sort((a, b) => (tierOrder[a.tier] || 4) - (tierOrder[b.tier] || 4));
+            break;
+        case 'date':
+            sorted.sort((a, b) => new Date(b.joinDate) - new Date(a.joinDate));
+            break;
+        default:
+            break;
+    }
+    return sorted;
+}
+
+// ===== نظام التحميل التدريجي (محسّن للسرعة) =====
 class VirtualGrid {
     constructor(container, totalCells = 1000000) {
         this.container = container;
         this.totalCells = totalCells;
         this.loadedCount = 0;
-        this.batchSize = 3000;
+        this.batchSize = 5000; // زيادة حجم الدفعة للسرعة
         this.isLoading = false;
         this.allCells = [];
         this.filtered = false;
+        this.sortByValue = 'name';
         
         this.container.addEventListener('scroll', () => this.handleScroll());
         this.loadMore();
@@ -753,7 +837,7 @@ class VirtualGrid {
     handleScroll() {
         if (this.filtered) return;
         const { scrollTop, clientHeight, scrollHeight } = this.container;
-        if (scrollTop + clientHeight >= scrollHeight - 500) {
+        if (scrollTop + clientHeight >= scrollHeight - 300) {
             this.loadMore();
         }
     }
@@ -768,7 +852,8 @@ class VirtualGrid {
             const end = Math.min(start + this.batchSize, this.totalCells);
             const fragment = document.createDocumentFragment();
 
-            const memberCount = members.length;
+            const sortedMembers = sortMembers(this.sortByValue);
+            const memberCount = sortedMembers.length;
             const step = memberCount > 0 ? Math.floor(this.totalCells / memberCount) : 1;
 
             for (let i = start; i < end; i++) {
@@ -776,10 +861,10 @@ class VirtualGrid {
                 cell.className = 'pixel-cell';
                 cell.dataset.index = i;
 
-                let member = members.find(m => m.position === i);
+                let member = sortedMembers.find(m => m.position === i);
                 if (!member && memberCount > 0) {
                     const memberIndex = Math.floor(i / step) % memberCount;
-                    member = members[memberIndex];
+                    member = sortedMembers[memberIndex];
                 }
 
                 if (member) {
@@ -791,6 +876,7 @@ class VirtualGrid {
                         ${member.image ? `<img src="${member.image}" class="cell-image" loading="lazy">` : ''}
                         <div class="cell-name">${member.name}</div>
                         <div class="cell-tier">${tierInfo.label}</div>
+                        ${member.isVirtual ? '<div class="cell-virtual-badge">افتراضي</div>' : ''}
                         <div class="cell-tooltip">
                             <strong>${member.name}</strong><br>
                             📍 ${member.location}<br>
@@ -801,6 +887,7 @@ class VirtualGrid {
                                 ${tierInfo.label} ${tierInfo.name} ($${tierInfo.price}/سنة)
                             </span>
                             <br><small>⭐ ${stars} (${member.votes || 0} تقييم)</small>
+                            ${member.isVirtual ? '<br><small>🔄 مشترك افتراضي</small>' : ''}
                         </div>
                         <div class="cell-rating">
                             <span class="stars">${stars}</span>
@@ -825,7 +912,7 @@ class VirtualGrid {
             if (loadingIndicator) loadingIndicator.classList.remove('active');
 
             if (this.loadedCount < this.totalCells) {
-                setTimeout(() => this.loadMore(), 50);
+                setTimeout(() => this.loadMore(), 20);
             } else {
                 if (loadingIndicator) {
                     loadingIndicator.innerHTML = `<span>✅ تم تحميل جميع المربعات!</span>`;
@@ -836,17 +923,23 @@ class VirtualGrid {
         });
     }
 
+    updateSort(sortValue) {
+        this.sortByValue = sortValue;
+        this.reset();
+    }
+
     filter(text, tier) {
         this.filtered = true;
         const lowerText = text.toLowerCase();
-        const memberCount = members.length;
+        const sortedMembers = sortMembers(this.sortByValue);
+        const memberCount = sortedMembers.length;
         const step = memberCount > 0 ? Math.floor(this.totalCells / memberCount) : 1;
         
         this.allCells.forEach((cell, index) => {
-            let member = members.find(m => m.position === index);
+            let member = sortedMembers.find(m => m.position === index);
             if (!member && memberCount > 0) {
                 const memberIndex = Math.floor(index / step) % memberCount;
-                member = members[memberIndex];
+                member = sortedMembers[memberIndex];
             }
             
             if (!member) {
@@ -877,29 +970,48 @@ class VirtualGrid {
 
 // ===== دوال العرض =====
 function updateStats() {
-    const count = members.length;
-    if (totalMembers) totalMembers.textContent = count;
-    if (totalMembersDisplay) totalMembersDisplay.textContent = count;
-    if (availableSquares) availableSquares.textContent = (1000000 - count).toLocaleString();
+    const realCount = members.filter(m => !m.isVirtual).length;
+    const virtualCount = members.filter(m => m.isVirtual).length;
+    const totalCount = members.length;
+    
+    // حذف المشتركين الافتراضيين إذا تجاوز عدد الحقيقيين 1000
+    if (realCount >= 1000) {
+        members = members.filter(m => !m.isVirtual);
+        saveData();
+        updateStats();
+        return;
+    }
+    
+    if (totalMembers) totalMembers.textContent = totalCount;
+    if (totalMembersDisplay) totalMembersDisplay.textContent = totalCount;
+    if (availableSquares) availableSquares.textContent = (1000000 - totalCount).toLocaleString();
     if (totalRevenueEl) totalRevenueEl.textContent = `$${totalRevenue.toFixed(0)}`;
+    
+    const virtualCountEl = document.getElementById('virtualCount');
+    if (virtualCountEl) virtualCountEl.textContent = virtualCount;
+    
+    const tableVirtualCount = document.getElementById('tableVirtualCount');
+    if (tableVirtualCount) tableVirtualCount.textContent = virtualCount;
+    
     updateGridStats();
 }
 
 function updateGridStats() {
-    const count = members.length;
+    const totalCount = members.length;
     const gridMemberCount = document.getElementById('gridMemberCount');
     const gridAvailableCount = document.getElementById('gridAvailableCount');
     const tableTotal = document.getElementById('tableTotalMembers');
     
-    if (gridMemberCount) gridMemberCount.textContent = count;
-    if (gridAvailableCount) gridAvailableCount.textContent = (1000000 - count).toLocaleString();
-    if (tableTotal) tableTotal.textContent = count;
+    if (gridMemberCount) gridMemberCount.textContent = totalCount;
+    if (gridAvailableCount) gridAvailableCount.textContent = (1000000 - totalCount).toLocaleString();
+    if (tableTotal) tableTotal.textContent = totalCount;
 }
 
 function showMemberInfo(member) {
     const tierInfo = TIERS[member.tier];
     const stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
-    alert(`👤 ${member.name}\n📧 ${member.email}\n📍 ${member.location}\n${member.website ? `🔗 ${member.website}\n` : ''}💬 ${member.message}\n⭐ التقييم: ${stars} (${member.votes || 0} صوت)\n\n🏷️ المستوى: ${tierInfo.label} ${tierInfo.name}\n💰 السعر: $${tierInfo.price}/سنة`);
+    const type = member.isVirtual ? '(افتراضي)' : '(حقيقي)';
+    alert(`👤 ${member.name} ${type}\n📧 ${member.email}\n📍 ${member.location}\n${member.website ? `🔗 ${member.website}\n` : ''}💬 ${member.message}\n⭐ التقييم: ${stars} (${member.votes || 0} صوت)\n\n🏷️ المستوى: ${tierInfo.label} ${tierInfo.name}\n💰 السعر: $${tierInfo.price}/سنة`);
 }
 
 function showPaymentDialog() {
@@ -914,7 +1026,7 @@ function showPaymentDialog() {
     }
 
     const tierInfo = TIERS[choice];
-    const name = prompt('👤 أدخل اسمك:');
+    const name = prompt('👤 أدخل اسمك الكامل:');
     if (!name) return;
     const email = prompt('✉️ أدخل بريدك الإلكتروني:');
     if (!email) return;
@@ -931,13 +1043,18 @@ function showPaymentDialog() {
     const methods = ['PayPal','Stripe','IBAN'];
     alert(`✅ جارٍ التحويل إلى ${methods[parseInt(method)-1]}\nالمبلغ: $${tierInfo.price}`);
 
+    // حساب موقع جديد للمشترك
+    const maxPosition = members.reduce((max, m) => Math.max(max, m.position || 0), 0);
+    const newPosition = maxPosition + 1000;
+    
     const newMember = {
         id: `m${Date.now()}`,
         name, email, location, tier: choice, website, image,
         message: `مرحباً، أنا ${name} من ${location}`,
         isRoyal: choice === 'royal',
         isCompany: false,
-        position: members.length > 0 ? members[members.length - 1].position + 1000 : 1000,
+        isVirtual: false,
+        position: newPosition,
         rating: 0,
         votes: 0,
         joinDate: new Date().toLocaleDateString('ar-EG')
@@ -954,7 +1071,7 @@ function showPaymentDialog() {
     alert(`🎉 تم الاشتراك بنجاح!\nالمستوى: ${tierInfo.label} ${tierInfo.name}\nالمبلغ: $${tierInfo.price}`);
 }
 
-// ===== شريط الرعاة =====
+// ===== دوال الرعاة والخلفية =====
 function renderSponsors() {
     const track = document.getElementById('marqueeTrack');
     if (!track) return;
@@ -974,7 +1091,6 @@ function renderSponsors() {
     });
 }
 
-// ===== خلفية الملكيين =====
 let royalInterval = null;
 let royalIndex = 0;
 
@@ -1012,31 +1128,47 @@ let adminClickTimer = null;
 function renderMembersTable() {
     if (!membersTableBody) return;
     membersTableBody.innerHTML = '';
-    members.forEach((m, i) => {
+    
+    // عرض المشتركين الحقيقيين أولاً ثم الافتراضيين
+    const sortedForTable = [...members].sort((a, b) => {
+        if (a.isVirtual && !b.isVirtual) return 1;
+        if (!a.isVirtual && b.isVirtual) return -1;
+        return 0;
+    });
+    
+    sortedForTable.forEach((m, i) => {
         const tr = document.createElement('tr');
         const tierInfo = TIERS[m.tier];
+        const type = m.isVirtual ? '🔄 افتراضي' : '✅ حقيقي';
         tr.innerHTML = `
             <td>${m.name}</td>
             <td>${m.email}</td>
             <td><span style="color:${tierInfo.color}">${tierInfo.label} ${tierInfo.name}</span></td>
             <td>${m.location}</td>
-            <td><button class="delete-btn" data-index="${i}">🗑️ حذف</button></td>
+            <td>${type}</td>
+            <td>
+                <button class="delete-btn" data-index="${members.indexOf(m)}">🗑️ حذف</button>
+            </td>
         `;
         membersTableBody.appendChild(tr);
     });
 
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            if (confirm('هل أنت متأكد؟')) {
-                const i = parseInt(this.dataset.index);
-                totalRevenue -= TIERS[members[i].tier].price;
-                members.splice(i, 1);
-                saveData();
-                renderMembersTable();
-                if (virtualGrid) virtualGrid.reset();
-                updateStats();
-                updateRoyalBackground();
+            const index = parseInt(this.dataset.index);
+            const member = members[index];
+            if (member.isVirtual) {
+                if (!confirm('هذا مشترك افتراضي. هل أنت متأكد من حذفه؟')) return;
+            } else {
+                if (!confirm('هل أنت متأكد من حذف هذا المشترك؟')) return;
             }
+            totalRevenue -= TIERS[members[index].tier].price;
+            members.splice(index, 1);
+            saveData();
+            renderMembersTable();
+            if (virtualGrid) virtualGrid.reset();
+            updateStats();
+            updateRoyalBackground();
         });
     });
     updateGridStats();
@@ -1066,7 +1198,7 @@ window.removeSponsor = function(i) {
     }
 };
 
-// ===== تحديث روابط التواصل الاجتماعي =====
+// ===== روابط التواصل الاجتماعي =====
 function updateSocialLinks() {
     const socialFields = {
         facebook: document.getElementById('socialFacebook'),
@@ -1182,6 +1314,7 @@ document.addEventListener('DOMContentLoaded', function() {
     gridCanvas = document.getElementById('gridCanvas');
     searchInput = document.getElementById('searchInput');
     filterTier = document.getElementById('filterTier');
+    sortBy = document.getElementById('sortBy');
     liveClock = document.getElementById('liveClock');
     totalMembersDisplay = document.getElementById('totalMembersDisplay');
     totalMembers = document.getElementById('totalMembers');
@@ -1229,6 +1362,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     virtualGrid.resetFilter();
                 }
+            }
+        });
+    }
+
+    // ===== حدث الترتيب =====
+    if (sortBy) {
+        sortBy.addEventListener('change', function() {
+            if (virtualGrid) {
+                virtualGrid.updateSort(this.value);
             }
         });
     }
@@ -1367,7 +1509,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // إضافة مشترك
     document.getElementById('addMemberBtn')?.addEventListener('click', function() {
-        const name = prompt('👤 اسم المشترك:');
+        const name = prompt('👤 اسم المشترك الكامل:');
         if (!name) return;
         const email = prompt('✉️ البريد:');
         if (!email) return;
@@ -1376,13 +1518,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!TIERS[tier]) { alert('❌ مستوى غير صحيح'); return; }
         const image = prompt('🖼️ رابط الصورة:') || `https://picsum.photos/seed/${Date.now()}/100/100`;
 
+        const maxPosition = members.reduce((max, m) => Math.max(max, m.position || 0), 0);
+        const newPosition = maxPosition + 1000;
+
         members.push({
             id: `m${Date.now()}`,
             name, email, location, tier, image,
             website: '', message: `مرحباً، أنا ${name}`,
             isRoyal: tier === 'royal',
             isCompany: false,
-            position: members.length > 0 ? members[members.length - 1].position + 1000 : 1000,
+            isVirtual: false,
+            position: newPosition,
             rating: 0, votes: 0,
             joinDate: new Date().toLocaleDateString('ar-EG')
         });
@@ -1398,8 +1544,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // تصدير
     document.getElementById('exportMembersBtn')?.addEventListener('click', function() {
-        let csv = 'الاسم,البريد,المستوى,الموقع\n';
-        members.forEach(m => csv += `${m.name},${m.email},${m.tier},${m.location}\n`);
+        let csv = 'الاسم,البريد,المستوى,الموقع,النوع\n';
+        members.forEach(m => csv += `${m.name},${m.email},${m.tier},${m.location},${m.isVirtual ? 'افتراضي' : 'حقيقي'}\n`);
         const blob = new Blob([csv], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1565,4 +1711,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(`🔐 لوحة التحكم: انقر مرتين على زر 🔐`);
     console.log(`🌐 اللغة الحالية: ${currentLang}`);
     console.log(`⭐ نظام التقييم والإشعارات مفعل`);
+    console.log(`🔄 عدد المشتركين الافتراضيين: ${members.filter(m => m.isVirtual).length}`);
 });
