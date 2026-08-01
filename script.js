@@ -6,16 +6,34 @@ const TIERS = {
     royal: { name: 'ملكي', price: 100, color: '#9B59B6', label: '💠' }
 };
 
-// ===== الترجمات الشاملة =====
+// ===== الترجمات الشاملة لكل عناصر الموقع =====
 const LANG = {
     ar: {
-        // الشريط العلوي
+        // عام
+        site_title: 'مليون مربع',
+        subtitle: 'منصة التواصل البصرية الأولى',
         banner: '🚀 انضم الآن واحجز مربعك المميز',
         available: 'المربعات المتاحة',
         members: 'مشترك',
         revenue: 'إيرادات',
-        site_title: 'مليون مربع',
-        subtitle: 'منصة التواصل البصرية الأولى',
+        year: 'سنة',
+        loading: '⏳ جاري تحميل مليون مربع...',
+        loading_grid: '⏳ جاري تحميل المربعات...',
+        total_squares: 'إجمالي المربعات',
+        virtual_members: 'افتراضي',
+        online: 'متصلون',
+        today: 'جديد اليوم',
+        total: 'الإجمالي',
+        phone: 'الهاتف',
+        trial: 'فترة تجريبية',
+        trial_banner: '🎁 3 أيام تجريبية مجانية لكل مشترك جديد',
+        
+        // أزرار اللغة
+        lang_ar: '🇸🇦 عربي',
+        lang_en: '🇬🇧 English',
+        lang_fr: '🇫🇷 Français',
+        lang_es: '🇪🇸 Español',
+        lang_de: '🇩🇪 Deutsch',
         
         // الرعاة
         sponsors_title: '🌟 الرعاة الداعمون',
@@ -32,18 +50,7 @@ const LANG = {
         sort_location: 'ترتيب حسب البلد',
         sort_tier: 'ترتيب حسب الفئة',
         sort_date: 'الأحدث أولاً',
-        year: 'سنة',
-        
-        // شاشات التحميل
-        loading: '⏳ جاري تحميل مليون مربع...',
-        loading_grid: '⏳ جاري تحميل المربعات...',
-        
-        // إحصائيات الجريد
-        total_squares: 'إجمالي المربعات',
-        virtual_members: 'افتراضي',
-        online: 'متصلون',
-        today: 'جديد اليوم',
-        total: 'الإجمالي',
+        sort_type: 'ترتيب حسب النوع',
         
         // معلومات الموقع
         what_is: '🎯 ما هو مليون مربع؟',
@@ -51,8 +58,8 @@ const LANG = {
         steps_title: '📋 خطوات الاشتراك',
         step1: 'اختر موقعك - انقر على أي مربع فارغ',
         step2: 'حدد المستوى - عادي، فضي، ذهبي، أو ملكي',
-        step3: 'املأ بياناتك - الاسم، البريد، الموقع، صورة',
-        step4: 'ادفع بأمان - عبر PayPal أو Stripe أو IBAN',
+        step3: 'املأ بياناتك - الاسم، البريد، الموقع، صورة، هاتف',
+        step4: 'فترة تجريبية مجانية - 3 أيام بدون دفع',
         step5: 'انطلق! - سيظهر مربعك فوراً',
         
         // نظام الدفع للرعاة
@@ -186,23 +193,31 @@ const LANG = {
         // لوحة التحكم - أدوات
         admin_search: '🔍 بحث في المشتركين...',
         admin_filter_type: 'فلترة حسب النوع',
-        all_types: 'جميع الأنواع',
-        sort_type: 'ترتيب حسب النوع',
-        
-        // أزرار اللغة
-        lang_ar: '🇸🇦 عربي',
-        lang_en: '🇬🇧 English',
-        lang_fr: '🇫🇷 Français',
-        lang_es: '🇪🇸 Español',
-        lang_de: '🇩🇪 Deutsch'
+        all_types: 'جميع الأنواع'
     },
     en: {
+        site_title: 'Million Squares',
+        subtitle: 'The First Visual Communication Platform',
         banner: '🚀 Join now and book your special square',
         available: 'Available squares',
         members: 'Members',
         revenue: 'Revenue',
-        site_title: 'Million Squares',
-        subtitle: 'The First Visual Communication Platform',
+        year: 'year',
+        loading: '⏳ Loading Million Squares...',
+        loading_grid: '⏳ Loading squares...',
+        total_squares: 'Total squares',
+        virtual_members: 'Virtual',
+        online: 'Online',
+        today: 'Today',
+        total: 'Total',
+        phone: 'Phone',
+        trial: 'Trial period',
+        trial_banner: '🎁 3 days free trial for every new member',
+        lang_ar: '🇸🇦 Arabic',
+        lang_en: '🇬🇧 English',
+        lang_fr: '🇫🇷 French',
+        lang_es: '🇪🇸 Spanish',
+        lang_de: '🇩🇪 German',
         sponsors_title: '🌟 Supporting Sponsors',
         become_sponsor: 'Become a Sponsor',
         search: '🔎 Search members...',
@@ -215,21 +230,14 @@ const LANG = {
         sort_location: 'Sort by Location',
         sort_tier: 'Sort by Tier',
         sort_date: 'Latest First',
-        year: 'year',
-        loading: '⏳ Loading Million Squares...',
-        loading_grid: '⏳ Loading squares...',
-        total_squares: 'Total squares',
-        virtual_members: 'Virtual',
-        online: 'Online',
-        today: 'Today',
-        total: 'Total',
+        sort_type: 'Sort by Type',
         what_is: '🎯 What is Million Squares?',
         description: 'A revolutionary platform for interactive digital space.',
         steps_title: '📋 Subscription Steps',
         step1: 'Choose your spot - Click on any empty square',
         step2: 'Select tier - Normal, Silver, Gold, or Royal',
-        step3: 'Fill your data - Name, email, website, image',
-        step4: 'Pay securely - Via PayPal, Stripe, or IBAN',
+        step3: 'Fill your data - Name, email, location, image, phone',
+        step4: 'Free trial - 3 days without payment',
         step5: 'Go! - Your square will appear immediately',
         sponsor_payment_title: '🌟 Sponsor Payment System',
         sponsor_payment_desc: 'Choose the right package for your company.',
@@ -335,21 +343,31 @@ const LANG = {
         f_royal_5: '✅ Top display',
         admin_search: '🔍 Search members...',
         admin_filter_type: 'Filter by type',
-        all_types: 'All types',
-        sort_type: 'Sort by type',
-        lang_ar: '🇸🇦 Arabic',
-        lang_en: '🇬🇧 English',
-        lang_fr: '🇫🇷 French',
-        lang_es: '🇪🇸 Spanish',
-        lang_de: '🇩🇪 German'
+        all_types: 'All types'
     },
     fr: {
+        site_title: 'Million de Carrés',
+        subtitle: 'La première plateforme de communication visuelle',
         banner: '🚀 Rejoignez maintenant et réservez votre carré spécial',
         available: 'Carrés disponibles',
         members: 'Membres',
         revenue: 'Revenus',
-        site_title: 'Million de Carrés',
-        subtitle: 'La première plateforme de communication visuelle',
+        year: 'an',
+        loading: '⏳ Chargement de Million de Carrés...',
+        loading_grid: '⏳ Chargement des carrés...',
+        total_squares: 'Total des carrés',
+        virtual_members: 'Virtuel',
+        online: 'En ligne',
+        today: "Aujourd'hui",
+        total: 'Total',
+        phone: 'Téléphone',
+        trial: 'Période d\'essai',
+        trial_banner: '🎁 3 jours d\'essai gratuit pour chaque nouveau membre',
+        lang_ar: '🇸🇦 Arabe',
+        lang_en: '🇬🇧 Anglais',
+        lang_fr: '🇫🇷 Français',
+        lang_es: '🇪🇸 Espagnol',
+        lang_de: '🇩🇪 Allemand',
         sponsors_title: '🌟 Sponsors soutenant',
         become_sponsor: 'Devenir Sponsor',
         search: '🔎 Rechercher des membres...',
@@ -362,21 +380,14 @@ const LANG = {
         sort_location: 'Trier par lieu',
         sort_tier: 'Trier par niveau',
         sort_date: 'Plus récent',
-        year: 'an',
-        loading: '⏳ Chargement de Million de Carrés...',
-        loading_grid: '⏳ Chargement des carrés...',
-        total_squares: 'Total des carrés',
-        virtual_members: 'Virtuel',
-        online: 'En ligne',
-        today: "Aujourd'hui",
-        total: 'Total',
+        sort_type: 'Trier par type',
         what_is: "🎯 Qu'est-ce que Million de Carrés?",
         description: 'Une plateforme révolutionnaire pour espace numérique interactif.',
         steps_title: "📋 Étapes d'abonnement",
         step1: "Choisissez votre emplacement - Cliquez sur un carré vide",
         step2: 'Sélectionnez le niveau - Normal, Argent, Or, ou Royal',
-        step3: 'Remplissez vos données - Nom, email, site web, image',
-        step4: 'Payez en toute sécurité - Via PayPal, Stripe, ou IBAN',
+        step3: 'Remplissez vos données - Nom, email, site web, image, téléphone',
+        step4: 'Période d\'essai - 3 jours gratuits',
         step5: 'Go! - Votre carré apparaîtra immédiatement',
         sponsor_payment_title: '🌟 Système de paiement des sponsors',
         sponsor_payment_desc: 'Choisissez le forfait adapté à votre entreprise.',
@@ -482,21 +493,31 @@ const LANG = {
         f_royal_5: '✅ Affichage en haut',
         admin_search: '🔍 Rechercher...',
         admin_filter_type: 'Filtrer par type',
-        all_types: 'Tous les types',
-        sort_type: 'Trier par type',
-        lang_ar: '🇸🇦 Arabe',
-        lang_en: '🇬🇧 Anglais',
-        lang_fr: '🇫🇷 Français',
-        lang_es: '🇪🇸 Espagnol',
-        lang_de: '🇩🇪 Allemand'
+        all_types: 'Tous les types'
     },
     es: {
+        site_title: 'Millón de Cuadrados',
+        subtitle: 'La primera plataforma de comunicación visual',
         banner: '🚀 Únete ahora y reserva tu cuadrado especial',
         available: 'Cuadrados disponibles',
         members: 'Miembros',
         revenue: 'Ingresos',
-        site_title: 'Millón de Cuadrados',
-        subtitle: 'La primera plataforma de comunicación visual',
+        year: 'año',
+        loading: '⏳ Cargando Millón de Cuadrados...',
+        loading_grid: '⏳ Cargando cuadrados...',
+        total_squares: 'Total de cuadrados',
+        virtual_members: 'Virtual',
+        online: 'En línea',
+        today: 'Hoy',
+        total: 'Total',
+        phone: 'Teléfono',
+        trial: 'Período de prueba',
+        trial_banner: '🎁 3 días de prueba gratis para cada nuevo miembro',
+        lang_ar: '🇸🇦 Árabe',
+        lang_en: '🇬🇧 Inglés',
+        lang_fr: '🇫🇷 Francés',
+        lang_es: '🇪🇸 Español',
+        lang_de: '🇩🇪 Alemán',
         sponsors_title: '🌟 Patrocinadores',
         become_sponsor: 'Ser Patrocinador',
         search: '🔎 Buscar miembros...',
@@ -509,21 +530,14 @@ const LANG = {
         sort_location: 'Ordenar por ubicación',
         sort_tier: 'Ordenar por nivel',
         sort_date: 'Más reciente',
-        year: 'año',
-        loading: '⏳ Cargando Millón de Cuadrados...',
-        loading_grid: '⏳ Cargando cuadrados...',
-        total_squares: 'Total de cuadrados',
-        virtual_members: 'Virtual',
-        online: 'En línea',
-        today: 'Hoy',
-        total: 'Total',
+        sort_type: 'Ordenar por tipo',
         what_is: '🎯 ¿Qué es Millón de Cuadrados?',
         description: 'Una plataforma revolucionaria para espacio digital interactivo.',
         steps_title: '📋 Pasos de suscripción',
         step1: 'Elige tu lugar - Haz clic en un cuadrado vacío',
         step2: 'Selecciona el nivel - Normal, Plata, Oro o Real',
-        step3: 'Completa tus datos - Nombre, email, sitio web, imagen',
-        step4: 'Paga con seguridad - Vía PayPal, Stripe o IBAN',
+        step3: 'Completa tus datos - Nombre, email, sitio web, imagen, teléfono',
+        step4: 'Prueba gratuita - 3 días sin pago',
         step5: '¡Adelante! - Tu cuadrado aparecerá',
         sponsor_payment_title: '🌟 Sistema de pago para patrocinadores',
         sponsor_payment_desc: 'Elige el paquete adecuado para tu empresa.',
@@ -629,21 +643,31 @@ const LANG = {
         f_royal_5: '✅ Visualización superior',
         admin_search: '🔍 Buscar...',
         admin_filter_type: 'Filtrar por tipo',
-        all_types: 'Todos los tipos',
-        sort_type: 'Ordenar por tipo',
-        lang_ar: '🇸🇦 Árabe',
-        lang_en: '🇬🇧 Inglés',
-        lang_fr: '🇫🇷 Francés',
-        lang_es: '🇪🇸 Español',
-        lang_de: '🇩🇪 Alemán'
+        all_types: 'Todos los tipos'
     },
     de: {
+        site_title: 'Million Quadrate',
+        subtitle: 'Die erste visuelle Kommunikationsplattform',
         banner: '🚀 Jetzt beitreten und dein spezielles Quadrat buchen',
         available: 'Verfügbare Quadrate',
         members: 'Mitglieder',
         revenue: 'Einnahmen',
-        site_title: 'Million Quadrate',
-        subtitle: 'Die erste visuelle Kommunikationsplattform',
+        year: 'Jahr',
+        loading: '⏳ Million Quadrate werden geladen...',
+        loading_grid: '⏳ Quadrate werden geladen...',
+        total_squares: 'Gesamt Quadrate',
+        virtual_members: 'Virtuell',
+        online: 'Online',
+        today: 'Heute',
+        total: 'Gesamt',
+        phone: 'Telefon',
+        trial: 'Testzeitraum',
+        trial_banner: '🎁 3 Tage kostenlose Testversion für jedes neue Mitglied',
+        lang_ar: '🇸🇦 Arabisch',
+        lang_en: '🇬🇧 Englisch',
+        lang_fr: '🇫🇷 Französisch',
+        lang_es: '🇪🇸 Spanisch',
+        lang_de: '🇩🇪 Deutsch',
         sponsors_title: '🌟 Unterstützende Sponsoren',
         become_sponsor: 'Sponsor werden',
         search: '🔎 Mitglieder suchen...',
@@ -656,21 +680,14 @@ const LANG = {
         sort_location: 'Sortieren nach Ort',
         sort_tier: 'Sortieren nach Stufe',
         sort_date: 'Neueste zuerst',
-        year: 'Jahr',
-        loading: '⏳ Million Quadrate werden geladen...',
-        loading_grid: '⏳ Quadrate werden geladen...',
-        total_squares: 'Gesamt Quadrate',
-        virtual_members: 'Virtuell',
-        online: 'Online',
-        today: 'Heute',
-        total: 'Gesamt',
+        sort_type: 'Sortieren nach Typ',
         what_is: '🎯 Was ist Million Quadrate?',
         description: 'Eine revolutionäre Plattform für interaktive digitale Räume.',
         steps_title: '📋 Abonnementschritte',
         step1: 'Wähle deinen Platz - Klicke auf ein leeres Quadrat',
         step2: 'Wähle die Stufe - Normal, Silber, Gold oder Königlich',
-        step3: 'Fülle deine Daten aus - Name, E-Mail, Webseite, Bild',
-        step4: 'Sicher bezahlen - Über PayPal, Stripe oder IBAN',
+        step3: 'Fülle deine Daten aus - Name, E-Mail, Webseite, Bild, Telefon',
+        step4: 'Kostenlose Testversion - 3 Tage ohne Zahlung',
         step5: 'Los! - Dein Quadrat erscheint sofort',
         sponsor_payment_title: '🌟 Sponsor-Zahlungssystem',
         sponsor_payment_desc: 'Wähle das passende Paket für dein Unternehmen.',
@@ -776,13 +793,7 @@ const LANG = {
         f_royal_5: '✅ Oben anzeigen',
         admin_search: '🔍 Suchen...',
         admin_filter_type: 'Nach Typ filtern',
-        all_types: 'Alle Typen',
-        sort_type: 'Nach Typ sortieren',
-        lang_ar: '🇸🇦 Arabisch',
-        lang_en: '🇬🇧 Englisch',
-        lang_fr: '🇫🇷 Französisch',
-        lang_es: '🇪🇸 Spanisch',
-        lang_de: '🇩🇪 Deutsch'
+        all_types: 'Alle Typen'
     }
 };
 
@@ -834,6 +845,7 @@ function calculateRevenue() {
 function generateVirtualMembers(count) {
     const result = [];
     const tierKeys = ['normal', 'silver', 'gold', 'royal'];
+    const phones = ['0501234567', '0559876543', '0567890123', '0543210987', '0576543210'];
     for (let i = 0; i < count; i++) {
         const tier = tierKeys[i % tierKeys.length];
         const nameIndex = i % NAMES.length;
@@ -842,6 +854,7 @@ function generateVirtualMembers(count) {
             id: 'v' + (i + 1),
             name: NAMES[nameIndex],
             email: NAMES[nameIndex].replace(/ /g, '').toLowerCase() + i + '@example.com',
+            phone: phones[i % phones.length],
             location: LOCATIONS[locIndex],
             tier: tier,
             website: 'https://' + NAMES[nameIndex].replace(/ /g, '').toLowerCase() + '.com',
@@ -851,6 +864,7 @@ function generateVirtualMembers(count) {
             isVirtual: true,
             position: i,
             joinDate: new Date().toLocaleDateString('ar-EG'),
+            trialEnd: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString('ar-EG'),
             rating: Math.floor(Math.random() * 5) + 1,
             votes: Math.floor(Math.random() * 50) + 1
         });
@@ -896,7 +910,6 @@ function translatePage(lang) {
     const t = LANG[lang];
     if (!t) return;
     
-    // ترجمة جميع العناصر التي تحمل data-i18n
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
         const key = el.dataset.i18n;
         if (t[key] !== undefined) {
@@ -910,7 +923,6 @@ function translatePage(lang) {
         }
     });
     
-    // ترجمة العناصر التي تحمل data-i18n-placeholder
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
         const key = el.dataset.i18nPlaceholder;
         if (t[key] !== undefined) {
@@ -918,7 +930,6 @@ function translatePage(lang) {
         }
     });
     
-    // ترجمة خيارات select
     document.querySelectorAll('select option[data-i18n]').forEach(function(opt) {
         const key = opt.dataset.i18n;
         if (t[key] !== undefined) {
@@ -926,26 +937,21 @@ function translatePage(lang) {
         }
     });
     
-    // ترجمة زر الحجز
     const bookBtn = document.getElementById('bookSquareBtn');
     if (bookBtn) {
         const span = bookBtn.querySelector('span');
         if (span && t.book_square) span.textContent = t.book_square;
     }
     
-    // ترجمة تلميح الحجز
     const bookHint = document.querySelector('.book-hint');
     if (bookHint && t.book_hint) bookHint.textContent = t.book_hint;
     
-    // ترجمة شاشة التحميل
     const loadingText = document.getElementById('loadingText');
     if (loadingText && t.loading) loadingText.textContent = t.loading;
     
-    // ترجمة مؤشر تحميل المربعات
     const loadingIndicatorText = document.querySelector('#loadingIndicator span');
     if (loadingIndicatorText && t.loading_grid) loadingIndicatorText.textContent = t.loading_grid;
     
-    // ترجمة أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
         const key = 'lang_' + btn.dataset.lang;
         if (t[key] !== undefined) {
@@ -993,18 +999,23 @@ function renderGrid() {
                 const tierInfo = TIERS[member.tier];
                 const stars = '⭐'.repeat(member.rating || 3) + '☆'.repeat(5 - (member.rating || 3));
                 cell.className = 'pixel-cell tier-' + member.tier;
+                const isTrialActive = member.trialEnd && new Date(member.trialEnd) > new Date();
+                
                 cell.innerHTML = 
                     (member.image ? '<img src="' + member.image + '" class="cell-image" loading="lazy">' : '') +
                     '<div class="cell-name">' + member.name + '</div>' +
                     '<div class="cell-tier">' + tierInfo.label + '</div>' +
                     (member.isVirtual ? '<div class="cell-virtual-badge">' + t.virtual_members + '</div>' : '') +
-                    '<div class="cell-tooltip"><strong>' + member.name + '</strong><br>📍 ' + member.location + '<br>✉️ ' + member.email + '<br>💬 ' + member.message + '<br><span style="color:' + tierInfo.color + ';font-weight:700">' + tierInfo.label + ' ' + tierInfo.name + ' ($' + tierInfo.price + '/' + t.year + ')</span><br><small>⭐ ' + stars + ' (' + (member.votes || 0) + ')</small></div>' +
+                    (isTrialActive ? '<div class="trial-badge">🎁 ' + t.trial + '</div>' : '') +
+                    '<div class="cell-tooltip"><strong>' + member.name + '</strong><br>📍 ' + member.location + '<br>✉️ ' + member.email + '<br>📞 ' + (member.phone || '-') + '<br>💬 ' + member.message + '<br><span style="color:' + tierInfo.color + ';font-weight:700">' + tierInfo.label + ' ' + tierInfo.name + ' ($' + tierInfo.price + '/' + t.year + ')</span><br><small>⭐ ' + stars + ' (' + (member.votes || 0) + ')</small></div>' +
                     '<div class="cell-rating"><span class="stars">' + stars + '</span><span class="votes">(' + (member.votes || 0) + ')</span></div>' +
                     (member.isRoyal ? '<div class="royal-crown">👑</div>' : '');
+                
                 (function(m) {
                     cell.addEventListener('click', function() {
                         const tierName = TIERS[m.tier].name;
-                        alert('👤 ' + m.name + '\n📧 ' + m.email + '\n📍 ' + m.location + '\n💬 ' + m.message + '\n🏷️ ' + TIERS[m.tier].label + ' ' + tierName + '\n💰 $' + TIERS[m.tier].price + '/' + t.year);
+                        const isTrial = m.trialEnd && new Date(m.trialEnd) > new Date();
+                        alert('👤 ' + m.name + '\n📧 ' + m.email + '\n📞 ' + (m.phone || '-') + '\n📍 ' + m.location + '\n💬 ' + m.message + '\n🏷️ ' + TIERS[m.tier].label + ' ' + tierName + '\n💰 $' + TIERS[m.tier].price + '/' + t.year + (isTrial ? '\n🎁 ' + t.trial + ': حتى ' + m.trialEnd : ''));
                     });
                 })(member);
             } else {
@@ -1056,7 +1067,7 @@ function updateGridStats() {
     if (tt) tt.textContent = totalCount;
 }
 
-// ===== دالة الحجز =====
+// ===== دالة الحجز مع فترة تجريبية =====
 function bookSquare() {
     const t = LANG[currentLang] || LANG.ar;
     let options = '';
@@ -1071,27 +1082,42 @@ function bookSquare() {
     if (!name) return;
     const email = prompt('✉️ ' + (currentLang === 'ar' ? 'أدخل بريدك الإلكتروني:' : 'Enter your email:'));
     if (!email) return;
+    const phone = prompt('📞 ' + (currentLang === 'ar' ? 'أدخل رقم هاتفك (اختياري):' : 'Enter your phone number (optional):')) || '';
     const location = prompt('📍 ' + (currentLang === 'ar' ? 'أدخل موقعك:' : 'Enter your location:')) || (currentLang === 'ar' ? 'غير محدد' : 'Not specified');
     const website = prompt('🔗 ' + (currentLang === 'ar' ? 'رابط موقعك (اختياري):' : 'Website link (optional):')) || '';
     const image = prompt('🖼️ ' + (currentLang === 'ar' ? 'رابط الصورة (اختياري):' : 'Image URL (optional):')) || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
 
-    const method = prompt('💳 ' + (currentLang === 'ar' ? 'طريقة الدفع:\n1. PayPal\n2. Stripe\n3. IBAN\n\nأدخل الرقم (1-3):' : 'Payment method:\n1. PayPal\n2. Stripe\n3. IBAN\n\nEnter number (1-3):'));
-    if (!method || !['1','2','3'].includes(method)) { alert('❌ ' + (currentLang === 'ar' ? 'طريقة غير صحيحة' : 'Invalid method')); return; }
-    const methods = ['PayPal','Stripe','IBAN'];
-    alert('✅ ' + (currentLang === 'ar' ? 'جارٍ التحويل إلى ' : 'Redirecting to ') + methods[parseInt(method)-1] + '\n' + (currentLang === 'ar' ? 'المبلغ: $' : 'Amount: $') + tierInfo.price);
+    // فترة تجريبية 3 أيام
+    const trialEnd = new Date();
+    trialEnd.setDate(trialEnd.getDate() + 3);
+    const trialEndStr = trialEnd.toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US');
 
+    const method = prompt('💳 ' + (currentLang === 'ar' ? 'طريقة الدفع:\n1. PayPal\n2. Stripe\n3. IBAN\n\nأدخل الرقم (1-3) (اختياري للتجربة):' : 'Payment method:\n1. PayPal\n2. Stripe\n3. IBAN\n\nEnter number (1-3) (optional for trial):'));
+    
+    // إضافة المشترك مع فترة تجريبية
     const newMember = {
         id: 'm' + Date.now(),
-        name, email, location, tier: choice, website, image,
+        name, email, phone, location, tier: choice, website, image,
         message: (currentLang === 'ar' ? 'مرحباً، أنا ' : 'Hello, I am ') + name + (currentLang === 'ar' ? ' من ' : ' from ') + location,
         isRoyal: choice === 'royal',
         isVirtual: false,
         position: members.length,
         rating: 0, votes: 0,
-        joinDate: new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US')
+        joinDate: new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US'),
+        trialEnd: trialEndStr,
+        isTrial: true
     };
     
     members.push(newMember);
+    
+    // إذا اختار طريقة دفع، نضيف الإيرادات (بعد انتهاء التجربة)
+    if (method && ['1','2','3'].includes(method)) {
+        const methods = ['PayPal','Stripe','IBAN'];
+        alert('✅ ' + (currentLang === 'ar' ? 'جارٍ التحويل إلى ' : 'Redirecting to ') + methods[parseInt(method)-1] + '\n' + (currentLang === 'ar' ? 'المبلغ: $' : 'Amount: $') + tierInfo.price + '\n' + (currentLang === 'ar' ? 'سيتم خصم المبلغ بعد انتهاء الفترة التجريبية' : 'The amount will be deducted after the trial period'));
+        // نضيف الإيرادات مؤقتاً
+        totalRevenue += tierInfo.price;
+    }
+    
     const rev = calculateRevenue();
     totalRevenue = rev.real;
     virtualRevenue = rev.virtual;
@@ -1100,7 +1126,7 @@ function bookSquare() {
     renderMembersTable();
     updateStats();
     updateRoyalBackground();
-    alert('🎉 ' + (currentLang === 'ar' ? 'تم الاشتراك بنجاح!' : 'Subscription successful!'));
+    alert('🎉 ' + (currentLang === 'ar' ? 'تم الاشتراك بنجاح! فترة تجريبية 3 أيام' : 'Subscription successful! 3 days trial period'));
 }
 
 // ===== الرعاة =====
@@ -1171,6 +1197,7 @@ function renderMembersTable() {
     let filtered = members.filter(function(m) {
         const matchSearch = m.name.toLowerCase().includes(searchText) || 
                            m.email.toLowerCase().includes(searchText) || 
+                           (m.phone && m.phone.includes(searchText)) ||
                            m.location.toLowerCase().includes(searchText);
         const matchType = filterTypeValue === 'all' || 
                          (filterTypeValue === 'real' && !m.isVirtual) || 
@@ -1198,13 +1225,18 @@ function renderMembersTable() {
             '<span class="member-type-badge virtual">🔄 ' + t.virtual_members + '</span>' : 
             '<span class="member-type-badge real">✅ ' + t.real_members + '</span>';
         const index = members.indexOf(m);
+        const isTrialActive = m.trialEnd && new Date(m.trialEnd) > new Date();
+        const trialStatus = isTrialActive ? '🟢 ' + (currentLang === 'ar' ? 'نشطة' : 'Active') : '🔴 ' + (currentLang === 'ar' ? 'منتهية' : 'Expired');
+        
         tr.innerHTML = 
             '<td><strong>' + m.name + '</strong></td>' +
             '<td>' + m.email + '</td>' +
+            '<td>' + (m.phone || '-') + '</td>' +
             '<td><span style="color:' + tierInfo.color + ';font-weight:700">' + tierInfo.label + ' ' + tierInfo.name + '</span></td>' +
             '<td>' + m.location + '</td>' +
             '<td>' + typeBadge + '</td>' +
             '<td>' + (m.joinDate || (currentLang === 'ar' ? 'غير محدد' : 'Unknown')) + '</td>' +
+            '<td>' + trialStatus + (m.trialEnd ? '<br><small>' + m.trialEnd + '</small>' : '') + '</td>' +
             '<td><button class="delete-btn" data-index="' + index + '">🗑️ ' + t.delete + '</button></td>';
         membersTableBody.appendChild(tr);
     });
@@ -1227,7 +1259,6 @@ function updateAdminStats() {
     }
     const totalCount = members.length;
     const rev = calculateRevenue();
-    const t = LANG[currentLang] || LANG.ar;
     
     const ids = ['adminTotalMembers', 'adminRealMembers', 'adminVirtualMembers', 'adminTotalRevenue',
                  'tableTotalMembers', 'tableRealCount', 'tableVirtualCount', 'tableRealRevenue', 'tableVirtualRevenue'];
@@ -1334,7 +1365,6 @@ document.addEventListener('DOMContentLoaded', function() {
     siteBackground = document.getElementById('siteBackground');
     loadingIndicator = document.getElementById('loadingIndicator');
 
-    // الساعة
     setInterval(function() {
         if (liveClock) {
             const now = new Date();
@@ -1342,13 +1372,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 
-    // عرض المربعات
     renderGrid();
 
-    // زر الحجز
     document.getElementById('bookSquareBtn').addEventListener('click', bookSquare);
 
-    // البحث في الجريد
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             const text = this.value.toLowerCase();
@@ -1361,7 +1388,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // التحكم بالزوم
     document.getElementById('zoomInBtn').addEventListener('click', function() {
         currentZoom = Math.min(2, currentZoom + 0.1);
         applyZoom();
@@ -1375,7 +1401,6 @@ document.addEventListener('DOMContentLoaded', function() {
         applyZoom();
     });
 
-    // تبديل الثيم
     document.getElementById('themeToggle').addEventListener('click', function() {
         document.body.classList.toggle('light-mode');
         const isLight = document.body.classList.contains('light-mode');
@@ -1389,7 +1414,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (toggle) toggle.innerHTML = '<i class="fas fa-sun"></i>';
     }
 
-    // الشاشة الكاملة
     document.getElementById('fullscreenBtn').addEventListener('click', function() {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen();
@@ -1402,7 +1426,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // زر العودة للأعلى
     const backBtn = document.getElementById('backToTop');
     if (backBtn) {
         window.addEventListener('scroll', function() {
@@ -1413,7 +1436,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // زر الدخول المخفي للوحة التحكم
     document.getElementById('adminSecretBtn').addEventListener('click', function() {
         adminClickCount++;
         if (adminClickCount === 1) {
@@ -1434,7 +1456,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // الدخول إلى لوحة التحكم
     document.getElementById('adminLoginBtn').addEventListener('click', function() {
         const email = document.getElementById('adminEmail').value;
         const password = document.getElementById('adminPassword').value;
@@ -1454,7 +1475,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // تبويبات
     document.querySelectorAll('.tab-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -1464,7 +1484,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // أحداث لوحة التحكم
     ['adminSearchInput', 'adminFilterType', 'adminFilterTier', 'adminSortBy'].forEach(function(id) {
         const el = document.getElementById(id);
         if (el) {
@@ -1473,24 +1492,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // إضافة مشترك
     document.getElementById('addMemberBtn').addEventListener('click', function() {
         const t = LANG[currentLang] || LANG.ar;
         const name = prompt('👤 ' + (currentLang === 'ar' ? 'اسم المشترك الكامل:' : 'Full member name:'));
         if (!name) return;
         const email = prompt('✉️ ' + (currentLang === 'ar' ? 'البريد:' : 'Email:'));
         if (!email) return;
+        const phone = prompt('📞 ' + (currentLang === 'ar' ? 'رقم الهاتف (اختياري):' : 'Phone number (optional):')) || '';
         const location = prompt('📍 ' + (currentLang === 'ar' ? 'الموقع:' : 'Location:')) || (currentLang === 'ar' ? 'غير محدد' : 'Not specified');
         const tier = prompt('🏷️ ' + (currentLang === 'ar' ? 'المستوى (normal/silver/gold/royal):' : 'Tier (normal/silver/gold/royal):')) || 'normal';
         if (!TIERS[tier]) { alert('❌ ' + (currentLang === 'ar' ? 'مستوى غير صحيح' : 'Invalid tier')); return; }
         const image = prompt('🖼️ ' + (currentLang === 'ar' ? 'رابط الصورة:' : 'Image URL:')) || 'https://picsum.photos/seed/' + Date.now() + '/100/100';
+        
+        const trialEnd = new Date();
+        trialEnd.setDate(trialEnd.getDate() + 3);
+        const trialEndStr = trialEnd.toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US');
+
         members.push({
             id: 'm' + Date.now(),
-            name, email, location, tier, image,
+            name, email, phone, location, tier, image,
             website: '', message: (currentLang === 'ar' ? 'مرحباً، أنا ' : 'Hello, I am ') + name,
             isRoyal: tier === 'royal', isVirtual: false,
             position: members.length, rating: 0, votes: 0,
-            joinDate: new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US')
+            joinDate: new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US'),
+            trialEnd: trialEndStr,
+            isTrial: true
         });
         totalRevenue += TIERS[tier].price;
         saveData();
@@ -1498,14 +1524,13 @@ document.addEventListener('DOMContentLoaded', function() {
         renderGrid();
         updateStats();
         updateRoyalBackground();
-        alert('✅ ' + (currentLang === 'ar' ? 'تم إضافة المشترك' : 'Member added'));
+        alert('✅ ' + (currentLang === 'ar' ? 'تم إضافة المشترك مع فترة تجريبية 3 أيام' : 'Member added with 3 days trial'));
     });
 
-    // تصدير
     document.getElementById('exportMembersBtn').addEventListener('click', function() {
-        let csv = 'الاسم,البريد,المستوى,الموقع,النوع\n';
+        let csv = 'الاسم,البريد,الهاتف,المستوى,الموقع,النوع,تاريخ الانضمام,الفترة التجريبية\n';
         members.forEach(function(m) {
-            csv += m.name + ',' + m.email + ',' + m.tier + ',' + m.location + ',' + (m.isVirtual ? 'افتراضي' : 'حقيقي') + '\n';
+            csv += m.name + ',' + m.email + ',' + (m.phone || '') + ',' + m.tier + ',' + m.location + ',' + (m.isVirtual ? 'افتراضي' : 'حقيقي') + ',' + (m.joinDate || '') + ',' + (m.trialEnd || '') + '\n';
         });
         const blob = new Blob([csv], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
@@ -1516,14 +1541,12 @@ document.addEventListener('DOMContentLoaded', function() {
         URL.revokeObjectURL(url);
     });
 
-    // تحديث الجدول
     document.getElementById('refreshMembersBtn').addEventListener('click', function() {
         renderMembersTable();
         updateStats();
         alert('✅ ' + (currentLang === 'ar' ? 'تم تحديث البيانات' : 'Data updated'));
     });
 
-    // إضافة راعي
     document.getElementById('addSponsorBtn').addEventListener('click', function() {
         const name = document.getElementById('sponsorName').value.trim();
         const link = document.getElementById('sponsorLink').value.trim();
@@ -1540,7 +1563,6 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ ' + (currentLang === 'ar' ? 'تم إضافة الراعي' : 'Sponsor added'));
     });
 
-    // حفظ إعدادات التواصل
     document.getElementById('saveSocialSettings').addEventListener('click', function() {
         socialLinks.facebook = document.getElementById('socialFacebook').value.trim();
         socialLinks.twitter = document.getElementById('socialTwitter').value.trim();
@@ -1553,7 +1575,6 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ ' + (currentLang === 'ar' ? 'تم حفظ روابط التواصل الاجتماعي' : 'Social media links saved'));
     });
 
-    // إعدادات الدفع
     document.getElementById('savePaymentSettings').addEventListener('click', function() {
         localStorage.setItem('paypal', document.getElementById('paypalSetting').value);
         localStorage.setItem('stripe', document.getElementById('stripeSetting').value);
@@ -1561,14 +1582,12 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('✅ ' + (currentLang === 'ar' ? 'تم حفظ إعدادات الدفع' : 'Payment settings saved'));
     });
 
-    // إعدادات المدير
     document.getElementById('saveSettingsBtn').addEventListener('click', function() {
         localStorage.setItem('adminEmail', document.getElementById('adminEmailSetting').value);
         localStorage.setItem('adminName', document.getElementById('adminNameSetting').value);
         alert('✅ ' + (currentLang === 'ar' ? 'تم حفظ إعدادات المدير' : 'Admin settings saved'));
     });
 
-    // تغيير كلمة السر
     document.getElementById('changePasswordBtn').addEventListener('click', function() {
         const pass = document.getElementById('newPassword').value.trim();
         if (pass.length < 4) { alert('❌ ' + (currentLang === 'ar' ? '4 أحرف على الأقل' : 'At least 4 characters')); return; }
@@ -1577,7 +1596,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('newPassword').value = '';
     });
 
-    // الاقتراحات
     document.getElementById('suggestionForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('suggesterName').value.trim();
@@ -1607,7 +1625,6 @@ document.addEventListener('DOMContentLoaded', function() {
         list.innerHTML = html;
     }
 
-    // رعاة الدفع
     document.querySelectorAll('.sponsor-pay-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             const plan = this.dataset.plan;
@@ -1629,14 +1646,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // أزرار اللغة
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             setLanguage(this.dataset.lang);
         });
     });
 
-    // تهيئة العناصر
     renderSponsors();
     renderMembersTable();
     renderSponsorList();
@@ -1645,17 +1660,14 @@ document.addEventListener('DOMContentLoaded', function() {
     updateRoyalBackground();
     updateSocialLinks();
 
-    // تحميل الإعدادات
     document.getElementById('adminEmailSetting').value = localStorage.getItem('adminEmail') || '';
     document.getElementById('adminNameSetting').value = localStorage.getItem('adminName') || '';
     document.getElementById('paypalSetting').value = localStorage.getItem('paypal') || '';
     document.getElementById('stripeSetting').value = localStorage.getItem('stripe') || '';
     document.getElementById('ibanSetting').value = localStorage.getItem('iban') || '';
 
-    // تطبيق اللغة
     setLanguage(currentLang);
 
-    // إخفاء شاشة التحميل
     setTimeout(function() {
         const loading = document.getElementById('loadingScreen');
         if (loading) loading.classList.add('hidden');
