@@ -7,8 +7,6 @@
     <meta name="description" content="مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي.">
     <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
-    <!-- Stripe SDK -->
-    <script src="https://js.stripe.com/v3/"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
@@ -447,48 +445,161 @@
         }
 
         /* ============================================================
-                   PAYMENT BUTTONS
+                   SPONSOR PLANS - Premium Cards
                    ============================================================ */
-        .payment-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 10px 0;
+        .sponsor-plans-section {
+            padding: 40px 0;
+            margin: 30px 0;
         }
-        .payment-buttons .btn-paypal {
+        .sponsor-plans-section .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .sponsor-plans-section .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .plan-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px 25px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .plan-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 60px rgba(247, 201, 72, 0.15);
+        }
+        .plan-card.popular {
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+        .plan-card.popular::before {
+            content: '⭐ الأكثر طلباً';
+            position: absolute;
+            top: 12px;
+            right: -30px;
+            background: var(--gold);
+            color: #1a2330;
+            padding: 4px 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            white-space: nowrap;
+        }
+        .plan-card .plan-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .plan-card .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .plan-card .plan-name .highlight {
+            color: var(--gold);
+        }
+        .plan-card .plan-price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin: 8px 0;
+        }
+        .plan-card .plan-price .currency {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .plan-card .plan-price .period {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        .plan-card .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 20px;
+            text-align: right;
+        }
+        .plan-card .plan-features li {
+            padding: 6px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .plan-card .plan-features li .check {
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .plan-card .plan-features li:last-child {
+            border-bottom: none;
+        }
+        .plan-card .btn-plan {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border: none;
+            color: #1a2330;
+            padding: 12px 30px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+        }
+        .plan-card .btn-plan:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(247, 201, 72, 0.3);
+        }
+        .plan-card .btn-plan.paypal-btn {
             background: #0070ba;
             color: #fff;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
         }
-        .payment-buttons .btn-paypal:hover {
+        .plan-card .btn-plan.paypal-btn:hover {
             background: #005ea6;
-            transform: scale(1.05);
         }
-        .payment-buttons .btn-stripe {
-            background: #635bff;
-            color: #fff;
-            border: none;
-            padding: 10px 24px;
+        .plan-card .badge-sponsor {
+            display: inline-block;
+            padding: 4px 16px;
             border-radius: 30px;
+            font-size: 0.7rem;
             font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin-top: 10px;
         }
-        .payment-buttons .btn-stripe:hover {
-            background: #4a42cc;
-            transform: scale(1.05);
+        .badge-weekly {
+            background: #1a4a3a;
+            color: #7fdb9a;
+        }
+        .badge-monthly {
+            background: #4a3a1a;
+            color: var(--gold);
+        }
+        .badge-yearly {
+            background: #3a1a5a;
+            color: #c08aff;
         }
 
         /* ============================================================
@@ -642,7 +753,7 @@
         }
 
         /* ============================================================
-                   SPONSOR STRIP
+                   SPONSOR STRIP - ANIMATED
                    ============================================================ */
         .sponsor-strip {
             background: var(--bg-secondary);
@@ -1102,18 +1213,6 @@
             border-radius: 20px;
             font-weight: 700;
         }
-        .square-card .payment-pending {
-            position: absolute;
-            bottom: 2px;
-            left: 2px;
-            background: var(--red);
-            color: #fff;
-            font-size: 0.4rem;
-            padding: 1px 6px;
-            border-radius: 20px;
-            font-weight: 700;
-            animation: pulse 2s infinite;
-        }
         .square-card .view-details-hint {
             position: absolute;
             bottom: 2px;
@@ -1148,6 +1247,144 @@
         .square-card.plan-silver .plan-badge {
             background: var(--silver);
             color: #1a2330;
+        }
+
+        /* ============================================================
+                   MODAL
+                   ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 2px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 30px;
+            max-width: 480px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+        .modal-content .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .modal-content .modal-close:hover {
+            color: var(--red);
+            transform: rotate(90deg);
+        }
+        .modal-content .modal-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            overflow: hidden;
+            background: var(--bg-input);
+        }
+        .modal-content .modal-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--gold);
+        }
+        .modal-content .modal-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+        .modal-content .modal-detail .label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .modal-content .modal-detail .value {
+            color: var(--text-primary);
+            text-align: left;
+            direction: ltr;
+        }
+        .modal-content .modal-plan-badge {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 30px;
+            background: var(--bg-input);
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin: 4px auto;
+        }
+        .modal-content .modal-rating {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin: 4px 0;
+        }
+        .modal-content .modal-specialty {
+            text-align: center;
+            background: var(--bg-input);
+            padding: 3px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 4px auto;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .modal-content .modal-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .modal-content .modal-actions button {
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .modal-content .modal-actions .btn-close-modal {
+            background: var(--red);
+            color: #fff;
+        }
+        .modal-content .modal-actions .btn-close-modal:hover {
+            background: #c0392b;
+        }
+        .modal-content .modal-actions .btn-contact {
+            background: var(--blue);
+            color: #fff;
+        }
+        .modal-content .modal-actions .btn-contact:hover {
+            background: var(--blue-dark);
         }
 
         /* ============================================================
@@ -1318,218 +1555,6 @@
             transform: scale(1.05);
         }
 
-        /* ============================================================
-                   MODAL
-                   ============================================================ */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-        }
-        .modal-overlay.active {
-            display: flex;
-        }
-        .modal-content {
-            background: var(--bg-secondary);
-            border: 2px solid var(--gold);
-            border-radius: var(--radius);
-            padding: 30px;
-            max-width: 480px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            position: relative;
-        }
-        .modal-content .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 14px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.6rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .modal-content .modal-close:hover {
-            color: var(--red);
-            transform: rotate(90deg);
-        }
-        .modal-content .modal-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 3px solid var(--gold);
-            margin: 0 auto 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            overflow: hidden;
-            background: var(--bg-input);
-        }
-        .modal-content .modal-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            text-align: center;
-            color: var(--gold);
-        }
-        .modal-content .modal-detail {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.9rem;
-        }
-        .modal-content .modal-detail .label {
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-        .modal-content .modal-detail .value {
-            color: var(--text-primary);
-            text-align: left;
-            direction: ltr;
-        }
-        .modal-content .modal-plan-badge {
-            display: inline-block;
-            padding: 3px 14px;
-            border-radius: 30px;
-            background: var(--bg-input);
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin: 4px auto;
-        }
-        .modal-content .modal-rating {
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--gold);
-            margin: 4px 0;
-        }
-        .modal-content .modal-specialty {
-            text-align: center;
-            background: var(--bg-input);
-            padding: 3px 12px;
-            border-radius: 20px;
-            display: inline-block;
-            margin: 4px auto;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-        .modal-content .modal-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .modal-content .modal-actions button {
-            padding: 8px 20px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-        .modal-content .modal-actions .btn-close-modal {
-            background: var(--red);
-            color: #fff;
-        }
-        .modal-content .modal-actions .btn-close-modal:hover {
-            background: #c0392b;
-        }
-        .modal-content .modal-actions .btn-contact {
-            background: var(--blue);
-            color: #fff;
-        }
-        .modal-content .modal-actions .btn-contact:hover {
-            background: var(--blue-dark);
-        }
-        .modal-content .modal-actions .btn-pay {
-            background: var(--gold);
-            color: #1a2330;
-        }
-        .modal-content .modal-actions .btn-pay:hover {
-            background: var(--gold-dark);
-        }
-
-        /* ============================================================
-                   SUGGESTION FORM
-                   ============================================================ */
-        .suggestion-section {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 25px;
-            margin: 25px 0;
-            border: 1px solid var(--border-color);
-        }
-        .suggestion-section h3 {
-            color: var(--gold);
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .suggestion-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .suggestion-form .form-group {
-            margin-bottom: 12px;
-        }
-        .suggestion-form .form-group label {
-            display: block;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-        .suggestion-form .form-group input,
-        .suggestion-form .form-group textarea {
-            width: 100%;
-            padding: 10px 14px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-        .suggestion-form .form-group input:focus,
-        .suggestion-form .form-group textarea:focus {
-            border-color: var(--blue);
-            outline: none;
-        }
-        .suggestion-form .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        .suggestion-form .btn-submit-suggestion {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            border: none;
-            color: #1a2330;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-        }
-        .suggestion-form .btn-submit-suggestion:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(247, 201, 72, 0.3);
-        }
-
         .section-title {
             font-size: 1.3rem;
             font-weight: 700;
@@ -1581,6 +1606,37 @@
         .btn-secondary:hover {
             border-color: var(--blue);
             color: var(--text-primary);
+        }
+        .btn-sponsor {
+            background: linear-gradient(135deg, var(--purple), var(--blue));
+            border: none;
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 30px rgba(79, 124, 247, 0.3);
+        }
+        .btn-sponsor:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(79, 124, 247, 0.5);
+        }
+        .btn-sponsor .sparkle {
+            display: inline-block;
+            animation: sparkle 2s infinite;
+        }
+        @keyframes sparkle {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
         }
 
         .footer {
@@ -1663,6 +1719,121 @@
             }
         }
 
+        /* ============================================================
+                   SPONSOR MODAL
+                   ============================================================ */
+        .sponsor-modal .modal-content {
+            max-width: 500px;
+        }
+        .sponsor-modal .sponsor-form .form-group {
+            margin-bottom: 12px;
+        }
+        .sponsor-modal .sponsor-form .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+        .sponsor-modal .sponsor-form .form-group input,
+        .sponsor-modal .sponsor-form .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .sponsor-modal .sponsor-form .form-group input:focus,
+        .sponsor-modal .sponsor-form .form-group textarea:focus {
+            border-color: var(--blue);
+            outline: none;
+        }
+        .sponsor-modal .sponsor-form .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .sponsor-modal .sponsor-form .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        .sponsor-modal .sponsor-form .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .sponsor-modal .sponsor-form .file-input-wrapper .file-label {
+            display: block;
+            padding: 8px 12px;
+            background: var(--bg-input);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .sponsor-modal .sponsor-form .file-input-wrapper .file-label:hover {
+            border-color: var(--blue);
+            color: var(--text-primary);
+        }
+        .sponsor-modal .selected-plan-display {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            margin: 10px 0;
+            border: 1px solid var(--gold);
+        }
+        .sponsor-modal .selected-plan-display .plan-emoji {
+            font-size: 2rem;
+            display: block;
+        }
+        .sponsor-modal .selected-plan-display .plan-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .sponsor-modal .selected-plan-display .plan-price {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+        .sponsor-modal .selected-plan-display .plan-period {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .sponsor-modal .btn-paypal-sponsor {
+            background: #0070ba;
+            border: none;
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .sponsor-modal .btn-paypal-sponsor:hover {
+            background: #005ea6;
+            transform: scale(1.02);
+        }
+
         @media (max-width: 768px) {
             .logo-main {
                 font-size: 2.8rem !important;
@@ -1721,12 +1892,25 @@
             .seo-section h2 {
                 font-size: 1.3rem;
             }
-            .subscribe-modal .plan-selector {
-                grid-template-columns: 1fr 1fr;
+            .plans-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
             }
-            .payment-buttons {
-                flex-direction: column;
-                align-items: center;
+            .plan-card.popular {
+                transform: scale(1);
+            }
+            .plan-card.popular::before {
+                font-size: 0.6rem;
+                padding: 3px 30px;
+                top: 10px;
+                right: -25px;
+            }
+            .sponsor-plans-section .section-title {
+                font-size: 1.5rem;
+            }
+            .btn-sponsor {
+                padding: 10px 24px;
+                font-size: 0.95rem;
             }
         }
         @media (max-width: 480px) {
@@ -1739,7 +1923,8 @@
                 border-radius: 30px;
                 padding: 12px;
             }
-            .btn-gold {
+            .btn-gold,
+            .btn-sponsor {
                 padding: 10px 20px;
                 font-size: 0.9rem;
             }
@@ -1779,8 +1964,8 @@
             .seo-section .seo-text {
                 font-size: 0.9rem;
             }
-            .subscribe-modal .plan-selector {
-                grid-template-columns: 1fr;
+            .plans-grid {
+                padding: 0 10px;
             }
         }
     </style>
@@ -1816,131 +2001,57 @@
     </div>
 
     <!-- ============================================================
-    MODAL
+    SPONSOR MODAL
     ============================================================ -->
-    <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
-        <div class="modal-content" id="modalContent">
-            <button class="modal-close" onclick="closeModal()">✕</button>
-            <div class="modal-avatar" id="modalAvatar">🧑</div>
-            <div class="modal-name" id="modalName">اسم المشترك</div>
-            <div style="text-align:center;margin:3px 0;">
-                <span class="modal-specialty" id="modalSpecialty">🔬 اختصاص</span>
-            </div>
-            <div style="text-align:center;margin:4px 0;">
-                <span class="modal-plan-badge" id="modalPlan">💎 الباقة</span>
-            </div>
-            <div class="modal-rating" id="modalRating">⭐ ⭐ ⭐ ⭐ ⭐ (4.5)</div>
-            <div style="margin:10px 0;">
-                <div class="modal-detail"><span class="label" id="modalLabelLocation">📍 الموقع</span><span class="value" id="modalLocation">المدينة، البلد</span></div>
-                <div class="modal-detail"><span class="label" id="modalLabelEmail">✉️ البريد</span><span class="value" id="modalEmail">email@example.com</span></div>
-                <div class="modal-detail"><span class="label" id="modalLabelDate">📅 تاريخ الانضمام</span><span class="value" id="modalDate">2024-01-01</span></div>
-                <div class="modal-detail"><span class="label" id="modalLabelStatus">🏷️ الحالة</span><span class="value" id="modalStatus">نشط</span></div>
-                <div class="modal-detail"><span class="label" id="modalLabelPlanFeatures">⭐ مميزات الباقة</span><span class="value" id="modalPlanFeatures">-</span></div>
-                <div class="modal-detail"><span class="label" id="modalLabelSubscription">📋 حالة الاشتراك</span><span class="value" id="modalSubscription">-</span></div>
-            </div>
-            <div class="payment-buttons" id="paymentButtons" style="display:none;">
-                <button class="btn-paypal" onclick="payWithPayPal()">💳 الدفع بـ PayPal</button>
-                <button class="btn-stripe" onclick="payWithStripe()">💳 الدفع بـ Stripe</button>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-contact" onclick="contactSubscriber()" id="modalBtnContact">📧 تواصل</button>
-                <button class="btn-pay" onclick="openSubscribeModal()" id="modalBtnSubscribe">🚀 اشتراك</button>
-                <button class="btn-close-modal" onclick="closeModal()" id="modalBtnClose">✕ إغلاق</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================
-    SUBSCRIPTION MODAL
-    ============================================================ -->
-    <div class="modal-overlay subscribe-modal" id="subscribeOverlay" onclick="if(event.target===this) closeSubscribeModal()">
+    <div class="modal-overlay sponsor-modal" id="sponsorModal" onclick="if(event.target===this) closeSponsorModal()">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeSubscribeModal()">✕</button>
-            <h2 style="text-align:center;color:var(--gold);margin-bottom:14px;" id="subModalTitle">🚀 الاشتراك في مليون مربع</h2>
+            <button class="modal-close" onclick="closeSponsorModal()">✕</button>
+            <h2 style="text-align:center;color:var(--gold);margin-bottom:14px;" id="sponsorModalTitle">🌟 دعم مليون مربع</h2>
+            <p style="text-align:center;color:var(--text-secondary);margin-bottom:16px;" id="sponsorModalSub">اختر الباقة المناسبة لدعم المنصة</p>
 
-            <div class="trial-info" id="trialInfo">
-                <span id="trialInfoText">🎁 <span class="days">3 أيام</span> تجريبية مجانية</span>
-                <br>
-                <span style="font-size:0.75rem;color:var(--text-secondary);" id="trialInfoSub">بعد انتهاء الفترة التجريبية سيتم تحصيل قيمة الاشتراك تلقائياً</span>
-                <br>
-                <span class="countdown" id="trialCountdown"></span>
+            <div class="selected-plan-display" id="selectedPlanDisplay">
+                <span class="plan-emoji" id="selectedPlanEmoji">💎</span>
+                <span class="plan-name" id="selectedPlanName">عادي</span>
+                <span class="plan-price" id="selectedPlanPrice">$1</span>
+                <span class="plan-period" id="selectedPlanPeriod">/ سنة</span>
             </div>
 
-            <form id="subscribeForm" onsubmit="handleSubscription(event)">
+            <form class="sponsor-form" onsubmit="handleSponsorSubmit(event)">
                 <div class="form-group">
-                    <label id="subLabelName">👤 الاسم الكامل</label>
-                    <input type="text" id="subFullName" placeholder="أدخل اسمك الكامل" required dir="auto">
+                    <label id="sponsorNameLabel">👤 الاسم الكامل</label>
+                    <input type="text" id="sponsorName" placeholder="أدخل اسمك الكامل" required dir="auto">
                 </div>
                 <div class="form-group">
-                    <label id="subLabelEmail">✉️ البريد الإلكتروني</label>
-                    <input type="email" id="subFullEmail" placeholder="example@email.com" required dir="ltr">
+                    <label id="sponsorEmailLabel">✉️ البريد الإلكتروني</label>
+                    <input type="email" id="sponsorEmail" placeholder="example@email.com" required dir="ltr">
                 </div>
                 <div class="form-group">
-                    <label id="subLabelLocation">📍 الموقع (المدينة، البلد)</label>
-                    <input type="text" id="subFullLocation" placeholder="مثال: الرياض، السعودية" required dir="auto">
+                    <label id="sponsorCompanyLabel">🏢 اسم الشركة / العلامة التجارية</label>
+                    <input type="text" id="sponsorCompany" placeholder="اسم الشركة أو العلامة التجارية" dir="auto">
                 </div>
                 <div class="form-group">
-                    <label id="subLabelSpecialty">🔬 الاختصاص</label>
-                    <input type="text" id="subFullSpecialty" placeholder="مثال: تطوير ويب، تسويق..." dir="auto">
+                    <label id="sponsorWebsiteLabel">🔗 رابط الموقع (اختياري)</label>
+                    <input type="url" id="sponsorWebsite" placeholder="https://example.com" dir="ltr">
                 </div>
                 <div class="form-group">
-                    <label id="subLabelPhone">📱 رقم الهاتف</label>
-                    <input type="tel" id="subFullPhone" placeholder="+966 5xxxxxxx" dir="ltr">
+                    <label id="sponsorMessageLabel">📝 رسالة دعم (اختياري)</label>
+                    <textarea id="sponsorMessage" placeholder="اكتب رسالة دعمك..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label id="subLabelPlan">💎 اختر الباقة</label>
-                    <div class="plan-selector" id="planSelector">
-                        <div class="plan-option selected" data-plan="💎 عادي ($1/سنة)" data-plan-type="basic" data-amount="1" onclick="selectPlan(this)">
-                            <span class="plan-icon">💎</span>
-                            <span class="plan-name">عادي</span>
-                            <span class="plan-price">$1/سنة</span>
-                        </div>
-                        <div class="plan-option" data-plan="⭐ فضي ($5/سنة)" data-plan-type="silver" data-amount="5" onclick="selectPlan(this)">
-                            <span class="plan-icon">⭐</span>
-                            <span class="plan-name">فضي</span>
-                            <span class="plan-price">$5/سنة</span>
-                        </div>
-                        <div class="plan-option" data-plan="👑 ذهبي ($10/سنة)" data-plan-type="gold" data-amount="10" onclick="selectPlan(this)">
-                            <span class="plan-icon">👑</span>
-                            <span class="plan-name">ذهبي</span>
-                            <span class="plan-price">$10/سنة</span>
-                        </div>
-                        <div class="plan-option" data-plan="💠 ملكي ($100/سنة)" data-plan-type="royal" data-amount="100" onclick="selectPlan(this)">
-                            <span class="plan-icon">💠</span>
-                            <span class="plan-name">ملكي</span>
-                            <span class="plan-price">$100/سنة</span>
-                        </div>
-                    </div>
-                    <input type="hidden" id="subSelectedPlan" value="💎 عادي ($1/سنة)">
-                    <input type="hidden" id="subSelectedPlanType" value="basic">
-                    <input type="hidden" id="subSelectedAmount" value="1">
-                </div>
-                <div class="form-group">
-                    <label id="subLabelAvatar">🖼️ الصورة الشخصية (اختياري)</label>
+                    <label id="sponsorAvatarLabelSponsor">🖼️ شعار أو صورة (اختياري)</label>
                     <div class="file-input-wrapper">
-                        <div class="file-label" id="subAvatarLabel">📤 اضغط لاختيار صورة</div>
-                        <input type="file" id="subFullAvatar" accept="image/*" onchange="handleSubAvatar(event)">
+                        <div class="file-label" id="sponsorAvatarLabelFile">📤 اضغط لاختيار صورة</div>
+                        <input type="file" id="sponsorAvatar" accept="image/*" onchange="handleSponsorAvatar(event)">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label id="subLabelMessage">📝 رسالة إضافية (اختياري)</label>
-                    <textarea id="subFullMessage" placeholder="أي شيء تود إضافته..."></textarea>
-                </div>
-                <div class="terms" id="subTerms">
-                    بالضغط على "اشتراك" أنت توافق على <a href="#" id="termsLink">شروط الاستخدام</a> و <a href="#" id="privacyLink">سياسة الخصوصية</a>
-                    <br>
-                    <span style="color:var(--orange);">🔔 يمكنك إلغاء الاشتراك خلال الفترة التجريبية فقط (3 أيام)</span>
-                </div>
-                <button type="submit" class="btn-submit" id="subSubmitBtn">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
+                <button type="submit" class="btn-paypal-sponsor">
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal" style="height:24px;">
+                    💳 الدفع عبر PayPal
+                </button>
             </form>
 
-            <div class="payment-buttons" style="margin-top:10px;">
-                <button class="btn-paypal" onclick="payWithPayPal()">💳 الدفع بـ PayPal</button>
-                <button class="btn-stripe" onclick="payWithStripe()">💳 الدفع بـ Stripe</button>
-            </div>
-
-            <div class="cancel-subscription" id="cancelSubscriptionDiv" style="display:none;">
-                <button onclick="cancelSubscription()">🗑️ إلغاء الاشتراك (خلال الفترة التجريبية فقط)</button>
+            <div style="text-align:center;margin-top:10px;font-size:0.7rem;color:var(--text-muted);">
+                🔒 سيتم توجيهك إلى PayPal لإتمام الدفع بشكل آمن
             </div>
         </div>
     </div>
@@ -2030,24 +2141,6 @@
                     <div class="hint">⚡ هذه الإعدادات تؤثر على عرض الموقع وتحسين محركات البحث</div>
                 </div>
 
-                <!-- Subscribers Management -->
-                <div class="admin-section">
-                    <h4>👥 إدارة المشتركين</h4>
-                    <input type="text" id="subName" placeholder="👤 الاسم" dir="auto">
-                    <input type="text" id="subLocation" placeholder="📍 المدينة" dir="auto">
-                    <input type="text" id="subCountry" placeholder="🌍 البلد" dir="auto">
-                    <input type="email" id="subEmail" placeholder="✉️ البريد" dir="ltr">
-                    <input type="text" id="subSpecialty" placeholder="🔬 الاختصاص" dir="auto">
-                    <select id="subPlan">
-                        <option value="💎 عادي ($1/سنة)">💎 عادي</option>
-                        <option value="⭐ فضي ($5/سنة)">⭐ فضي</option>
-                        <option value="👑 ذهبي ($10/سنة)">👑 ذهبي</option>
-                        <option value="💠 ملكي ($100/سنة)">💠 ملكي</option>
-                    </select>
-                    <button class="btn-admin success" onclick="addSubscriber()">✅ إضافة مشترك</button>
-                    <div class="hint">📊 عدد المشتركين الحالي: <span id="subCountDisplay">0</span></div>
-                </div>
-
                 <!-- Suggestions Display -->
                 <div class="admin-section">
                     <h4>💡 الاقتراحات الواردة</h4>
@@ -2074,8 +2167,8 @@
                             <span style="color:var(--gold);font-weight:700;" id="totalRevenueDisplay">$0</span>
                         </div>
                         <div style="display:flex;justify-content:space-between;flex-wrap:wrap;">
-                            <span style="color:var(--text-secondary);">⏳ في انتظار الدفع:</span>
-                            <span style="color:var(--red);font-weight:700;" id="pendingPaymentCount">0</span>
+                            <span style="color:var(--text-secondary);">🌟 عدد الداعمين:</span>
+                            <span style="color:var(--purple);font-weight:700;" id="sponsorCount">0</span>
                         </div>
                     </div>
                     <button class="btn-admin warning" onclick="processAutoPaymentsManual()">🔄 معالجة الدفعات التلقائية</button>
@@ -2119,6 +2212,7 @@
                 <div class="stat-card"><div class="number" id="statSold">0</div><div class="label" id="labelSold">✅ مباع</div></div>
                 <div class="stat-card"><div class="number" id="statSubs">0</div><div class="label" id="labelSubs">👥 مشتركين</div></div>
                 <div class="stat-card"><div class="number" id="statRevenue">$0</div><div class="label" id="labelRevenue">💰 إيرادات</div></div>
+                <div class="stat-card"><div class="number" id="statSponsors">0</div><div class="label" id="labelSponsors">🌟 داعمين</div></div>
             </div>
 
             <div class="trial-banner">
@@ -2133,6 +2227,76 @@
         </header>
 
         <!-- ============================================================
+        SPONSOR PLANS SECTION
+        ============================================================ -->
+        <div class="sponsor-plans-section" id="sponsorPlansSection">
+            <h2 class="section-title" id="plansTitle">🌟 كن داعماً للمنصة</h2>
+            <p class="section-subtitle" id="plansSubtitle">اختر باقة الدعم المناسبة لك وساهم في نمو المنصة</p>
+
+            <div class="plans-grid" id="plansGrid">
+                <!-- Weekly Plan -->
+                <div class="plan-card" data-plan="weekly">
+                    <span class="plan-icon">🗓️</span>
+                    <h3 class="plan-name">دعم <span class="highlight">أسبوعي</span></h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span>100
+                        <span class="period">/ أسبوع</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="check">✅</span> ظهور اسمك في شريط الداعمين</li>
+                        <li><span class="check">✅</span> شارة داعم أسبوعي مميزة</li>
+                        <li><span class="check">✅</span> رابط موقعك في شريط الداعمين</li>
+                        <li><span class="check">✅</span> دعم استمرارية المنصة</li>
+                    </ul>
+                    <button class="btn-plan" onclick="selectSponsorPlan('weekly', '🗓️', 'دعم أسبوعي', 100, '/ أسبوع')">
+                        🚀 اختر هذه الباقة
+                    </button>
+                </div>
+
+                <!-- Monthly Plan (Popular) -->
+                <div class="plan-card popular" data-plan="monthly">
+                    <span class="plan-icon">🌟</span>
+                    <h3 class="plan-name">دعم <span class="highlight">شهري</span></h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span>1,000
+                        <span class="period">/ شهر</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="check">✅</span> ظهور اسمك في شريط الداعمين</li>
+                        <li><span class="check">✅</span> شارة داعم ذهبي مميزة</li>
+                        <li><span class="check">✅</span> رابط موقعك مع أيقونة مميزة</li>
+                        <li><span class="check">✅</span> دعم استمرارية المنصة</li>
+                        <li><span class="check">✅</span> شكر خاص في صفحة الموقع</li>
+                    </ul>
+                    <button class="btn-plan" onclick="selectSponsorPlan('monthly', '🌟', 'دعم شهري', 1000, '/ شهر')">
+                        🚀 اختر هذه الباقة
+                    </button>
+                </div>
+
+                <!-- Yearly Plan -->
+                <div class="plan-card" data-plan="yearly">
+                    <span class="plan-icon">👑</span>
+                    <h3 class="plan-name">دعم <span class="highlight">سنوي</span></h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span>10,000
+                        <span class="period">/ سنة</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="check">✅</span> ظهور اسمك في شريط الداعمين</li>
+                        <li><span class="check">✅</span> شارة داعم ماسي مميزة</li>
+                        <li><span class="check">✅</span> رابط موقعك مع أيقونة خاصة</li>
+                        <li><span class="check">✅</span> دعم استمرارية المنصة</li>
+                        <li><span class="check">✅</span> شكر خاص في صفحة الموقع</li>
+                        <li><span class="check">✅</span> صورة شخصية مميزة في الشريط</li>
+                    </ul>
+                    <button class="btn-plan" onclick="selectSponsorPlan('yearly', '👑', 'دعم سنوي', 10000, '/ سنة')">
+                        🚀 اختر هذه الباقة
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
         SEO SECTION
         ============================================================ -->
         <div class="seo-section">
@@ -2142,9 +2306,7 @@
                 حيث نقدم <span class="highlight">مربعات إعلانية تفاعلية</span> تتيح للعلامات التجارية والأفراد 
                 <span class="highlight">التواصل البصري</span> مع جمهورهم المستهدف. من خلال <span class="highlight">الإعلانات المربعة</span>، 
                 يمكنك بناء <span class="highlight">مجتمع رقمي</span> نشط، وتعزيز <span class="highlight">التسويق الرقمي</span>، 
-                وزيادة <span class="highlight">الوعي بالعلامة التجارية</span>. انضم إلى <span class="highlight">منصة الإعلانات المبتكرة</span> 
-                واستفد من <span class="highlight">التسويق المرئي</span> و <span class="highlight">الإعلانات التفاعلية</span> 
-                لتحقيق <span class="highlight">انتشار واسع</span> و <span class="highlight">نمو مستدام</span>.
+                وزيادة <span class="highlight">الوعي بالعلامة التجارية</span>.
             </div>
             <div class="seo-tags" id="seoTags">
                 <span class="tag">#مليون_مربع</span>
@@ -2240,6 +2402,9 @@
         ============================================================ -->
         <div class="cta-section">
             <button class="btn-gold" onclick="openSubscribeModal()" id="ctaSubscribe">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
+            <button class="btn-sponsor" onclick="openSponsorModal()" id="ctaSponsor">
+                <span class="sparkle">✨</span> دعم المنصة <span class="sparkle">✨</span>
+            </button>
             <button class="btn-secondary" id="ctaMore">📋 عرض الكل</button>
         </div>
 
@@ -2270,36 +2435,6 @@
         const DEFAULT_SQUARES_PER_PAGE = 1000;
         const TRIAL_DAYS = 3;
         const LANGUAGES = ['ar', 'en', 'fr', 'es', 'de'];
-
-        // ============================================================
-        //  PAYMENT CONFIGURATION
-        // ============================================================
-        // PayPal Client ID - Replace with your actual client ID
-        const PAYPAL_CLIENT_ID = 'sb'; // Sandbox client ID for testing
-        // Stripe Publishable Key - Replace with your actual key
-        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51Q4Wl2P6xJQz8kNfV4Y8x7Wz3Xk9NvJqL5Mp2Rc6TdY4FgH7JkL9MnBvCxZ2QwE3RtY5';
-
-        // ============================================================
-        //  PLAN FEATURES
-        // ============================================================
-        const PLAN_FEATURES = {
-            'basic': {
-                ar: '🖼️ عرض أساسي\n📧 دعم بالبريد\n⭐ تقييم عادي',
-                en: '🖼️ Basic Display\n📧 Email Support\n⭐ Regular Rating'
-            },
-            'silver': {
-                ar: '✨ عرض مميز\n📧 دعم سريع\n⭐ تقييم فضي\n🎯 ظهور في الصفحة الأولى',
-                en: '✨ Premium Display\n📧 Fast Support\n⭐ Silver Rating\n🎯 First Page Visibility'
-            },
-            'gold': {
-                ar: '🌟 عرض ذهبي\n📧 دعم VIP\n⭐ تقييم ذهبي\n🎯 ظهور مميز\n🔗 رابط خارجي',
-                en: '🌟 Gold Display\n📧 VIP Support\n⭐ Gold Rating\n🎯 Featured Visibility\n🔗 External Link'
-            },
-            'royal': {
-                ar: '👑 عرض ملكي\n📧 دعم مخصص\n⭐ تقييم ماسي\n🎯 أعلى ظهور\n🔗 رابط خارجي\n🖼️ صورة كبيرة\n📊 إحصائيات متقدمة',
-                en: '👑 Royal Display\n📧 Dedicated Support\n⭐ Diamond Rating\n🎯 Top Visibility\n🔗 External Link\n🖼️ Large Image\n📊 Advanced Analytics'
-            }
-        };
 
         // ============================================================
         //  DEFAULT DATA
@@ -2376,12 +2511,7 @@
             yearly: { name: 'مجموعة الأفق الماسية', emoji: '👑', active: false }
         };
 
-        const defaultPayment = {
-            paypal: PAYPAL_CLIENT_ID,
-            stripe: STRIPE_PUBLISHABLE_KEY,
-            bank: 'SA000000000000000000',
-            autoPayment: true
-        };
+        const defaultPayment = { paypal: 'sb', stripe: '', bank: 'SA000000000000000000', autoPayment: true };
 
         const defaultSettings = {
             siteTitle: { ar: '🏆 مليون مربع', en: '🏆 Million Squares', fr: '🏆 Million Carrés', es: '🏆 Millón de Cuadrados',
@@ -2398,13 +2528,15 @@
         let paymentAccounts = {};
         let siteSettings = {};
         let suggestions = [];
+        let sponsorList = [];
         let currentLang = 'ar';
         let adminLoggedIn = false;
         let currentTheme = 'dark';
         let currentModalUser = null;
         let subAvatarFile = null;
         let editingSubscription = null;
-        let stripe = null;
+        let selectedSponsorPlan = null;
+        let sponsorAvatarFile = null;
 
         // ============================================================
         //  LOCAL STORAGE
@@ -2420,6 +2552,7 @@
                 siteSettings = JSON.parse(localStorage.getItem('millionSquares_settings')) || JSON.parse(JSON.stringify(
                     defaultSettings));
                 suggestions = JSON.parse(localStorage.getItem('millionSquares_suggestions')) || [];
+                sponsorList = JSON.parse(localStorage.getItem('millionSquares_sponsorList')) || [];
                 currentTheme = localStorage.getItem('millionSquares_theme') || 'dark';
             } catch (e) {
                 console.warn('Error loading state, using defaults:', e);
@@ -2428,10 +2561,10 @@
                 paymentAccounts = JSON.parse(JSON.stringify(defaultPayment));
                 siteSettings = JSON.parse(JSON.stringify(defaultSettings));
                 suggestions = [];
+                sponsorList = [];
             }
             applyTheme(currentTheme);
             processAutoPayments();
-            initStripe();
         }
 
         function saveState() {
@@ -2440,6 +2573,7 @@
             localStorage.setItem('millionSquares_payment', JSON.stringify(paymentAccounts));
             localStorage.setItem('millionSquares_settings', JSON.stringify(siteSettings));
             localStorage.setItem('millionSquares_suggestions', JSON.stringify(suggestions));
+            localStorage.setItem('millionSquares_sponsorList', JSON.stringify(sponsorList));
             localStorage.setItem('millionSquares_theme', currentTheme);
         }
 
@@ -2487,170 +2621,159 @@
             ] || 'plan-basic';
         }
 
-        function getPlanFeatures(plan, lang) {
-            const type = getPlanType(plan);
-            const features = PLAN_FEATURES[type];
-            return features ? translate(features, lang) : '-';
-        }
-
         function getPlanAmount(plan) {
             const match = plan.match(/\$(\d+)/);
             return match ? parseInt(match[1]) : 1;
         }
 
         // ============================================================
-        //  STRIPE INIT
+        //  SPONSOR FUNCTIONS
         // ============================================================
-        function initStripe() {
-            try {
-                if (typeof Stripe !== 'undefined' && paymentAccounts.stripe) {
-                    stripe = Stripe(paymentAccounts.stripe);
-                    console.log('✅ Stripe initialized');
-                }
-            } catch (e) {
-                console.warn('⚠️ Stripe initialization failed:', e);
-            }
+        function selectSponsorPlan(type, emoji, name, price, period) {
+            selectedSponsorPlan = { type, emoji, name, price, period };
+            openSponsorModal();
+            // Update the display
+            document.getElementById('selectedPlanEmoji').textContent = emoji;
+            document.getElementById('selectedPlanName').textContent = name;
+            document.getElementById('selectedPlanPrice').textContent = `$${price}`;
+            document.getElementById('selectedPlanPeriod').textContent = period;
         }
 
-        // ============================================================
-        //  PAYMENT FUNCTIONS
-        // ============================================================
-        function payWithPayPal() {
-            const user = currentModalUser || getCurrentUser();
-            if (!user) {
-                alert(currentLang === 'ar' ? '❌ الرجاء التسجيل أولاً' : '❌ Please register first');
+        function openSponsorModal() {
+            document.getElementById('sponsorModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Reset form
+            document.getElementById('sponsorName').value = '';
+            document.getElementById('sponsorEmail').value = '';
+            document.getElementById('sponsorCompany').value = '';
+            document.getElementById('sponsorWebsite').value = '';
+            document.getElementById('sponsorMessage').value = '';
+            document.getElementById('sponsorAvatar').value = '';
+            document.getElementById('sponsorAvatarLabelFile').textContent = '📤 اضغط لاختيار صورة';
+            sponsorAvatarFile = null;
+        }
+
+        function closeSponsorModal() {
+            document.getElementById('sponsorModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function handleSponsorAvatar(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                sponsorAvatarFile = e.target.result;
+                document.getElementById('sponsorAvatarLabelFile').textContent = '✅ تم رفع الصورة';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleSponsorSubmit(event) {
+            event.preventDefault();
+
+            if (!selectedSponsorPlan) {
+                alert(currentLang === 'ar' ? '⚠️ الرجاء اختيار باقة الدعم أولاً' :
+                    '⚠️ Please select a support plan first');
                 return;
             }
 
-            const amount = user._subscription?.amount || getPlanAmount(user.plan);
-            const plan = user.plan;
+            const name = document.getElementById('sponsorName').value.trim();
+            const email = document.getElementById('sponsorEmail').value.trim();
+            const company = document.getElementById('sponsorCompany').value.trim();
+            const website = document.getElementById('sponsorWebsite').value.trim();
+            const message = document.getElementById('sponsorMessage').value.trim();
 
-            // Create PayPal order
-            const orderData = {
-                intent: 'CAPTURE',
-                purchase_units: [{
-                    amount: {
-                        currency_code: 'USD',
-                        value: amount.toString()
-                    },
-                    description: `اشتراك ${plan}`,
-                    custom_id: user.email
-                }],
-                application_context: {
-                    return_url: window.location.href,
-                    cancel_url: window.location.href
-                }
+            if (!name || !email) {
+                alert(currentLang === 'ar' ? '⚠️ الرجاء ملء الحقول الأساسية!' :
+                    '⚠️ Please fill required fields!');
+                return;
+            }
+
+            const plan = selectedSponsorPlan;
+
+            // Create sponsor record
+            const sponsor = {
+                name: name,
+                email: email,
+                company: company || name,
+                website: website || '',
+                message: message || '',
+                avatar: sponsorAvatarFile || '',
+                planType: plan.type,
+                planName: plan.name,
+                planPrice: plan.price,
+                planPeriod: plan.period,
+                planEmoji: plan.emoji,
+                date: new Date().toISOString(),
+                active: false,
+                paid: false
             };
 
-            // Simulate PayPal redirect (in production, use actual PayPal SDK)
+            // Simulate PayPal payment
             const paypalUrl =
-                `https://www.paypal.com/checkoutnow?token=paypal_${user.email}_${amount}_${Date.now()}`;
+                `https://www.paypal.com/checkoutnow?token=sponsor_${email}_${plan.price}_${Date.now()}`;
 
             showNotification(
                 '💳 توجيه إلى PayPal',
                 currentLang === 'ar' ?
-                `جاري توجيهك إلى PayPal لدفع $${amount}` :
-                `Redirecting to PayPal to pay $${amount}`
+                `جاري توجيهك إلى PayPal لدفع $${plan.price} كدعم ${plan.name}` :
+                `Redirecting to PayPal to pay $${plan.price} as ${plan.name} support`
             );
-
-            // Simulate payment success (in production, handle actual PayPal callback)
-            setTimeout(() => {
-                if (confirm(currentLang === 'ar' ?
-                        `✅ تم الدفع بنجاح؟\nالمبلغ: $${amount}\nالباقة: ${plan}` :
-                        `✅ Payment successful?\nAmount: $${amount}\nPlan: ${plan}`
-                    )) {
-                    completePayment(user.email);
-                }
-            }, 2000);
-
-            // Open PayPal in new window (simulated)
-            window.open(paypalUrl, '_blank');
-        }
-
-        function payWithStripe() {
-            const user = currentModalUser || getCurrentUser();
-            if (!user) {
-                alert(currentLang === 'ar' ? '❌ الرجاء التسجيل أولاً' : '❌ Please register first');
-                return;
-            }
-
-            if (!stripe) {
-                alert(currentLang === 'ar' ?
-                    '❌ Stripe غير مهيأ. الرجاء إضافة مفتاح Stripe في لوحة التحكم.' :
-                    '❌ Stripe is not configured. Please add Stripe key in admin panel.'
-                );
-                return;
-            }
-
-            const amount = user._subscription?.amount || getPlanAmount(user.plan);
-            const plan = user.plan;
-
-            showNotification(
-                '💳 توجيه إلى Stripe',
-                currentLang === 'ar' ?
-                `جاري توجيهك إلى Stripe لدفع $${amount}` :
-                `Redirecting to Stripe to pay $${amount}`
-            );
-
-            // Simulate Stripe Checkout (in production, use actual Stripe Checkout)
-            const stripeUrl =
-                `https://checkout.stripe.com/pay/${user.email}_${amount}_${Date.now()}`;
 
             // Simulate payment success
             setTimeout(() => {
                 if (confirm(currentLang === 'ar' ?
-                        `✅ تم الدفع بنجاح؟\nالمبلغ: $${amount}\nالباقة: ${plan}` :
-                        `✅ Payment successful?\nAmount: $${amount}\nPlan: ${plan}`
+                        `✅ تم الدفع بنجاح؟\nالمبلغ: $${plan.price}\nالباقة: ${plan.name}` :
+                        `✅ Payment successful?\nAmount: $${plan.price}\nPlan: ${plan.name}`
                     )) {
-                    completePayment(user.email);
+                    // Complete sponsor registration
+                    sponsor.active = true;
+                    sponsor.paid = true;
+                    sponsor.paymentDate = new Date().toISOString();
+
+                    // Add to sponsor list
+                    sponsorList.push(sponsor);
+
+                    // Update sponsors display
+                    updateSponsorsDisplay();
+
+                    saveState();
+                    renderAll();
+
+                    showNotification(
+                        '🌟 شكراً لدعمك!',
+                        currentLang === 'ar' ?
+                        `شكراً ${name} على دعمك للمنصة! تم تفعيل اشتراكك ${plan.name}` :
+                        `Thank you ${name} for supporting the platform! Your ${plan.name} subscription is activated`
+                    );
+
+                    closeSponsorModal();
+                    selectedSponsorPlan = null;
+
+                    alert(currentLang === 'ar' ?
+                        `✅ تم تفعيل دعمك بنجاح!\n\n🌟 الباقة: ${plan.name}\n💰 المبلغ: $${plan.price}\n👤 الاسم: ${name}\n📧 البريد: ${email}\n\nشكراً لثقتك بنا ودعمك للمنصة! 💎` :
+                        `✅ Your support has been activated!\n\n🌟 Plan: ${plan.name}\n💰 Amount: $${plan.price}\n👤 Name: ${name}\n📧 Email: ${email}\n\nThank you for your trust and support! 💎`
+                    );
+                } else {
+                    // Payment cancelled
+                    showNotification(
+                        '❌ تم إلغاء الدفع',
+                        currentLang === 'ar' ?
+                        'تم إلغاء عملية الدفع. يمكنك المحاولة مرة أخرى.' :
+                        'Payment cancelled. You can try again.'
+                    );
                 }
             }, 2000);
 
-            window.open(stripeUrl, '_blank');
+            window.open(paypalUrl, '_blank');
         }
 
-        function completePayment(email) {
-            const user = usersData.find(u => u.email === email);
-            if (!user) return;
-
-            if (!user._subscription) {
-                user._subscription = {
-                    active: true,
-                    trial: false,
-                    subscribed: true,
-                    subscribedDate: new Date().toISOString(),
-                    amount: getPlanAmount(user.plan),
-                    paymentPending: false
-                };
-            } else {
-                user._subscription.subscribed = true;
-                user._subscription.subscribedDate = new Date().toISOString();
-                user._subscription.trial = false;
-                user._subscription.paymentPending = false;
-            }
-
-            saveState();
-            renderAll();
-
-            showNotification(
-                '✅ تم الدفع بنجاح!',
-                currentLang === 'ar' ?
-                `تم تفعيل اشتراك ${user.name} بنجاح` :
-                `${user.name}'s subscription activated successfully`
-            );
-
-            closeModal();
-            closeSubscribeModal();
-            alert(currentLang === 'ar' ?
-                `✅ تم تفعيل اشتراكك بنجاح!\nالباقة: ${user.plan}\nشكراً لثقتك بنا.` :
-                `✅ Your subscription has been activated!\nPlan: ${user.plan}\nThank you for your trust.`
-            );
-        }
-
-        function getCurrentUser() {
-            // Find the user who is currently viewing their square
-            // For demo, return the first user with trial or subscription
-            return usersData.find(u => u._subscription?.trial || u._subscription?.subscribed) || null;
+        function updateSponsorsDisplay() {
+            // Update the sponsor strip with all active sponsors
+            renderSponsors();
+            // Update stats
+            document.getElementById('statSponsors').textContent = sponsorList.filter(s => s.active).length;
         }
 
         // ============================================================
@@ -2670,25 +2793,10 @@
             return user._subscription.subscribed === true;
         }
 
-        function isPaymentPending(user) {
-            if (!user._subscription) return false;
-            return user._subscription.paymentPending === true;
-        }
-
-        function getSubscriptionStatus(user) {
-            if (!user._subscription) return 'غير مشترك';
-            if (isUserSubscribed(user)) return '✅ مشترك';
-            if (isUserOnTrial(user)) return '⏳ فترة تجريبية';
-            if (isPaymentPending(user)) return '⏳ في انتظار الدفع';
-            if (user._subscription.trial && !isUserOnTrial(user)) return '⏰ انتهت الفترة التجريبية';
-            return 'غير مشترك';
-        }
-
         function processAutoPayments() {
             const now = Date.now();
             let processed = 0;
             let totalCollected = 0;
-            let pending = 0;
 
             usersData.forEach(user => {
                 if (!user._subscription) return;
@@ -2697,102 +2805,37 @@
 
                 const trialEnd = new Date(user._subscription.trialEnd).getTime();
 
-                // If trial ended and not yet subscribed
                 if (now >= trialEnd && !user._subscription.subscribed) {
                     if (paymentAccounts.autoPayment) {
-                        // Auto-subscribe
                         user._subscription.subscribed = true;
                         user._subscription.subscribedDate = new Date().toISOString();
                         user._subscription.trial = false;
                         user._subscription.paymentPending = false;
                         processed++;
                         totalCollected += user._subscription.amount || getPlanAmount(user.plan);
-
-                        // Send notification
-                        showNotification(
-                            '💳 ' + (currentLang === 'ar' ? 'تم تحصيل قيمة الاشتراك' : 'Payment collected'),
-                            currentLang === 'ar' ?
-                            `تم تحصيل $${user._subscription.amount || getPlanAmount(user.plan)} من ${user.name} تلقائياً` :
-                            `$${user._subscription.amount || getPlanAmount(user.plan)} collected from ${user.name} automatically`
-                        );
-
-                        // Send email notification (simulated)
-                        sendPaymentNotification(user);
                     } else {
-                        // Mark as pending payment
                         user._subscription.paymentPending = true;
-                        pending++;
                     }
                 }
             });
 
-            if (processed > 0 || pending > 0) {
+            if (processed > 0) {
                 saveState();
                 renderAll();
-                if (processed > 0) {
-                    showNotification('💰 تم معالجة الدفعات', `تم تحصيل ${processed} اشتراك بقيمة $${totalCollected}`);
-                }
-                if (pending > 0) {
-                    showNotification('⏳ في انتظار الدفع', `${pending} مشترك في انتظار الدفع`);
-                }
             }
 
-            return { processed, totalCollected, pending };
+            return { processed, totalCollected };
         }
 
-        function sendPaymentNotification(user) {
-            const name = user.name;
-            const email = user.email;
-            const amount = user._subscription?.amount || getPlanAmount(user.plan);
-            const plan = user.plan;
-
-            console.log('📧 ===== إشعار الدفع =====');
-            console.log('📧 إلى:', email);
-            console.log('📧 الموضوع:', currentLang === 'ar' ?
-                `تم تحصيل قيمة اشتراكك في مليون مربع` :
-                `Your Million Squares subscription payment`
-            );
-            console.log('📧 المحتوى:', currentLang === 'ar' ?
-                `مرحباً ${name},\n\nتم تحصيل مبلغ $${amount} من حسابك تلقائياً.\nالباقة: ${plan}\n\nشكراً لثقتك بنا.\nفريق مليون مربع 💎` :
-                `Hello ${name},\n\n$${amount} has been collected from your account automatically.\nPlan: ${plan}\n\nThank you for your trust.\nThe Million Squares Team 💎`
-            );
-            console.log('📧 ==========================');
-        }
-
-        function cancelSubscription(email) {
-            const user = usersData.find(u => u.email === email);
-            if (!user) {
-                alert(currentLang === 'ar' ? '❌ المستخدم غير موجود' : '❌ User not found');
-                return;
-            }
-
-            if (!user._subscription || !user._subscription.trial) {
-                alert(currentLang === 'ar' ? '❌ لا يمكن إلغاء الاشتراك بعد انتهاء الفترة التجريبية' :
-                    '❌ Cannot cancel subscription after trial period');
-                return;
-            }
-
-            const now = Date.now();
-            const trialEnd = new Date(user._subscription.trialEnd).getTime();
-
-            if (now >= trialEnd) {
-                alert(currentLang === 'ar' ? '❌ انتهت الفترة التجريبية، لا يمكن الإلغاء' :
-                    '❌ Trial period ended, cannot cancel');
-                return;
-            }
-
-            if (confirm(currentLang === 'ar' ?
-                    `⚠️ هل أنت متأكد من إلغاء اشتراك ${user.name}؟\nسيتم حذف المربع الخاص به.` :
-                    `⚠️ Are you sure you want to cancel ${user.name}'s subscription?\nTheir square will be deleted.`
-                )) {
-                usersData = usersData.filter(u => u.email !== email);
-                saveState();
-                renderAll();
-                closeSubscribeModal();
-
+        function processAutoPaymentsManual() {
+            const result = processAutoPayments();
+            if (result.processed === 0) {
+                alert(currentLang === 'ar' ? '✅ لا توجد دفعات مستحقة حالياً' :
+                    '✅ No pending payments at this time');
+            } else {
                 alert(currentLang === 'ar' ?
-                    '✅ تم إلغاء الاشتراك وحذف المربع بنجاح' :
-                    '✅ Subscription cancelled and square deleted successfully'
+                    `✅ تم معالجة ${result.processed} دفعة بقيمة $${result.totalCollected}` :
+                    `✅ Processed ${result.processed} payments worth $${result.totalCollected}`
                 );
             }
         }
@@ -2820,12 +2863,14 @@
                 labelSold: '✅ مباع',
                 labelSubs: '👥 مشتركين',
                 labelRevenue: '💰 إيرادات',
+                labelSponsors: '🌟 داعمين',
                 trialBadge: '🎁 3 أيام مجانية',
                 trialText: '✨ اشترك الآن واستمتع بفترة تجريبية مجانية',
                 sponsorTitle: '🌟 الرعاة الداعمون',
                 squaresTitle: '📦 المربعات',
                 squaresCount: '📊 عرض {count} من {total}',
                 ctaSubscribe: '🚀 اشتراك مع 3 أيام تجريبية مجانية',
+                ctaSponsor: '✨ دعم المنصة ✨',
                 ctaMore: '📋 عرض الكل',
                 footer: '© 2026 مليون مربع — المنصة البصرية التفاعلية. 💎',
                 scrollHint: '⬇️ مرر للأسفل | ⬅️➡️ مرر للجانب (1000 مربع لكل عرض)',
@@ -2890,11 +2935,23 @@
                 subLabelAvatar: '🖼️ الصورة الشخصية (اختياري)',
                 subLabelMessage: '📝 رسالة إضافية (اختياري)',
                 subAvatarLabel: '📤 اضغط لاختيار صورة',
-                subTerms: 'بالضغط على "اشتراك" أنت توافق على شروط الاستخدام وسياسة الخصوصية\n🔔 يمكنك إلغاء الاشتراك خلال الفترة التجريبية فقط (3 أيام)',
+                subTerms: 'بالضغط على "اشتراك" أنت توافق على شروط الاستخدام وسياسة الخصوصية',
                 subSubmitBtn: '🚀 اشتراك مع 3 أيام تجريبية مجانية',
                 cancelBtn: '🗑️ إلغاء الاشتراك (خلال الفترة التجريبية فقط)',
                 trialRemaining: '⏳ متبقي من الفترة التجريبية: {days} يوم',
-                trialEnded: '⏰ انتهت الفترة التجريبية'
+                trialEnded: '⏰ انتهت الفترة التجريبية',
+                plansTitle: '🌟 كن داعماً للمنصة',
+                plansSubtitle: 'اختر باقة الدعم المناسبة لك وساهم في نمو المنصة',
+                sponsorModalTitle: '🌟 دعم مليون مربع',
+                sponsorModalSub: 'اختر الباقة المناسبة لدعم المنصة',
+                sponsorNameLabel: '👤 الاسم الكامل',
+                sponsorEmailLabel: '✉️ البريد الإلكتروني',
+                sponsorCompanyLabel: '🏢 اسم الشركة / العلامة التجارية',
+                sponsorWebsiteLabel: '🔗 رابط الموقع (اختياري)',
+                sponsorMessageLabel: '📝 رسالة دعم (اختياري)',
+                sponsorAvatarLabelSponsor: '🖼️ شعار أو صورة (اختياري)',
+                sponsorAvatarLabelFile: '📤 اضغط لاختيار صورة',
+                sponsorPayBtn: '💳 الدفع عبر PayPal'
             },
             en: {
                 siteName: '🏆 Million Squares',
@@ -2915,12 +2972,14 @@
                 labelSold: '✅ Sold',
                 labelSubs: '👥 Subscribers',
                 labelRevenue: '💰 Revenue',
+                labelSponsors: '🌟 Supporters',
                 trialBadge: '🎁 3 Days Free',
                 trialText: '✨ Subscribe now and enjoy free trial',
                 sponsorTitle: '🌟 Sponsors & Supporters',
                 squaresTitle: '📦 Squares',
                 squaresCount: '📊 Showing {count} of {total}',
                 ctaSubscribe: '🚀 Subscribe with 3 Days Free Trial',
+                ctaSponsor: '✨ Support the Platform ✨',
                 ctaMore: '📋 View All',
                 footer: '© 2026 Million Squares — The Interactive Visual Platform. 💎',
                 scrollHint: '⬇️ Scroll Down | ⬅️➡️ Scroll Side (1000 squares per view)',
@@ -2985,11 +3044,23 @@
                 subLabelAvatar: '🖼️ Profile Picture (Optional)',
                 subLabelMessage: '📝 Additional Message (Optional)',
                 subAvatarLabel: '📤 Click to choose image',
-                subTerms: 'By clicking "Subscribe" you agree to Terms & Privacy Policy\n🔔 You can cancel subscription only during trial period (3 days)',
+                subTerms: 'By clicking "Subscribe" you agree to Terms & Privacy Policy',
                 subSubmitBtn: '🚀 Subscribe with 3 Days Free Trial',
                 cancelBtn: '🗑️ Cancel Subscription (Only during trial)',
                 trialRemaining: '⏳ Trial remaining: {days} days',
-                trialEnded: '⏰ Trial period ended'
+                trialEnded: '⏰ Trial period ended',
+                plansTitle: '🌟 Support the Platform',
+                plansSubtitle: 'Choose the right support plan and contribute to the platform\'s growth',
+                sponsorModalTitle: '🌟 Support Million Squares',
+                sponsorModalSub: 'Choose the right plan to support the platform',
+                sponsorNameLabel: '👤 Full Name',
+                sponsorEmailLabel: '✉️ Email Address',
+                sponsorCompanyLabel: '🏢 Company / Brand Name',
+                sponsorWebsiteLabel: '🔗 Website URL (Optional)',
+                sponsorMessageLabel: '📝 Support Message (Optional)',
+                sponsorAvatarLabelSponsor: '🖼️ Logo or Image (Optional)',
+                sponsorAvatarLabelFile: '📤 Click to choose image',
+                sponsorPayBtn: '💳 Pay with PayPal'
             },
             fr: {
                 siteName: '🏆 Million Carrés',
@@ -3010,12 +3081,14 @@
                 labelSold: '✅ Vendus',
                 labelSubs: '👥 Abonnés',
                 labelRevenue: '💰 Revenus',
+                labelSponsors: '🌟 Soutiens',
                 trialBadge: '🎁 3 jours gratuits',
                 trialText: '✨ Abonnez-vous maintenant',
                 sponsorTitle: '🌟 Sponsors',
                 squaresTitle: '📦 Carrés',
                 squaresCount: '📊 Affichage {count} sur {total}',
                 ctaSubscribe: '🚀 Abonnement 3 jours gratuits',
+                ctaSponsor: '✨ Soutenir la plateforme ✨',
                 ctaMore: '📋 Voir tout',
                 footer: '© 2026 Million Carrés — La plateforme visuelle interactive. 💎',
                 scrollHint: '⬇️ Descendre | ⬅️➡️ Défiler (1000 carrés par vue)',
@@ -3080,11 +3153,23 @@
                 subLabelAvatar: '🖼️ Photo (Optionnel)',
                 subLabelMessage: '📝 Message (Optionnel)',
                 subAvatarLabel: '📤 Choisir image',
-                subTerms: 'En cliquant "S\'abonner" vous acceptez les conditions\n🔔 Annulation uniquement pendant la période d\'essai',
+                subTerms: 'En cliquant "S\'abonner" vous acceptez les conditions',
                 subSubmitBtn: '🚀 S\'abonner 3 jours gratuits',
                 cancelBtn: '🗑️ Annuler (Pendant l\'essai)',
                 trialRemaining: '⏳ Essai restant: {days} jours',
-                trialEnded: '⏰ Période d\'essai terminée'
+                trialEnded: '⏰ Période d\'essai terminée',
+                plansTitle: '🌟 Soutenez la plateforme',
+                plansSubtitle: 'Choisissez le plan de soutien adapté et contribuez à la croissance de la plateforme',
+                sponsorModalTitle: '🌟 Soutenir Million Carrés',
+                sponsorModalSub: 'Choisissez le plan adapté pour soutenir la plateforme',
+                sponsorNameLabel: '👤 Nom complet',
+                sponsorEmailLabel: '✉️ Email',
+                sponsorCompanyLabel: '🏢 Entreprise / Marque',
+                sponsorWebsiteLabel: '🔗 Site web (Optionnel)',
+                sponsorMessageLabel: '📝 Message de soutien (Optionnel)',
+                sponsorAvatarLabelSponsor: '🖼️ Logo ou image (Optionnel)',
+                sponsorAvatarLabelFile: '📤 Choisir une image',
+                sponsorPayBtn: '💳 Payer avec PayPal'
             },
             es: {
                 siteName: '🏆 Millón de Cuadrados',
@@ -3105,12 +3190,14 @@
                 labelSold: '✅ Vendidos',
                 labelSubs: '👥 Suscriptores',
                 labelRevenue: '💰 Ingresos',
+                labelSponsors: '🌟 Colaboradores',
                 trialBadge: '🎁 3 días gratis',
                 trialText: '✨ Suscríbete ahora',
                 sponsorTitle: '🌟 Patrocinadores',
                 squaresTitle: '📦 Cuadrados',
                 squaresCount: '📊 Mostrando {count} de {total}',
                 ctaSubscribe: '🚀 Suscribirse 3 días gratis',
+                ctaSponsor: '✨ Apoyar la plataforma ✨',
                 ctaMore: '📋 Ver todo',
                 footer: '© 2026 Millón de Cuadrados — La plataforma visual interactiva. 💎',
                 scrollHint: '⬇️ Desplazar abajo | ⬅️➡️ Desplazar lateral (1000 cuadrados por vista)',
@@ -3175,11 +3262,23 @@
                 subLabelAvatar: '🖼️ Foto (Opcional)',
                 subLabelMessage: '📝 Mensaje (Opcional)',
                 subAvatarLabel: '📤 Elegir imagen',
-                subTerms: 'Al hacer clic "Suscribirse" aceptas los términos\n🔔 Cancelación solo durante el período de prueba',
+                subTerms: 'Al hacer clic "Suscribirse" aceptas los términos',
                 subSubmitBtn: '🚀 Suscribirse 3 días gratis',
                 cancelBtn: '🗑️ Cancelar (Durante la prueba)',
                 trialRemaining: '⏳ Prueba restante: {days} días',
-                trialEnded: '⏰ Período de prueba terminado'
+                trialEnded: '⏰ Período de prueba terminado',
+                plansTitle: '🌟 Apoya la plataforma',
+                plansSubtitle: 'Elige el plan de apoyo adecuado y contribuye al crecimiento de la plataforma',
+                sponsorModalTitle: '🌟 Apoyar Millón de Cuadrados',
+                sponsorModalSub: 'Elige el plan adecuado para apoyar la plataforma',
+                sponsorNameLabel: '👤 Nombre completo',
+                sponsorEmailLabel: '✉️ Email',
+                sponsorCompanyLabel: '🏢 Empresa / Marca',
+                sponsorWebsiteLabel: '🔗 Sitio web (Opcional)',
+                sponsorMessageLabel: '📝 Mensaje de apoyo (Opcional)',
+                sponsorAvatarLabelSponsor: '🖼️ Logo o imagen (Opcional)',
+                sponsorAvatarLabelFile: '📤 Elegir imagen',
+                sponsorPayBtn: '💳 Pagar con PayPal'
             },
             de: {
                 siteName: '🏆 Millionen Quadrate',
@@ -3200,12 +3299,14 @@
                 labelSold: '✅ Verkauft',
                 labelSubs: '👥 Abonnenten',
                 labelRevenue: '💰 Einnahmen',
+                labelSponsors: '🌟 Unterstützer',
                 trialBadge: '🎁 3 Tage kostenlos',
                 trialText: '✨ Jetzt abonnieren',
                 sponsorTitle: '🌟 Sponsoren',
                 squaresTitle: '📦 Quadrate',
                 squaresCount: '📊 Zeige {count} von {total}',
                 ctaSubscribe: '🚀 Abonnieren 3 Tage kostenlos',
+                ctaSponsor: '✨ Plattform unterstützen ✨',
                 ctaMore: '📋 Alle anzeigen',
                 footer: '© 2026 Millionen Quadrate — Die interaktive visuelle Plattform. 💎',
                 scrollHint: '⬇️ Nach unten | ⬅️➡️ Seitlich (1000 Quadrate pro Ansicht)',
@@ -3270,11 +3371,23 @@
                 subLabelAvatar: '🖼️ Profilbild (Optional)',
                 subLabelMessage: '📝 Nachricht (Optional)',
                 subAvatarLabel: '📤 Bild wählen',
-                subTerms: 'Mit Klick "Abonnieren" akzeptierst du die Bedingungen\n🔔 Kündigung nur während der Testphase',
+                subTerms: 'Mit Klick "Abonnieren" akzeptierst du die Bedingungen',
                 subSubmitBtn: '🚀 Abonnieren 3 Tage kostenlos',
                 cancelBtn: '🗑️ Kündigen (Während der Testphase)',
                 trialRemaining: '⏳ Testphase: {days} Tage',
-                trialEnded: '⏰ Testphase beendet'
+                trialEnded: '⏰ Testphase beendet',
+                plansTitle: '🌟 Unterstütze die Plattform',
+                plansSubtitle: 'Wähle den passenden Support-Plan und trage zum Wachstum der Plattform bei',
+                sponsorModalTitle: '🌟 Unterstütze Millionen Quadrate',
+                sponsorModalSub: 'Wähle den passenden Plan zur Unterstützung der Plattform',
+                sponsorNameLabel: '👤 Vollständiger Name',
+                sponsorEmailLabel: '✉️ E-Mail',
+                sponsorCompanyLabel: '🏢 Unternehmen / Marke',
+                sponsorWebsiteLabel: '🔗 Website (Optional)',
+                sponsorMessageLabel: '📝 Unterstützungsnachricht (Optional)',
+                sponsorAvatarLabelSponsor: '🖼️ Logo oder Bild (Optional)',
+                sponsorAvatarLabelFile: '📤 Bild wählen',
+                sponsorPayBtn: '💳 Mit PayPal bezahlen'
             }
         };
 
@@ -3307,11 +3420,13 @@
             document.getElementById('labelSold').textContent = t.labelSold;
             document.getElementById('labelSubs').textContent = t.labelSubs;
             document.getElementById('labelRevenue').textContent = t.labelRevenue;
+            document.getElementById('labelSponsors').textContent = t.labelSponsors;
             document.getElementById('trialBadge').textContent = t.trialBadge;
             document.getElementById('trialText').textContent = t.trialText;
             document.getElementById('sponsorTitle').textContent = t.sponsorTitle;
             document.getElementById('squaresTitle').textContent = t.squaresTitle;
             document.getElementById('ctaSubscribe').textContent = t.ctaSubscribe;
+            document.getElementById('ctaSponsor').textContent = t.ctaSponsor;
             document.getElementById('ctaMore').textContent = t.ctaMore;
             document.getElementById('footerText').textContent = t.footer;
             document.getElementById('scrollHint').textContent = t.scrollHint;
@@ -3334,42 +3449,19 @@
             document.getElementById('searchBtn').textContent = t.searchBtn;
             document.getElementById('resetBtn').textContent = t.resetBtn;
 
-            document.getElementById('modalBtnContact').textContent = t.modalContact;
-            document.getElementById('modalBtnClose').textContent = t.modalClose;
-            document.getElementById('modalBtnSubscribe').textContent = t.modalSubscribe;
-            document.getElementById('modalLabelLocation').textContent = t.modalLabelLocation;
-            document.getElementById('modalLabelEmail').textContent = t.modalLabelEmail;
-            document.getElementById('modalLabelDate').textContent = t.modalLabelDate;
-            document.getElementById('modalLabelStatus').textContent = t.modalLabelStatus;
-            document.getElementById('modalLabelPlanFeatures').textContent = t.modalLabelPlanFeatures;
-            document.getElementById('modalLabelSubscription').textContent = t.modalLabelSubscription;
-
-            document.getElementById('suggestionTitle').textContent = t.suggestionTitle;
-            document.getElementById('suggestionNameLabel').textContent = t.suggestionNameLabel;
-            document.getElementById('suggestionEmailLabel').textContent = t.suggestionEmailLabel;
-            document.getElementById('suggestionTextLabel').textContent = t.suggestionTextLabel;
-            document.getElementById('suggestionSubmitBtn').textContent = t.suggestionSubmitBtn;
-
-            document.getElementById('seoTitle').textContent = t.seoTitle;
-            document.getElementById('seoText').innerHTML = t.seoText;
-
-            document.getElementById('subModalTitle').textContent = t.subModalTitle;
-            document.getElementById('trialInfoText').innerHTML = t.trialInfoText;
-            document.getElementById('trialInfoSub').textContent = t.trialInfoSub;
-            document.getElementById('subLabelName').textContent = t.subLabelName;
-            document.getElementById('subLabelEmail').textContent = t.subLabelEmail;
-            document.getElementById('subLabelLocation').textContent = t.subLabelLocation;
-            document.getElementById('subLabelSpecialty').textContent = t.subLabelSpecialty;
-            document.getElementById('subLabelPhone').textContent = t.subLabelPhone;
-            document.getElementById('subLabelPlan').textContent = t.subLabelPlan;
-            document.getElementById('subLabelAvatar').textContent = t.subLabelAvatar;
-            document.getElementById('subLabelMessage').textContent = t.subLabelMessage;
-            document.getElementById('subAvatarLabel').textContent = t.subAvatarLabel;
-            document.getElementById('subTerms').innerHTML = t.subTerms.replace(/\n/g, '<br>');
-            document.getElementById('subSubmitBtn').textContent = t.subSubmitBtn;
-
-            const cancelBtn = document.querySelector('.cancel-subscription button');
-            if (cancelBtn) cancelBtn.textContent = t.cancelBtn;
+            document.getElementById('plansTitle').textContent = t.plansTitle;
+            document.getElementById('plansSubtitle').textContent = t.plansSubtitle;
+            document.getElementById('sponsorModalTitle').textContent = t.sponsorModalTitle;
+            document.getElementById('sponsorModalSub').textContent = t.sponsorModalSub;
+            document.getElementById('sponsorNameLabel').textContent = t.sponsorNameLabel;
+            document.getElementById('sponsorEmailLabel').textContent = t.sponsorEmailLabel;
+            document.getElementById('sponsorCompanyLabel').textContent = t.sponsorCompanyLabel;
+            document.getElementById('sponsorWebsiteLabel').textContent = t.sponsorWebsiteLabel;
+            document.getElementById('sponsorMessageLabel').textContent = t.sponsorMessageLabel;
+            document.getElementById('sponsorAvatarLabelSponsor').textContent = t.sponsorAvatarLabelSponsor;
+            document.getElementById('sponsorAvatarLabelFile').textContent = t.sponsorAvatarLabelFile;
+            document.querySelector('.btn-paypal-sponsor').innerHTML =
+                `<img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal" style="height:24px;"> ${t.sponsorPayBtn}`;
 
             if (adminLoggedIn) {
                 document.getElementById('toggleAdminBtn').textContent = '🔒 ' + (t.adminPanelTitle || 'إدارة الموقع') +
@@ -3389,286 +3481,6 @@
         }
 
         // ============================================================
-        //  MODAL FUNCTIONS
-        // ============================================================
-        function openModal(user) {
-            currentModalUser = user;
-            const t = langData[currentLang];
-            const name = user.name;
-            const location = user.location;
-            const country = user.country;
-            const specialty = user.specialty;
-            const isNew = user._new || false;
-            const joined = user.joined || new Date(user._date || Date.now()).toLocaleDateString();
-            const features = getPlanFeatures(user.plan, currentLang);
-            const status = getSubscriptionStatus(user);
-            const onTrial = isUserOnTrial(user);
-            const isSubscribed = isUserSubscribed(user);
-            const pending = isPaymentPending(user);
-
-            document.getElementById('modalName').textContent = name;
-            document.getElementById('modalLocation').textContent = `${location}${country ? `, ${country}` : ''}`;
-            document.getElementById('modalEmail').textContent = user.email;
-            document.getElementById('modalDate').textContent = joined;
-            document.getElementById('modalStatus').textContent = isNew ? t.modalStatusNew : t.modalStatusActive;
-            document.getElementById('modalPlan').textContent = user.plan;
-            document.getElementById('modalSpecialty').textContent = `🔬 ${specialty}`;
-            document.getElementById('modalPlanFeatures').textContent = features;
-            document.getElementById('modalSubscription').textContent = status;
-
-            // Show payment buttons if trial ended or pending
-            const paymentBtns = document.getElementById('paymentButtons');
-            if (pending || (!onTrial && !isSubscribed && user._subscription)) {
-                paymentBtns.style.display = 'flex';
-            } else {
-                paymentBtns.style.display = 'none';
-            }
-
-            const fullStars = Math.floor(user.rating || 0);
-            const halfStar = (user.rating - fullStars) >= 0.5 ? '☆' : '';
-            const starStr = '⭐'.repeat(fullStars) + halfStar + '☆'.repeat(5 - fullStars - (halfStar ? 1 : 0));
-            document.getElementById('modalRating').textContent = `${starStr} (${user.rating || 0})`;
-
-            const avatarEl = document.getElementById('modalAvatar');
-            avatarEl.textContent = user.icon || '🧑';
-
-            document.getElementById('modalOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-            currentModalUser = null;
-        }
-
-        function contactSubscriber() {
-            if (!currentModalUser) return;
-            const email = currentModalUser.email;
-            const name = currentModalUser.name;
-            const subject = encodeURIComponent(currentLang === 'ar' ? 'تواصل من مليون مربع' : 'Contact from Million Squares');
-            const body = encodeURIComponent(
-                currentLang === 'ar' ?
-                `مرحباً ${name},\n\nنحن من منصة مليون مربع. نود التواصل معك بخصوص حسابك.\n\nشكراً لك.` :
-                `Hello ${name},\n\nWe are from Million Squares platform. We would like to contact you.\n\nThank you.`
-            );
-            window.open(`mailto:${email}?subject=${subject}&body=${body}`);
-            closeModal();
-        }
-
-        // ============================================================
-        //  SUBSCRIPTION MODAL
-        // ============================================================
-        function openSubscribeModal(email) {
-            editingSubscription = email || null;
-
-            document.getElementById('subscribeForm').reset();
-            document.getElementById('subSelectedPlan').value = '💎 عادي ($1/سنة)';
-            document.getElementById('subSelectedPlanType').value = 'basic';
-            document.getElementById('subSelectedAmount').value = '1';
-            document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
-            document.querySelector('.plan-option').classList.add('selected');
-            document.getElementById('subAvatarLabel').textContent = langData[currentLang]?.subAvatarLabel ||
-                '📤 اضغط لاختيار صورة';
-            subAvatarFile = null;
-            document.getElementById('cancelSubscriptionDiv').style.display = 'none';
-
-            if (email) {
-                const user = usersData.find(u => u.email === email);
-                if (user && user._subscription && user._subscription.trial) {
-                    document.getElementById('cancelSubscriptionDiv').style.display = 'block';
-                    document.getElementById('subFullName').value = user.name;
-                    document.getElementById('subFullEmail').value = user.email;
-                    document.getElementById('subFullLocation').value = user.location;
-                    document.getElementById('subFullSpecialty').value = user.specialty || '';
-                    document.getElementById('subFullPhone').value = user.phone || '';
-                    const planOption = document.querySelector(`.plan-option[data-plan="${user.plan}"]`);
-                    if (planOption) {
-                        document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
-                        planOption.classList.add('selected');
-                        document.getElementById('subSelectedPlan').value = user.plan;
-                        document.getElementById('subSelectedPlanType').value = user._planType || 'basic';
-                        document.getElementById('subSelectedAmount').value = planOption.dataset.amount || '1';
-                    }
-                    updateTrialCountdown(user);
-                }
-            }
-
-            document.getElementById('subscribeOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSubscribeModal() {
-            document.getElementById('subscribeOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-            editingSubscription = null;
-        }
-
-        function selectPlan(el) {
-            document.querySelectorAll('.plan-option').forEach(p => p.classList.remove('selected'));
-            el.classList.add('selected');
-            document.getElementById('subSelectedPlan').value = el.dataset.plan;
-            document.getElementById('subSelectedPlanType').value = el.dataset.planType || 'basic';
-            document.getElementById('subSelectedAmount').value = el.dataset.amount || '1';
-        }
-
-        function handleSubAvatar(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                subAvatarFile = e.target.result;
-                document.getElementById('subAvatarLabel').textContent = '✅ ' + (currentLang === 'ar' ? 'تم رفع الصورة' :
-                    'Image uploaded');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function updateTrialCountdown(user) {
-            if (!user || !user._subscription || !user._subscription.trialEnd) return;
-            const now = Date.now();
-            const trialEnd = new Date(user._subscription.trialEnd).getTime();
-            const remaining = Math.max(0, Math.floor((trialEnd - now) / (1000 * 60 * 60 * 24)));
-
-            const t = langData[currentLang];
-            const countdownEl = document.getElementById('trialCountdown');
-            if (countdownEl) {
-                if (remaining > 0) {
-                    countdownEl.textContent = t.trialRemaining.replace('{days}', remaining);
-                    countdownEl.style.color = 'var(--orange)';
-                } else {
-                    countdownEl.textContent = t.trialEnded;
-                    countdownEl.style.color = 'var(--red)';
-                }
-            }
-        }
-
-        function handleSubscription(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('subFullName').value.trim();
-            const email = document.getElementById('subFullEmail').value.trim();
-            const location = document.getElementById('subFullLocation').value.trim();
-            const specialty = document.getElementById('subFullSpecialty').value.trim();
-            const phone = document.getElementById('subFullPhone').value.trim();
-            const plan = document.getElementById('subSelectedPlan').value;
-            const planType = document.getElementById('subSelectedPlanType').value;
-            const amount = parseInt(document.getElementById('subSelectedAmount').value) || 1;
-            const message = document.getElementById('subFullMessage').value.trim();
-
-            if (!name || !email || !location) {
-                alert(currentLang === 'ar' ? '⚠️ الرجاء ملء الحقول الأساسية!' : '⚠️ Please fill required fields!');
-                return;
-            }
-
-            if (!editingSubscription) {
-                const existing = usersData.find(u => u.email === email);
-                if (existing) {
-                    alert(currentLang === 'ar' ? '⚠️ هذا البريد الإلكتروني مسجل بالفعل!' :
-                        '⚠️ This email is already registered!');
-                    return;
-                }
-            }
-
-            const rating = (Math.random() * 2 + 2.5).toFixed(1);
-            const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
-            const today = new Date().toISOString().slice(0, 10);
-            const now = Date.now();
-            const trialEnd = new Date(now + TRIAL_DAYS * 24 * 60 * 60 * 1000).toISOString();
-
-            let newUser;
-
-            if (editingSubscription) {
-                const user = usersData.find(u => u.email === editingSubscription);
-                if (user) {
-                    user.name = name;
-                    user.location = location;
-                    user.specialty = specialty || 'عام';
-                    user.phone = phone || '';
-                    user.plan = plan;
-                    user._planType = planType;
-                    if (subAvatarFile) {
-                        user.avatar = subAvatarFile;
-                    }
-                    user._subscription = {
-                        active: true,
-                        trial: true,
-                        trialStart: new Date(now).toISOString(),
-                        trialEnd: trialEnd,
-                        subscribed: false,
-                        amount: amount,
-                        paymentPending: false
-                    };
-                    newUser = user;
-                }
-            } else {
-                newUser = {
-                    name: name,
-                    location: location,
-                    country: 'غير محدد',
-                    email: email,
-                    specialty: specialty || 'عام',
-                    plan: plan,
-                    rating: parseFloat(rating),
-                    icon: icons[Math.floor(Math.random() * icons.length)],
-                    avatar: subAvatarFile || '',
-                    phone: phone || '',
-                    _new: true,
-                    _date: now,
-                    joined: today,
-                    _planType: planType,
-                    _subscription: {
-                        active: true,
-                        trial: true,
-                        trialStart: new Date(now).toISOString(),
-                        trialEnd: trialEnd,
-                        subscribed: false,
-                        amount: amount,
-                        paymentPending: false
-                    },
-                    _subscriptionMessage: message || ''
-                };
-
-                usersData.push(newUser);
-            }
-
-            if (subAvatarFile) {
-                subAvatarFile = null;
-            }
-
-            saveState();
-
-            showNotification(
-                langData[currentLang]?.newMember || '🎉 عضو جديد!',
-                (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}', name)
-            );
-
-            closeSubscribeModal();
-            renderAll();
-
-            const trialEndDate = new Date(trialEnd);
-            const trialEndStr = trialEndDate.toLocaleDateString(currentLang === 'ar' ? 'ar-SA' : 'en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-
-            alert(currentLang === 'ar' ?
-                `✅ تم اشتراكك بنجاح!\n\n🎁 لديك ${TRIAL_DAYS} أيام تجريبية مجانية.\n📅 تنتهي الفترة التجريبية في: ${trialEndStr}\n\n💳 بعد انتهاء الفترة التجريبية، سيتم تحصيل قيمة الاشتراك ($${amount}) تلقائياً.\n🔔 يمكنك إلغاء الاشتراك خلال الفترة التجريبية فقط.\n\n💳 يمكنك الدفع الآن عبر PayPal أو Stripe.` :
-                `✅ You have successfully subscribed!\n\n🎁 You have ${TRIAL_DAYS} days free trial.\n📅 Trial ends on: ${trialEndStr}\n\n💳 After the trial period, $${amount} will be automatically charged.\n🔔 You can cancel only during the trial period.\n\n💳 You can pay now via PayPal or Stripe.`
-            );
-        }
-
-        function cancelSubscriptionAction() {
-            if (!editingSubscription) {
-                alert(currentLang === 'ar' ? '❌ لا يوجد اشتراك نشط للإلغاء' :
-                    '❌ No active subscription to cancel');
-                return;
-            }
-            cancelSubscription(editingSubscription);
-        }
-
-        // ============================================================
         //  RENDER FUNCTIONS
         // ============================================================
         function renderSponsors() {
@@ -3676,7 +3488,8 @@
             const t = langData[currentLang];
             if (!t) return;
 
-            const items = [
+            // Combine default sponsors with active sponsors from sponsorList
+            const allSponsors = [
                 { key: 'weekly', plan: t.planWeekly, period: t.periodWeekly, badge: t.badgeWeekly,
                     badgeClass: 'badge-weekly' },
                 { key: 'monthly', plan: t.planMonthly, period: t.periodMonthly, badge: t.badgeMonthly,
@@ -3684,16 +3497,44 @@
                 { key: 'yearly', plan: t.planYearly, period: t.periodYearly, badge: t.badgeYearly,
                     badgeClass: 'badge-yearly' }
             ];
+
             const prices = { weekly: '$100', monthly: '$1,000', yearly: '$10,000' };
+            const emojis = { weekly: '🗓️', monthly: '🌟', yearly: '👑' };
 
             let html = '';
-            for (let copy = 0; copy < 3; copy++) {
-                items.forEach(item => {
+            // Add active sponsors from sponsorList first
+            const activeSponsors = sponsorList.filter(s => s.active);
+            activeSponsors.forEach(sp => {
+                const badgeClass = sp.planType === 'weekly' ? 'badge-weekly' :
+                    sp.planType === 'monthly' ? 'badge-monthly' : 'badge-yearly';
+                const badgeText = sp.planType === 'weekly' ? t.badgeWeekly :
+                    sp.planType === 'monthly' ? t.badgeMonthly : t.badgeYearly;
+                const planText = sp.planType === 'weekly' ? t.planWeekly :
+                    sp.planType === 'monthly' ? t.planMonthly : t.planYearly;
+                const periodText = sp.planType === 'weekly' ? t.periodWeekly :
+                    sp.planType === 'monthly' ? t.periodMonthly : t.periodYearly;
+
+                for (let copy = 0; copy < 2; copy++) {
+                    html += `
+                            <div class="sponsor-item" style="border-color:var(--gold);border-width:2px;">
+                                <div class="sponsor-avatar">${sp.avatar ? `<img src="${sp.avatar}" alt="${sp.name}">` : (sp.planEmoji || '🌟')}</div>
+                                <div class="s-name">${sp.company || sp.name} 🔥</div>
+                                <div class="s-plan">${planText} ${periodText}</div>
+                                <span class="s-badge ${badgeClass}">${badgeText} ✓</span>
+                                <div style="font-size:0.55rem;color:var(--text-muted);">${sp.website || ''}</div>
+                            </div>
+                        `;
+                }
+            });
+
+            // Add default sponsors
+            for (let copy = 0; copy < 2; copy++) {
+                allSponsors.forEach(item => {
                     const sp = sponsors[item.key] || { name: '待定', emoji: '🌟', active: false };
                     const activeBadge = sp.active ? ' 🔥' : '';
                     html += `
                             <div class="sponsor-item" style="${sp.active ? 'border-color:var(--gold);border-width:2px;' : ''}">
-                                <div class="sponsor-avatar">${sp.emoji || '🌟'}</div>
+                                <div class="sponsor-avatar">${sp.emoji || emojis[item.key] || '🌟'}</div>
                                 <div class="s-name">${sp.name}${activeBadge}</div>
                                 <div class="s-plan">${item.plan} ${item.period}</div>
                                 <span class="s-badge ${item.badgeClass}">${item.badge}${sp.active ? ' ✓' : ''}</span>
@@ -3730,7 +3571,6 @@
                 const planType = getPlanType(u.plan);
                 const onTrial = isUserOnTrial(u);
                 const subscribed = isUserSubscribed(u);
-                const pending = isPaymentPending(u);
 
                 const card = document.createElement('div');
                 card.className = `square-card ${planClass}`;
@@ -3743,7 +3583,6 @@
                         ${isNew ? '<div class="new-badge">🎉 جديد</div>' : ''}
                         ${onTrial ? '<div class="trial-badge-sub">⏳ تجربة</div>' : ''}
                         ${subscribed ? '<div class="subscribed-badge">✅ مشترك</div>' : ''}
-                        ${pending ? '<div class="payment-pending">⏳ في انتظار الدفع</div>' : ''}
                         <span class="plan-badge">${planType === 'basic' ? '💎' : planType === 'silver' ? '⭐' : planType === 'gold' ? '👑' : '💠'}</span>
                         <button class="delete-btn" onclick="event.stopPropagation();deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
                         <div class="avatar">${u.icon || '🧑'}</div>
@@ -3793,6 +3632,7 @@
             document.getElementById('statRevenue').textContent = `$${revenue.toLocaleString()}`;
             document.getElementById('statSold').textContent = usersData.length;
             document.getElementById('statSquares').textContent = '1,000,000';
+            document.getElementById('statSponsors').textContent = sponsorList.filter(s => s.active).length;
         }
 
         function updateSubCount() {
@@ -3802,7 +3642,6 @@
         function updateSubscriptionStats() {
             const trialCount = usersData.filter(u => isUserOnTrial(u)).length;
             const activeCount = usersData.filter(u => isUserSubscribed(u)).length;
-            const pendingCount = usersData.filter(u => isPaymentPending(u)).length;
             const totalRevenue = usersData.reduce((sum, u) => {
                 if (isUserSubscribed(u)) {
                     return sum + (u._subscription?.amount || getPlanAmount(u.plan));
@@ -3813,48 +3652,15 @@
             document.getElementById('trialCount').textContent = trialCount;
             document.getElementById('activeCount').textContent = activeCount;
             document.getElementById('totalRevenueDisplay').textContent = `$${totalRevenue}`;
-            document.getElementById('pendingPaymentCount').textContent = pendingCount;
-        }
-
-        function renderSuggestions() {
-            const list = document.getElementById('suggestionsList');
-            if (!list) return;
-            if (suggestions.length === 0) {
-                list.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:10px;">لا توجد اقتراحات حتى الآن</div>';
-                return;
-            }
-            list.innerHTML = suggestions.map((s, i) => `
-                    <div style="background:var(--bg-primary);padding:8px;border-radius:8px;margin-bottom:6px;border:1px solid var(--border-color);">
-                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-                            <strong style="color:var(--gold);">${s.name}</strong>
-                            <span style="color:var(--text-muted);font-size:0.7rem;">${s.email}</span>
-                            <span style="color:var(--text-muted);font-size:0.6rem;">${s.date || ''}</span>
-                        </div>
-                        <div style="color:var(--text-secondary);font-size:0.85rem;margin-top:4px;">${s.suggestion}</div>
-                        <button class="btn-admin danger" style="width:auto;padding:2px 12px;font-size:0.6rem;margin-top:4px;" onclick="deleteSuggestion(${i})">🗑️ حذف</button>
-                    </div>
-                `).join('');
+            document.getElementById('sponsorCount').textContent = sponsorList.filter(s => s.active).length;
         }
 
         function renderAll() {
             renderSponsors();
             renderSquares();
             populateFilters();
-            renderSuggestions();
             updateSubCount();
             updateSubscriptionStats();
-
-            document.getElementById('paypalAccount').value = paymentAccounts.paypal || '';
-            document.getElementById('stripeAccount').value = paymentAccounts.stripe || '';
-            document.getElementById('bankAccount').value = paymentAccounts.bank || '';
-            if (document.getElementById('autoPayment')) {
-                document.getElementById('autoPayment').checked = paymentAccounts.autoPayment || false;
-            }
-            if (document.getElementById('darkModeToggle')) {
-                document.getElementById('darkModeToggle').checked = currentTheme === 'dark';
-            }
-            document.getElementById('siteTitle').value = translate(siteSettings.siteTitle || '', 'ar');
-            document.getElementById('siteDescription').value = siteSettings.siteDescription || '';
         }
 
         // ============================================================
@@ -3952,7 +3758,6 @@
             paymentAccounts.bank = document.getElementById('bankAccount').value.trim();
             paymentAccounts.autoPayment = document.getElementById('autoPayment').checked;
             saveState();
-            initStripe();
             alert(currentLang === 'ar' ? '✅ تم حفظ حسابات الدفع!' : '✅ Payment accounts saved!');
         }
 
@@ -4007,146 +3812,6 @@
             alert(currentLang === 'ar' ? '✅ تم حفظ إعدادات الموقع!' : '✅ Site settings saved!');
         }
 
-        function addSubscriber() {
-            const name = document.getElementById('subName').value.trim();
-            const location = document.getElementById('subLocation').value.trim();
-            const country = document.getElementById('subCountry').value.trim();
-            const email = document.getElementById('subEmail').value.trim();
-            const specialty = document.getElementById('subSpecialty').value.trim();
-            const plan = document.getElementById('subPlan').value;
-
-            if (!name || !location || !email) {
-                alert(currentLang === 'ar' ? '⚠️ الرجاء ملء الحقول الأساسية!' : '⚠️ Please fill required fields!');
-                return;
-            }
-
-            const rating = (Math.random() * 2 + 2.5).toFixed(1);
-            const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
-            const today = new Date().toISOString().slice(0, 10);
-            const planType = getPlanType(plan);
-            const amount = getPlanAmount(plan);
-            const now = Date.now();
-
-            const newUser = {
-                name: name,
-                location: location,
-                country: country || 'غير محدد',
-                email: email,
-                specialty: specialty || 'عام',
-                plan: plan,
-                rating: parseFloat(rating),
-                icon: icons[Math.floor(Math.random() * icons.length)],
-                _new: true,
-                _date: now,
-                joined: today,
-                _planType: planType,
-                _subscription: {
-                    active: true,
-                    trial: true,
-                    trialStart: new Date(now).toISOString(),
-                    trialEnd: new Date(now + TRIAL_DAYS * 24 * 60 * 60 * 1000).toISOString(),
-                    subscribed: false,
-                    amount: amount,
-                    paymentPending: false
-                }
-            };
-
-            usersData.push(newUser);
-            saveState();
-
-            showNotification(
-                langData[currentLang]?.newMember || '🎉 عضو جديد!',
-                (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}', name)
-            );
-
-            document.getElementById('subName').value = '';
-            document.getElementById('subLocation').value = '';
-            document.getElementById('subCountry').value = '';
-            document.getElementById('subEmail').value = '';
-            document.getElementById('subSpecialty').value = '';
-
-            renderAll();
-            alert(currentLang === 'ar' ? '✅ تم إضافة المشترك بنجاح!' : '✅ Subscriber added successfully!');
-        }
-
-        function deleteSubscriber(email) {
-            if (!confirm(currentLang === 'ar' ? '🗑️ هل تريد حذف هذا المشترك؟' : '🗑️ Delete this subscriber?')) return;
-            usersData = usersData.filter(u => u.email !== email);
-            saveState();
-            renderAll();
-            if (currentModalUser && currentModalUser.email === email) {
-                closeModal();
-            }
-        }
-
-        function processAutoPaymentsManual() {
-            const result = processAutoPayments();
-            if (result.processed === 0 && result.pending === 0) {
-                alert(currentLang === 'ar' ? '✅ لا توجد دفعات مستحقة حالياً' :
-                    '✅ No pending payments at this time');
-            } else {
-                alert(currentLang === 'ar' ?
-                    `✅ تم معالجة ${result.processed} دفعة بقيمة $${result.totalCollected}\n⏳ ${result.pending} في انتظار الدفع` :
-                    `✅ Processed ${result.processed} payments worth $${result.totalCollected}\n⏳ ${result.pending} pending payment`
-                );
-            }
-        }
-
-        // ============================================================
-        //  SUGGESTIONS FUNCTIONS
-        // ============================================================
-        function submitSuggestion(event) {
-            event.preventDefault();
-            const name = document.getElementById('suggestionName').value.trim();
-            const email = document.getElementById('suggestionEmail').value.trim();
-            const suggestion = document.getElementById('suggestionText').value.trim();
-
-            if (!name || !email || !suggestion) {
-                alert(currentLang === 'ar' ? '⚠️ الرجاء ملء جميع الحقول!' : '⚠️ Please fill all fields!');
-                return;
-            }
-
-            suggestions.push({
-                name: name,
-                email: email,
-                suggestion: suggestion,
-                date: new Date().toLocaleDateString('ar-SA'),
-                timestamp: Date.now()
-            });
-
-            saveState();
-            renderSuggestions();
-
-            document.getElementById('suggestionName').value = '';
-            document.getElementById('suggestionEmail').value = '';
-            document.getElementById('suggestionText').value = '';
-
-            showNotification(
-                '💡 ' + (currentLang === 'ar' ? 'تم استلام اقتراحك!' : 'Suggestion received!'),
-                currentLang === 'ar' ?
-                `شكراً ${name} على اقتراحك القيم. سنقوم بدراسته.` :
-                `Thank you ${name} for your valuable suggestion. We will review it.`
-            );
-        }
-
-        function deleteSuggestion(index) {
-            if (!confirm(currentLang === 'ar' ? '🗑️ هل تريد حذف هذا الاقتراح؟' : '🗑️ Delete this suggestion?')) return;
-            suggestions.splice(index, 1);
-            saveState();
-            renderSuggestions();
-        }
-
-        function clearSuggestions() {
-            if (!confirm(currentLang === 'ar' ? '🗑️ هل تريد مسح جميع الاقتراحات؟' : '🗑️ Clear all suggestions?')) return;
-            suggestions = [];
-            saveState();
-            renderSuggestions();
-            alert(currentLang === 'ar' ? '✅ تم مسح جميع الاقتراحات' : '✅ All suggestions cleared');
-        }
-
-        // ============================================================
-        //  DATA MANAGEMENT
-        // ============================================================
         function resetToDefault() {
             if (!confirm(currentLang === 'ar' ? '⚠️ سيتم استعادة البيانات الافتراضية!' :
                     '⚠️ Default data will be restored!')) return;
@@ -4155,13 +3820,14 @@
             paymentAccounts = JSON.parse(JSON.stringify(defaultPayment));
             siteSettings = JSON.parse(JSON.stringify(defaultSettings));
             suggestions = [];
+            sponsorList = [];
             saveState();
             renderAll();
             alert(currentLang === 'ar' ? '🔄 تم استعادة البيانات الافتراضية' : '🔄 Default data restored');
         }
 
         function exportData() {
-            const data = { users: usersData, sponsors, paymentAccounts, siteSettings, suggestions };
+            const data = { users: usersData, sponsors, paymentAccounts, siteSettings, suggestions, sponsorList };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -4183,9 +3849,9 @@
                     if (data.paymentAccounts) paymentAccounts = data.paymentAccounts;
                     if (data.siteSettings) siteSettings = data.siteSettings;
                     if (data.suggestions) suggestions = data.suggestions;
+                    if (data.sponsorList) sponsorList = data.sponsorList;
                     saveState();
                     renderAll();
-                    initStripe();
                     alert(currentLang === 'ar' ? '✅ تم استيراد البيانات بنجاح!' : '✅ Data imported successfully!');
                 } catch (err) {
                     alert(currentLang === 'ar' ? '❌ ملف غير صالح!' : '❌ Invalid file!');
@@ -4267,6 +3933,7 @@
                 closeNotification();
                 closeModal();
                 closeSubscribeModal();
+                closeSponsorModal();
                 document.getElementById('adminOverlay').classList.remove('active');
             }
             if (e.key === 'Enter' && document.getElementById('adminOverlay').classList.contains('active')) {
@@ -4281,14 +3948,19 @@
             openSubscribeModal();
         });
 
+        document.getElementById('ctaSponsor').addEventListener('click', function() {
+            // Scroll to plans section
+            document.getElementById('sponsorPlansSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
         document.getElementById('ctaMore').addEventListener('click', () => {
             const total = usersData.length;
             const trial = usersData.filter(u => isUserOnTrial(u)).length;
             const subscribed = usersData.filter(u => isUserSubscribed(u)).length;
-            const pending = usersData.filter(u => isPaymentPending(u)).length;
+            const sponsors = sponsorList.filter(s => s.active).length;
             alert(currentLang === 'ar' ?
-                `📋 إجمالي المشتركين: ${total}\n⏳ في الفترة التجريبية: ${trial}\n✅ مشتركين نشطين: ${subscribed}\n⏳ في انتظار الدفع: ${pending}\n📊 1000 مربع لكل صفحة.` :
-                `📋 Total subscribers: ${total}\n⏳ On trial: ${trial}\n✅ Active subscribers: ${subscribed}\n⏳ Pending payment: ${pending}\n📊 1000 squares per page.`
+                `📋 إجمالي المشتركين: ${total}\n⏳ في الفترة التجريبية: ${trial}\n✅ مشتركين نشطين: ${subscribed}\n🌟 عدد الداعمين: ${sponsors}\n📊 1000 مربع لكل صفحة.` :
+                `📋 Total subscribers: ${total}\n⏳ On trial: ${trial}\n✅ Active subscribers: ${subscribed}\n🌟 Number of supporters: ${sponsors}\n📊 1000 squares per page.`
             );
         });
 
@@ -4304,16 +3976,15 @@
             processAutoPayments();
         }, 1000);
 
-        console.log('✅ مليون مربع - النسخة الحقيقية مع PayPal و Stripe!');
+        console.log('✅ مليون مربع - النسخة النهائية مع نظام الداعمين!');
         console.log('🔑 اسم المدير:', ADMIN_USERNAME);
         console.log('🔑 كلمة مرور المدير:', ADMIN_PASSWORD);
         console.log('📊 عدد المشتركين:', usersData.length);
+        console.log('🌟 عدد الداعمين:', sponsorList.filter(s => s.active).length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
-        console.log('💰 PayPal Client ID:', paymentAccounts.paypal || 'غير مضبوط');
-        console.log('💰 Stripe Key:', paymentAccounts.stripe || 'غير مضبوط');
-        console.log('🎁 فترة التجربة:', TRIAL_DAYS, 'أيام');
+        console.log('💳 PayPal جاهز للدفع');
         console.log('🟩 اضغط على مربع غير محجوز للاشتراك');
-        console.log('💳 يمكن الدفع عبر PayPal أو Stripe');
+        console.log('🌟 اضغط على زر "دعم المنصة" لتصبح داعماً');
     </script>
 </body>
 </html>
