@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 مليون مربع - المنصة الاحترافية</title>
+    <title>🏆 مليون مربع - المنصة التفاعلية</title>
+    <meta name="description" content="مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي. منصة لعرض المربعات الإعلانية، التواصل البصري، التسويق الرقمي، الإعلانات التفاعلية، بناء مجتمع رقمي، منصة إعلانات مبتكرة، تسويق مرئي، إعلانات مربعة، منصة تفاعلية، مجتمع إعلاني، منصة رقمية متطورة.">
+    <meta name="keywords" content="مليون مربع, منصة تفاعلية, إعلانات مربعة, تسويق رقمي, إعلانات تفاعلية, منصة بصرية, مجتمع إعلاني, تسويق مرئي, إعلانات مبتكرة, منصة رقمية, مربعات إعلانية, منصة التواصل البصري">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
@@ -33,7 +35,6 @@
             --radius: 16px;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --font-arabic: 'Cairo', 'Segoe UI', sans-serif;
-            --font-english: 'Orbitron', 'Segoe UI', sans-serif;
         }
 
         [data-theme="light"] {
@@ -206,7 +207,7 @@
         }
 
         /* ============================================================
-                   ADMIN LOGIN (Simplified)
+                   ADMIN LOGIN
                    ============================================================ */
         .admin-overlay {
             position: fixed;
@@ -275,6 +276,9 @@
             display: none;
         }
 
+        /* ============================================================
+                   ADMIN PANEL
+                   ============================================================ */
         .admin-panel {
             background: var(--bg-secondary);
             border: 2px solid var(--gold);
@@ -282,6 +286,8 @@
             padding: 25px;
             margin: 20px 0 30px;
             display: none;
+            max-height: 80vh;
+            overflow-y: auto;
         }
         .admin-panel.active {
             display: block;
@@ -309,7 +315,7 @@
         }
         .admin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 16px;
         }
         .admin-section {
@@ -322,9 +328,13 @@
             color: var(--text-secondary);
             margin-bottom: 10px;
             font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .admin-section input,
-        .admin-section select {
+        .admin-section select,
+        .admin-section textarea {
             width: 100%;
             padding: 8px 12px;
             background: var(--bg-input);
@@ -333,6 +343,10 @@
             color: var(--text-primary);
             font-size: 0.9rem;
             margin-bottom: 6px;
+        }
+        .admin-section textarea {
+            resize: vertical;
+            min-height: 60px;
         }
         .btn-admin {
             background: var(--blue);
@@ -344,6 +358,7 @@
             font-weight: 600;
             width: 100%;
             margin-top: 4px;
+            transition: var(--transition);
         }
         .btn-admin:hover {
             background: var(--blue-dark);
@@ -357,6 +372,59 @@
         }
         .btn-admin.warning {
             background: var(--orange);
+        }
+        .btn-admin.gold {
+            background: var(--gold);
+            color: #1a2330;
+        }
+        .btn-admin.gold:hover {
+            background: var(--gold-dark);
+        }
+        .admin-section .hint {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .admin-section .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 6px 0;
+        }
+        .admin-section .toggle-switch label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .admin-section .toggle-switch input[type="checkbox"] {
+            width: 40px;
+            height: 22px;
+            appearance: none;
+            background: var(--bg-input);
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        .admin-section .toggle-switch input[type="checkbox"]:checked {
+            background: var(--green);
+            border-color: var(--green);
+        }
+        .admin-section .toggle-switch input[type="checkbox"]::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .admin-section .toggle-switch input[type="checkbox"]:checked::before {
+            left: 20px;
         }
 
         .toggle-admin {
@@ -478,7 +546,55 @@
         }
 
         /* ============================================================
-                   SPONSOR STRIP - MARQUEE / ANIMATED
+                   SEO DESCRIPTION SECTION
+                   ============================================================ */
+        .seo-section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .seo-section h2 {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .seo-section .seo-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .seo-section .seo-text .highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .seo-section .seo-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .seo-section .seo-tags .tag {
+            background: var(--bg-input);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .seo-section .seo-tags .tag:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ============================================================
+                   SPONSOR STRIP - ANIMATED
                    ============================================================ */
         .sponsor-strip {
             background: var(--bg-secondary);
@@ -500,7 +616,7 @@
         .sponsor-track {
             display: flex;
             gap: 30px;
-            animation: scrollSponsors 20s linear infinite;
+            animation: scrollSponsors 25s linear infinite;
             width: max-content;
             padding: 0 20px;
         }
@@ -536,11 +652,6 @@
             justify-content: center;
             font-size: 1.4rem;
             overflow: hidden;
-        }
-        .sponsor-track .sponsor-item .sponsor-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
         .sponsor-track .sponsor-item .s-name {
             font-size: 0.85rem;
@@ -836,11 +947,6 @@
         .square-card:hover .avatar {
             border-color: var(--gold);
         }
-        .square-card .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
         .square-card .s-name {
             font-size: 0.85rem;
             font-weight: 700;
@@ -1016,11 +1122,6 @@
             overflow: hidden;
             background: var(--bg-input);
         }
-        .modal-content .modal-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
         .modal-content .modal-name {
             font-size: 1.4rem;
             font-weight: 700;
@@ -1091,7 +1192,6 @@
         }
         .modal-content .modal-actions .btn-close-modal:hover {
             background: #c0392b;
-            transform: scale(1.05);
         }
         .modal-content .modal-actions .btn-contact {
             background: var(--blue);
@@ -1099,7 +1199,73 @@
         }
         .modal-content .modal-actions .btn-contact:hover {
             background: var(--blue-dark);
-            transform: scale(1.05);
+        }
+
+        /* ============================================================
+                   SUGGESTION FORM
+                   ============================================================ */
+        .suggestion-section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+        }
+        .suggestion-section h3 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .suggestion-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .suggestion-form .form-group {
+            margin-bottom: 12px;
+        }
+        .suggestion-form .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        .suggestion-form .form-group input,
+        .suggestion-form .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .suggestion-form .form-group input:focus,
+        .suggestion-form .form-group textarea:focus {
+            border-color: var(--blue);
+            outline: none;
+        }
+        .suggestion-form .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .suggestion-form .btn-submit-suggestion {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border: none;
+            color: #1a2330;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+        .suggestion-form .btn-submit-suggestion:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(247, 201, 72, 0.3);
         }
 
         .section-title {
@@ -1287,6 +1453,12 @@
                 min-width: 140px;
                 padding: 8px 12px;
             }
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+            .seo-section h2 {
+                font-size: 1.3rem;
+            }
         }
         @media (max-width: 480px) {
             .squares-grid {
@@ -1334,6 +1506,9 @@
             }
             .square-card .s-plan {
                 font-size: 0.4rem;
+            }
+            .seo-section .seo-text {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -1415,16 +1590,76 @@
         <button class="toggle-admin" id="toggleAdminBtn" onclick="toggleAdminPanel()">⚙️ إدارة الموقع</button>
 
         <!-- ============================================================
-        ADMIN PANEL
+        ADMIN PANEL - FULL CONTROL
         ============================================================ -->
         <div class="admin-panel" id="adminPanel">
             <div class="panel-header">
-                <h3 id="adminPanelTitle">🛠️ لوحة التحكم</h3>
+                <h3 id="adminPanelTitle">🛠️ لوحة التحكم المتكاملة</h3>
                 <button class="close-panel" onclick="toggleAdminPanel()" id="adminCloseBtn">✕ إغلاق</button>
             </div>
+
             <div class="admin-grid">
+                <!-- Payment Accounts -->
                 <div class="admin-section">
-                    <h4 id="adminAddTitle">➕ إضافة مشترك</h4>
+                    <h4>💰 حسابات الدفع الإلكتروني</h4>
+                    <input type="text" id="paypalAccount" placeholder="💳 PayPal (البريد الإلكتروني)" dir="ltr">
+                    <input type="text" id="stripeAccount" placeholder="⚡ Stripe (المفتاح العام)" dir="ltr">
+                    <input type="text" id="bankAccount" placeholder="🏦 الحساب البنكي (IBAN)" dir="ltr">
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="autoPayment">
+                        <label for="autoPayment">🔒 تفعيل الدفع التلقائي</label>
+                    </div>
+                    <button class="btn-admin success" onclick="savePaymentAccounts()">💾 حفظ حسابات الدفع</button>
+                    <div class="hint">🔒 سيتم استخدام هذه الحسابات لاستلام الأرباح تلقائياً</div>
+                </div>
+
+                <!-- Sponsors Management -->
+                <div class="admin-section">
+                    <h4>🌟 إدارة الداعمين</h4>
+                    <div style="background:var(--bg-input);padding:10px;border-radius:10px;margin-bottom:8px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+                            <span style="color:var(--gold);font-weight:700;">🗓️ دعم أسبوعي</span>
+                            <span style="color:var(--text-secondary);">$100</span>
+                            <button class="btn-admin gold" style="width:auto;padding:4px 16px;" onclick="activateSponsor('weekly')">تفعيل</button>
+                        </div>
+                        <input type="text" id="sponsorWeeklyName" placeholder="اسم الراعي الأسبوعي" dir="auto" style="margin-top:6px;">
+                    </div>
+                    <div style="background:var(--bg-input);padding:10px;border-radius:10px;margin-bottom:8px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+                            <span style="color:var(--gold);font-weight:700;">🌟 دعم شهري</span>
+                            <span style="color:var(--text-secondary);">$1,000</span>
+                            <button class="btn-admin gold" style="width:auto;padding:4px 16px;" onclick="activateSponsor('monthly')">تفعيل</button>
+                        </div>
+                        <input type="text" id="sponsorMonthlyName" placeholder="اسم الراعي الشهري" dir="auto" style="margin-top:6px;">
+                    </div>
+                    <div style="background:var(--bg-input);padding:10px;border-radius:10px;margin-bottom:8px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+                            <span style="color:var(--gold);font-weight:700;">👑 دعم سنوي</span>
+                            <span style="color:var(--text-secondary);">$10,000</span>
+                            <button class="btn-admin gold" style="width:auto;padding:4px 16px;" onclick="activateSponsor('yearly')">تفعيل</button>
+                        </div>
+                        <input type="text" id="sponsorYearlyName" placeholder="اسم الراعي السنوي" dir="auto" style="margin-top:6px;">
+                    </div>
+                    <button class="btn-admin" onclick="updateSponsors()">💾 حفظ الرعاة</button>
+                    <div class="hint">💡 اضغط "تفعيل" لتفعيل الدعم التلقائي للحساب المفعل</div>
+                </div>
+
+                <!-- Site Settings -->
+                <div class="admin-section">
+                    <h4>⚙️ إعدادات الموقع والمظهر</h4>
+                    <input type="text" id="siteTitle" placeholder="🏷️ عنوان الموقع">
+                    <textarea id="siteDescription" placeholder="📝 وصف الموقع للبحث (SEO)"></textarea>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle" checked>
+                        <label for="darkModeToggle">🌙 الوضع المظلم</label>
+                    </div>
+                    <button class="btn-admin" onclick="saveSiteSettings()">💾 حفظ الإعدادات</button>
+                    <div class="hint">⚡ هذه الإعدادات تؤثر على عرض الموقع وتحسين محركات البحث</div>
+                </div>
+
+                <!-- Subscribers Management -->
+                <div class="admin-section">
+                    <h4>👥 إدارة المشتركين</h4>
                     <input type="text" id="subName" placeholder="👤 الاسم" dir="auto">
                     <input type="text" id="subLocation" placeholder="📍 المدينة" dir="auto">
                     <input type="text" id="subCountry" placeholder="🌍 البلد" dir="auto">
@@ -1436,18 +1671,29 @@
                         <option value="👑 ذهبي ($10/سنة)">👑 ذهبي</option>
                         <option value="💠 ملكي ($100/سنة)">💠 ملكي</option>
                     </select>
-                    <button class="btn-admin success" onclick="addSubscriber()" id="adminAddBtn">✅ إضافة</button>
+                    <button class="btn-admin success" onclick="addSubscriber()">✅ إضافة مشترك</button>
+                    <div class="hint">📊 عدد المشتركين الحالي: <span id="subCountDisplay">0</span></div>
                 </div>
+
+                <!-- Suggestions Display -->
                 <div class="admin-section">
-                    <h4 id="adminSponsorTitle">🌟 الرعاة</h4>
-                    <input type="text" id="sponsorWeeklyName" placeholder="🗓️ الأسبوعي" dir="auto">
-                    <input type="text" id="sponsorMonthlyName" placeholder="🌟 الشهري" dir="auto">
-                    <input type="text" id="sponsorYearlyName" placeholder="👑 السنوي" dir="auto">
-                    <button class="btn-admin" onclick="updateSponsors()" id="adminSponsorBtn">💾 حفظ</button>
+                    <h4>💡 الاقتراحات الواردة</h4>
+                    <div id="suggestionsList" style="max-height:200px;overflow-y:auto;background:var(--bg-input);border-radius:10px;padding:10px;margin-bottom:8px;">
+                        <div style="color:var(--text-muted);text-align:center;padding:10px;">لا توجد اقتراحات حتى الآن</div>
+                    </div>
+                    <button class="btn-admin danger" onclick="clearSuggestions()">🗑️ مسح جميع الاقتراحات</button>
                 </div>
+
+                <!-- Danger Zone -->
                 <div class="admin-section">
-                    <h4 id="adminDangerTitle">⚠️ الخطر</h4>
-                    <button class="btn-admin danger" onclick="resetToDefault()" id="adminDangerReset">🔄 استعادة</button>
+                    <h4>⚠️ منطقة الخطر</h4>
+                    <button class="btn-admin danger" onclick="resetToDefault()">🔄 استعادة البيانات الافتراضية</button>
+                    <button class="btn-admin danger" onclick="exportData()">📤 تصدير البيانات (JSON)</button>
+                    <div class="file-input-wrapper" style="margin-top:6px;">
+                        <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(event)">
+                        <button class="btn-admin warning" onclick="document.getElementById('importFile').click()">📥 استيراد بيانات (JSON)</button>
+                    </div>
+                    <div class="hint">⚠️ العمليات في هذه المنطقة لا يمكن التراجع عنها</div>
                 </div>
             </div>
         </div>
@@ -1489,13 +1735,48 @@
         </header>
 
         <!-- ============================================================
-        SPONSOR STRIP - ANIMATED MARQUEE
+        SEO SECTION - Smart Description with Keywords
+        ============================================================ -->
+        <div class="seo-section">
+            <h2 id="seoTitle">🚀 مليون مربع - المنصة البصرية التفاعلية الأولى</h2>
+            <div class="seo-text" id="seoText">
+                <span class="highlight">مليون مربع</span> هي <span class="highlight">المنصة البصرية التفاعلية</span> الأولى في العالم العربي، 
+                حيث نقدم <span class="highlight">مربعات إعلانية تفاعلية</span> تتيح للعلامات التجارية والأفراد 
+                <span class="highlight">التواصل البصري</span> مع جمهورهم المستهدف. من خلال <span class="highlight">الإعلانات المربعة</span>، 
+                يمكنك بناء <span class="highlight">مجتمع رقمي</span> نشط، وتعزيز <span class="highlight">التسويق الرقمي</span>، 
+                وزيادة <span class="highlight">الوعي بالعلامة التجارية</span>. انضم إلى <span class="highlight">منصة الإعلانات المبتكرة</span> 
+                واستفد من <span class="highlight">التسويق المرئي</span> و <span class="highlight">الإعلانات التفاعلية</span> 
+                لتحقيق <span class="highlight">انتشار واسع</span> و <span class="highlight">نمو مستدام</span>.
+                <br><br>
+                <span class="highlight">مليون مربع</span> هي أكثر من مجرد <span class="highlight">منصة إعلانات</span>، إنها 
+                <span class="highlight">منصة رقمية متطورة</span> تدمج بين <span class="highlight">التواصل البصري</span> 
+                و <span class="highlight">التسويق التفاعلي</span>، لتقدم لك <span class="highlight">حلولاً إعلانية مبتكرة</span> 
+                تناسب <span class="highlight">الأعمال الصغيرة والمتوسطة</span> و <span class="highlight">العلامات التجارية الكبرى</span> 
+                على حد سواء. مع <span class="highlight">مليون مربع</span>، يمكنك <span class="highlight">بناء هوية بصرية</span> قوية، 
+                و <span class="highlight">جذب العملاء</span> بطرق إبداعية، و <span class="highlight">تحقيق عوائد استثمارية</span> عالية.
+            </div>
+            <div class="seo-tags" id="seoTags">
+                <span class="tag">#مليون_مربع</span>
+                <span class="tag">#منصة_تفاعلية</span>
+                <span class="tag">#إعلانات_مربعة</span>
+                <span class="tag">#تسويق_رقمي</span>
+                <span class="tag">#إعلانات_تفاعلية</span>
+                <span class="tag">#منصة_بصرية</span>
+                <span class="tag">#مجتمع_إعلاني</span>
+                <span class="tag">#تسويق_مرئي</span>
+                <span class="tag">#إعلانات_مبتكرة</span>
+                <span class="tag">#منصة_رقمية</span>
+                <span class="tag">#مربعات_إعلانية</span>
+                <span class="tag">#تواصل_بصري</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        SPONSOR STRIP - ANIMATED
         ============================================================ -->
         <div class="sponsor-strip">
             <div class="title" id="sponsorTitle">🌟 الرعاة الداعمون</div>
-            <div class="sponsor-track" id="sponsorTrack">
-                <!-- Will be injected by JS -->
-            </div>
+            <div class="sponsor-track" id="sponsorTrack"></div>
         </div>
 
         <!-- ============================================================
@@ -1541,6 +1822,28 @@
         <div class="squares-wrapper" id="squaresWrapper">
             <div class="squares-grid" id="squaresGrid"></div>
             <div class="scroll-hint" id="scrollHint">⬇️ مرر للأسفل | ⬅️➡️ مرر للجانب (1000 مربع لكل عرض)</div>
+        </div>
+
+        <!-- ============================================================
+        SUGGESTION FORM
+        ============================================================ -->
+        <div class="suggestion-section">
+            <h3 id="suggestionTitle">💡 شاركنا اقتراحك لتطوير المنصة</h3>
+            <form class="suggestion-form" onsubmit="submitSuggestion(event)">
+                <div class="form-group">
+                    <label id="suggestionNameLabel">👤 الاسم</label>
+                    <input type="text" id="suggestionName" placeholder="أدخل اسمك" required dir="auto">
+                </div>
+                <div class="form-group">
+                    <label id="suggestionEmailLabel">✉️ البريد الإلكتروني</label>
+                    <input type="email" id="suggestionEmail" placeholder="example@email.com" required dir="ltr">
+                </div>
+                <div class="form-group">
+                    <label id="suggestionTextLabel">💡 الاقتراح</label>
+                    <textarea id="suggestionText" placeholder="اكتب اقتراحك هنا..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit-suggestion" id="suggestionSubmitBtn">🚀 إرسال الاقتراح</button>
+            </form>
         </div>
 
         <!-- ============================================================
@@ -1602,7 +1905,7 @@
         };
 
         // ============================================================
-        //  DEFAULT DATA - 50 SUBSCRIBERS
+        //  DEFAULT DATA
         // ============================================================
         function generateDefaultUsers() {
             const names = [
@@ -1610,31 +1913,14 @@
                 'فاطمة الزهراء', 'خالد المالكي', 'منى السبيعي', 'سعود الحربي', 'هند القحطاني',
                 'فهد العتيبي', 'لمى الشهراني', 'يوسف المنصور', 'ليلى الشمري', 'عبدالله الناصر',
                 'ريم العتيبي', 'سلطان القحطاني', 'هدى السبيعي', 'نايف الحربي', 'مها الشمري',
-                'بندر المالكي', 'نوال العمري', 'فيصل الخالدي', 'غادة الزهراء', 'مشعل الحربي',
-                'أميرة السبيعي', 'طلال الشمري', 'نجوى الخالدي', 'راشد العمري', 'منيرة الحربي',
-                'سعد المالكي', 'هالة القحطاني', 'فارس العتيبي', 'جمانة الزهراء', 'ناصر الشمري',
-                'دينا السبيعي', 'عبدالرحمن الحربي', 'لطيفة الخالدي', 'أحمد العمري', 'سمية القحطاني',
-                'تركي المالكي', 'نادية العتيبي', 'سلوى الزهراء', 'عبدالعزيز الشمري', 'هيفاء السبيعي',
-                'سلمان الحربي', 'نورة الخالدي', 'عبدالله العمري', 'حصة القحطاني', 'فيصل المالكي'
+                'بندر المالكي', 'نوال العمري', 'فيصل الخالدي', 'غادة الزهراء', 'مشعل الحربي'
             ];
 
-            const locations = [
-                'الرياض', 'جدة', 'مكة', 'المدينة', 'الدمام',
-                'دبي', 'أبها', 'الدوحة', 'الكويت', 'المنامة',
-                'مسقط', 'عمان', 'القاهرة', 'بيروت', 'بغداد'
+            const locations = ['الرياض', 'جدة', 'مكة', 'المدينة', 'الدمام', 'دبي', 'أبها', 'الدوحة', 'الكويت', 'المنامة'];
+            const countries = ['السعودية', 'الإمارات', 'قطر', 'الكويت', 'البحرين', 'عُمان', 'الأردن'];
+            const specialties = ['تطوير ويب', 'تسويق رقمي', 'تصميم جرافيك', 'برمجة', 'تحليل بيانات', 'ذكاء اصطناعي',
+                'أمن سيبراني', 'تطوير ألعاب', 'هندسة برمجيات', 'شبكات'
             ];
-
-            const countries = [
-                'السعودية', 'الإمارات', 'قطر', 'الكويت', 'البحرين',
-                'عُمان', 'الأردن', 'مصر', 'لبنان', 'العراق'
-            ];
-
-            const specialties = [
-                'تطوير ويب', 'تسويق رقمي', 'تصميم جرافيك', 'برمجة', 'تحليل بيانات',
-                'ذكاء اصطناعي', 'أمن سيبراني', 'تطوير ألعاب', 'هندسة برمجيات', 'شبكات',
-                'قواعد بيانات', 'تصميم UX/UI', 'إدارة مشاريع', 'استشارات تقنية', 'تعليم عن بعد'
-            ];
-
             const planTypes = ['basic', 'silver', 'gold', 'royal'];
             const planLabels = {
                 basic: '💎 عادي ($1/سنة)',
@@ -1645,7 +1931,7 @@
             const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
 
             const users = [];
-            const totalUsers = 50;
+            const totalUsers = 25;
 
             for (let i = 0; i < totalUsers; i++) {
                 const nameIdx = i % names.length;
@@ -1654,43 +1940,39 @@
                 const specIdx = i % specialties.length;
                 const planIdx = i % 4;
                 const rating = (Math.random() * 2 + 2.5).toFixed(1);
-                const joinedMonth = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
-                const joinedDay = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
                 const planType = planTypes[planIdx];
-                const plan = planLabels[planType];
 
                 users.push({
                     name: names[nameIdx],
                     location: locations[locIdx],
                     country: countries[countryIdx],
                     email: `user${i+1}@example.com`,
-                    plan: plan,
+                    plan: planLabels[planType],
                     rating: parseFloat(rating),
                     specialty: specialties[specIdx],
-                    avatar: '',
-                    joined: `2024-${joinedMonth}-${joinedDay}`,
-                    phone: `+966 5${String(Math.floor(Math.random() * 90000000) + 10000000)}`,
-                    _new: i < 5,
+                    icon: icons[Math.floor(Math.random() * icons.length)],
+                    _new: i < 3,
                     _date: Date.now() - (i * 86400000),
                     _planType: planType
                 });
             }
-
             return users;
         }
 
         const defaultUsers = generateDefaultUsers();
 
         const defaultSponsors = {
-            weekly: { name: 'شركة التقنية الرقمية', level: 'weekly', emoji: '🗓️' },
-            monthly: { name: 'مؤسسة الابتكار الذهبي', level: 'monthly', emoji: '🌟' },
-            yearly: { name: 'مجموعة الأفق الماسية', level: 'yearly', emoji: '👑' }
+            weekly: { name: 'شركة التقنية الرقمية', emoji: '🗓️', active: false },
+            monthly: { name: 'مؤسسة الابتكار الذهبي', emoji: '🌟', active: false },
+            yearly: { name: 'مجموعة الأفق الماسية', emoji: '👑', active: false }
         };
 
+        const defaultPayment = { paypal: '', stripe: '', bank: '', autoPayment: false };
         const defaultSettings = {
-            siteTitle: { ar: '🏆 مليون مربع', en: '🏆 Million Squares', fr: '🏆 Million Carrés',
-                es: '🏆 Millón de Cuadrados', de: '🏆 Millionen Quadrate' },
-            squaresPerPage: 1000
+            siteTitle: { ar: '🏆 مليون مربع', en: '🏆 Million Squares', fr: '🏆 Million Carrés', es: '🏆 Millón de Cuadrados',
+                de: '🏆 Millionen Quadrate' },
+            siteDescription: 'مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي.',
+            darkMode: true
         };
 
         // ============================================================
@@ -1698,9 +1980,11 @@
         // ============================================================
         let usersData = [];
         let sponsors = {};
+        let paymentAccounts = {};
+        let siteSettings = {};
+        let suggestions = [];
         let currentLang = 'ar';
         let adminLoggedIn = false;
-        let avatarData = {};
         let currentTheme = 'dark';
         let currentModalUser = null;
 
@@ -1709,17 +1993,23 @@
         // ============================================================
         function loadState() {
             try {
-                const savedUsers = localStorage.getItem('millionSquares_users');
-                const savedSponsors = localStorage.getItem('millionSquares_sponsors');
-                const savedTheme = localStorage.getItem('millionSquares_theme');
-
-                usersData = savedUsers ? JSON.parse(savedUsers) : JSON.parse(JSON.stringify(defaultUsers));
-                sponsors = savedSponsors ? JSON.parse(savedSponsors) : JSON.parse(JSON.stringify(defaultSponsors));
-                currentTheme = savedTheme || 'dark';
+                usersData = JSON.parse(localStorage.getItem('millionSquares_users')) || JSON.parse(JSON.stringify(
+                defaultUsers));
+                sponsors = JSON.parse(localStorage.getItem('millionSquares_sponsors')) || JSON.parse(JSON.stringify(
+                    defaultSponsors));
+                paymentAccounts = JSON.parse(localStorage.getItem('millionSquares_payment')) || JSON.parse(JSON.stringify(
+                    defaultPayment));
+                siteSettings = JSON.parse(localStorage.getItem('millionSquares_settings')) || JSON.parse(JSON.stringify(
+                    defaultSettings));
+                suggestions = JSON.parse(localStorage.getItem('millionSquares_suggestions')) || [];
+                currentTheme = localStorage.getItem('millionSquares_theme') || 'dark';
             } catch (e) {
                 console.warn('Error loading state, using defaults:', e);
                 usersData = JSON.parse(JSON.stringify(defaultUsers));
                 sponsors = JSON.parse(JSON.stringify(defaultSponsors));
+                paymentAccounts = JSON.parse(JSON.stringify(defaultPayment));
+                siteSettings = JSON.parse(JSON.stringify(defaultSettings));
+                suggestions = [];
             }
             applyTheme(currentTheme);
         }
@@ -1727,6 +2017,9 @@
         function saveState() {
             localStorage.setItem('millionSquares_users', JSON.stringify(usersData));
             localStorage.setItem('millionSquares_sponsors', JSON.stringify(sponsors));
+            localStorage.setItem('millionSquares_payment', JSON.stringify(paymentAccounts));
+            localStorage.setItem('millionSquares_settings', JSON.stringify(siteSettings));
+            localStorage.setItem('millionSquares_suggestions', JSON.stringify(suggestions));
             localStorage.setItem('millionSquares_theme', currentTheme);
         }
 
@@ -1738,6 +2031,9 @@
             applyTheme(currentTheme);
             saveState();
             document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+            if (document.getElementById('darkModeToggle')) {
+                document.getElementById('darkModeToggle').checked = currentTheme === 'dark';
+            }
         }
 
         function applyTheme(theme) {
@@ -1788,14 +2084,8 @@
                 loginSub: 'ادخل بيانات المدير للدخول',
                 loginBtn: '🚀 دخول',
                 loginError: '❌ اسم المستخدم أو كلمة المرور غير صحيحة!',
-                adminPanelTitle: '🛠️ لوحة التحكم',
+                adminPanelTitle: '🛠️ لوحة التحكم المتكاملة',
                 adminCloseBtn: '✕ إغلاق',
-                adminAddTitle: '➕ إضافة مشترك',
-                adminAddBtn: '✅ إضافة',
-                adminSponsorTitle: '🌟 الرعاة',
-                adminSponsorBtn: '💾 حفظ',
-                adminDangerTitle: '⚠️ الخطر',
-                adminDangerReset: '🔄 استعادة',
                 f1: '🖼️ مربعات تفاعلية',
                 f2: '👥 مجتمع نشط',
                 f3: '🔒 دفع آمن',
@@ -1854,7 +2144,14 @@
                 modalStatusNew: 'جديد',
                 modalViewHint: '👆 اضغط للتفاصيل',
                 unreserved: '🟩 مربع غير محجوز',
-                unreservedHint: 'متاح للاشتراك'
+                unreservedHint: 'متاح للاشتراك',
+                suggestionTitle: '💡 شاركنا اقتراحك لتطوير المنصة',
+                suggestionNameLabel: '👤 الاسم',
+                suggestionEmailLabel: '✉️ البريد الإلكتروني',
+                suggestionTextLabel: '💡 الاقتراح',
+                suggestionSubmitBtn: '🚀 إرسال الاقتراح',
+                seoTitle: '🚀 مليون مربع - المنصة البصرية التفاعلية الأولى',
+                seoText: `مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي، حيث نقدم مربعات إعلانية تفاعلية تتيح للعلامات التجارية والأفراد التواصل البصري مع جمهورهم المستهدف. من خلال الإعلانات المربعة، يمكنك بناء مجتمع رقمي نشط، وتعزيز التسويق الرقمي، وزيادة الوعي بالعلامة التجارية. انضم إلى منصة الإعلانات المبتكرة واستفد من التسويق المرئي والإعلانات التفاعلية لتحقيق انتشار واسع ونمو مستدام.`
             },
             en: {
                 siteName: '🏆 Million Squares',
@@ -1863,14 +2160,8 @@
                 loginSub: 'Enter admin credentials',
                 loginBtn: '🚀 Login',
                 loginError: '❌ Invalid username or password!',
-                adminPanelTitle: '🛠️ Admin Panel',
+                adminPanelTitle: '🛠️ Integrated Admin Panel',
                 adminCloseBtn: '✕ Close',
-                adminAddTitle: '➕ Add Subscriber',
-                adminAddBtn: '✅ Add',
-                adminSponsorTitle: '🌟 Sponsors',
-                adminSponsorBtn: '💾 Save',
-                adminDangerTitle: '⚠️ Danger',
-                adminDangerReset: '🔄 Restore',
                 f1: '🖼️ Interactive Squares',
                 f2: '👥 Active Community',
                 f3: '🔒 Secure Payment',
@@ -1929,7 +2220,14 @@
                 modalStatusNew: 'New',
                 modalViewHint: '👆 Click for details',
                 unreserved: '🟩 Unreserved Square',
-                unreservedHint: 'Available for subscription'
+                unreservedHint: 'Available for subscription',
+                suggestionTitle: '💡 Share your suggestion to improve the platform',
+                suggestionNameLabel: '👤 Name',
+                suggestionEmailLabel: '✉️ Email',
+                suggestionTextLabel: '💡 Suggestion',
+                suggestionSubmitBtn: '🚀 Submit Suggestion',
+                seoTitle: '🚀 Million Squares - The First Interactive Visual Platform',
+                seoText: `Million Squares is the first interactive visual platform in the Arab world, offering interactive advertising squares that enable brands and individuals to visually connect with their target audience. Through square ads, you can build an active digital community, enhance digital marketing, and increase brand awareness. Join the innovative advertising platform and benefit from visual marketing and interactive ads to achieve wide reach and sustainable growth.`
             },
             fr: {
                 siteName: '🏆 Million Carrés',
@@ -1938,14 +2236,8 @@
                 loginSub: 'Entrez les identifiants',
                 loginBtn: '🚀 Connexion',
                 loginError: '❌ Identifiants incorrects!',
-                adminPanelTitle: '🛠️ Panneau admin',
+                adminPanelTitle: '🛠️ Panneau admin intégré',
                 adminCloseBtn: '✕ Fermer',
-                adminAddTitle: '➕ Ajouter abonné',
-                adminAddBtn: '✅ Ajouter',
-                adminSponsorTitle: '🌟 Sponsors',
-                adminSponsorBtn: '💾 Enregistrer',
-                adminDangerTitle: '⚠️ Danger',
-                adminDangerReset: '🔄 Restaurer',
                 f1: '🖼️ Carrés interactifs',
                 f2: '👥 Communauté active',
                 f3: '🔒 Paiement sécurisé',
@@ -2004,7 +2296,14 @@
                 modalStatusNew: 'Nouveau',
                 modalViewHint: '👆 Cliquez détails',
                 unreserved: '🟩 Carré libre',
-                unreservedHint: 'Disponible'
+                unreservedHint: 'Disponible',
+                suggestionTitle: '💡 Partagez votre suggestion',
+                suggestionNameLabel: '👤 Nom',
+                suggestionEmailLabel: '✉️ Email',
+                suggestionTextLabel: '💡 Suggestion',
+                suggestionSubmitBtn: '🚀 Envoyer',
+                seoTitle: '🚀 Million Carrés - La première plateforme visuelle interactive',
+                seoText: `Million Carrés est la première plateforme visuelle interactive du monde arabe, offrant des carrés publicitaires interactifs permettant aux marques et aux individus de se connecter visuellement avec leur public cible. Grâce aux publicités carrées, vous pouvez construire une communauté numérique active, renforcer le marketing digital et accroître la notoriété de la marque. Rejoignez la plateforme publicitaire innovante et bénéficiez du marketing visuel et des publicités interactives pour atteindre une large diffusion et une croissance durable.`
             },
             es: {
                 siteName: '🏆 Millón de Cuadrados',
@@ -2013,14 +2312,8 @@
                 loginSub: 'Ingrese credenciales',
                 loginBtn: '🚀 Iniciar',
                 loginError: '❌ Credenciales incorrectas!',
-                adminPanelTitle: '🛠️ Panel Admin',
+                adminPanelTitle: '🛠️ Panel Admin integrado',
                 adminCloseBtn: '✕ Cerrar',
-                adminAddTitle: '➕ Agregar suscriptor',
-                adminAddBtn: '✅ Agregar',
-                adminSponsorTitle: '🌟 Patrocinadores',
-                adminSponsorBtn: '💾 Guardar',
-                adminDangerTitle: '⚠️ Peligro',
-                adminDangerReset: '🔄 Restaurar',
                 f1: '🖼️ Cuadrados interactivos',
                 f2: '👥 Comunidad activa',
                 f3: '🔒 Pago seguro',
@@ -2079,7 +2372,14 @@
                 modalStatusNew: 'Nuevo',
                 modalViewHint: '👆 Haz clic detalles',
                 unreserved: '🟩 Cuadrado libre',
-                unreservedHint: 'Disponible'
+                unreservedHint: 'Disponible',
+                suggestionTitle: '💡 Comparte tu sugerencia',
+                suggestionNameLabel: '👤 Nombre',
+                suggestionEmailLabel: '✉️ Email',
+                suggestionTextLabel: '💡 Sugerencia',
+                suggestionSubmitBtn: '🚀 Enviar',
+                seoTitle: '🚀 Millón de Cuadrados - La primera plataforma visual interactiva',
+                seoText: `Millón de Cuadrados es la primera plataforma visual interactiva del mundo árabe, que ofrece cuadrados publicitarios interactivos que permiten a las marcas y a los individuos conectarse visualmente con su público objetivo. A través de anuncios cuadrados, puede construir una comunidad digital activa, mejorar el marketing digital y aumentar el conocimiento de la marca. Únase a la plataforma publicitaria innovadora y benefíciese del marketing visual y los anuncios interactivos para lograr un amplio alcance y un crecimiento sostenible.`
             },
             de: {
                 siteName: '🏆 Millionen Quadrate',
@@ -2088,14 +2388,8 @@
                 loginSub: 'Admin-Daten eingeben',
                 loginBtn: '🚀 Anmelden',
                 loginError: '❌ Falsche Anmeldedaten!',
-                adminPanelTitle: '🛠️ Admin-Bereich',
+                adminPanelTitle: '🛠️ Integrierter Admin-Bereich',
                 adminCloseBtn: '✕ Schließen',
-                adminAddTitle: '➕ Abonnent hinzufügen',
-                adminAddBtn: '✅ Hinzufügen',
-                adminSponsorTitle: '🌟 Sponsoren',
-                adminSponsorBtn: '💾 Speichern',
-                adminDangerTitle: '⚠️ Gefahr',
-                adminDangerReset: '🔄 Wiederherstellen',
                 f1: '🖼️ Interaktive Quadrate',
                 f2: '👥 Aktive Community',
                 f3: '🔒 Sichere Zahlung',
@@ -2154,7 +2448,14 @@
                 modalStatusNew: 'Neu',
                 modalViewHint: '👆 Klicke Details',
                 unreserved: '🟩 Freies Quadrat',
-                unreservedHint: 'Verfügbar'
+                unreservedHint: 'Verfügbar',
+                suggestionTitle: '💡 Teile deinen Vorschlag',
+                suggestionNameLabel: '👤 Name',
+                suggestionEmailLabel: '✉️ E-Mail',
+                suggestionTextLabel: '💡 Vorschlag',
+                suggestionSubmitBtn: '🚀 Senden',
+                seoTitle: '🚀 Millionen Quadrate - Die erste interaktive visuelle Plattform',
+                seoText: `Millionen Quadrate ist die erste interaktive visuelle Plattform in der arabischen Welt, die interaktive Werbequadrate bietet, die es Marken und Einzelpersonen ermöglichen, sich visuell mit ihrer Zielgruppe zu verbinden. Durch Quadratwerbung können Sie eine aktive digitale Gemeinschaft aufbauen, das digitale Marketing verbessern und die Markenbekanntheit steigern. Treten Sie der innovativen Werbeplattform bei und profitieren Sie von visuellem Marketing und interaktiver Werbung, um eine breite Reichweite und nachhaltiges Wachstum zu erzielen.`
             }
         };
 
@@ -2176,12 +2477,6 @@
             document.getElementById('loginError').textContent = t.loginError;
             document.getElementById('adminPanelTitle').textContent = t.adminPanelTitle;
             document.getElementById('adminCloseBtn').textContent = t.adminCloseBtn;
-            document.getElementById('adminAddTitle').textContent = t.adminAddTitle;
-            document.getElementById('adminAddBtn').textContent = t.adminAddBtn;
-            document.getElementById('adminSponsorTitle').textContent = t.adminSponsorTitle;
-            document.getElementById('adminSponsorBtn').textContent = t.adminSponsorBtn;
-            document.getElementById('adminDangerTitle').textContent = t.adminDangerTitle;
-            document.getElementById('adminDangerReset').textContent = t.adminDangerReset;
 
             document.getElementById('f1').textContent = t.f1;
             document.getElementById('f2').textContent = t.f2;
@@ -2228,8 +2523,18 @@
             document.getElementById('modalLabelStatus').textContent = t.modalLabelStatus;
             document.getElementById('modalLabelPlanFeatures').textContent = t.modalLabelPlanFeatures;
 
+            document.getElementById('suggestionTitle').textContent = t.suggestionTitle;
+            document.getElementById('suggestionNameLabel').textContent = t.suggestionNameLabel;
+            document.getElementById('suggestionEmailLabel').textContent = t.suggestionEmailLabel;
+            document.getElementById('suggestionTextLabel').textContent = t.suggestionTextLabel;
+            document.getElementById('suggestionSubmitBtn').textContent = t.suggestionSubmitBtn;
+
+            document.getElementById('seoTitle').textContent = t.seoTitle;
+            document.getElementById('seoText').innerHTML = t.seoText;
+
             if (adminLoggedIn) {
-                document.getElementById('toggleAdminBtn').textContent = t.adminPanelTitle + ' (مفعل)';
+                document.getElementById('toggleAdminBtn').textContent = '🔒 ' + (t.adminPanelTitle || 'إدارة الموقع') +
+                    ' (مفعل)';
             } else {
                 document.getElementById('toggleAdminBtn').textContent = '⚙️ ' + (t.adminPanelTitle || 'إدارة الموقع');
             }
@@ -2254,7 +2559,6 @@
             const location = user.location;
             const country = user.country;
             const specialty = user.specialty;
-            const avatarSrc = avatarData[user.email] || user.avatar || '';
             const isNew = user._new || false;
             const joined = user.joined || new Date(user._date || Date.now()).toLocaleDateString();
             const features = getPlanFeatures(user.plan, currentLang);
@@ -2274,11 +2578,7 @@
             document.getElementById('modalRating').textContent = `${starStr} (${user.rating || 0})`;
 
             const avatarEl = document.getElementById('modalAvatar');
-            if (avatarSrc) {
-                avatarEl.innerHTML = `<img src="${avatarSrc}" alt="${name}">`;
-            } else {
-                avatarEl.textContent = user.icon || '🧑';
-            }
+            avatarEl.textContent = user.icon || '🧑';
 
             document.getElementById('modalOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -2322,17 +2622,17 @@
             ];
             const prices = { weekly: '$100', monthly: '$1,000', yearly: '$10,000' };
 
-            // Create 3 copies for seamless scrolling
             let html = '';
             for (let copy = 0; copy < 3; copy++) {
                 items.forEach(item => {
-                    const sp = sponsors[item.key] || { name: '待定', emoji: '🌟' };
+                    const sp = sponsors[item.key] || { name: '待定', emoji: '🌟', active: false };
+                    const activeBadge = sp.active ? ' 🔥' : '';
                     html += `
-                            <div class="sponsor-item">
+                            <div class="sponsor-item" style="${sp.active ? 'border-color:var(--gold);border-width:2px;' : ''}">
                                 <div class="sponsor-avatar">${sp.emoji || '🌟'}</div>
-                                <div class="s-name">${sp.name}</div>
+                                <div class="s-name">${sp.name}${activeBadge}</div>
                                 <div class="s-plan">${item.plan} ${item.period}</div>
-                                <span class="s-badge ${item.badgeClass}">${item.badge}</span>
+                                <span class="s-badge ${item.badgeClass}">${item.badge}${sp.active ? ' ✓' : ''}</span>
                                 <div style="font-size:0.55rem;color:var(--text-muted);">${prices[item.key]}</div>
                             </div>
                         `;
@@ -2376,9 +2676,7 @@
                         ${isNew ? '<div class="new-badge">🎉 جديد</div>' : ''}
                         <span class="plan-badge">${planType === 'basic' ? '💎' : planType === 'silver' ? '⭐' : planType === 'gold' ? '👑' : '💠'}</span>
                         <button class="delete-btn" onclick="event.stopPropagation();deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
-                        <div class="avatar">
-                            ${u.icon || '🧑'}
-                        </div>
+                        <div class="avatar">${u.icon || '🧑'}</div>
                         <div class="s-name">${u.name}</div>
                         <div class="s-location">📍 ${u.location}${u.country ? `, ${u.country}` : ''}</div>
                         ${u.specialty ? `<div class="s-specialty">🔬 ${u.specialty}</div>` : ''}
@@ -2407,6 +2705,7 @@
             const totalDisplay = displayData.length + Math.min(unreservedCount, 100);
             countSpan.textContent = t.squaresCount.replace('{count}', totalDisplay).replace('{total}', total + 500);
             updateStats();
+            updateSubCount();
         }
 
         function updateStats() {
@@ -2420,10 +2719,48 @@
             document.getElementById('statSquares').textContent = '1,000,000';
         }
 
+        function updateSubCount() {
+            document.getElementById('subCountDisplay').textContent = usersData.length;
+        }
+
+        function renderSuggestions() {
+            const list = document.getElementById('suggestionsList');
+            if (!list) return;
+            if (suggestions.length === 0) {
+                list.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:10px;">لا توجد اقتراحات حتى الآن</div>';
+                return;
+            }
+            list.innerHTML = suggestions.map((s, i) => `
+                    <div style="background:var(--bg-primary);padding:8px;border-radius:8px;margin-bottom:6px;border:1px solid var(--border-color);">
+                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
+                            <strong style="color:var(--gold);">${s.name}</strong>
+                            <span style="color:var(--text-muted);font-size:0.7rem;">${s.email}</span>
+                            <span style="color:var(--text-muted);font-size:0.6rem;">${s.date || ''}</span>
+                        </div>
+                        <div style="color:var(--text-secondary);font-size:0.85rem;margin-top:4px;">${s.suggestion}</div>
+                        <button class="btn-admin danger" style="width:auto;padding:2px 12px;font-size:0.6rem;margin-top:4px;" onclick="deleteSuggestion(${i})">🗑️ حذف</button>
+                    </div>
+                `).join('');
+        }
+
         function renderAll() {
             renderSponsors();
             renderSquares();
             populateFilters();
+            renderSuggestions();
+            updateSubCount();
+            // Update admin form placeholders
+            document.getElementById('paypalAccount').placeholder = paymentAccounts.paypal || '💳 PayPal';
+            document.getElementById('stripeAccount').placeholder = paymentAccounts.stripe || '⚡ Stripe';
+            document.getElementById('bankAccount').placeholder = paymentAccounts.bank || '🏦 IBAN';
+            if (document.getElementById('autoPayment')) {
+                document.getElementById('autoPayment').checked = paymentAccounts.autoPayment || false;
+            }
+            if (document.getElementById('darkModeToggle')) {
+                document.getElementById('darkModeToggle').checked = currentTheme === 'dark';
+            }
+            document.getElementById('siteTitle').value = translate(siteSettings.siteTitle || '', 'ar');
+            document.getElementById('siteDescription').value = siteSettings.siteDescription || '';
         }
 
         // ============================================================
@@ -2515,6 +2852,66 @@
         // ============================================================
         //  ADMIN FUNCTIONS
         // ============================================================
+        function savePaymentAccounts() {
+            paymentAccounts.paypal = document.getElementById('paypalAccount').value.trim();
+            paymentAccounts.stripe = document.getElementById('stripeAccount').value.trim();
+            paymentAccounts.bank = document.getElementById('bankAccount').value.trim();
+            paymentAccounts.autoPayment = document.getElementById('autoPayment').checked;
+            saveState();
+            alert(currentLang === 'ar' ? '✅ تم حفظ حسابات الدفع!' : '✅ Payment accounts saved!');
+        }
+
+        function activateSponsor(type) {
+            const sponsor = sponsors[type];
+            if (!sponsor) return;
+            sponsor.active = !sponsor.active;
+            saveState();
+            renderSponsors();
+            alert(currentLang === 'ar' ?
+                `✅ ${sponsor.active ? 'تم تفعيل' : 'تم إلغاء تفعيل'} الدعم ${type === 'weekly' ? 'الأسبوعي' : type === 'monthly' ? 'الشهري' : 'السنوي'}` :
+                `✅ ${sponsor.active ? 'Activated' : 'Deactivated'} ${type} support`
+            );
+        }
+
+        function updateSponsors() {
+            const weekly = document.getElementById('sponsorWeeklyName').value.trim();
+            const monthly = document.getElementById('sponsorMonthlyName').value.trim();
+            const yearly = document.getElementById('sponsorYearlyName').value.trim();
+
+            if (weekly) sponsors.weekly.name = weekly;
+            if (monthly) sponsors.monthly.name = monthly;
+            if (yearly) sponsors.yearly.name = yearly;
+
+            saveState();
+            document.getElementById('sponsorWeeklyName').value = '';
+            document.getElementById('sponsorMonthlyName').value = '';
+            document.getElementById('sponsorYearlyName').value = '';
+
+            renderSponsors();
+            alert(currentLang === 'ar' ? '✅ تم تحديث الرعاة بنجاح!' : '✅ Sponsors updated successfully!');
+        }
+
+        function saveSiteSettings() {
+            const titleAr = document.getElementById('siteTitle').value.trim();
+            const desc = document.getElementById('siteDescription').value.trim();
+            const darkMode = document.getElementById('darkModeToggle').checked;
+
+            if (titleAr) {
+                siteSettings.siteTitle = { ar: titleAr, en: titleAr, fr: titleAr, es: titleAr, de: titleAr };
+            }
+            siteSettings.siteDescription = desc || siteSettings.siteDescription;
+            if (darkMode !== (currentTheme === 'dark')) {
+                currentTheme = darkMode ? 'dark' : 'light';
+                applyTheme(currentTheme);
+                document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+            }
+            saveState();
+            document.getElementById('siteLogo').textContent = translate(siteSettings.siteTitle || '', currentLang) ||
+                '🏆 مليون مربع';
+            renderAll();
+            alert(currentLang === 'ar' ? '✅ تم حفظ إعدادات الموقع!' : '✅ Site settings saved!');
+        }
+
         function addSubscriber() {
             const name = document.getElementById('subName').value.trim();
             const location = document.getElementById('subLocation').value.trim();
@@ -2542,22 +2939,18 @@
                 plan: plan,
                 rating: parseFloat(rating),
                 icon: icons[Math.floor(Math.random() * icons.length)],
-                avatar: '',
                 _new: true,
                 _date: Date.now(),
                 joined: today,
-                phone: '',
                 _planType: planType
             };
 
             usersData.push(newUser);
             saveState();
 
-            const translatedName = newUser.name;
             showNotification(
                 langData[currentLang]?.newMember || '🎉 عضو جديد!',
-                (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}',
-                    translatedName)
+                (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}', name)
             );
 
             document.getElementById('subName').value = '';
@@ -2580,33 +2973,106 @@
             }
         }
 
-        function updateSponsors() {
-            const weekly = document.getElementById('sponsorWeeklyName').value.trim();
-            const monthly = document.getElementById('sponsorMonthlyName').value.trim();
-            const yearly = document.getElementById('sponsorYearlyName').value.trim();
+        // ============================================================
+        //  SUGGESTIONS FUNCTIONS
+        // ============================================================
+        function submitSuggestion(event) {
+            event.preventDefault();
+            const name = document.getElementById('suggestionName').value.trim();
+            const email = document.getElementById('suggestionEmail').value.trim();
+            const suggestion = document.getElementById('suggestionText').value.trim();
 
-            if (weekly) sponsors.weekly.name = weekly;
-            if (monthly) sponsors.monthly.name = monthly;
-            if (yearly) sponsors.yearly.name = yearly;
+            if (!name || !email || !suggestion) {
+                alert(currentLang === 'ar' ? '⚠️ الرجاء ملء جميع الحقول!' : '⚠️ Please fill all fields!');
+                return;
+            }
+
+            suggestions.push({
+                name: name,
+                email: email,
+                suggestion: suggestion,
+                date: new Date().toLocaleDateString('ar-SA'),
+                timestamp: Date.now()
+            });
 
             saveState();
-            document.getElementById('sponsorWeeklyName').value = '';
-            document.getElementById('sponsorMonthlyName').value = '';
-            document.getElementById('sponsorYearlyName').value = '';
+            renderSuggestions();
 
-            renderSponsors();
-            alert(currentLang === 'ar' ? '✅ تم تحديث الرعاة بنجاح!' : '✅ Sponsors updated successfully!');
+            document.getElementById('suggestionName').value = '';
+            document.getElementById('suggestionEmail').value = '';
+            document.getElementById('suggestionText').value = '';
+
+            showNotification(
+                '💡 ' + (currentLang === 'ar' ? 'تم استلام اقتراحك!' : 'Suggestion received!'),
+                currentLang === 'ar' ?
+                `شكراً ${name} على اقتراحك القيم. سنقوم بدراسته.` :
+                `Thank you ${name} for your valuable suggestion. We will review it.`
+            );
         }
 
+        function deleteSuggestion(index) {
+            if (!confirm(currentLang === 'ar' ? '🗑️ هل تريد حذف هذا الاقتراح؟' : '🗑️ Delete this suggestion?')) return;
+            suggestions.splice(index, 1);
+            saveState();
+            renderSuggestions();
+        }
+
+        function clearSuggestions() {
+            if (!confirm(currentLang === 'ar' ? '🗑️ هل تريد مسح جميع الاقتراحات؟' : '🗑️ Clear all suggestions?')) return;
+            suggestions = [];
+            saveState();
+            renderSuggestions();
+            alert(currentLang === 'ar' ? '✅ تم مسح جميع الاقتراحات' : '✅ All suggestions cleared');
+        }
+
+        // ============================================================
+        //  DATA MANAGEMENT
+        // ============================================================
         function resetToDefault() {
             if (!confirm(currentLang === 'ar' ? '⚠️ سيتم استعادة البيانات الافتراضية!' :
                     '⚠️ Default data will be restored!')) return;
             usersData = JSON.parse(JSON.stringify(defaultUsers));
             sponsors = JSON.parse(JSON.stringify(defaultSponsors));
-            avatarData = {};
+            paymentAccounts = JSON.parse(JSON.stringify(defaultPayment));
+            siteSettings = JSON.parse(JSON.stringify(defaultSettings));
+            suggestions = [];
             saveState();
             renderAll();
             alert(currentLang === 'ar' ? '🔄 تم استعادة البيانات الافتراضية' : '🔄 Default data restored');
+        }
+
+        function exportData() {
+            const data = { users: usersData, sponsors, paymentAccounts, siteSettings, suggestions };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `million_squares_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.users) usersData = data.users;
+                    if (data.sponsors) sponsors = data.sponsors;
+                    if (data.paymentAccounts) paymentAccounts = data.paymentAccounts;
+                    if (data.siteSettings) siteSettings = data.siteSettings;
+                    if (data.suggestions) suggestions = data.suggestions;
+                    saveState();
+                    renderAll();
+                    alert(currentLang === 'ar' ? '✅ تم استيراد البيانات بنجاح!' : '✅ Data imported successfully!');
+                } catch (err) {
+                    alert(currentLang === 'ar' ? '❌ ملف غير صالح!' : '❌ Invalid file!');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
         }
 
         // ============================================================
@@ -2627,6 +3093,7 @@
                 document.getElementById('adminUsername').value = '';
                 document.getElementById('adminPassword').value = '';
                 error.style.display = 'none';
+                renderAll();
             } else {
                 error.style.display = 'block';
                 document.getElementById('adminPassword').value = '';
@@ -2643,6 +3110,7 @@
             const panel = document.getElementById('adminPanel');
             panel.classList.toggle('active');
             if (panel.classList.contains('active')) {
+                renderAll();
                 const t = langData[currentLang];
                 document.getElementById('toggleAdminBtn').textContent = '🔒 ' + (t.adminPanelTitle || 'إدارة الموقع') +
                     ' (مفعل)';
@@ -2689,9 +3157,14 @@
         //  CTA BUTTONS
         // ============================================================
         document.getElementById('ctaSubscribe').addEventListener('click', () => {
+            const paypal = paymentAccounts.paypal || 'غير محدد';
+            const stripe = paymentAccounts.stripe || 'غير محدد';
+            const bank = paymentAccounts.bank || 'غير محدد';
+            const auto = paymentAccounts.autoPayment ? '✅ مفعل' : '❌ غير مفعل';
+
             alert(currentLang === 'ar' ?
-                '🚀 مرحباً بك!\n\n🎁 لديك 3 أيام تجريبية مجانية.\n📧 سيتم إرسال بريد إلكتروني ترحيبي بالتفاصيل.\n💳 بعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.' :
-                '🚀 Welcome!\n\n🎁 You have 3 days free trial.\n📧 A welcome email will be sent with details.\n💳 After the trial period, you will be redirected to payment.'
+                `🚀 مرحباً بك!\n\n🎁 لديك ${TRIAL_DAYS} أيام تجريبية مجانية.\n📧 سيتم إرسال بريد إلكتروني ترحيبي بالتفاصيل.\n\n💳 حسابات الدفع:\n• PayPal: ${paypal}\n• Stripe: ${stripe}\n• Bank: ${bank}\n• الدفع التلقائي: ${auto}\n\n💳 بعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.` :
+                `🚀 Welcome!\n\n🎁 You have ${TRIAL_DAYS} days free trial.\n📧 A welcome email will be sent with details.\n\n💳 Payment Accounts:\n• PayPal: ${paypal}\n• Stripe: ${stripe}\n• Bank: ${bank}\n• Auto Payment: ${auto}\n\n💳 After the trial period, you will be redirected to payment.`
             );
         });
 
@@ -2709,15 +3182,14 @@
         setLang('ar');
         document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 
-        console.log('✅ مليون مربع - النسخة النهائية!');
+        console.log('✅ مليون مربع - النسخة المتكاملة!');
         console.log('🔑 اسم المدير:', ADMIN_USERNAME);
         console.log('🔑 كلمة مرور المدير:', ADMIN_PASSWORD);
         console.log('📊 عدد المشتركين:', usersData.length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
-        console.log('🖱️ مرر الماوس على المربع لتكبيره، واضغط لعرض التفاصيل');
-        console.log('🟩 المربعات غير المحجوزة تظهر بشكل مميز');
-        console.log('🌟 شريط الرعاة متحرك تلقائياً');
-        console.log('📦 عرض 1000 مربع مع أشرطة تمرير في 4 اتجاهات');
+        console.log('💡 نظام الاقتراحات مفعل');
+        console.log('💰 حسابات الدفع:', paymentAccounts);
+        console.log('🌟 الرعاة:', sponsors);
     </script>
 </body>
 </html>
