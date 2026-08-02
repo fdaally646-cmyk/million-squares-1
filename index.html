@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🏆 مليون مربع - المنصة الاحترافية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
-    </script>
     <style>
         /* ============================================================
                    ROOT VARIABLES
@@ -18,7 +14,6 @@
             --bg-secondary: #111827;
             --bg-card: #1a2340;
             --bg-input: #1e2a4a;
-            --bg-hover: #2a3a6a;
             --border-color: #2a3a6a;
             --text-primary: #e8edf5;
             --text-secondary: #8aa0c8;
@@ -39,7 +34,6 @@
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --font-arabic: 'Cairo', 'Segoe UI', sans-serif;
             --font-english: 'Orbitron', 'Segoe UI', sans-serif;
-            --card-scale: 1.08;
         }
 
         [data-theme="light"] {
@@ -47,7 +41,6 @@
             --bg-secondary: #ffffff;
             --bg-card: #e8edf5;
             --bg-input: #dce3ed;
-            --bg-hover: #c8d2e0;
             --border-color: #b0c0d0;
             --text-primary: #1a2330;
             --text-secondary: #3a4a6a;
@@ -93,9 +86,6 @@
             background: linear-gradient(135deg, var(--gold), var(--blue), var(--pink));
             border-radius: 10px;
             border: 2px solid var(--bg-secondary);
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, var(--gold-dark), var(--blue-dark), var(--purple));
         }
         ::-webkit-scrollbar-corner {
             background: var(--bg-secondary);
@@ -216,7 +206,7 @@
         }
 
         /* ============================================================
-                   ADMIN LOGIN
+                   ADMIN LOGIN (Simplified)
                    ============================================================ */
         .admin-overlay {
             position: fixed;
@@ -230,7 +220,6 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            animation: fadeIn 0.3s ease;
         }
         .admin-overlay.active {
             display: flex;
@@ -263,7 +252,6 @@
         .admin-login-box input:focus {
             border-color: var(--blue);
             outline: none;
-            box-shadow: 0 0 20px rgba(79, 124, 247, 0.1);
         }
         .admin-login-box .btn-login {
             width: 100%;
@@ -279,19 +267,14 @@
         }
         .admin-login-box .btn-login:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(79, 124, 247, 0.4);
         }
         .admin-login-box .error-msg {
             color: var(--red);
             text-align: center;
             margin-top: 10px;
-            font-size: 0.9rem;
             display: none;
         }
 
-        /* ============================================================
-                   ADMIN PANEL
-                   ============================================================ */
         .admin-panel {
             background: var(--bg-secondary);
             border: 2px solid var(--gold);
@@ -299,7 +282,6 @@
             padding: 25px;
             margin: 20px 0 30px;
             display: none;
-            animation: slideDown 0.4s ease;
         }
         .admin-panel.active {
             display: block;
@@ -324,14 +306,10 @@
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
-            transition: var(--transition);
-        }
-        .admin-panel .panel-header .close-panel:hover {
-            transform: scale(1.05);
         }
         .admin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 16px;
         }
         .admin-section {
@@ -346,8 +324,7 @@
             font-size: 0.9rem;
         }
         .admin-section input,
-        .admin-section select,
-        .admin-section textarea {
+        .admin-section select {
             width: 100%;
             padding: 8px 12px;
             background: var(--bg-input);
@@ -365,7 +342,6 @@
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
-            transition: var(--transition);
             width: 100%;
             margin-top: 4px;
         }
@@ -376,56 +352,11 @@
         .btn-admin.danger {
             background: var(--red);
         }
-        .btn-admin.danger:hover {
-            background: #c0392b;
-        }
         .btn-admin.success {
             background: var(--green);
         }
-        .btn-admin.success:hover {
-            background: #27ae60;
-        }
         .btn-admin.warning {
             background: var(--orange);
-        }
-        .btn-admin.warning:hover {
-            background: #e67e22;
-        }
-        .admin-section .hint {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-        .admin-section .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
-        }
-        .admin-section .file-input-wrapper input[type="file"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        .admin-section .file-input-wrapper .file-label {
-            display: block;
-            padding: 8px 12px;
-            background: var(--bg-input);
-            border: 1px dashed var(--border-color);
-            border-radius: 10px;
-            text-align: center;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-        .admin-section .file-input-wrapper .file-label:hover {
-            border-color: var(--blue);
-            color: var(--text-primary);
         }
 
         .toggle-admin {
@@ -443,10 +374,6 @@
             border-color: var(--gold);
             color: var(--gold);
         }
-        .toggle-admin.locked {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
 
         /* ============================================================
                    HERO
@@ -458,24 +385,12 @@
             border-radius: var(--radius);
             margin-bottom: 25px;
             border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
             transition: var(--transition);
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 40%, rgba(79, 124, 247, 0.05), transparent 60%);
-            pointer-events: none;
         }
 
         .features-strip {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 10px;
             margin: 15px 0 20px;
         }
@@ -503,7 +418,7 @@
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 10px;
             margin: 20px 0 15px;
         }
@@ -563,89 +478,85 @@
         }
 
         /* ============================================================
-                   SPONSOR STRIP
+                   SPONSOR STRIP - MARQUEE / ANIMATED
                    ============================================================ */
         .sponsor-strip {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
-            padding: 16px 20px;
+            padding: 16px 10px;
             margin: 25px 0 20px;
-            transition: var(--transition);
             overflow: hidden;
+            position: relative;
         }
         .sponsor-strip .title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--text-muted);
             text-align: center;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
-        .sponsor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px;
+        .sponsor-track {
+            display: flex;
+            gap: 30px;
+            animation: scrollSponsors 20s linear infinite;
+            width: max-content;
+            padding: 0 20px;
         }
-        .sponsor-item {
+        .sponsor-track:hover {
+            animation-play-state: paused;
+        }
+        .sponsor-track .sponsor-item {
             background: var(--bg-card);
             border-radius: var(--radius);
-            padding: 14px 10px;
+            padding: 12px 20px;
             text-align: center;
             border: 1px solid var(--border-color);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
         }
-        .sponsor-item:hover {
+        .sponsor-track .sponsor-item:hover {
             border-color: var(--gold);
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
-        .sponsor-item .sponsor-avatar {
-            width: 50px;
-            height: 50px;
+        .sponsor-track .sponsor-item .sponsor-avatar {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: var(--bg-input);
             border: 2px solid var(--gold);
-            margin: 0 auto 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             overflow: hidden;
         }
-        .sponsor-item .sponsor-avatar img {
+        .sponsor-track .sponsor-item .sponsor-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .sponsor-item .plan {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-        }
-        .sponsor-item .name {
-            font-size: 0.95rem;
+        .sponsor-track .sponsor-item .s-name {
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin: 3px 0;
         }
-        .sponsor-item .price {
-            font-size: 0.8rem;
-            color: var(--gold);
-        }
-        .sponsor-item .period {
-            font-size: 0.65rem;
+        .sponsor-track .sponsor-item .s-plan {
+            font-size: 0.6rem;
             color: var(--text-muted);
         }
-        .sponsor-item .badge-sp {
-            display: inline-block;
-            padding: 2px 12px;
-            border-radius: 30px;
-            font-size: 0.6rem;
+        .sponsor-track .sponsor-item .s-badge {
+            font-size: 0.55rem;
+            padding: 2px 10px;
+            border-radius: 20px;
             font-weight: 700;
-            margin-top: 4px;
+            display: inline-block;
         }
         .badge-weekly {
             background: #1a4a3a;
@@ -659,26 +570,33 @@
             background: #3a1a5a;
             color: #c08aff;
         }
-        .sponsor-item .sponsor-level {
+
+        @keyframes scrollSponsors {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .sponsor-strip::before,
+        .sponsor-strip::after {
+            content: '';
             position: absolute;
-            top: 4px;
-            right: 4px;
-            font-size: 0.55rem;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-weight: 700;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
         }
-        .level-weekly {
-            background: #2a5a3a;
-            color: #7fdb9a;
+        .sponsor-strip::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--bg-secondary), transparent);
         }
-        .level-monthly {
-            background: #5a4a2a;
-            color: var(--gold);
-        }
-        .level-yearly {
-            background: #4a2a6a;
-            color: #c08aff;
+        .sponsor-strip::after {
+            right: 0;
+            background: linear-gradient(-90deg, var(--bg-secondary), transparent);
         }
 
         /* ============================================================
@@ -690,7 +608,6 @@
             padding: 14px;
             margin: 15px 0 20px;
             border: 1px solid var(--border-color);
-            transition: var(--transition);
         }
         .search-row {
             display: flex;
@@ -701,23 +618,18 @@
         .search-row input,
         .search-row select {
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
             padding: 8px 12px;
             background: var(--bg-input);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             color: var(--text-primary);
             font-size: 0.85rem;
-            transition: var(--transition);
         }
         .search-row input:focus,
         .search-row select:focus {
             border-color: var(--blue);
             outline: none;
-            box-shadow: 0 0 20px rgba(79, 124, 247, 0.1);
-        }
-        .search-row input::placeholder {
-            color: var(--text-muted);
         }
         .search-row .btn-search {
             background: var(--blue);
@@ -736,9 +648,6 @@
         .search-row .btn-search.reset {
             background: var(--red);
         }
-        .search-row .btn-search.reset:hover {
-            background: #c0392b;
-        }
         .search-row .sort-group {
             display: flex;
             gap: 5px;
@@ -750,22 +659,20 @@
             font-size: 0.75rem;
         }
         .search-row .sort-group select {
-            min-width: 80px;
+            min-width: 70px;
         }
 
         /* ============================================================
                    SQUARES GRID
                    ============================================================ */
         .squares-wrapper {
-            position: relative;
             width: 100%;
-            height: 750px;
+            height: 700px;
             overflow: auto;
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             background: var(--bg-secondary);
             padding: 12px;
-            transition: var(--transition);
         }
         .squares-wrapper::-webkit-scrollbar {
             width: 12px;
@@ -819,19 +726,16 @@
             flex-direction: column;
         }
         .square-card:hover {
-            transform: scale(var(--card-scale));
+            transform: scale(1.08);
             z-index: 10;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
 
-        /* Plan-specific effects */
         .square-card.plan-basic {
             border-color: #4a6a8a;
-            background: var(--bg-card);
         }
         .square-card.plan-basic:hover {
             border-color: #4a6a8a;
-            box-shadow: 0 12px 40px rgba(74, 106, 138, 0.3);
         }
         .square-card.plan-silver {
             border-color: var(--silver);
@@ -839,7 +743,6 @@
         }
         .square-card.plan-silver:hover {
             border-color: #d0d8e8;
-            box-shadow: 0 12px 40px rgba(176, 184, 200, 0.3);
         }
         .square-card.plan-gold {
             border-color: var(--gold);
@@ -939,7 +842,7 @@
             object-fit: cover;
         }
         .square-card .s-name {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             margin: 1px 0;
             transition: var(--transition);
@@ -1006,9 +909,6 @@
         .square-card:hover .delete-btn {
             opacity: 1;
         }
-        .square-card .delete-btn:hover {
-            transform: scale(1.1);
-        }
         .square-card .new-badge {
             position: absolute;
             top: 2px;
@@ -1072,7 +972,6 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            animation: fadeIn 0.3s ease;
         }
         .modal-overlay.active {
             display: flex;
@@ -1087,7 +986,6 @@
             max-height: 80vh;
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            animation: slideUp 0.4s ease;
             position: relative;
         }
         .modal-content .modal-close {
@@ -1203,159 +1101,6 @@
             background: var(--blue-dark);
             transform: scale(1.05);
         }
-        .modal-content .modal-actions .btn-subscribe {
-            background: var(--gold);
-            color: #1a2330;
-        }
-        .modal-content .modal-actions .btn-subscribe:hover {
-            background: var(--gold-dark);
-            transform: scale(1.05);
-        }
-
-        /* ============================================================
-                   SUBSCRIPTION MODAL
-                   ============================================================ */
-        .subscribe-modal .modal-content {
-            max-width: 540px;
-        }
-        .subscribe-modal .form-group {
-            margin-bottom: 10px;
-        }
-        .subscribe-modal .form-group label {
-            display: block;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            margin-bottom: 3px;
-            font-weight: 600;
-        }
-        .subscribe-modal .form-group input,
-        .subscribe-modal .form-group select,
-        .subscribe-modal .form-group textarea {
-            width: 100%;
-            padding: 8px 12px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-        .subscribe-modal .form-group input:focus,
-        .subscribe-modal .form-group select:focus,
-        .subscribe-modal .form-group textarea:focus {
-            border-color: var(--blue);
-            outline: none;
-            box-shadow: 0 0 20px rgba(79, 124, 247, 0.1);
-        }
-        .subscribe-modal .form-group textarea {
-            resize: vertical;
-            min-height: 50px;
-        }
-        .subscribe-modal .plan-selector {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 6px;
-            margin: 6px 0;
-        }
-        .subscribe-modal .plan-option {
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            padding: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .subscribe-modal .plan-option:hover {
-            border-color: var(--blue);
-        }
-        .subscribe-modal .plan-option.selected {
-            border-color: var(--gold);
-            background: var(--bg-input);
-        }
-        .subscribe-modal .plan-option .plan-icon {
-            font-size: 1.3rem;
-            display: block;
-        }
-        .subscribe-modal .plan-option .plan-name {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .subscribe-modal .plan-option .plan-price {
-            font-size: 0.65rem;
-            color: var(--gold);
-        }
-        .subscribe-modal .btn-submit {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            border: none;
-            color: #1a2330;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 6px;
-        }
-        .subscribe-modal .btn-submit:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(247, 201, 72, 0.3);
-        }
-        .subscribe-modal .trial-info {
-            background: var(--bg-card);
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            margin: 6px 0;
-            border: 1px dashed var(--blue);
-        }
-        .subscribe-modal .trial-info .days {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        .subscribe-modal .terms {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            text-align: center;
-            margin-top: 6px;
-        }
-        .subscribe-modal .terms a {
-            color: var(--blue);
-        }
-        .subscribe-modal .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
-        }
-        .subscribe-modal .file-input-wrapper input[type="file"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        .subscribe-modal .file-input-wrapper .file-label {
-            display: block;
-            padding: 8px 12px;
-            background: var(--bg-input);
-            border: 1px dashed var(--border-color);
-            border-radius: 10px;
-            text-align: center;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-        .subscribe-modal .file-input-wrapper .file-label:hover {
-            border-color: var(--blue);
-            color: var(--text-primary);
-        }
 
         .section-title {
             font-size: 1.3rem;
@@ -1444,7 +1189,6 @@
             padding: 12px 18px;
             max-width: 320px;
             box-shadow: var(--shadow);
-            animation: slideUp 0.5s ease;
             z-index: 1000;
             display: none;
         }
@@ -1471,61 +1215,10 @@
             font-size: 1rem;
         }
 
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 14px;
-            margin: 15px 0;
-        }
-        .chart-box {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 14px;
-            border: 1px solid var(--border-color);
-        }
-        .chart-box h4 {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-        .chart-box canvas {
-            max-height: 180px;
-            max-width: 100%;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -1561,14 +1254,8 @@
             .search-row .sort-group select {
                 flex: 1;
             }
-            .admin-grid {
-                grid-template-columns: 1fr;
-            }
             .stats {
                 grid-template-columns: 1fr 1fr;
-            }
-            .sponsor-grid {
-                grid-template-columns: 1fr;
             }
             .squares-grid {
                 grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -1582,9 +1269,6 @@
                 right: 20px;
                 max-width: unset;
             }
-            .analytics-grid {
-                grid-template-columns: 1fr;
-            }
             .theme-toggle {
                 bottom: 15px;
                 left: 15px;
@@ -1596,11 +1280,12 @@
                 padding: 20px;
                 margin: 10px;
             }
-            .subscribe-modal .plan-selector {
-                grid-template-columns: 1fr 1fr;
-            }
             .squares-wrapper {
-                height: 500px;
+                height: 450px;
+            }
+            .sponsor-track .sponsor-item {
+                min-width: 140px;
+                padding: 8px 12px;
             }
         }
         @media (max-width: 480px) {
@@ -1617,10 +1302,6 @@
                 padding: 10px 20px;
                 font-size: 0.9rem;
             }
-            .admin-panel .panel-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
             .features-strip {
                 grid-template-columns: 1fr 1fr;
             }
@@ -1631,14 +1312,11 @@
             .modal-content .modal-detail .value {
                 text-align: right;
             }
-            .subscribe-modal .plan-selector {
-                grid-template-columns: 1fr;
-            }
             .logo-main {
                 font-size: 2rem !important;
             }
             .squares-wrapper {
-                height: 400px;
+                height: 350px;
                 padding: 8px;
             }
             .square-card {
@@ -1673,7 +1351,7 @@
     <div class="admin-overlay" id="adminOverlay">
         <div class="admin-login-box">
             <h2 id="loginTitle">🔐 لوحة التحكم</h2>
-            <div class="sub" id="loginSub" style="text-align:center;color:var(--text-secondary);font-size:0.85rem;margin-bottom:20px;">ادخل بيانات المدير للدخول</div>
+            <div style="text-align:center;color:var(--text-secondary);font-size:0.85rem;margin-bottom:20px;" id="loginSub">ادخل بيانات المدير للدخول</div>
             <input type="text" id="adminUsername" placeholder="👤 اسم المدير" dir="ltr">
             <input type="password" id="adminPassword" placeholder="🔑 كلمة المرور" dir="ltr">
             <button class="btn-login" onclick="verifyAdmin()" id="loginBtn">🚀 دخول</button>
@@ -1714,88 +1392,8 @@
             </div>
             <div class="modal-actions">
                 <button class="btn-contact" onclick="contactSubscriber()" id="modalBtnContact">📧 تواصل</button>
-                <button class="btn-subscribe" onclick="openSubscribeModal()" id="modalBtnSubscribe">🚀 اشتراك</button>
                 <button class="btn-close-modal" onclick="closeModal()" id="modalBtnClose">✕ إغلاق</button>
             </div>
-        </div>
-    </div>
-
-    <!-- ============================================================
-    SUBSCRIPTION MODAL
-    ============================================================ -->
-    <div class="modal-overlay subscribe-modal" id="subscribeOverlay" onclick="if(event.target===this) closeSubscribeModal()">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeSubscribeModal()">✕</button>
-            <h2 style="text-align:center;color:var(--gold);margin-bottom:14px;" id="subModalTitle">🚀 الاشتراك في مليون مربع</h2>
-            <div class="trial-info">
-                <span id="trialInfoText">🎁 <span class="days">3 أيام</span> تجريبية مجانية</span>
-                <br>
-                <span style="font-size:0.75rem;color:var(--text-secondary);" id="trialInfoSub">بعد انتهاء الفترة التجريبية سيتم توجيهك للدفع</span>
-            </div>
-            <form id="subscribeForm" onsubmit="handleSubscription(event)">
-                <div class="form-group">
-                    <label id="subLabelName">👤 الاسم الكامل</label>
-                    <input type="text" id="subFullName" placeholder="أدخل اسمك الكامل" required dir="auto">
-                </div>
-                <div class="form-group">
-                    <label id="subLabelEmail">✉️ البريد الإلكتروني</label>
-                    <input type="email" id="subFullEmail" placeholder="example@email.com" required dir="ltr">
-                </div>
-                <div class="form-group">
-                    <label id="subLabelLocation">📍 الموقع (المدينة، البلد)</label>
-                    <input type="text" id="subFullLocation" placeholder="مثال: الرياض، السعودية" required dir="auto">
-                </div>
-                <div class="form-group">
-                    <label id="subLabelSpecialty">🔬 الاختصاص</label>
-                    <input type="text" id="subFullSpecialty" placeholder="مثال: تطوير ويب، تسويق..." dir="auto">
-                </div>
-                <div class="form-group">
-                    <label id="subLabelPhone">📱 رقم الهاتف</label>
-                    <input type="tel" id="subFullPhone" placeholder="+966 5xxxxxxx" dir="ltr">
-                </div>
-                <div class="form-group">
-                    <label id="subLabelPlan">💎 اختر الباقة</label>
-                    <div class="plan-selector" id="planSelector">
-                        <div class="plan-option selected" data-plan="💎 عادي ($1/سنة)" data-plan-type="basic" onclick="selectPlan(this)">
-                            <span class="plan-icon">💎</span>
-                            <span class="plan-name">عادي</span>
-                            <span class="plan-price">$1/سنة</span>
-                        </div>
-                        <div class="plan-option" data-plan="⭐ فضي ($5/سنة)" data-plan-type="silver" onclick="selectPlan(this)">
-                            <span class="plan-icon">⭐</span>
-                            <span class="plan-name">فضي</span>
-                            <span class="plan-price">$5/سنة</span>
-                        </div>
-                        <div class="plan-option" data-plan="👑 ذهبي ($10/سنة)" data-plan-type="gold" onclick="selectPlan(this)">
-                            <span class="plan-icon">👑</span>
-                            <span class="plan-name">ذهبي</span>
-                            <span class="plan-price">$10/سنة</span>
-                        </div>
-                        <div class="plan-option" data-plan="💠 ملكي ($100/سنة)" data-plan-type="royal" onclick="selectPlan(this)">
-                            <span class="plan-icon">💠</span>
-                            <span class="plan-name">ملكي</span>
-                            <span class="plan-price">$100/سنة</span>
-                        </div>
-                    </div>
-                    <input type="hidden" id="subSelectedPlan" value="💎 عادي ($1/سنة)">
-                    <input type="hidden" id="subSelectedPlanType" value="basic">
-                </div>
-                <div class="form-group">
-                    <label id="subLabelAvatar">🖼️ الصورة الشخصية (اختياري)</label>
-                    <div class="file-input-wrapper">
-                        <div class="file-label" id="subAvatarLabel">📤 اضغط لاختيار صورة</div>
-                        <input type="file" id="subFullAvatar" accept="image/*" onchange="handleSubAvatar(event)">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label id="subLabelMessage">📝 رسالة إضافية (اختياري)</label>
-                    <textarea id="subFullMessage" placeholder="أي شيء تود إضافته..."></textarea>
-                </div>
-                <div class="terms" id="subTerms">
-                    بالضغط على "اشتراك" أنت توافق على <a href="#" id="termsLink">شروط الاستخدام</a> و <a href="#" id="privacyLink">سياسة الخصوصية</a>
-                </div>
-                <button type="submit" class="btn-submit" id="subSubmitBtn">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
-            </form>
         </div>
     </div>
 
@@ -1824,10 +1422,6 @@
                 <h3 id="adminPanelTitle">🛠️ لوحة التحكم</h3>
                 <button class="close-panel" onclick="toggleAdminPanel()" id="adminCloseBtn">✕ إغلاق</button>
             </div>
-            <div class="analytics-grid" id="analyticsGrid">
-                <div class="chart-box"><h4 id="chartUsersTitle">👥 توزيع المشتركين</h4><canvas id="planChart"></canvas></div>
-                <div class="chart-box"><h4 id="chartRevenueTitle">💰 الإيرادات</h4><canvas id="revenueChart"></canvas></div>
-            </div>
             <div class="admin-grid">
                 <div class="admin-section">
                     <h4 id="adminAddTitle">➕ إضافة مشترك</h4>
@@ -1837,15 +1431,11 @@
                     <input type="email" id="subEmail" placeholder="✉️ البريد" dir="ltr">
                     <input type="text" id="subSpecialty" placeholder="🔬 الاختصاص" dir="auto">
                     <select id="subPlan">
-                        <option value="💎 عادي ($1/سنة)">💎 عادي ($1/سنة)</option>
-                        <option value="⭐ فضي ($5/سنة)">⭐ فضي ($5/سنة)</option>
-                        <option value="👑 ذهبي ($10/سنة)">👑 ذهبي ($10/سنة)</option>
-                        <option value="💠 ملكي ($100/سنة)">💠 ملكي ($100/سنة)</option>
+                        <option value="💎 عادي ($1/سنة)">💎 عادي</option>
+                        <option value="⭐ فضي ($5/سنة)">⭐ فضي</option>
+                        <option value="👑 ذهبي ($10/سنة)">👑 ذهبي</option>
+                        <option value="💠 ملكي ($100/سنة)">💠 ملكي</option>
                     </select>
-                    <div class="file-input-wrapper">
-                        <div class="file-label" id="avatarLabel">🖼️ صورة</div>
-                        <input type="file" id="subAvatar" accept="image/*" onchange="handleAvatarUpload(event)">
-                    </div>
                     <button class="btn-admin success" onclick="addSubscriber()" id="adminAddBtn">✅ إضافة</button>
                 </div>
                 <div class="admin-section">
@@ -1856,24 +1446,8 @@
                     <button class="btn-admin" onclick="updateSponsors()" id="adminSponsorBtn">💾 حفظ</button>
                 </div>
                 <div class="admin-section">
-                    <h4 id="adminPaymentTitle">💰 حسابات الدفع</h4>
-                    <input type="text" id="paypalAccount" placeholder="💳 PayPal" dir="ltr">
-                    <input type="text" id="stripeAccount" placeholder="⚡ Stripe" dir="ltr">
-                    <input type="text" id="bankAccount" placeholder="🏦 IBAN" dir="ltr">
-                    <button class="btn-admin" onclick="savePaymentAccounts()" id="adminPaymentBtn">💾 حفظ</button>
-                </div>
-                <div class="admin-section">
-                    <h4 id="adminSiteTitle">⚙️ الإعدادات</h4>
-                    <input type="text" id="siteTitle" placeholder="🏷️ عنوان الموقع">
-                    <input type="number" id="squaresPerPage" placeholder="📊 المربعات (1000)">
-                    <button class="btn-admin" onclick="saveSiteSettings()" id="adminSiteBtn">💾 حفظ</button>
-                </div>
-                <div class="admin-section">
                     <h4 id="adminDangerTitle">⚠️ الخطر</h4>
-                    <button class="btn-admin danger" onclick="resetAllData()" id="adminDangerDelete">🗑️ حذف الكل</button>
                     <button class="btn-admin danger" onclick="resetToDefault()" id="adminDangerReset">🔄 استعادة</button>
-                    <button class="btn-admin warning" onclick="exportData()" id="adminDangerExport">📤 تصدير JSON</button>
-                    <button class="btn-admin warning" onclick="exportPDF()" id="adminDangerPDF">📄 PDF</button>
                 </div>
             </div>
         </div>
@@ -1915,11 +1489,13 @@
         </header>
 
         <!-- ============================================================
-        SPONSOR STRIP
+        SPONSOR STRIP - ANIMATED MARQUEE
         ============================================================ -->
         <div class="sponsor-strip">
             <div class="title" id="sponsorTitle">🌟 الرعاة الداعمون</div>
-            <div class="sponsor-grid" id="sponsorGrid"></div>
+            <div class="sponsor-track" id="sponsorTrack">
+                <!-- Will be injected by JS -->
+            </div>
         </div>
 
         <!-- ============================================================
@@ -1971,9 +1547,8 @@
         CTA
         ============================================================ -->
         <div class="cta-section">
-            <button class="btn-gold" onclick="openSubscribeModal()" id="ctaSubscribe">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
+            <button class="btn-gold" id="ctaSubscribe">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
             <button class="btn-secondary" id="ctaMore">📋 عرض الكل</button>
-            <button class="btn-secondary" id="ctaExport">📄 تصدير التقرير</button>
         </div>
 
         <!-- ============================================================
@@ -2003,7 +1578,6 @@
         const DEFAULT_SQUARES_PER_PAGE = 1000;
         const TRIAL_DAYS = 3;
         const LANGUAGES = ['ar', 'en', 'fr', 'es', 'de'];
-        const UNRESERVED_COUNT = 500;
 
         // ============================================================
         //  PLAN FEATURES
@@ -2011,31 +1585,19 @@
         const PLAN_FEATURES = {
             'basic': {
                 ar: '🖼️ عرض أساسي\n📧 دعم بالبريد\n⭐ تقييم عادي',
-                en: '🖼️ Basic Display\n📧 Email Support\n⭐ Regular Rating',
-                fr: '🖼️ Affichage de base\n📧 Support par e-mail\n⭐ Évaluation régulière',
-                es: '🖼️ Visualización básica\n📧 Soporte por correo\n⭐ Calificación regular',
-                de: '🖼️ Basis-Anzeige\n📧 E-Mail-Support\n⭐ Regelmäßige Bewertung'
+                en: '🖼️ Basic Display\n📧 Email Support\n⭐ Regular Rating'
             },
             'silver': {
                 ar: '✨ عرض مميز\n📧 دعم سريع\n⭐ تقييم فضي\n🎯 ظهور في الصفحة الأولى',
-                en: '✨ Premium Display\n📧 Fast Support\n⭐ Silver Rating\n🎯 First Page Visibility',
-                fr: '✨ Affichage premium\n📧 Support rapide\n⭐ Évaluation argent\n🎯 Visibilité en première page',
-                es: '✨ Visualización premium\n📧 Soporte rápido\n⭐ Calificación plata\n🎯 Visibilidad en primera página',
-                de: '✨ Premium-Anzeige\n📧 Schneller Support\n⭐ Silber-Bewertung\n🎯 Sichtbarkeit auf der ersten Seite'
+                en: '✨ Premium Display\n📧 Fast Support\n⭐ Silver Rating\n🎯 First Page Visibility'
             },
             'gold': {
                 ar: '🌟 عرض ذهبي\n📧 دعم VIP\n⭐ تقييم ذهبي\n🎯 ظهور مميز\n🔗 رابط خارجي',
-                en: '🌟 Gold Display\n📧 VIP Support\n⭐ Gold Rating\n🎯 Featured Visibility\n🔗 External Link',
-                fr: '🌟 Affichage or\n📧 Support VIP\n⭐ Évaluation or\n🎯 Visibilité vedette\n🔗 Lien externe',
-                es: '🌟 Visualización oro\n📧 Soporte VIP\n⭐ Calificación oro\n🎯 Visibilidad destacada\n🔗 Enlace externo',
-                de: '🌟 Gold-Anzeige\n📧 VIP-Support\n⭐ Gold-Bewertung\n🎯 Hervorgehobene Sichtbarkeit\n🔗 Externer Link'
+                en: '🌟 Gold Display\n📧 VIP Support\n⭐ Gold Rating\n🎯 Featured Visibility\n🔗 External Link'
             },
             'royal': {
                 ar: '👑 عرض ملكي\n📧 دعم مخصص\n⭐ تقييم ماسي\n🎯 أعلى ظهور\n🔗 رابط خارجي\n🖼️ صورة كبيرة\n📊 إحصائيات متقدمة',
-                en: '👑 Royal Display\n📧 Dedicated Support\n⭐ Diamond Rating\n🎯 Top Visibility\n🔗 External Link\n🖼️ Large Image\n📊 Advanced Analytics',
-                fr: '👑 Affichage royal\n📧 Support dédié\n⭐ Évaluation diamant\n🎯 Visibilité maximale\n🔗 Lien externe\n🖼️ Grande image\n📊 Analyses avancées',
-                es: '👑 Visualización real\n📧 Soporte dedicado\n⭐ Calificación diamante\n🎯 Visibilidad máxima\n🔗 Enlace externo\n🖼️ Imagen grande\n📊 Análisis avanzados',
-                de: '👑 Königliche Anzeige\n📧 Dedizierter Support\n⭐ Diamant-Bewertung\n🎯 Maximale Sichtbarkeit\n🔗 Externer Link\n🖼️ Großes Bild\n📊 Erweiterte Analysen'
+                en: '👑 Royal Display\n📧 Dedicated Support\n⭐ Diamond Rating\n🎯 Top Visibility\n🔗 External Link\n🖼️ Large Image\n📊 Advanced Analytics'
             }
         };
 
@@ -2044,71 +1606,33 @@
         // ============================================================
         function generateDefaultUsers() {
             const names = [
-                { ar: 'أحمد محمد', en: 'Ahmed Mohammed', fr: 'Ahmed Mohammed', es: 'Ahmed Mohammed', de: 'Ahmed Mohammed' },
-                { ar: 'محمد العمري', en: 'Mohammed Al-Omari', fr: 'Mohammed Al-Omari', es: 'Mohammed Al-Omari', de: 'Mohammed Al-Omari' },
-                { ar: 'سارة الخالدي', en: 'Sara Al-Khaldi', fr: 'Sara Al-Khaldi', es: 'Sara Al-Khaldi', de: 'Sara Al-Khaldi' },
-                { ar: 'نورة الحربي', en: 'Nora Al-Harbi', fr: 'Nora Al-Harbi', es: 'Nora Al-Harbi', de: 'Nora Al-Harbi' },
-                { ar: 'علي الشمري', en: 'Ali Al-Shammari', fr: 'Ali Al-Shammari', es: 'Ali Al-Shammari', de: 'Ali Al-Shammari' },
-                { ar: 'فاطمة الزهراء', en: 'Fatima Al-Zahra', fr: 'Fatima Al-Zahra', es: 'Fatima Al-Zahra', de: 'Fatima Al-Zahra' },
-                { ar: 'خالد المالكي', en: 'Khalid Al-Maliki', fr: 'Khalid Al-Maliki', es: 'Khalid Al-Maliki', de: 'Khalid Al-Maliki' },
-                { ar: 'منى السبيعي', en: 'Mona Al-Subaie', fr: 'Mona Al-Subaie', es: 'Mona Al-Subaie', de: 'Mona Al-Subaie' },
-                { ar: 'سعود الحربي', en: 'Saud Al-Harbi', fr: 'Saud Al-Harbi', es: 'Saud Al-Harbi', de: 'Saud Al-Harbi' },
-                { ar: 'هند القحطاني', en: 'Hind Al-Qahtani', fr: 'Hind Al-Qahtani', es: 'Hind Al-Qahtani', de: 'Hind Al-Qahtani' },
-                { ar: 'فهد العتيبي', en: 'Fahd Al-Otaibi', fr: 'Fahd Al-Otaibi', es: 'Fahd Al-Otaibi', de: 'Fahd Al-Otaibi' },
-                { ar: 'لمى الشهراني', en: 'Lama Al-Shahrani', fr: 'Lama Al-Shahrani', es: 'Lama Al-Shahrani', de: 'Lama Al-Shahrani' },
-                { ar: 'يوسف المنصور', en: 'Yousef Al-Mansour', fr: 'Yousef Al-Mansour', es: 'Yousef Al-Mansour', de: 'Yousef Al-Mansour' },
-                { ar: 'ليلى الشمري', en: 'Laila Al-Shammari', fr: 'Laila Al-Shammari', es: 'Laila Al-Shammari', de: 'Laila Al-Shammari' },
-                { ar: 'عبدالله الناصر', en: 'Abdullah Al-Nasser', fr: 'Abdullah Al-Nasser', es: 'Abdullah Al-Nasser', de: 'Abdullah Al-Nasser' },
-                { ar: 'ريم العتيبي', en: 'Reem Al-Otaibi', fr: 'Reem Al-Otaibi', es: 'Reem Al-Otaibi', de: 'Reem Al-Otaibi' },
-                { ar: 'سلطان القحطاني', en: 'Sultan Al-Qahtani', fr: 'Sultan Al-Qahtani', es: 'Sultan Al-Qahtani', de: 'Sultan Al-Qahtani' },
-                { ar: 'هدى السبيعي', en: 'Huda Al-Subaie', fr: 'Huda Al-Subaie', es: 'Huda Al-Subaie', de: 'Huda Al-Subaie' },
-                { ar: 'نايف الحربي', en: 'Naif Al-Harbi', fr: 'Naif Al-Harbi', es: 'Naif Al-Harbi', de: 'Naif Al-Harbi' },
-                { ar: 'مها الشمري', en: 'Maha Al-Shammari', fr: 'Maha Al-Shammari', es: 'Maha Al-Shammari', de: 'Maha Al-Shammari' },
-                { ar: 'بندر المالكي', en: 'Bander Al-Maliki', fr: 'Bander Al-Maliki', es: 'Bander Al-Maliki', de: 'Bander Al-Maliki' },
-                { ar: 'نوال العمري', en: 'Nawal Al-Omari', fr: 'Nawal Al-Omari', es: 'Nawal Al-Omari', de: 'Nawal Al-Omari' },
-                { ar: 'فيصل الخالدي', en: 'Faisal Al-Khaldi', fr: 'Faisal Al-Khaldi', es: 'Faisal Al-Khaldi', de: 'Faisal Al-Khaldi' },
-                { ar: 'غادة الزهراء', en: 'Ghada Al-Zahra', fr: 'Ghada Al-Zahra', es: 'Ghada Al-Zahra', de: 'Ghada Al-Zahra' },
-                { ar: 'مشعل الحربي', en: 'Mishal Al-Harbi', fr: 'Mishal Al-Harbi', es: 'Mishal Al-Harbi', de: 'Mishal Al-Harbi' }
+                'أحمد محمد', 'محمد العمري', 'سارة الخالدي', 'نورة الحربي', 'علي الشمري',
+                'فاطمة الزهراء', 'خالد المالكي', 'منى السبيعي', 'سعود الحربي', 'هند القحطاني',
+                'فهد العتيبي', 'لمى الشهراني', 'يوسف المنصور', 'ليلى الشمري', 'عبدالله الناصر',
+                'ريم العتيبي', 'سلطان القحطاني', 'هدى السبيعي', 'نايف الحربي', 'مها الشمري',
+                'بندر المالكي', 'نوال العمري', 'فيصل الخالدي', 'غادة الزهراء', 'مشعل الحربي',
+                'أميرة السبيعي', 'طلال الشمري', 'نجوى الخالدي', 'راشد العمري', 'منيرة الحربي',
+                'سعد المالكي', 'هالة القحطاني', 'فارس العتيبي', 'جمانة الزهراء', 'ناصر الشمري',
+                'دينا السبيعي', 'عبدالرحمن الحربي', 'لطيفة الخالدي', 'أحمد العمري', 'سمية القحطاني',
+                'تركي المالكي', 'نادية العتيبي', 'سلوى الزهراء', 'عبدالعزيز الشمري', 'هيفاء السبيعي',
+                'سلمان الحربي', 'نورة الخالدي', 'عبدالله العمري', 'حصة القحطاني', 'فيصل المالكي'
             ];
 
             const locations = [
-                { ar: 'الرياض', en: 'Riyadh', fr: 'Riyad', es: 'Riad', de: 'Riad' },
-                { ar: 'جدة', en: 'Jeddah', fr: 'Djeddah', es: 'Yeda', de: 'Dschidda' },
-                { ar: 'مكة', en: 'Makkah', fr: 'La Mecque', es: 'La Meca', de: 'Mekka' },
-                { ar: 'المدينة', en: 'Medina', fr: 'Médine', es: 'Medina', de: 'Medina' },
-                { ar: 'الدمام', en: 'Dammam', fr: 'Dammam', es: 'Dammam', de: 'Dammam' },
-                { ar: 'دبي', en: 'Dubai', fr: 'Dubaï', es: 'Dubai', de: 'Dubai' },
-                { ar: 'أبها', en: 'Abha', fr: 'Abha', es: 'Abha', de: 'Abha' },
-                { ar: 'الدوحة', en: 'Doha', fr: 'Doha', es: 'Doha', de: 'Doha' },
-                { ar: 'الكويت', en: 'Kuwait', fr: 'Koweït', es: 'Kuwait', de: 'Kuwait' },
-                { ar: 'المنامة', en: 'Manama', fr: 'Manama', es: 'Manama', de: 'Manama' },
-                { ar: 'مسقط', en: 'Muscat', fr: 'Mascate', es: 'Mascate', de: 'Maskat' },
-                { ar: 'عمان', en: 'Amman', fr: 'Amman', es: 'Amán', de: 'Amman' }
+                'الرياض', 'جدة', 'مكة', 'المدينة', 'الدمام',
+                'دبي', 'أبها', 'الدوحة', 'الكويت', 'المنامة',
+                'مسقط', 'عمان', 'القاهرة', 'بيروت', 'بغداد'
             ];
 
             const countries = [
-                { ar: 'السعودية', en: 'Saudi Arabia', fr: 'Arabie Saoudite', es: 'Arabia Saudita', de: 'Saudi-Arabien' },
-                { ar: 'الإمارات', en: 'UAE', fr: 'EAU', es: 'EAU', de: 'VAE' },
-                { ar: 'قطر', en: 'Qatar', fr: 'Qatar', es: 'Qatar', de: 'Katar' },
-                { ar: 'الكويت', en: 'Kuwait', fr: 'Koweït', es: 'Kuwait', de: 'Kuwait' },
-                { ar: 'البحرين', en: 'Bahrain', fr: 'Bahreïn', es: 'Baréin', de: 'Bahrain' },
-                { ar: 'عُمان', en: 'Oman', fr: 'Oman', es: 'Omán', de: 'Oman' },
-                { ar: 'الأردن', en: 'Jordan', fr: 'Jordanie', es: 'Jordania', de: 'Jordanien' }
+                'السعودية', 'الإمارات', 'قطر', 'الكويت', 'البحرين',
+                'عُمان', 'الأردن', 'مصر', 'لبنان', 'العراق'
             ];
 
             const specialties = [
-                { ar: 'تطوير ويب', en: 'Web Development', fr: 'Développement Web', es: 'Desarrollo Web', de: 'Webentwicklung' },
-                { ar: 'تسويق رقمي', en: 'Digital Marketing', fr: 'Marketing Digital', es: 'Marketing Digital', de: 'Digitales Marketing' },
-                { ar: 'تصميم جرافيك', en: 'Graphic Design', fr: 'Design Graphique', es: 'Diseño Gráfico', de: 'Grafikdesign' },
-                { ar: 'برمجة', en: 'Programming', fr: 'Programmation', es: 'Programación', de: 'Programmierung' },
-                { ar: 'تحليل بيانات', en: 'Data Analysis', fr: 'Analyse de Données', es: 'Análisis de Datos', de: 'Datenanalyse' },
-                { ar: 'ذكاء اصطناعي', en: 'Artificial Intelligence', fr: 'Intelligence Artificielle', es: 'Inteligencia Artificial', de: 'Künstliche Intelligenz' },
-                { ar: 'أمن سيبراني', en: 'Cybersecurity', fr: 'Cybersécurité', es: 'Ciberseguridad', de: 'Cybersicherheit' },
-                { ar: 'تطوير ألعاب', en: 'Game Development', fr: 'Développement de Jeux', es: 'Desarrollo de Juegos', de: 'Spieleentwicklung' },
-                { ar: 'هندسة برمجيات', en: 'Software Engineering', fr: 'Génie Logiciel', es: 'Ingeniería de Software', de: 'Softwareentwicklung' },
-                { ar: 'شبكات', en: 'Networking', fr: 'Réseaux', es: 'Redes', de: 'Netzwerke' },
-                { ar: 'قواعد بيانات', en: 'Databases', fr: 'Bases de Données', es: 'Bases de Datos', de: 'Datenbanken' },
-                { ar: 'تصميم UX/UI', en: 'UX/UI Design', fr: 'Design UX/UI', es: 'Diseño UX/UI', de: 'UX/UI-Design' }
+                'تطوير ويب', 'تسويق رقمي', 'تصميم جرافيك', 'برمجة', 'تحليل بيانات',
+                'ذكاء اصطناعي', 'أمن سيبراني', 'تطوير ألعاب', 'هندسة برمجيات', 'شبكات',
+                'قواعد بيانات', 'تصميم UX/UI', 'إدارة مشاريع', 'استشارات تقنية', 'تعليم عن بعد'
             ];
 
             const planTypes = ['basic', 'silver', 'gold', 'royal'];
@@ -2158,23 +1682,14 @@
         const defaultUsers = generateDefaultUsers();
 
         const defaultSponsors = {
-            weekly: { name: { ar: 'شركة التقنية الرقمية', en: 'Digital Tech Company', fr: 'Société Tech Numérique',
-                    es: 'Empresa Tech Digital', de: 'Digital Tech Unternehmen' }, avatar: '', level: 'weekly' },
-            monthly: { name: { ar: 'مؤسسة الابتكار الذهبي', en: 'Golden Innovation Foundation',
-                    fr: 'Fondation Innovation Dorée', es: 'Fundación Innovación Dorada',
-                    de: 'Goldene Innovationsstiftung' }, avatar: '', level: 'monthly' },
-            yearly: { name: { ar: 'مجموعة الأفق الماسية', en: 'Diamond Horizon Group', fr: 'Groupe Horizon Diamant',
-                    es: 'Grupo Horizonte Diamante', de: 'Diamond Horizon Gruppe' }, avatar: '', level: 'yearly' }
+            weekly: { name: 'شركة التقنية الرقمية', level: 'weekly', emoji: '🗓️' },
+            monthly: { name: 'مؤسسة الابتكار الذهبي', level: 'monthly', emoji: '🌟' },
+            yearly: { name: 'مجموعة الأفق الماسية', level: 'yearly', emoji: '👑' }
         };
 
-        const defaultPayment = { paypal: '', stripe: '', bank: '' };
-        const defaultEmail = { smtpEmail: '', smtpPassword: '', smtpHost: '', smtpPort: 587 };
         const defaultSettings = {
             siteTitle: { ar: '🏆 مليون مربع', en: '🏆 Million Squares', fr: '🏆 Million Carrés',
                 es: '🏆 Millón de Cuadrados', de: '🏆 Millionen Quadrate' },
-            siteDescription: { ar: 'المنصة البصرية التفاعلية الأولى', en: 'The Interactive Visual Platform',
-                fr: 'La plateforme visuelle interactive', es: 'La plataforma visual interactiva',
-                de: 'Die interaktive visuelle Plattform' },
             squaresPerPage: 1000
         };
 
@@ -2183,18 +1698,11 @@
         // ============================================================
         let usersData = [];
         let sponsors = {};
-        let paymentAccounts = {};
-        let emailSettings = {};
-        let siteSettings = {};
         let currentLang = 'ar';
         let adminLoggedIn = false;
         let avatarData = {};
-        let sponsorAvatarData = { weekly: '', monthly: '', yearly: '' };
-        let chartInstances = { plan: null, revenue: null };
         let currentTheme = 'dark';
         let currentModalUser = null;
-        let subAvatarFile = null;
-        let avatarFile = null;
 
         // ============================================================
         //  LOCAL STORAGE
@@ -2203,31 +1711,15 @@
             try {
                 const savedUsers = localStorage.getItem('millionSquares_users');
                 const savedSponsors = localStorage.getItem('millionSquares_sponsors');
-                const savedPayment = localStorage.getItem('millionSquares_payment');
-                const savedEmail = localStorage.getItem('millionSquares_email');
-                const savedSettings = localStorage.getItem('millionSquares_settings');
-                const savedAvatars = localStorage.getItem('millionSquares_avatars');
-                const savedSponsorAvatars = localStorage.getItem('millionSquares_sponsorAvatars');
                 const savedTheme = localStorage.getItem('millionSquares_theme');
 
                 usersData = savedUsers ? JSON.parse(savedUsers) : JSON.parse(JSON.stringify(defaultUsers));
                 sponsors = savedSponsors ? JSON.parse(savedSponsors) : JSON.parse(JSON.stringify(defaultSponsors));
-                paymentAccounts = savedPayment ? JSON.parse(savedPayment) : JSON.parse(JSON.stringify(defaultPayment));
-                emailSettings = savedEmail ? JSON.parse(savedEmail) : JSON.parse(JSON.stringify(defaultEmail));
-                siteSettings = savedSettings ? JSON.parse(savedSettings) : JSON.parse(JSON.stringify(defaultSettings));
-                avatarData = savedAvatars ? JSON.parse(savedAvatars) : {};
-                sponsorAvatarData = savedSponsorAvatars ? JSON.parse(savedSponsorAvatars) : { weekly: '', monthly: '',
-                    yearly: '' };
                 currentTheme = savedTheme || 'dark';
             } catch (e) {
                 console.warn('Error loading state, using defaults:', e);
                 usersData = JSON.parse(JSON.stringify(defaultUsers));
                 sponsors = JSON.parse(JSON.stringify(defaultSponsors));
-                paymentAccounts = JSON.parse(JSON.stringify(defaultPayment));
-                emailSettings = JSON.parse(JSON.stringify(defaultEmail));
-                siteSettings = JSON.parse(JSON.stringify(defaultSettings));
-                avatarData = {};
-                sponsorAvatarData = { weekly: '', monthly: '', yearly: '' };
             }
             applyTheme(currentTheme);
         }
@@ -2235,11 +1727,6 @@
         function saveState() {
             localStorage.setItem('millionSquares_users', JSON.stringify(usersData));
             localStorage.setItem('millionSquares_sponsors', JSON.stringify(sponsors));
-            localStorage.setItem('millionSquares_payment', JSON.stringify(paymentAccounts));
-            localStorage.setItem('millionSquares_email', JSON.stringify(emailSettings));
-            localStorage.setItem('millionSquares_settings', JSON.stringify(siteSettings));
-            localStorage.setItem('millionSquares_avatars', JSON.stringify(avatarData));
-            localStorage.setItem('millionSquares_sponsorAvatars', JSON.stringify(sponsorAvatarData));
             localStorage.setItem('millionSquares_theme', currentTheme);
         }
 
@@ -2270,21 +1757,18 @@
         }
 
         function getPlanType(plan) {
-            if (plan.includes('عادي') || plan.includes('Basic')) return 'basic';
-            if (plan.includes('فضي') || plan.includes('Silver')) return 'silver';
-            if (plan.includes('ذهبي') || plan.includes('Gold')) return 'gold';
-            if (plan.includes('ملكي') || plan.includes('Royal')) return 'royal';
+            if (plan.includes('عادي')) return 'basic';
+            if (plan.includes('فضي')) return 'silver';
+            if (plan.includes('ذهبي')) return 'gold';
+            if (plan.includes('ملكي')) return 'royal';
             return 'basic';
         }
 
         function getPlanClass(plan) {
             const type = getPlanType(plan);
-            return {
-                'basic': 'plan-basic',
-                'silver': 'plan-silver',
-                'gold': 'plan-gold',
-                'royal': 'plan-royal'
-            } [type] || 'plan-basic';
+            return { 'basic': 'plan-basic', 'silver': 'plan-silver', 'gold': 'plan-gold', 'royal': 'plan-royal' } [
+                type
+            ] || 'plan-basic';
         }
 
         function getPlanFeatures(plan, lang) {
@@ -2294,7 +1778,7 @@
         }
 
         // ============================================================
-        //  TRANSLATIONS (5 Languages)
+        //  TRANSLATIONS
         // ============================================================
         const langData = {
             ar: {
@@ -2306,21 +1790,12 @@
                 loginError: '❌ اسم المستخدم أو كلمة المرور غير صحيحة!',
                 adminPanelTitle: '🛠️ لوحة التحكم',
                 adminCloseBtn: '✕ إغلاق',
-                chartUsersTitle: '👥 توزيع المشتركين',
-                chartRevenueTitle: '💰 الإيرادات',
                 adminAddTitle: '➕ إضافة مشترك',
                 adminAddBtn: '✅ إضافة',
                 adminSponsorTitle: '🌟 الرعاة',
                 adminSponsorBtn: '💾 حفظ',
-                adminPaymentTitle: '💰 حسابات الدفع',
-                adminPaymentBtn: '💾 حفظ',
-                adminSiteTitle: '⚙️ الإعدادات',
-                adminSiteBtn: '💾 حفظ',
                 adminDangerTitle: '⚠️ الخطر',
-                adminDangerDelete: '🗑️ حذف الكل',
                 adminDangerReset: '🔄 استعادة',
-                adminDangerExport: '📤 تصدير JSON',
-                adminDangerPDF: '📄 PDF',
                 f1: '🖼️ مربعات تفاعلية',
                 f2: '👥 مجتمع نشط',
                 f3: '🔒 دفع آمن',
@@ -2338,7 +1813,6 @@
                 squaresCount: '📊 عرض {count} من {total}',
                 ctaSubscribe: '🚀 اشتراك مع 3 أيام تجريبية مجانية',
                 ctaMore: '📋 عرض الكل',
-                ctaExport: '📄 تصدير التقرير',
                 footer: '© 2026 مليون مربع — المنصة البصرية التفاعلية. 💎',
                 scrollHint: '⬇️ مرر للأسفل | ⬅️➡️ مرر للجانب (1000 مربع لكل عرض)',
                 planWeekly: '🗓️ راعي أسبوعي',
@@ -2369,21 +1843,8 @@
                 sortDesc: '⬇️ تنازلي',
                 searchBtn: '🔍 بحث',
                 resetBtn: '🔄 إعادة ضبط',
-                avatarLabel: '🖼️ صورة',
-                sponsorAvatarLabel: '🖼️ صور الرعاة',
-                paypalPlaceholder: '💳 PayPal',
-                stripePlaceholder: '⚡ Stripe',
-                bankPlaceholder: '🏦 IBAN',
-                smtpEmailPlaceholder: '📧 البريد المرسل',
-                smtpPasswordPlaceholder: '🔑 كلمة المرور',
-                smtpHostPlaceholder: '🌐 SMTP Host',
-                smtpPortPlaceholder: '🔢 SMTP Port',
-                siteTitlePlaceholder: '🏷️ عنوان الموقع',
-                siteDescPlaceholder: '📝 وصف الموقع',
-                squaresPerPagePlaceholder: '📊 المربعات (1000)',
                 modalContact: '📧 تواصل',
                 modalClose: '✕ إغلاق',
-                modalSubscribe: '🚀 اشتراك',
                 modalLabelLocation: '📍 الموقع',
                 modalLabelEmail: '✉️ البريد',
                 modalLabelDate: '📅 تاريخ الانضمام',
@@ -2392,22 +1853,6 @@
                 modalStatusActive: 'نشط',
                 modalStatusNew: 'جديد',
                 modalViewHint: '👆 اضغط للتفاصيل',
-                subModalTitle: '🚀 الاشتراك في مليون مربع',
-                trialInfoText: '🎁 <span class="days">3 أيام</span> تجريبية مجانية',
-                trialInfoSub: 'بعد انتهاء الفترة التجريبية سيتم توجيهك للدفع',
-                subLabelName: '👤 الاسم الكامل',
-                subLabelEmail: '✉️ البريد الإلكتروني',
-                subLabelLocation: '📍 الموقع (المدينة، البلد)',
-                subLabelSpecialty: '🔬 الاختصاص',
-                subLabelPhone: '📱 رقم الهاتف',
-                subLabelPlan: '💎 اختر الباقة',
-                subLabelAvatar: '🖼️ الصورة الشخصية (اختياري)',
-                subLabelMessage: '📝 رسالة إضافية (اختياري)',
-                subAvatarLabel: '📤 اضغط لاختيار صورة',
-                subTerms: 'بالضغط على "اشتراك" أنت توافق على <a href="#">شروط الاستخدام</a> و <a href="#">سياسة الخصوصية</a>',
-                subSubmitBtn: '🚀 اشتراك مع 3 أيام تجريبية مجانية',
-                welcomeEmailSubject: '🎉 مرحباً بك في مليون مربع!',
-                welcomeEmailBody: `مرحباً {name},\n\nشكراً لانضمامك إلى منصة مليون مربع!\n\n📋 تفاصيل اشتراكك:\n• الباقة: {plan}\n• البريد: {email}\n• الموقع: {location}\n• الاختصاص: {specialty}\n\n🎁 لديك {days} أيام تجريبية مجانية.\nبعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.\n\nنحن هنا لدعمك في كل خطوة.\nفريق مليون مربع 💎`,
                 unreserved: '🟩 مربع غير محجوز',
                 unreservedHint: 'متاح للاشتراك'
             },
@@ -2420,21 +1865,12 @@
                 loginError: '❌ Invalid username or password!',
                 adminPanelTitle: '🛠️ Admin Panel',
                 adminCloseBtn: '✕ Close',
-                chartUsersTitle: '👥 Subscribers Distribution',
-                chartRevenueTitle: '💰 Revenue',
                 adminAddTitle: '➕ Add Subscriber',
                 adminAddBtn: '✅ Add',
                 adminSponsorTitle: '🌟 Sponsors',
                 adminSponsorBtn: '💾 Save',
-                adminPaymentTitle: '💰 Payment Accounts',
-                adminPaymentBtn: '💾 Save',
-                adminSiteTitle: '⚙️ Settings',
-                adminSiteBtn: '💾 Save',
                 adminDangerTitle: '⚠️ Danger',
-                adminDangerDelete: '🗑️ Delete All',
                 adminDangerReset: '🔄 Restore',
-                adminDangerExport: '📤 Export JSON',
-                adminDangerPDF: '📄 PDF',
                 f1: '🖼️ Interactive Squares',
                 f2: '👥 Active Community',
                 f3: '🔒 Secure Payment',
@@ -2452,7 +1888,6 @@
                 squaresCount: '📊 Showing {count} of {total}',
                 ctaSubscribe: '🚀 Subscribe with 3 Days Free Trial',
                 ctaMore: '📋 View All',
-                ctaExport: '📄 Export Report',
                 footer: '© 2026 Million Squares — The Interactive Visual Platform. 💎',
                 scrollHint: '⬇️ Scroll Down | ⬅️➡️ Scroll Side (1000 squares per view)',
                 planWeekly: '🗓️ Weekly Sponsor',
@@ -2483,21 +1918,8 @@
                 sortDesc: '⬇️ Descending',
                 searchBtn: '🔍 Search',
                 resetBtn: '🔄 Reset',
-                avatarLabel: '🖼️ Image',
-                sponsorAvatarLabel: '🖼️ Sponsor Images',
-                paypalPlaceholder: '💳 PayPal',
-                stripePlaceholder: '⚡ Stripe',
-                bankPlaceholder: '🏦 IBAN',
-                smtpEmailPlaceholder: '📧 Sender Email',
-                smtpPasswordPlaceholder: '🔑 Password',
-                smtpHostPlaceholder: '🌐 SMTP Host',
-                smtpPortPlaceholder: '🔢 SMTP Port',
-                siteTitlePlaceholder: '🏷️ Site Title',
-                siteDescPlaceholder: '📝 Description',
-                squaresPerPagePlaceholder: '📊 Squares (1000)',
                 modalContact: '📧 Contact',
                 modalClose: '✕ Close',
-                modalSubscribe: '🚀 Subscribe',
                 modalLabelLocation: '📍 Location',
                 modalLabelEmail: '✉️ Email',
                 modalLabelDate: '📅 Joined',
@@ -2506,22 +1928,6 @@
                 modalStatusActive: 'Active',
                 modalStatusNew: 'New',
                 modalViewHint: '👆 Click for details',
-                subModalTitle: '🚀 Subscribe to Million Squares',
-                trialInfoText: '🎁 <span class="days">3 Days</span> Free Trial',
-                trialInfoSub: 'After trial, you will be redirected to payment',
-                subLabelName: '👤 Full Name',
-                subLabelEmail: '✉️ Email Address',
-                subLabelLocation: '📍 Location (City, Country)',
-                subLabelSpecialty: '🔬 Specialty',
-                subLabelPhone: '📱 Phone Number',
-                subLabelPlan: '💎 Choose Plan',
-                subLabelAvatar: '🖼️ Profile Picture (Optional)',
-                subLabelMessage: '📝 Additional Message (Optional)',
-                subAvatarLabel: '📤 Click to choose image',
-                subTerms: 'By clicking "Subscribe" you agree to our <a href="#">Terms</a> & <a href="#">Privacy Policy</a>',
-                subSubmitBtn: '🚀 Subscribe with 3 Days Free Trial',
-                welcomeEmailSubject: '🎉 Welcome to Million Squares!',
-                welcomeEmailBody: `Hello {name},\n\nThank you for joining Million Squares!\n\n📋 Your subscription details:\n• Plan: {plan}\n• Email: {email}\n• Location: {location}\n• Specialty: {specialty}\n\n🎁 You have {days} days free trial.\nAfter trial, you will be redirected to payment.\n\nThe Million Squares Team 💎`,
                 unreserved: '🟩 Unreserved Square',
                 unreservedHint: 'Available for subscription'
             },
@@ -2534,21 +1940,12 @@
                 loginError: '❌ Identifiants incorrects!',
                 adminPanelTitle: '🛠️ Panneau admin',
                 adminCloseBtn: '✕ Fermer',
-                chartUsersTitle: '👥 Distribution abonnés',
-                chartRevenueTitle: '💰 Revenus',
                 adminAddTitle: '➕ Ajouter abonné',
                 adminAddBtn: '✅ Ajouter',
                 adminSponsorTitle: '🌟 Sponsors',
                 adminSponsorBtn: '💾 Enregistrer',
-                adminPaymentTitle: '💰 Comptes paiement',
-                adminPaymentBtn: '💾 Enregistrer',
-                adminSiteTitle: '⚙️ Paramètres',
-                adminSiteBtn: '💾 Enregistrer',
                 adminDangerTitle: '⚠️ Danger',
-                adminDangerDelete: '🗑️ Tout supprimer',
                 adminDangerReset: '🔄 Restaurer',
-                adminDangerExport: '📤 Exporter JSON',
-                adminDangerPDF: '📄 PDF',
                 f1: '🖼️ Carrés interactifs',
                 f2: '👥 Communauté active',
                 f3: '🔒 Paiement sécurisé',
@@ -2566,7 +1963,6 @@
                 squaresCount: '📊 Affichage {count} sur {total}',
                 ctaSubscribe: '🚀 Abonnement 3 jours gratuits',
                 ctaMore: '📋 Voir tout',
-                ctaExport: '📄 Exporter rapport',
                 footer: '© 2026 Million Carrés — La plateforme visuelle interactive. 💎',
                 scrollHint: '⬇️ Descendre | ⬅️➡️ Défiler (1000 carrés par vue)',
                 planWeekly: '🗓️ Sponsor hebdo',
@@ -2597,21 +1993,8 @@
                 sortDesc: '⬇️ Décroissant',
                 searchBtn: '🔍 Rechercher',
                 resetBtn: '🔄 Réinitialiser',
-                avatarLabel: '🖼️ Image',
-                sponsorAvatarLabel: '🖼️ Images sponsors',
-                paypalPlaceholder: '💳 PayPal',
-                stripePlaceholder: '⚡ Stripe',
-                bankPlaceholder: '🏦 IBAN',
-                smtpEmailPlaceholder: '📧 Email expéditeur',
-                smtpPasswordPlaceholder: '🔑 Mot de passe',
-                smtpHostPlaceholder: '🌐 Hôte SMTP',
-                smtpPortPlaceholder: '🔢 Port SMTP',
-                siteTitlePlaceholder: '🏷️ Titre site',
-                siteDescPlaceholder: '📝 Description',
-                squaresPerPagePlaceholder: '📊 Carrés (1000)',
                 modalContact: '📧 Contacter',
                 modalClose: '✕ Fermer',
-                modalSubscribe: '🚀 S\'abonner',
                 modalLabelLocation: '📍 Lieu',
                 modalLabelEmail: '✉️ Email',
                 modalLabelDate: '📅 Inscrit',
@@ -2620,22 +2003,6 @@
                 modalStatusActive: 'Actif',
                 modalStatusNew: 'Nouveau',
                 modalViewHint: '👆 Cliquez détails',
-                subModalTitle: '🚀 S\'abonner',
-                trialInfoText: '🎁 <span class="days">3 jours</span> d\'essai',
-                trialInfoSub: 'Paiement après essai',
-                subLabelName: '👤 Nom complet',
-                subLabelEmail: '✉️ Email',
-                subLabelLocation: '📍 Lieu (Ville, Pays)',
-                subLabelSpecialty: '🔬 Spécialité',
-                subLabelPhone: '📱 Téléphone',
-                subLabelPlan: '💎 Choisir forfait',
-                subLabelAvatar: '🖼️ Photo (Optionnel)',
-                subLabelMessage: '📝 Message (Optionnel)',
-                subAvatarLabel: '📤 Choisir image',
-                subTerms: 'En cliquant "S\'abonner" vous acceptez nos <a href="#">Conditions</a>',
-                subSubmitBtn: '🚀 S\'abonner 3 jours gratuits',
-                welcomeEmailSubject: '🎉 Bienvenue!',
-                welcomeEmailBody: `Bonjour {name},\n\nMerci de rejoindre Million Carrés!\n\n📋 Détails:\n• Forfait: {plan}\n• Email: {email}\n• Lieu: {location}\n• Spécialité: {specialty}\n\n🎁 {days} jours d'essai.\nPaiement après essai.\nL'équipe 💎`,
                 unreserved: '🟩 Carré libre',
                 unreservedHint: 'Disponible'
             },
@@ -2648,21 +2015,12 @@
                 loginError: '❌ Credenciales incorrectas!',
                 adminPanelTitle: '🛠️ Panel Admin',
                 adminCloseBtn: '✕ Cerrar',
-                chartUsersTitle: '👥 Distribución suscriptores',
-                chartRevenueTitle: '💰 Ingresos',
                 adminAddTitle: '➕ Agregar suscriptor',
                 adminAddBtn: '✅ Agregar',
                 adminSponsorTitle: '🌟 Patrocinadores',
                 adminSponsorBtn: '💾 Guardar',
-                adminPaymentTitle: '💰 Cuentas pago',
-                adminPaymentBtn: '💾 Guardar',
-                adminSiteTitle: '⚙️ Configuración',
-                adminSiteBtn: '💾 Guardar',
                 adminDangerTitle: '⚠️ Peligro',
-                adminDangerDelete: '🗑️ Eliminar todo',
                 adminDangerReset: '🔄 Restaurar',
-                adminDangerExport: '📤 Exportar JSON',
-                adminDangerPDF: '📄 PDF',
                 f1: '🖼️ Cuadrados interactivos',
                 f2: '👥 Comunidad activa',
                 f3: '🔒 Pago seguro',
@@ -2680,7 +2038,6 @@
                 squaresCount: '📊 Mostrando {count} de {total}',
                 ctaSubscribe: '🚀 Suscribirse 3 días gratis',
                 ctaMore: '📋 Ver todo',
-                ctaExport: '📄 Exportar informe',
                 footer: '© 2026 Millón de Cuadrados — La plataforma visual interactiva. 💎',
                 scrollHint: '⬇️ Desplazar abajo | ⬅️➡️ Desplazar lateral (1000 cuadrados por vista)',
                 planWeekly: '🗓️ Patrocinador semanal',
@@ -2711,21 +2068,8 @@
                 sortDesc: '⬇️ Descendente',
                 searchBtn: '🔍 Buscar',
                 resetBtn: '🔄 Restablecer',
-                avatarLabel: '🖼️ Imagen',
-                sponsorAvatarLabel: '🖼️ Imágenes patrocinadores',
-                paypalPlaceholder: '💳 PayPal',
-                stripePlaceholder: '⚡ Stripe',
-                bankPlaceholder: '🏦 IBAN',
-                smtpEmailPlaceholder: '📧 Email remitente',
-                smtpPasswordPlaceholder: '🔑 Contraseña',
-                smtpHostPlaceholder: '🌐 Host SMTP',
-                smtpPortPlaceholder: '🔢 Puerto SMTP',
-                siteTitlePlaceholder: '🏷️ Título sitio',
-                siteDescPlaceholder: '📝 Descripción',
-                squaresPerPagePlaceholder: '📊 Cuadrados (1000)',
                 modalContact: '📧 Contactar',
                 modalClose: '✕ Cerrar',
-                modalSubscribe: '🚀 Suscribirse',
                 modalLabelLocation: '📍 Ubicación',
                 modalLabelEmail: '✉️ Email',
                 modalLabelDate: '📅 Registrado',
@@ -2734,22 +2078,6 @@
                 modalStatusActive: 'Activo',
                 modalStatusNew: 'Nuevo',
                 modalViewHint: '👆 Haz clic detalles',
-                subModalTitle: '🚀 Suscribirse',
-                trialInfoText: '🎁 <span class="days">3 días</span> de prueba',
-                trialInfoSub: 'Pago después de prueba',
-                subLabelName: '👤 Nombre completo',
-                subLabelEmail: '✉️ Email',
-                subLabelLocation: '📍 Ubicación (Ciudad, País)',
-                subLabelSpecialty: '🔬 Especialidad',
-                subLabelPhone: '📱 Teléfono',
-                subLabelPlan: '💎 Elegir plan',
-                subLabelAvatar: '🖼️ Foto (Opcional)',
-                subLabelMessage: '📝 Mensaje (Opcional)',
-                subAvatarLabel: '📤 Elegir imagen',
-                subTerms: 'Al hacer clic "Suscribirse" aceptas nuestros <a href="#">Términos</a>',
-                subSubmitBtn: '🚀 Suscribirse 3 días gratis',
-                welcomeEmailSubject: '🎉 ¡Bienvenido!',
-                welcomeEmailBody: `Hola {name},\n\n¡Gracias por unirte!\n\n📋 Detalles:\n• Plan: {plan}\n• Email: {email}\n• Ubicación: {location}\n• Especialidad: {specialty}\n\n🎁 {days} días de prueba.\nPago después de prueba.\nEl equipo 💎`,
                 unreserved: '🟩 Cuadrado libre',
                 unreservedHint: 'Disponible'
             },
@@ -2762,21 +2090,12 @@
                 loginError: '❌ Falsche Anmeldedaten!',
                 adminPanelTitle: '🛠️ Admin-Bereich',
                 adminCloseBtn: '✕ Schließen',
-                chartUsersTitle: '👥 Abonnentenverteilung',
-                chartRevenueTitle: '💰 Einnahmen',
                 adminAddTitle: '➕ Abonnent hinzufügen',
                 adminAddBtn: '✅ Hinzufügen',
                 adminSponsorTitle: '🌟 Sponsoren',
                 adminSponsorBtn: '💾 Speichern',
-                adminPaymentTitle: '💰 Zahlungskonten',
-                adminPaymentBtn: '💾 Speichern',
-                adminSiteTitle: '⚙️ Einstellungen',
-                adminSiteBtn: '💾 Speichern',
                 adminDangerTitle: '⚠️ Gefahr',
-                adminDangerDelete: '🗑️ Alles löschen',
                 adminDangerReset: '🔄 Wiederherstellen',
-                adminDangerExport: '📤 JSON exportieren',
-                adminDangerPDF: '📄 PDF',
                 f1: '🖼️ Interaktive Quadrate',
                 f2: '👥 Aktive Community',
                 f3: '🔒 Sichere Zahlung',
@@ -2794,7 +2113,6 @@
                 squaresCount: '📊 Zeige {count} von {total}',
                 ctaSubscribe: '🚀 Abonnieren 3 Tage kostenlos',
                 ctaMore: '📋 Alle anzeigen',
-                ctaExport: '📄 Bericht exportieren',
                 footer: '© 2026 Millionen Quadrate — Die interaktive visuelle Plattform. 💎',
                 scrollHint: '⬇️ Nach unten | ⬅️➡️ Seitlich (1000 Quadrate pro Ansicht)',
                 planWeekly: '🗓️ Wöchentlicher Sponsor',
@@ -2825,21 +2143,8 @@
                 sortDesc: '⬇️ Absteigend',
                 searchBtn: '🔍 Suchen',
                 resetBtn: '🔄 Zurücksetzen',
-                avatarLabel: '🖼️ Bild',
-                sponsorAvatarLabel: '🖼️ Sponsor-Bilder',
-                paypalPlaceholder: '💳 PayPal',
-                stripePlaceholder: '⚡ Stripe',
-                bankPlaceholder: '🏦 IBAN',
-                smtpEmailPlaceholder: '📧 Absender-E-Mail',
-                smtpPasswordPlaceholder: '🔑 Passwort',
-                smtpHostPlaceholder: '🌐 SMTP-Host',
-                smtpPortPlaceholder: '🔢 SMTP-Port',
-                siteTitlePlaceholder: '🏷️ Seitentitel',
-                siteDescPlaceholder: '📝 Beschreibung',
-                squaresPerPagePlaceholder: '📊 Quadrate (1000)',
                 modalContact: '📧 Kontakt',
                 modalClose: '✕ Schließen',
-                modalSubscribe: '🚀 Abonnieren',
                 modalLabelLocation: '📍 Ort',
                 modalLabelEmail: '✉️ E-Mail',
                 modalLabelDate: '📅 Registriert',
@@ -2848,22 +2153,6 @@
                 modalStatusActive: 'Aktiv',
                 modalStatusNew: 'Neu',
                 modalViewHint: '👆 Klicke Details',
-                subModalTitle: '🚀 Abonnieren',
-                trialInfoText: '🎁 <span class="days">3 Tage</span> kostenlos',
-                trialInfoSub: 'Zahlung nach Test',
-                subLabelName: '👤 Vollständiger Name',
-                subLabelEmail: '✉️ E-Mail',
-                subLabelLocation: '📍 Ort (Stadt, Land)',
-                subLabelSpecialty: '🔬 Fachgebiet',
-                subLabelPhone: '📱 Telefon',
-                subLabelPlan: '💎 Plan wählen',
-                subLabelAvatar: '🖼️ Profilbild (Optional)',
-                subLabelMessage: '📝 Nachricht (Optional)',
-                subAvatarLabel: '📤 Bild wählen',
-                subTerms: 'Mit Klick "Abonnieren" akzeptierst du die <a href="#">Nutzungsbedingungen</a>',
-                subSubmitBtn: '🚀 Abonnieren 3 Tage kostenlos',
-                welcomeEmailSubject: '🎉 Willkommen!',
-                welcomeEmailBody: `Hallo {name},\n\nWillkommen bei Millionen Quadrate!\n\n📋 Details:\n• Plan: {plan}\n• E-Mail: {email}\n• Ort: {location}\n• Fachgebiet: {specialty}\n\n🎁 {days} Tage kostenlos.\nZahlung nach Test.\nDas Team 💎`,
                 unreserved: '🟩 Freies Quadrat',
                 unreservedHint: 'Verfügbar'
             }
@@ -2887,21 +2176,12 @@
             document.getElementById('loginError').textContent = t.loginError;
             document.getElementById('adminPanelTitle').textContent = t.adminPanelTitle;
             document.getElementById('adminCloseBtn').textContent = t.adminCloseBtn;
-            document.getElementById('chartUsersTitle').textContent = t.chartUsersTitle;
-            document.getElementById('chartRevenueTitle').textContent = t.chartRevenueTitle;
             document.getElementById('adminAddTitle').textContent = t.adminAddTitle;
             document.getElementById('adminAddBtn').textContent = t.adminAddBtn;
             document.getElementById('adminSponsorTitle').textContent = t.adminSponsorTitle;
             document.getElementById('adminSponsorBtn').textContent = t.adminSponsorBtn;
-            document.getElementById('adminPaymentTitle').textContent = t.adminPaymentTitle;
-            document.getElementById('adminPaymentBtn').textContent = t.adminPaymentBtn;
-            document.getElementById('adminSiteTitle').textContent = t.adminSiteTitle;
-            document.getElementById('adminSiteBtn').textContent = t.adminSiteBtn;
             document.getElementById('adminDangerTitle').textContent = t.adminDangerTitle;
-            document.getElementById('adminDangerDelete').textContent = t.adminDangerDelete;
             document.getElementById('adminDangerReset').textContent = t.adminDangerReset;
-            document.getElementById('adminDangerExport').textContent = t.adminDangerExport;
-            document.getElementById('adminDangerPDF').textContent = t.adminDangerPDF;
 
             document.getElementById('f1').textContent = t.f1;
             document.getElementById('f2').textContent = t.f2;
@@ -2919,7 +2199,6 @@
             document.getElementById('squaresTitle').textContent = t.squaresTitle;
             document.getElementById('ctaSubscribe').textContent = t.ctaSubscribe;
             document.getElementById('ctaMore').textContent = t.ctaMore;
-            document.getElementById('ctaExport').textContent = t.ctaExport;
             document.getElementById('footerText').textContent = t.footer;
             document.getElementById('scrollHint').textContent = t.scrollHint;
             document.getElementById('linkAbout').textContent = t.linkAbout;
@@ -2941,42 +2220,13 @@
             document.getElementById('searchBtn').textContent = t.searchBtn;
             document.getElementById('resetBtn').textContent = t.resetBtn;
 
-            document.getElementById('avatarLabel').textContent = t.avatarLabel;
-            document.getElementById('sponsorAvatarLabel').textContent = t.sponsorAvatarLabel;
-            document.getElementById('paypalAccount').placeholder = t.paypalPlaceholder;
-            document.getElementById('stripeAccount').placeholder = t.stripePlaceholder;
-            document.getElementById('bankAccount').placeholder = t.bankPlaceholder;
-            document.getElementById('smtpEmail').placeholder = t.smtpEmailPlaceholder;
-            document.getElementById('smtpPassword').placeholder = t.smtpPasswordPlaceholder;
-            document.getElementById('smtpHost').placeholder = t.smtpHostPlaceholder;
-            document.getElementById('smtpPort').placeholder = t.smtpPortPlaceholder;
-            document.getElementById('siteTitle').placeholder = t.siteTitlePlaceholder;
-            document.getElementById('siteDescription').placeholder = t.siteDescPlaceholder;
-            document.getElementById('squaresPerPage').placeholder = t.squaresPerPagePlaceholder;
-
             document.getElementById('modalBtnContact').textContent = t.modalContact;
-            document.getElementById('modalBtnSubscribe').textContent = t.modalSubscribe;
             document.getElementById('modalBtnClose').textContent = t.modalClose;
             document.getElementById('modalLabelLocation').textContent = t.modalLabelLocation;
             document.getElementById('modalLabelEmail').textContent = t.modalLabelEmail;
             document.getElementById('modalLabelDate').textContent = t.modalLabelDate;
             document.getElementById('modalLabelStatus').textContent = t.modalLabelStatus;
             document.getElementById('modalLabelPlanFeatures').textContent = t.modalLabelPlanFeatures;
-
-            document.getElementById('subModalTitle').textContent = t.subModalTitle;
-            document.getElementById('trialInfoText').innerHTML = t.trialInfoText;
-            document.getElementById('trialInfoSub').textContent = t.trialInfoSub;
-            document.getElementById('subLabelName').textContent = t.subLabelName;
-            document.getElementById('subLabelEmail').textContent = t.subLabelEmail;
-            document.getElementById('subLabelLocation').textContent = t.subLabelLocation;
-            document.getElementById('subLabelSpecialty').textContent = t.subLabelSpecialty;
-            document.getElementById('subLabelPhone').textContent = t.subLabelPhone;
-            document.getElementById('subLabelPlan').textContent = t.subLabelPlan;
-            document.getElementById('subLabelAvatar').textContent = t.subLabelAvatar;
-            document.getElementById('subLabelMessage').textContent = t.subLabelMessage;
-            document.getElementById('subAvatarLabel').textContent = t.subAvatarLabel;
-            document.getElementById('subTerms').innerHTML = t.subTerms;
-            document.getElementById('subSubmitBtn').textContent = t.subSubmitBtn;
 
             if (adminLoggedIn) {
                 document.getElementById('toggleAdminBtn').textContent = t.adminPanelTitle + ' (مفعل)';
@@ -2992,7 +2242,6 @@
             document.documentElement.lang = lang;
 
             renderAll();
-            updateCharts();
         }
 
         // ============================================================
@@ -3001,10 +2250,10 @@
         function openModal(user) {
             currentModalUser = user;
             const t = langData[currentLang];
-            const name = translate(user.name, currentLang);
-            const location = translate(user.location, currentLang);
-            const country = translate(user.country, currentLang);
-            const specialty = translate(user.specialty, currentLang);
+            const name = user.name;
+            const location = user.location;
+            const country = user.country;
+            const specialty = user.specialty;
             const avatarSrc = avatarData[user.email] || user.avatar || '';
             const isNew = user._new || false;
             const joined = user.joined || new Date(user._date || Date.now()).toLocaleDateString();
@@ -3044,7 +2293,7 @@
         function contactSubscriber() {
             if (!currentModalUser) return;
             const email = currentModalUser.email;
-            const name = translate(currentModalUser.name, currentLang);
+            const name = currentModalUser.name;
             const subject = encodeURIComponent(currentLang === 'ar' ? 'تواصل من مليون مربع' : 'Contact from Million Squares');
             const body = encodeURIComponent(
                 currentLang === 'ar' ?
@@ -3056,207 +2305,41 @@
         }
 
         // ============================================================
-        //  SUBSCRIPTION
-        // ============================================================
-        function openSubscribeModal() {
-            document.getElementById('subscribeOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.getElementById('subscribeForm').reset();
-            document.getElementById('subSelectedPlan').value = '💎 عادي ($1/سنة)';
-            document.getElementById('subSelectedPlanType').value = 'basic';
-            document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
-            document.querySelector('.plan-option').classList.add('selected');
-            document.getElementById('subAvatarLabel').textContent = langData[currentLang]?.subAvatarLabel ||
-                '📤 اضغط لاختيار صورة';
-            subAvatarFile = null;
-        }
-
-        function closeSubscribeModal() {
-            document.getElementById('subscribeOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function selectPlan(el) {
-            document.querySelectorAll('.plan-option').forEach(p => p.classList.remove('selected'));
-            el.classList.add('selected');
-            document.getElementById('subSelectedPlan').value = el.dataset.plan;
-            document.getElementById('subSelectedPlanType').value = el.dataset.planType || 'basic';
-        }
-
-        function handleSubAvatar(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                subAvatarFile = e.target.result;
-                document.getElementById('subAvatarLabel').textContent = '✅ ' + (currentLang === 'ar' ? 'تم رفع الصورة' :
-                    'Image uploaded');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function handleSubscription(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('subFullName').value.trim();
-            const email = document.getElementById('subFullEmail').value.trim();
-            const location = document.getElementById('subFullLocation').value.trim();
-            const specialty = document.getElementById('subFullSpecialty').value.trim();
-            const phone = document.getElementById('subFullPhone').value.trim();
-            const plan = document.getElementById('subSelectedPlan').value;
-            const planType = document.getElementById('subSelectedPlanType').value;
-            const message = document.getElementById('subFullMessage').value.trim();
-
-            if (!name || !email || !location) {
-                alert(currentLang === 'ar' ? '⚠️ الرجاء ملء الحقول الأساسية!' : '⚠️ Please fill required fields!');
-                return;
-            }
-
-            const nameObj = { ar: name, en: name, fr: name, es: name, de: name };
-            const locationObj = { ar: location, en: location, fr: location, es: location, de: location };
-            const specialtyObj = {
-                ar: specialty || 'عام',
-                en: specialty || 'General',
-                fr: specialty || 'Général',
-                es: specialty || 'General',
-                de: specialty || 'Allgemein'
-            };
-
-            const rating = (Math.random() * 2 + 2.5).toFixed(1);
-            const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
-            const today = new Date().toISOString().slice(0, 10);
-
-            const newUser = {
-                name: nameObj,
-                location: locationObj,
-                country: { ar: 'غير محدد', en: 'Unspecified', fr: 'Non spécifié', es: 'No especificado',
-                    de: 'Nicht angegeben' },
-                email: email,
-                phone: phone || '',
-                specialty: specialtyObj,
-                plan: plan,
-                rating: parseFloat(rating),
-                icon: icons[Math.floor(Math.random() * icons.length)],
-                avatar: subAvatarFile || '',
-                _new: true,
-                _date: Date.now(),
-                joined: today,
-                _planType: planType,
-                _trialStart: new Date().toISOString(),
-                _trialEnd: new Date(Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000).toISOString(),
-                _subscriptionMessage: message || ''
-            };
-
-            usersData.push(newUser);
-            if (subAvatarFile) {
-                avatarData[email] = subAvatarFile;
-                subAvatarFile = null;
-            }
-            saveState();
-
-            sendWelcomeEmail(newUser);
-
-            const translatedName = translate(newUser.name, currentLang);
-            showNotification(
-                langData[currentLang]?.newMember || '🎉 عضو جديد!',
-                (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}',
-                    translatedName)
-            );
-
-            closeSubscribeModal();
-            renderAll();
-
-            const trialEndDate = new Date(Date.now() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
-            const trialEndStr = trialEndDate.toLocaleDateString(currentLang === 'ar' ? 'ar-SA' : 'en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-
-            alert(currentLang === 'ar' ?
-                `✅ تم اشتراكك بنجاح!\n\n🎁 لديك ${TRIAL_DAYS} أيام تجريبية مجانية.\n📅 تنتهي الفترة التجريبية في: ${trialEndStr}\n\n💳 بعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.\n📧 تم إرسال بريد إلكتروني ترحيبي بالتفاصيل.` :
-                `✅ You have successfully subscribed!\n\n🎁 You have ${TRIAL_DAYS} days free trial.\n📅 Trial ends on: ${trialEndStr}\n\n💳 After the trial period, you will be redirected to the payment page.\n📧 A welcome email has been sent with details.`
-            );
-        }
-
-        // ============================================================
-        //  WELCOME EMAIL
-        // ============================================================
-        function sendWelcomeEmail(user) {
-            const t = langData[currentLang];
-            const name = translate(user.name, currentLang);
-            const plan = user.plan;
-            const email = user.email;
-            const location = translate(user.location, currentLang);
-            const specialty = translate(user.specialty, currentLang);
-
-            const subject = t.welcomeEmailSubject || '🎉 مرحباً بك في مليون مربع!';
-            const body = (t.welcomeEmailBody || `مرحباً {name},\n\nشكراً لانضمامك إلى منصة مليون مربع!\n\n📋 تفاصيل اشتراكك:\n• الباقة: {plan}\n• البريد: {email}\n• الموقع: {location}\n• الاختصاص: {specialty}\n\n🎁 لديك {days} أيام تجريبية مجانية.\nبعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.\n\nنحن هنا لدعمك في كل خطوة.\nفريق مليون مربع 💎`)
-                .replace(/{name}/g, name)
-                .replace(/{plan}/g, plan)
-                .replace(/{email}/g, email)
-                .replace(/{location}/g, location)
-                .replace(/{specialty}/g, specialty)
-                .replace(/{days}/g, TRIAL_DAYS);
-
-            console.log('📧 ===== WELCOME EMAIL =====');
-            console.log('📧 To:', email);
-            console.log('📧 Subject:', subject);
-            console.log('📧 Body:\n', body);
-            console.log('📧 ==========================');
-
-            if (emailSettings.smtpEmail && emailSettings.smtpHost) {
-                console.log('📧 SMTP configured with:', emailSettings.smtpHost);
-            }
-
-            showNotification('📧 ' + (currentLang === 'ar' ? 'تم إرسال البريد الترحيبي' : 'Welcome email sent'),
-                currentLang === 'ar' ?
-                `تم إرسال بريد ترحيبي إلى ${email} مع تفاصيل الاشتراك` :
-                `Welcome email sent to ${email} with subscription details`
-            );
-        }
-
-        // ============================================================
         //  RENDER FUNCTIONS
         // ============================================================
         function renderSponsors() {
-            const grid = document.getElementById('sponsorGrid');
+            const track = document.getElementById('sponsorTrack');
             const t = langData[currentLang];
             if (!t) return;
 
             const items = [
                 { key: 'weekly', plan: t.planWeekly, period: t.periodWeekly, badge: t.badgeWeekly,
-                    badgeClass: 'badge-weekly', levelClass: 'level-weekly' },
+                    badgeClass: 'badge-weekly' },
                 { key: 'monthly', plan: t.planMonthly, period: t.periodMonthly, badge: t.badgeMonthly,
-                    badgeClass: 'badge-monthly', levelClass: 'level-monthly' },
+                    badgeClass: 'badge-monthly' },
                 { key: 'yearly', plan: t.planYearly, period: t.periodYearly, badge: t.badgeYearly,
-                    badgeClass: 'badge-yearly', levelClass: 'level-yearly' }
+                    badgeClass: 'badge-yearly' }
             ];
             const prices = { weekly: '$100', monthly: '$1,000', yearly: '$10,000' };
-            const levelLabels = { weekly: '🗓️ أسبوعي', monthly: '🌟 شهري', yearly: '👑 سنوي' };
 
-            grid.innerHTML = '';
-            items.forEach(item => {
-                const sp = sponsors[item.key] || { name: { ar: '待定', en: 'TBD', fr: 'TBD', es: 'TBD',
-                        de: 'TBD' }, avatar: '', level: item.key };
-                const translatedName = translate(sp.name, currentLang);
-                const avatarSrc = sponsorAvatarData[item.key] || sp.avatar || '';
-                const levelLabel = levelLabels[item.key] || item.key;
-                const div = document.createElement('div');
-                div.className = 'sponsor-item';
-                div.innerHTML = `
-                        <span class="sponsor-level ${item.levelClass}">${levelLabel}</span>
-                        <div class="sponsor-avatar">
-                            ${avatarSrc ? `<img src="${avatarSrc}" alt="${translatedName}">` : '🌟'}
-                        </div>
-                        <div class="plan">${item.plan}</div>
-                        <div class="name">${translatedName}</div>
-                        <div class="price">${prices[item.key]}</div>
-                        <div class="period">${item.period}</div>
-                        <span class="badge-sp ${item.badgeClass}">${item.badge}</span>
-                    `;
-                grid.appendChild(div);
-            });
+            // Create 3 copies for seamless scrolling
+            let html = '';
+            for (let copy = 0; copy < 3; copy++) {
+                items.forEach(item => {
+                    const sp = sponsors[item.key] || { name: '待定', emoji: '🌟' };
+                    html += `
+                            <div class="sponsor-item">
+                                <div class="sponsor-avatar">${sp.emoji || '🌟'}</div>
+                                <div class="s-name">${sp.name}</div>
+                                <div class="s-plan">${item.plan} ${item.period}</div>
+                                <span class="s-badge ${item.badgeClass}">${item.badge}</span>
+                                <div style="font-size:0.55rem;color:var(--text-muted);">${prices[item.key]}</div>
+                            </div>
+                        `;
+                });
+            }
+
+            track.innerHTML = html;
         }
 
         function renderSquares(filteredData) {
@@ -3266,34 +2349,21 @@
             if (!t) return;
 
             const data = filteredData || getFilteredData();
-            const perPage = siteSettings.squaresPerPage || DEFAULT_SQUARES_PER_PAGE;
+            const perPage = DEFAULT_SQUARES_PER_PAGE;
             const displayData = data.slice(0, perPage);
             const total = data.length;
 
             const unreservedCount = Math.max(0, perPage - displayData.length);
-            const unreservedData = Array(unreservedCount).fill(null);
 
             grid.innerHTML = '';
-            if (displayData.length === 0 && unreservedCount === 0) {
-                grid.innerHTML =
-                    `<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text-muted);">😕 ${currentLang === 'ar' ? 'لا توجد نتائج' : 'No results'}</div>`;
-                countSpan.textContent = `📊 0 من 0`;
-                return;
-            }
 
             displayData.forEach((u) => {
                 const fullStars = Math.floor(u.rating || 0);
                 const halfStar = (u.rating - fullStars) >= 0.5 ? '☆' : '';
                 const starStr = '⭐'.repeat(fullStars) + halfStar + '☆'.repeat(5 - fullStars - (halfStar ? 1 : 0));
-                const avatarSrc = avatarData[u.email] || u.avatar || '';
                 const isNew = u._new || false;
                 const planClass = getPlanClass(u.plan);
                 const planType = getPlanType(u.plan);
-
-                const translatedName = translate(u.name, currentLang);
-                const translatedLocation = translate(u.location, currentLang);
-                const translatedCountry = translate(u.country, currentLang);
-                const translatedSpecialty = translate(u.specialty, currentLang);
 
                 const card = document.createElement('div');
                 card.className = `square-card ${planClass}`;
@@ -3307,11 +2377,11 @@
                         <span class="plan-badge">${planType === 'basic' ? '💎' : planType === 'silver' ? '⭐' : planType === 'gold' ? '👑' : '💠'}</span>
                         <button class="delete-btn" onclick="event.stopPropagation();deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
                         <div class="avatar">
-                            ${avatarSrc ? `<img src="${avatarSrc}" alt="${translatedName}">` : (u.icon || '🧑')}
+                            ${u.icon || '🧑'}
                         </div>
-                        <div class="s-name">${translatedName}</div>
-                        <div class="s-location">📍 ${translatedLocation}${translatedCountry ? `, ${translatedCountry}` : ''}</div>
-                        ${translatedSpecialty ? `<div class="s-specialty">🔬 ${translatedSpecialty}</div>` : ''}
+                        <div class="s-name">${u.name}</div>
+                        <div class="s-location">📍 ${u.location}${u.country ? `, ${u.country}` : ''}</div>
+                        ${u.specialty ? `<div class="s-specialty">🔬 ${u.specialty}</div>` : ''}
                         <div class="s-email">✉️ ${u.email}</div>
                         <div class="s-plan">${u.plan}</div>
                         <div class="s-rating">${starStr} <span class="count">(${u.rating || 0})</span></div>
@@ -3320,7 +2390,8 @@
                 grid.appendChild(card);
             });
 
-            unreservedData.forEach((_, i) => {
+            // Render unreserved squares
+            for (let i = 0; i < unreservedCount && i < 100; i++) {
                 const card = document.createElement('div');
                 card.className = 'square-card unreserved';
                 card.innerHTML = `
@@ -3331,10 +2402,10 @@
                         </div>
                     `;
                 grid.appendChild(card);
-            });
+            }
 
-            const totalDisplay = displayData.length + unreservedData.length;
-            countSpan.textContent = t.squaresCount.replace('{count}', totalDisplay).replace('{total}', total + UNRESERVED_COUNT);
+            const totalDisplay = displayData.length + Math.min(unreservedCount, 100);
+            countSpan.textContent = t.squaresCount.replace('{count}', totalDisplay).replace('{total}', total + 500);
             updateStats();
         }
 
@@ -3353,81 +2424,6 @@
             renderSponsors();
             renderSquares();
             populateFilters();
-            updateCharts();
-        }
-
-        // ============================================================
-        //  CHARTS
-        // ============================================================
-        function updateCharts() {
-            const planCounts = {};
-            usersData.forEach(u => {
-                const plan = u.plan || 'غير محدد';
-                planCounts[plan] = (planCounts[plan] || 0) + 1;
-            });
-            const planLabels = Object.keys(planCounts);
-            const planValues = Object.values(planCounts);
-            const colors = ['#4f7cf7', '#b0b8c8', '#f7c948', '#9b59b6'];
-
-            const planCtx = document.getElementById('planChart').getContext('2d');
-            if (chartInstances.plan) chartInstances.plan.destroy();
-            chartInstances.plan = new Chart(planCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: planLabels,
-                    datasets: [{ data: planValues, backgroundColor: colors.slice(0, planLabels.length) }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { position: 'bottom', labels: { color: getComputedStyle(document.documentElement)
-                                .getPropertyValue('--text-secondary') || '#8aa0c8' } } }
-                }
-            });
-
-            const months = currentLang === 'ar' ?
-                ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'] :
-                currentLang === 'fr' ?
-                ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'] :
-                currentLang === 'es' ?
-                ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'] :
-                currentLang === 'de' ?
-                ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'] :
-                ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-            const monthlyRevenue = Array(12).fill(0);
-            usersData.forEach(u => {
-                const match = u.plan.match(/\$(\d+)/);
-                if (match) {
-                    const amount = parseInt(match[1]);
-                    const month = Math.floor(Math.random() * 12);
-                    monthlyRevenue[month] += amount;
-                }
-            });
-
-            const revCtx = document.getElementById('revenueChart').getContext('2d');
-            if (chartInstances.revenue) chartInstances.revenue.destroy();
-            chartInstances.revenue = new Chart(revCtx, {
-                type: 'bar',
-                data: {
-                    labels: months,
-                    datasets: [{
-                        label: currentLang === 'ar' ? 'الإيرادات' : 'Revenue',
-                        data: monthlyRevenue,
-                        backgroundColor: '#4f7cf7',
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { beginAtZero: true, ticks: { color: getComputedStyle(document.documentElement)
-                                    .getPropertyValue('--text-secondary') || '#8aa0c8' } },
-                        x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue(
-                                '--text-secondary') || '#8aa0c8' } }
-                    }
-                }
-            });
         }
 
         // ============================================================
@@ -3442,19 +2438,14 @@
             const sortOrder = document.getElementById('sortOrder').value;
 
             let filtered = usersData.filter(u => {
-                const translatedName = translate(u.name, currentLang).toLowerCase();
-                const translatedLocation = translate(u.location, currentLang).toLowerCase();
-                const translatedCountry = translate(u.country, currentLang).toLowerCase();
-                const translatedSpecialty = translate(u.specialty, currentLang).toLowerCase();
-
                 const matchSearch = !search ||
-                    translatedName.includes(search) ||
-                    translatedLocation.includes(search) ||
-                    translatedCountry.includes(search) ||
-                    translatedSpecialty.includes(search) ||
+                    u.name.toLowerCase().includes(search) ||
+                    u.location.toLowerCase().includes(search) ||
+                    u.country.toLowerCase().includes(search) ||
+                    u.specialty.toLowerCase().includes(search) ||
                     u.email.toLowerCase().includes(search);
-                const matchCountry = !country || translate(u.country, currentLang) === country;
-                const matchCity = !city || translate(u.location, currentLang) === city;
+                const matchCountry = !country || u.country === country;
+                const matchCity = !city || u.location === city;
                 const matchPlan = !plan || u.plan === plan;
                 return matchSearch && matchCountry && matchCity && matchPlan;
             });
@@ -3463,8 +2454,8 @@
                 let valA, valB;
                 switch (sortBy) {
                     case 'name':
-                        valA = translate(a.name, currentLang);
-                        valB = translate(b.name, currentLang);
+                        valA = a.name;
+                        valB = b.name;
                         break;
                     case 'rating':
                         valA = a.rating || 0;
@@ -3506,8 +2497,8 @@
         function populateFilters() {
             const countrySelect = document.getElementById('filterCountry');
             const citySelect = document.getElementById('filterCity');
-            const countries = [...new Set(usersData.map(u => translate(u.country, currentLang)).filter(Boolean))];
-            const cities = [...new Set(usersData.map(u => translate(u.location, currentLang)).filter(Boolean))];
+            const countries = [...new Set(usersData.map(u => u.country).filter(Boolean))];
+            const cities = [...new Set(usersData.map(u => u.location).filter(Boolean))];
 
             const currentCountry = countrySelect.value;
             const currentCity = citySelect.value;
@@ -3524,47 +2515,18 @@
         // ============================================================
         //  ADMIN FUNCTIONS
         // ============================================================
-        function handleAvatarUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                avatarFile = e.target.result;
-                document.getElementById('avatarLabel').textContent = '✅ ' + (currentLang === 'ar' ? 'تم رفع الصورة' :
-                    'Image uploaded');
-            };
-            reader.readAsDataURL(file);
-        }
-
         function addSubscriber() {
-            const nameAr = document.getElementById('subName').value.trim();
-            const locationAr = document.getElementById('subLocation').value.trim();
-            const countryAr = document.getElementById('subCountry').value.trim();
+            const name = document.getElementById('subName').value.trim();
+            const location = document.getElementById('subLocation').value.trim();
+            const country = document.getElementById('subCountry').value.trim();
             const email = document.getElementById('subEmail').value.trim();
-            const specialtyAr = document.getElementById('subSpecialty').value.trim();
+            const specialty = document.getElementById('subSpecialty').value.trim();
             const plan = document.getElementById('subPlan').value;
 
-            if (!nameAr || !locationAr || !email) {
+            if (!name || !location || !email) {
                 alert(currentLang === 'ar' ? '⚠️ الرجاء ملء الحقول الأساسية!' : '⚠️ Please fill required fields!');
                 return;
             }
-
-            const nameObj = { ar: nameAr, en: nameAr, fr: nameAr, es: nameAr, de: nameAr };
-            const locationObj = { ar: locationAr, en: locationAr, fr: locationAr, es: locationAr, de: locationAr };
-            const countryObj = {
-                ar: countryAr || 'غير محدد',
-                en: countryAr || 'Unspecified',
-                fr: countryAr || 'Non spécifié',
-                es: countryAr || 'No especificado',
-                de: countryAr || 'Nicht angegeben'
-            };
-            const specialtyObj = {
-                ar: specialtyAr || 'عام',
-                en: specialtyAr || 'General',
-                fr: specialtyAr || 'Général',
-                es: specialtyAr || 'General',
-                de: specialtyAr || 'Allgemein'
-            };
 
             const rating = (Math.random() * 2 + 2.5).toFixed(1);
             const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
@@ -3572,15 +2534,15 @@
             const planType = getPlanType(plan);
 
             const newUser = {
-                name: nameObj,
-                location: locationObj,
-                country: countryObj,
+                name: name,
+                location: location,
+                country: country || 'غير محدد',
                 email: email,
-                specialty: specialtyObj,
+                specialty: specialty || 'عام',
                 plan: plan,
                 rating: parseFloat(rating),
                 icon: icons[Math.floor(Math.random() * icons.length)],
-                avatar: avatarFile || '',
+                avatar: '',
                 _new: true,
                 _date: Date.now(),
                 joined: today,
@@ -3589,17 +2551,9 @@
             };
 
             usersData.push(newUser);
-            if (avatarFile) {
-                avatarData[email] = avatarFile;
-                avatarFile = null;
-                document.getElementById('avatarLabel').textContent = currentLang === 'ar' ? '🖼️ صورة' :
-                    '🖼️ Image';
-            }
             saveState();
 
-            sendWelcomeEmail(newUser);
-
-            const translatedName = translate(newUser.name, currentLang);
+            const translatedName = newUser.name;
             showNotification(
                 langData[currentLang]?.newMember || '🎉 عضو جديد!',
                 (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}',
@@ -3611,7 +2565,6 @@
             document.getElementById('subCountry').value = '';
             document.getElementById('subEmail').value = '';
             document.getElementById('subSpecialty').value = '';
-            document.getElementById('subAvatar').value = '';
 
             renderAll();
             alert(currentLang === 'ar' ? '✅ تم إضافة المشترك بنجاح!' : '✅ Subscriber added successfully!');
@@ -3620,7 +2573,6 @@
         function deleteSubscriber(email) {
             if (!confirm(currentLang === 'ar' ? '🗑️ هل تريد حذف هذا المشترك؟' : '🗑️ Delete this subscriber?')) return;
             usersData = usersData.filter(u => u.email !== email);
-            delete avatarData[email];
             saveState();
             renderAll();
             if (currentModalUser && currentModalUser.email === email) {
@@ -3629,19 +2581,13 @@
         }
 
         function updateSponsors() {
-            const weeklyAr = document.getElementById('sponsorWeeklyName').value.trim();
-            const monthlyAr = document.getElementById('sponsorMonthlyName').value.trim();
-            const yearlyAr = document.getElementById('sponsorYearlyName').value.trim();
+            const weekly = document.getElementById('sponsorWeeklyName').value.trim();
+            const monthly = document.getElementById('sponsorMonthlyName').value.trim();
+            const yearly = document.getElementById('sponsorYearlyName').value.trim();
 
-            if (weeklyAr) {
-                sponsors.weekly.name = { ar: weeklyAr, en: weeklyAr, fr: weeklyAr, es: weeklyAr, de: weeklyAr };
-            }
-            if (monthlyAr) {
-                sponsors.monthly.name = { ar: monthlyAr, en: monthlyAr, fr: monthlyAr, es: monthlyAr, de: monthlyAr };
-            }
-            if (yearlyAr) {
-                sponsors.yearly.name = { ar: yearlyAr, en: yearlyAr, fr: yearlyAr, es: yearlyAr, de: yearlyAr };
-            }
+            if (weekly) sponsors.weekly.name = weekly;
+            if (monthly) sponsors.monthly.name = monthly;
+            if (yearly) sponsors.yearly.name = yearly;
 
             saveState();
             document.getElementById('sponsorWeeklyName').value = '';
@@ -3652,132 +2598,15 @@
             alert(currentLang === 'ar' ? '✅ تم تحديث الرعاة بنجاح!' : '✅ Sponsors updated successfully!');
         }
 
-        function savePaymentAccounts() {
-            paymentAccounts.paypal = document.getElementById('paypalAccount').value.trim();
-            paymentAccounts.stripe = document.getElementById('stripeAccount').value.trim();
-            paymentAccounts.bank = document.getElementById('bankAccount').value.trim();
-            saveState();
-            alert(currentLang === 'ar' ? '✅ تم حفظ حسابات الدفع!' : '✅ Payment accounts saved!');
-        }
-
-        function saveSiteSettings() {
-            const titleAr = document.getElementById('siteTitle').value.trim();
-            const perPage = parseInt(document.getElementById('squaresPerPage').value) || DEFAULT_SQUARES_PER_PAGE;
-
-            if (titleAr) {
-                siteSettings.siteTitle = { ar: titleAr, en: titleAr, fr: titleAr, es: titleAr, de: titleAr };
-            }
-            siteSettings.squaresPerPage = Math.max(10, Math.min(5000, perPage));
-
-            saveState();
-            document.getElementById('siteLogo').textContent = translate(siteSettings.siteTitle || defaultSettings.siteTitle,
-                currentLang);
-            renderSquares();
-            alert(currentLang === 'ar' ? '✅ تم حفظ إعدادات الموقع!' : '✅ Site settings saved!');
-        }
-
-        function resetAllData() {
-            if (!confirm(currentLang === 'ar' ? '⚠️ هل أنت متأكد؟ سيتم حذف جميع البيانات نهائياً!' :
-                    '⚠️ Are you sure? All data will be permanently deleted!')) return;
-            localStorage.clear();
-            loadState();
-            renderAll();
-            alert(currentLang === 'ar' ? '🗑️ تم حذف جميع البيانات' : '🗑️ All data deleted');
-        }
-
         function resetToDefault() {
-            if (!confirm(currentLang === 'ar' ? '⚠️ سيتم استعادة البيانات الافتراضية وفقدان الإضافات!' :
-                    '⚠️ Default data will be restored, losing all additions!')) return;
+            if (!confirm(currentLang === 'ar' ? '⚠️ سيتم استعادة البيانات الافتراضية!' :
+                    '⚠️ Default data will be restored!')) return;
             usersData = JSON.parse(JSON.stringify(defaultUsers));
             sponsors = JSON.parse(JSON.stringify(defaultSponsors));
-            paymentAccounts = JSON.parse(JSON.stringify(defaultPayment));
-            emailSettings = JSON.parse(JSON.stringify(defaultEmail));
-            siteSettings = JSON.parse(JSON.stringify(defaultSettings));
             avatarData = {};
-            sponsorAvatarData = { weekly: '', monthly: '', yearly: '' };
             saveState();
             renderAll();
             alert(currentLang === 'ar' ? '🔄 تم استعادة البيانات الافتراضية' : '🔄 Default data restored');
-        }
-
-        function exportData() {
-            const data = { users: usersData, sponsors, paymentAccounts, emailSettings, siteSettings, avatarData,
-                sponsorAvatarData };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `million_squares_backup_${new Date().toISOString().slice(0,10)}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (data.users) usersData = data.users;
-                    if (data.sponsors) sponsors = data.sponsors;
-                    if (data.paymentAccounts) paymentAccounts = data.paymentAccounts;
-                    if (data.emailSettings) emailSettings = data.emailSettings;
-                    if (data.siteSettings) siteSettings = data.siteSettings;
-                    if (data.avatarData) avatarData = data.avatarData;
-                    if (data.sponsorAvatarData) sponsorAvatarData = data.sponsorAvatarData;
-                    saveState();
-                    renderAll();
-                    alert(currentLang === 'ar' ? '✅ تم استيراد البيانات بنجاح!' : '✅ Data imported successfully!');
-                } catch (err) {
-                    alert(currentLang === 'ar' ? '❌ ملف غير صالح!' : '❌ Invalid file!');
-                }
-            };
-            reader.readAsText(file);
-            event.target.value = '';
-        }
-
-        function exportPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'mm', 'a4');
-            const t = langData[currentLang] || langData.ar;
-            const siteName = translate(siteSettings.siteTitle || defaultSettings.siteTitle, currentLang);
-
-            doc.setFontSize(20);
-            doc.text(siteName || '🏆 مليون مربع', 105, 20, { align: 'center' });
-            doc.setFontSize(12);
-            const subtitle = t.siteSub || 'تقرير الموقع';
-            doc.text(subtitle, 105, 30, { align: 'center' });
-
-            doc.setFontSize(14);
-            doc.text(`📊 ${t.labelSubs}: ${usersData.length}`, 20, 45);
-            const revenue = usersData.reduce((sum, u) => {
-                const match = u.plan.match(/\$(\d+)/);
-                return sum + (match ? parseInt(match[1]) : 0);
-            }, 0);
-            doc.text(`💰 ${t.labelRevenue}: $${revenue}`, 20, 55);
-
-            doc.setFontSize(12);
-            doc.text('📋 ' + (currentLang === 'ar' ? 'قائمة المشتركين:' : 'Subscribers List:'), 20, 70);
-            let y = 80;
-            usersData.slice(0, 20).forEach((u, i) => {
-                if (y > 270) { doc.addPage();
-                    y = 20; }
-                const name = translate(u.name, currentLang);
-                const location = translate(u.location, currentLang);
-                doc.text(`${i+1}. ${name} - ${u.email} - ${location} - ${u.plan}`, 20, y);
-                y += 7;
-            });
-
-            if (usersData.length > 20) {
-                doc.text(`... ${currentLang === 'ar' ? 'و' : 'and'} ${usersData.length - 20} ${currentLang === 'ar' ? 'مشترك إضافي' : 'more subscribers'}`,
-                    20, y + 5);
-            }
-
-            doc.setFontSize(10);
-            doc.text('© 2026 Million Squares', 105, 285, { align: 'center' });
-
-            doc.save(`report_${new Date().toISOString().slice(0,10)}.pdf`);
         }
 
         // ============================================================
@@ -3795,30 +2624,14 @@
                 const t = langData[currentLang];
                 document.getElementById('toggleAdminBtn').textContent = '🔒 ' + (t.adminPanelTitle || 'إدارة الموقع') +
                     ' (مفعل)';
-                document.getElementById('toggleAdminBtn').classList.add('locked');
                 document.getElementById('adminUsername').value = '';
                 document.getElementById('adminPassword').value = '';
                 error.style.display = 'none';
-                loadAdminData();
-                updateCharts();
             } else {
                 error.style.display = 'block';
                 document.getElementById('adminPassword').value = '';
                 document.getElementById('adminPassword').focus();
             }
-        }
-
-        function loadAdminData() {
-            document.getElementById('paypalAccount').value = paymentAccounts.paypal || '';
-            document.getElementById('stripeAccount').value = paymentAccounts.stripe || '';
-            document.getElementById('bankAccount').value = paymentAccounts.bank || '';
-            document.getElementById('smtpEmail').value = emailSettings.smtpEmail || '';
-            document.getElementById('smtpPassword').value = emailSettings.smtpPassword || '';
-            document.getElementById('smtpHost').value = emailSettings.smtpHost || '';
-            document.getElementById('smtpPort').value = emailSettings.smtpPort || 587;
-            document.getElementById('siteTitle').value = translate(siteSettings.siteTitle || defaultSettings.siteTitle,
-                'ar') || '';
-            document.getElementById('squaresPerPage').value = siteSettings.squaresPerPage || DEFAULT_SQUARES_PER_PAGE;
         }
 
         function toggleAdminPanel() {
@@ -3830,8 +2643,6 @@
             const panel = document.getElementById('adminPanel');
             panel.classList.toggle('active');
             if (panel.classList.contains('active')) {
-                loadAdminData();
-                updateCharts();
                 const t = langData[currentLang];
                 document.getElementById('toggleAdminBtn').textContent = '🔒 ' + (t.adminPanelTitle || 'إدارة الموقع') +
                     ' (مفعل)';
@@ -3867,7 +2678,6 @@
             if (e.key === 'Escape') {
                 closeNotification();
                 closeModal();
-                closeSubscribeModal();
                 document.getElementById('adminOverlay').classList.remove('active');
             }
             if (e.key === 'Enter' && document.getElementById('adminOverlay').classList.contains('active')) {
@@ -3878,16 +2688,19 @@
         // ============================================================
         //  CTA BUTTONS
         // ============================================================
-        document.getElementById('ctaMore').addEventListener('click', () => {
-            const total = usersData.length;
-            const perPage = siteSettings.squaresPerPage || DEFAULT_SQUARES_PER_PAGE;
-            const pages = Math.ceil(total / perPage);
+        document.getElementById('ctaSubscribe').addEventListener('click', () => {
             alert(currentLang === 'ar' ?
-                `📋 إجمالي المشتركين: ${total} مشترك.\n📊 ${perPage} مربع لكل صفحة.\n📄 ${pages} صفحة.` :
-                `📋 Total subscribers: ${total}.\n📊 ${perPage} squares per page.\n📄 ${pages} pages.`);
+                '🚀 مرحباً بك!\n\n🎁 لديك 3 أيام تجريبية مجانية.\n📧 سيتم إرسال بريد إلكتروني ترحيبي بالتفاصيل.\n💳 بعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.' :
+                '🚀 Welcome!\n\n🎁 You have 3 days free trial.\n📧 A welcome email will be sent with details.\n💳 After the trial period, you will be redirected to payment.'
+            );
         });
 
-        document.getElementById('ctaExport').addEventListener('click', exportPDF);
+        document.getElementById('ctaMore').addEventListener('click', () => {
+            const total = usersData.length;
+            alert(currentLang === 'ar' ?
+                `📋 إجمالي المشتركين: ${total} مشترك.\n📊 1000 مربع لكل صفحة.\n💡 استخدم البحث والفلترة للتصفح.` :
+                `📋 Total subscribers: ${total}.\n📊 1000 squares per page.\n💡 Use search and filters to browse.`);
+        });
 
         // ============================================================
         //  INIT
@@ -3896,17 +2709,14 @@
         setLang('ar');
         document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 
-        console.log('✅ مليون مربع - النسخة النهائية المتكاملة!');
+        console.log('✅ مليون مربع - النسخة النهائية!');
         console.log('🔑 اسم المدير:', ADMIN_USERNAME);
         console.log('🔑 كلمة مرور المدير:', ADMIN_PASSWORD);
-        console.log('💡 اختصار لوحة التحكم: Ctrl+Shift+A');
         console.log('📊 عدد المشتركين:', usersData.length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
-        console.log('🎁 الفترة التجريبية:', TRIAL_DAYS, 'أيام');
         console.log('🖱️ مرر الماوس على المربع لتكبيره، واضغط لعرض التفاصيل');
-        console.log('📝 جميع الأسماء والعناوين تتم ترجمتها تلقائياً');
         console.log('🟩 المربعات غير المحجوزة تظهر بشكل مميز');
-        console.log('🌟 الرعاة يظهرون تلقائياً حسب نوع الدعم');
+        console.log('🌟 شريط الرعاة متحرك تلقائياً');
         console.log('📦 عرض 1000 مربع مع أشرطة تمرير في 4 اتجاهات');
     </script>
 </body>
