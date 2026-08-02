@@ -546,7 +546,7 @@
         }
 
         /* ============================================================
-                   SEO DESCRIPTION SECTION
+                   SEO SECTION
                    ============================================================ */
         .seo-section {
             background: var(--bg-card);
@@ -916,16 +916,20 @@
             justify-content: center;
             font-size: 0.8rem;
             color: var(--text-muted);
+            cursor: pointer;
+            transition: all var(--transition);
         }
         .square-card.unreserved:hover {
-            opacity: 0.8;
-            border-color: var(--blue);
-            transform: scale(1.02);
+            opacity: 0.9;
+            border-color: var(--gold);
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(247, 201, 72, 0.15);
         }
         .square-card.unreserved .unreserved-icon {
-            font-size: 2rem;
+            font-size: 2.2rem;
             display: block;
             margin-bottom: 4px;
+            animation: pulse 2s infinite;
         }
 
         .square-card .avatar {
@@ -1027,6 +1031,29 @@
             font-weight: 700;
             animation: pulse 2s infinite;
         }
+        .square-card .trial-badge-sub {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            background: var(--orange);
+            color: #fff;
+            font-size: 0.4rem;
+            padding: 1px 6px;
+            border-radius: 20px;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+        .square-card .subscribed-badge {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            background: var(--green);
+            color: #fff;
+            font-size: 0.4rem;
+            padding: 1px 6px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
         .square-card .view-details-hint {
             position: absolute;
             bottom: 2px;
@@ -1061,6 +1088,174 @@
         .square-card.plan-silver .plan-badge {
             background: var(--silver);
             color: #1a2330;
+        }
+
+        /* ============================================================
+                   SUBSCRIPTION MODAL
+                   ============================================================ */
+        .subscribe-modal .modal-content {
+            max-width: 540px;
+        }
+        .subscribe-modal .form-group {
+            margin-bottom: 10px;
+        }
+        .subscribe-modal .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+        .subscribe-modal .form-group input,
+        .subscribe-modal .form-group select,
+        .subscribe-modal .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .subscribe-modal .form-group input:focus,
+        .subscribe-modal .form-group select:focus,
+        .subscribe-modal .form-group textarea:focus {
+            border-color: var(--blue);
+            outline: none;
+        }
+        .subscribe-modal .form-group textarea {
+            resize: vertical;
+            min-height: 50px;
+        }
+        .subscribe-modal .plan-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 6px;
+            margin: 6px 0;
+        }
+        .subscribe-modal .plan-option {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .subscribe-modal .plan-option:hover {
+            border-color: var(--blue);
+        }
+        .subscribe-modal .plan-option.selected {
+            border-color: var(--gold);
+            background: var(--bg-input);
+        }
+        .subscribe-modal .plan-option .plan-icon {
+            font-size: 1.3rem;
+            display: block;
+        }
+        .subscribe-modal .plan-option .plan-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .subscribe-modal .plan-option .plan-price {
+            font-size: 0.65rem;
+            color: var(--gold);
+        }
+        .subscribe-modal .btn-submit {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border: none;
+            color: #1a2330;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 6px;
+        }
+        .subscribe-modal .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(247, 201, 72, 0.3);
+        }
+        .subscribe-modal .trial-info {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            margin: 6px 0;
+            border: 1px dashed var(--blue);
+        }
+        .subscribe-modal .trial-info .days {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .subscribe-modal .trial-info .countdown {
+            color: var(--orange);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .subscribe-modal .terms {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 6px;
+        }
+        .subscribe-modal .terms a {
+            color: var(--blue);
+        }
+        .subscribe-modal .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        .subscribe-modal .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .subscribe-modal .file-input-wrapper .file-label {
+            display: block;
+            padding: 8px 12px;
+            background: var(--bg-input);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .subscribe-modal .file-input-wrapper .file-label:hover {
+            border-color: var(--blue);
+            color: var(--text-primary);
+        }
+        .subscribe-modal .cancel-subscription {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .subscribe-modal .cancel-subscription button {
+            background: var(--red);
+            border: none;
+            color: #fff;
+            padding: 6px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .subscribe-modal .cancel-subscription button:hover {
+            background: #c0392b;
+            transform: scale(1.05);
         }
 
         /* ============================================================
@@ -1199,6 +1394,13 @@
         }
         .modal-content .modal-actions .btn-contact:hover {
             background: var(--blue-dark);
+        }
+        .modal-content .modal-actions .btn-subscribe-action {
+            background: var(--gold);
+            color: #1a2330;
+        }
+        .modal-content .modal-actions .btn-subscribe-action:hover {
+            background: var(--gold-dark);
         }
 
         /* ============================================================
@@ -1459,6 +1661,9 @@
             .seo-section h2 {
                 font-size: 1.3rem;
             }
+            .subscribe-modal .plan-selector {
+                grid-template-columns: 1fr 1fr;
+            }
         }
         @media (max-width: 480px) {
             .squares-grid {
@@ -1510,6 +1715,9 @@
             .seo-section .seo-text {
                 font-size: 0.9rem;
             }
+            .subscribe-modal .plan-selector {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1544,7 +1752,7 @@
     </div>
 
     <!-- ============================================================
-    MODAL
+    MODAL - View Subscriber
     ============================================================ -->
     <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
         <div class="modal-content" id="modalContent">
@@ -1564,10 +1772,101 @@
                 <div class="modal-detail"><span class="label" id="modalLabelDate">📅 تاريخ الانضمام</span><span class="value" id="modalDate">2024-01-01</span></div>
                 <div class="modal-detail"><span class="label" id="modalLabelStatus">🏷️ الحالة</span><span class="value" id="modalStatus">نشط</span></div>
                 <div class="modal-detail"><span class="label" id="modalLabelPlanFeatures">⭐ مميزات الباقة</span><span class="value" id="modalPlanFeatures">-</span></div>
+                <div class="modal-detail"><span class="label" id="modalLabelSubscription">📋 حالة الاشتراك</span><span class="value" id="modalSubscription">-</span></div>
             </div>
             <div class="modal-actions">
                 <button class="btn-contact" onclick="contactSubscriber()" id="modalBtnContact">📧 تواصل</button>
+                <button class="btn-subscribe-action" onclick="openSubscribeModal()" id="modalBtnSubscribe">🚀 اشتراك</button>
                 <button class="btn-close-modal" onclick="closeModal()" id="modalBtnClose">✕ إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SUBSCRIPTION MODAL
+    ============================================================ -->
+    <div class="modal-overlay subscribe-modal" id="subscribeOverlay" onclick="if(event.target===this) closeSubscribeModal()">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeSubscribeModal()">✕</button>
+            <h2 style="text-align:center;color:var(--gold);margin-bottom:14px;" id="subModalTitle">🚀 الاشتراك في مليون مربع</h2>
+
+            <div class="trial-info" id="trialInfo">
+                <span id="trialInfoText">🎁 <span class="days">3 أيام</span> تجريبية مجانية</span>
+                <br>
+                <span style="font-size:0.75rem;color:var(--text-secondary);" id="trialInfoSub">بعد انتهاء الفترة التجريبية سيتم تحصيل قيمة الاشتراك تلقائياً</span>
+                <br>
+                <span class="countdown" id="trialCountdown"></span>
+            </div>
+
+            <form id="subscribeForm" onsubmit="handleSubscription(event)">
+                <div class="form-group">
+                    <label id="subLabelName">👤 الاسم الكامل</label>
+                    <input type="text" id="subFullName" placeholder="أدخل اسمك الكامل" required dir="auto">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelEmail">✉️ البريد الإلكتروني</label>
+                    <input type="email" id="subFullEmail" placeholder="example@email.com" required dir="ltr">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelLocation">📍 الموقع (المدينة، البلد)</label>
+                    <input type="text" id="subFullLocation" placeholder="مثال: الرياض، السعودية" required dir="auto">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelSpecialty">🔬 الاختصاص</label>
+                    <input type="text" id="subFullSpecialty" placeholder="مثال: تطوير ويب، تسويق..." dir="auto">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelPhone">📱 رقم الهاتف</label>
+                    <input type="tel" id="subFullPhone" placeholder="+966 5xxxxxxx" dir="ltr">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelPlan">💎 اختر الباقة</label>
+                    <div class="plan-selector" id="planSelector">
+                        <div class="plan-option selected" data-plan="💎 عادي ($1/سنة)" data-plan-type="basic" onclick="selectPlan(this)">
+                            <span class="plan-icon">💎</span>
+                            <span class="plan-name">عادي</span>
+                            <span class="plan-price">$1/سنة</span>
+                        </div>
+                        <div class="plan-option" data-plan="⭐ فضي ($5/سنة)" data-plan-type="silver" onclick="selectPlan(this)">
+                            <span class="plan-icon">⭐</span>
+                            <span class="plan-name">فضي</span>
+                            <span class="plan-price">$5/سنة</span>
+                        </div>
+                        <div class="plan-option" data-plan="👑 ذهبي ($10/سنة)" data-plan-type="gold" onclick="selectPlan(this)">
+                            <span class="plan-icon">👑</span>
+                            <span class="plan-name">ذهبي</span>
+                            <span class="plan-price">$10/سنة</span>
+                        </div>
+                        <div class="plan-option" data-plan="💠 ملكي ($100/سنة)" data-plan-type="royal" onclick="selectPlan(this)">
+                            <span class="plan-icon">💠</span>
+                            <span class="plan-name">ملكي</span>
+                            <span class="plan-price">$100/سنة</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="subSelectedPlan" value="💎 عادي ($1/سنة)">
+                    <input type="hidden" id="subSelectedPlanType" value="basic">
+                </div>
+                <div class="form-group">
+                    <label id="subLabelAvatar">🖼️ الصورة الشخصية (اختياري)</label>
+                    <div class="file-input-wrapper">
+                        <div class="file-label" id="subAvatarLabel">📤 اضغط لاختيار صورة</div>
+                        <input type="file" id="subFullAvatar" accept="image/*" onchange="handleSubAvatar(event)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="subLabelMessage">📝 رسالة إضافية (اختياري)</label>
+                    <textarea id="subFullMessage" placeholder="أي شيء تود إضافته..."></textarea>
+                </div>
+                <div class="terms" id="subTerms">
+                    بالضغط على "اشتراك" أنت توافق على <a href="#" id="termsLink">شروط الاستخدام</a> و <a href="#" id="privacyLink">سياسة الخصوصية</a>
+                    <br>
+                    <span style="color:var(--orange);">🔔 يمكنك إلغاء الاشتراك خلال الفترة التجريبية فقط (3 أيام)</span>
+                </div>
+                <button type="submit" class="btn-submit" id="subSubmitBtn">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
+            </form>
+
+            <div class="cancel-subscription" id="cancelSubscriptionDiv" style="display:none;">
+                <button onclick="cancelSubscription()">🗑️ إلغاء الاشتراك (خلال الفترة التجريبية فقط)</button>
             </div>
         </div>
     </div>
@@ -1590,7 +1889,7 @@
         <button class="toggle-admin" id="toggleAdminBtn" onclick="toggleAdminPanel()">⚙️ إدارة الموقع</button>
 
         <!-- ============================================================
-        ADMIN PANEL - FULL CONTROL
+        ADMIN PANEL
         ============================================================ -->
         <div class="admin-panel" id="adminPanel">
             <div class="panel-header">
@@ -1610,7 +1909,7 @@
                         <label for="autoPayment">🔒 تفعيل الدفع التلقائي</label>
                     </div>
                     <button class="btn-admin success" onclick="savePaymentAccounts()">💾 حفظ حسابات الدفع</button>
-                    <div class="hint">🔒 سيتم استخدام هذه الحسابات لاستلام الأرباح تلقائياً</div>
+                    <div class="hint">🔒 سيتم استخدام هذه الحسابات لتحصيل قيمة الاشتراك تلقائياً</div>
                 </div>
 
                 <!-- Sponsors Management -->
@@ -1684,6 +1983,27 @@
                     <button class="btn-admin danger" onclick="clearSuggestions()">🗑️ مسح جميع الاقتراحات</button>
                 </div>
 
+                <!-- Subscription Stats -->
+                <div class="admin-section">
+                    <h4>📊 إحصائيات الاشتراكات</h4>
+                    <div style="background:var(--bg-input);padding:10px;border-radius:10px;margin-bottom:6px;">
+                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;">
+                            <span style="color:var(--text-secondary);">📝 في الفترة التجريبية:</span>
+                            <span style="color:var(--orange);font-weight:700;" id="trialCount">0</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;">
+                            <span style="color:var(--text-secondary);">✅ مشتركين نشطين:</span>
+                            <span style="color:var(--green);font-weight:700;" id="activeCount">0</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;">
+                            <span style="color:var(--text-secondary);">💰 إجمالي الإيرادات:</span>
+                            <span style="color:var(--gold);font-weight:700;" id="totalRevenueDisplay">$0</span>
+                        </div>
+                    </div>
+                    <button class="btn-admin warning" onclick="processAutoPayments()">🔄 معالجة الدفعات التلقائية</button>
+                    <div class="hint">⚡ يتم تحصيل قيمة الاشتراك تلقائياً بعد انتهاء الفترة التجريبية</div>
+                </div>
+
                 <!-- Danger Zone -->
                 <div class="admin-section">
                     <h4>⚠️ منطقة الخطر</h4>
@@ -1725,7 +2045,7 @@
 
             <div class="trial-banner">
                 <span class="badge" id="trialBadge">🎁 3 أيام مجانية</span>
-                <span class="text" id="trialText">✨ نسخة تجريبية كاملة</span>
+                <span class="text" id="trialText">✨ اشترك الآن واستمتع بفترة تجريبية مجانية</span>
                 <span class="payment-icons">
                     <span>💳 PayPal</span>
                     <span>⚡ Stripe</span>
@@ -1735,7 +2055,7 @@
         </header>
 
         <!-- ============================================================
-        SEO SECTION - Smart Description with Keywords
+        SEO SECTION
         ============================================================ -->
         <div class="seo-section">
             <h2 id="seoTitle">🚀 مليون مربع - المنصة البصرية التفاعلية الأولى</h2>
@@ -1747,13 +2067,6 @@
                 وزيادة <span class="highlight">الوعي بالعلامة التجارية</span>. انضم إلى <span class="highlight">منصة الإعلانات المبتكرة</span> 
                 واستفد من <span class="highlight">التسويق المرئي</span> و <span class="highlight">الإعلانات التفاعلية</span> 
                 لتحقيق <span class="highlight">انتشار واسع</span> و <span class="highlight">نمو مستدام</span>.
-                <br><br>
-                <span class="highlight">مليون مربع</span> هي أكثر من مجرد <span class="highlight">منصة إعلانات</span>، إنها 
-                <span class="highlight">منصة رقمية متطورة</span> تدمج بين <span class="highlight">التواصل البصري</span> 
-                و <span class="highlight">التسويق التفاعلي</span>، لتقدم لك <span class="highlight">حلولاً إعلانية مبتكرة</span> 
-                تناسب <span class="highlight">الأعمال الصغيرة والمتوسطة</span> و <span class="highlight">العلامات التجارية الكبرى</span> 
-                على حد سواء. مع <span class="highlight">مليون مربع</span>، يمكنك <span class="highlight">بناء هوية بصرية</span> قوية، 
-                و <span class="highlight">جذب العملاء</span> بطرق إبداعية، و <span class="highlight">تحقيق عوائد استثمارية</span> عالية.
             </div>
             <div class="seo-tags" id="seoTags">
                 <span class="tag">#مليون_مربع</span>
@@ -1766,13 +2079,11 @@
                 <span class="tag">#تسويق_مرئي</span>
                 <span class="tag">#إعلانات_مبتكرة</span>
                 <span class="tag">#منصة_رقمية</span>
-                <span class="tag">#مربعات_إعلانية</span>
-                <span class="tag">#تواصل_بصري</span>
             </div>
         </div>
 
         <!-- ============================================================
-        SPONSOR STRIP - ANIMATED
+        SPONSOR STRIP
         ============================================================ -->
         <div class="sponsor-strip">
             <div class="title" id="sponsorTitle">🌟 الرعاة الداعمون</div>
@@ -1850,7 +2161,7 @@
         CTA
         ============================================================ -->
         <div class="cta-section">
-            <button class="btn-gold" id="ctaSubscribe">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
+            <button class="btn-gold" onclick="openSubscribeModal()" id="ctaSubscribe">🚀 اشتراك مع 3 أيام تجريبية مجانية</button>
             <button class="btn-secondary" id="ctaMore">📋 عرض الكل</button>
         </div>
 
@@ -1931,7 +2242,7 @@
             const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
 
             const users = [];
-            const totalUsers = 25;
+            const totalUsers = 15;
 
             for (let i = 0; i < totalUsers; i++) {
                 const nameIdx = i % names.length;
@@ -1941,6 +2252,7 @@
                 const planIdx = i % 4;
                 const rating = (Math.random() * 2 + 2.5).toFixed(1);
                 const planType = planTypes[planIdx];
+                const now = Date.now();
 
                 users.push({
                     name: names[nameIdx],
@@ -1952,8 +2264,18 @@
                     specialty: specialties[specIdx],
                     icon: icons[Math.floor(Math.random() * icons.length)],
                     _new: i < 3,
-                    _date: Date.now() - (i * 86400000),
-                    _planType: planType
+                    _date: now - (i * 86400000),
+                    _planType: planType,
+                    _subscription: {
+                        active: i < 5,
+                        trial: i < 8,
+                        trialStart: i < 8 ? new Date(now - (i * 86400000)).toISOString() : null,
+                        trialEnd: i < 8 ? new Date(now - (i * 86400000) + (TRIAL_DAYS * 86400000)).toISOString() :
+                        null,
+                        subscribed: i < 5,
+                        subscribedDate: i < 5 ? new Date(now - (i * 86400000)).toISOString() : null,
+                        amount: parseInt(planLabels[planType].match(/\$(\d+)/)?.[1] || 1)
+                    }
                 });
             }
             return users;
@@ -1967,7 +2289,7 @@
             yearly: { name: 'مجموعة الأفق الماسية', emoji: '👑', active: false }
         };
 
-        const defaultPayment = { paypal: '', stripe: '', bank: '', autoPayment: false };
+        const defaultPayment = { paypal: '', stripe: '', bank: '', autoPayment: true };
         const defaultSettings = {
             siteTitle: { ar: '🏆 مليون مربع', en: '🏆 Million Squares', fr: '🏆 Million Carrés', es: '🏆 Millón de Cuadrados',
                 de: '🏆 Millionen Quadrate' },
@@ -1987,6 +2309,8 @@
         let adminLoggedIn = false;
         let currentTheme = 'dark';
         let currentModalUser = null;
+        let subAvatarFile = null;
+        let editingSubscription = null;
 
         // ============================================================
         //  LOCAL STORAGE
@@ -2012,6 +2336,7 @@
                 suggestions = [];
             }
             applyTheme(currentTheme);
+            processAutoPayments();
         }
 
         function saveState() {
@@ -2073,6 +2398,121 @@
             return features ? translate(features, lang) : '-';
         }
 
+        function getPlanAmount(plan) {
+            const match = plan.match(/\$(\d+)/);
+            return match ? parseInt(match[1]) : 1;
+        }
+
+        // ============================================================
+        //  SUBSCRIPTION FUNCTIONS
+        // ============================================================
+        function isUserOnTrial(user) {
+            if (!user._subscription) return false;
+            if (!user._subscription.trial) return false;
+            if (!user._subscription.trialEnd) return false;
+            const now = Date.now();
+            const trialEnd = new Date(user._subscription.trialEnd).getTime();
+            return now < trialEnd;
+        }
+
+        function isUserSubscribed(user) {
+            if (!user._subscription) return false;
+            return user._subscription.subscribed === true;
+        }
+
+        function getSubscriptionStatus(user) {
+            if (!user._subscription) return 'غير مشترك';
+            if (isUserSubscribed(user)) return '✅ مشترك';
+            if (isUserOnTrial(user)) return '⏳ فترة تجريبية';
+            if (user._subscription.trial && !isUserOnTrial(user)) return '⏰ انتهت الفترة التجريبية';
+            return 'غير مشترك';
+        }
+
+        function processAutoPayments() {
+            const now = Date.now();
+            let processed = 0;
+            let totalCollected = 0;
+
+            usersData.forEach(user => {
+                if (!user._subscription) return;
+                if (!user._subscription.trial) return;
+                if (!user._subscription.trialEnd) return;
+
+                const trialEnd = new Date(user._subscription.trialEnd).getTime();
+
+                // If trial ended and not yet subscribed
+                if (now >= trialEnd && !user._subscription.subscribed) {
+                    // Auto-subscribe if autoPayment is enabled
+                    if (paymentAccounts.autoPayment) {
+                        user._subscription.subscribed = true;
+                        user._subscription.subscribedDate = new Date().toISOString();
+                        user._subscription.trial = false;
+                        processed++;
+                        totalCollected += user._subscription.amount || getPlanAmount(user.plan);
+
+                        // Send notification
+                        showNotification(
+                            '💳 ' + (currentLang === 'ar' ? 'تم تحصيل قيمة الاشتراك' : 'Payment collected'),
+                            currentLang === 'ar' ?
+                            `تم تحصيل $${user._subscription.amount || getPlanAmount(user.plan)} من ${user.name} تلقائياً` :
+                            `$${user._subscription.amount || getPlanAmount(user.plan)} collected from ${user.name} automatically`
+                        );
+                    }
+                }
+            });
+
+            if (processed > 0) {
+                saveState();
+                renderAll();
+                if (currentLang === 'ar') {
+                    showNotification('💰 تم معالجة الدفعات', `تم تحصيل ${processed} اشتراك بقيمة $${totalCollected}`);
+                } else {
+                    showNotification('💰 Payments processed', `Collected ${processed} subscriptions worth $${totalCollected}`);
+                }
+            }
+
+            return { processed, totalCollected };
+        }
+
+        function cancelSubscription(email) {
+            const user = usersData.find(u => u.email === email);
+            if (!user) {
+                alert(currentLang === 'ar' ? '❌ المستخدم غير موجود' : '❌ User not found');
+                return;
+            }
+
+            if (!user._subscription || !user._subscription.trial) {
+                alert(currentLang === 'ar' ? '❌ لا يمكن إلغاء الاشتراك بعد انتهاء الفترة التجريبية' :
+                    '❌ Cannot cancel subscription after trial period');
+                return;
+            }
+
+            const now = Date.now();
+            const trialEnd = new Date(user._subscription.trialEnd).getTime();
+
+            if (now >= trialEnd) {
+                alert(currentLang === 'ar' ? '❌ انتهت الفترة التجريبية، لا يمكن الإلغاء' :
+                    '❌ Trial period ended, cannot cancel');
+                return;
+            }
+
+            if (confirm(currentLang === 'ar' ?
+                    `⚠️ هل أنت متأكد من إلغاء اشتراك ${user.name}؟\nسيتم حذف المربع الخاص به.` :
+                    `⚠️ Are you sure you want to cancel ${user.name}'s subscription?\nTheir square will be deleted.`
+                )) {
+                // Remove user from data
+                usersData = usersData.filter(u => u.email !== email);
+                saveState();
+                renderAll();
+                closeSubscribeModal();
+
+                alert(currentLang === 'ar' ?
+                    '✅ تم إلغاء الاشتراك وحذف المربع بنجاح' :
+                    '✅ Subscription cancelled and square deleted successfully'
+                );
+            }
+        }
+
         // ============================================================
         //  TRANSLATIONS
         // ============================================================
@@ -2097,7 +2537,7 @@
                 labelSubs: '👥 مشتركين',
                 labelRevenue: '💰 إيرادات',
                 trialBadge: '🎁 3 أيام مجانية',
-                trialText: '✨ نسخة تجريبية كاملة',
+                trialText: '✨ اشترك الآن واستمتع بفترة تجريبية مجانية',
                 sponsorTitle: '🌟 الرعاة الداعمون',
                 squaresTitle: '📦 المربعات',
                 squaresCount: '📊 عرض {count} من {total}',
@@ -2135,23 +2575,42 @@
                 resetBtn: '🔄 إعادة ضبط',
                 modalContact: '📧 تواصل',
                 modalClose: '✕ إغلاق',
+                modalSubscribe: '🚀 اشتراك',
                 modalLabelLocation: '📍 الموقع',
                 modalLabelEmail: '✉️ البريد',
                 modalLabelDate: '📅 تاريخ الانضمام',
                 modalLabelStatus: '🏷️ الحالة',
                 modalLabelPlanFeatures: '⭐ مميزات الباقة',
+                modalLabelSubscription: '📋 حالة الاشتراك',
                 modalStatusActive: 'نشط',
                 modalStatusNew: 'جديد',
                 modalViewHint: '👆 اضغط للتفاصيل',
                 unreserved: '🟩 مربع غير محجوز',
-                unreservedHint: 'متاح للاشتراك',
+                unreservedHint: '👆 اضغط للاشتراك',
                 suggestionTitle: '💡 شاركنا اقتراحك لتطوير المنصة',
                 suggestionNameLabel: '👤 الاسم',
                 suggestionEmailLabel: '✉️ البريد الإلكتروني',
                 suggestionTextLabel: '💡 الاقتراح',
                 suggestionSubmitBtn: '🚀 إرسال الاقتراح',
                 seoTitle: '🚀 مليون مربع - المنصة البصرية التفاعلية الأولى',
-                seoText: `مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي، حيث نقدم مربعات إعلانية تفاعلية تتيح للعلامات التجارية والأفراد التواصل البصري مع جمهورهم المستهدف. من خلال الإعلانات المربعة، يمكنك بناء مجتمع رقمي نشط، وتعزيز التسويق الرقمي، وزيادة الوعي بالعلامة التجارية. انضم إلى منصة الإعلانات المبتكرة واستفد من التسويق المرئي والإعلانات التفاعلية لتحقيق انتشار واسع ونمو مستدام.`
+                seoText: `مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي، حيث نقدم مربعات إعلانية تفاعلية تتيح للعلامات التجارية والأفراد التواصل البصري مع جمهورهم المستهدف. من خلال الإعلانات المربعة، يمكنك بناء مجتمع رقمي نشط، وتعزيز التسويق الرقمي، وزيادة الوعي بالعلامة التجارية. انضم إلى منصة الإعلانات المبتكرة واستفد من التسويق المرئي والإعلانات التفاعلية لتحقيق انتشار واسع ونمو مستدام.`,
+                subModalTitle: '🚀 الاشتراك في مليون مربع',
+                trialInfoText: '🎁 <span class="days">3 أيام</span> تجريبية مجانية',
+                trialInfoSub: 'بعد انتهاء الفترة التجريبية سيتم تحصيل قيمة الاشتراك تلقائياً',
+                subLabelName: '👤 الاسم الكامل',
+                subLabelEmail: '✉️ البريد الإلكتروني',
+                subLabelLocation: '📍 الموقع (المدينة، البلد)',
+                subLabelSpecialty: '🔬 الاختصاص',
+                subLabelPhone: '📱 رقم الهاتف',
+                subLabelPlan: '💎 اختر الباقة',
+                subLabelAvatar: '🖼️ الصورة الشخصية (اختياري)',
+                subLabelMessage: '📝 رسالة إضافية (اختياري)',
+                subAvatarLabel: '📤 اضغط لاختيار صورة',
+                subTerms: 'بالضغط على "اشتراك" أنت توافق على شروط الاستخدام وسياسة الخصوصية\n🔔 يمكنك إلغاء الاشتراك خلال الفترة التجريبية فقط (3 أيام)',
+                subSubmitBtn: '🚀 اشتراك مع 3 أيام تجريبية مجانية',
+                cancelBtn: '🗑️ إلغاء الاشتراك (خلال الفترة التجريبية فقط)',
+                trialRemaining: '⏳ متبقي من الفترة التجريبية: {days} يوم',
+                trialEnded: '⏰ انتهت الفترة التجريبية'
             },
             en: {
                 siteName: '🏆 Million Squares',
@@ -2173,7 +2632,7 @@
                 labelSubs: '👥 Subscribers',
                 labelRevenue: '💰 Revenue',
                 trialBadge: '🎁 3 Days Free',
-                trialText: '✨ Full-featured trial',
+                trialText: '✨ Subscribe now and enjoy free trial',
                 sponsorTitle: '🌟 Sponsors & Supporters',
                 squaresTitle: '📦 Squares',
                 squaresCount: '📊 Showing {count} of {total}',
@@ -2211,23 +2670,42 @@
                 resetBtn: '🔄 Reset',
                 modalContact: '📧 Contact',
                 modalClose: '✕ Close',
+                modalSubscribe: '🚀 Subscribe',
                 modalLabelLocation: '📍 Location',
                 modalLabelEmail: '✉️ Email',
                 modalLabelDate: '📅 Joined',
                 modalLabelStatus: '🏷️ Status',
                 modalLabelPlanFeatures: '⭐ Plan Features',
+                modalLabelSubscription: '📋 Subscription Status',
                 modalStatusActive: 'Active',
                 modalStatusNew: 'New',
                 modalViewHint: '👆 Click for details',
                 unreserved: '🟩 Unreserved Square',
-                unreservedHint: 'Available for subscription',
+                unreservedHint: '👆 Click to subscribe',
                 suggestionTitle: '💡 Share your suggestion to improve the platform',
                 suggestionNameLabel: '👤 Name',
                 suggestionEmailLabel: '✉️ Email',
                 suggestionTextLabel: '💡 Suggestion',
                 suggestionSubmitBtn: '🚀 Submit Suggestion',
                 seoTitle: '🚀 Million Squares - The First Interactive Visual Platform',
-                seoText: `Million Squares is the first interactive visual platform in the Arab world, offering interactive advertising squares that enable brands and individuals to visually connect with their target audience. Through square ads, you can build an active digital community, enhance digital marketing, and increase brand awareness. Join the innovative advertising platform and benefit from visual marketing and interactive ads to achieve wide reach and sustainable growth.`
+                seoText: `Million Squares is the first interactive visual platform in the Arab world, offering interactive advertising squares that enable brands and individuals to visually connect with their target audience. Through square ads, you can build an active digital community, enhance digital marketing, and increase brand awareness. Join the innovative advertising platform and benefit from visual marketing and interactive ads to achieve wide reach and sustainable growth.`,
+                subModalTitle: '🚀 Subscribe to Million Squares',
+                trialInfoText: '🎁 <span class="days">3 Days</span> Free Trial',
+                trialInfoSub: 'After trial period, subscription fee will be automatically collected',
+                subLabelName: '👤 Full Name',
+                subLabelEmail: '✉️ Email Address',
+                subLabelLocation: '📍 Location (City, Country)',
+                subLabelSpecialty: '🔬 Specialty',
+                subLabelPhone: '📱 Phone Number',
+                subLabelPlan: '💎 Choose Plan',
+                subLabelAvatar: '🖼️ Profile Picture (Optional)',
+                subLabelMessage: '📝 Additional Message (Optional)',
+                subAvatarLabel: '📤 Click to choose image',
+                subTerms: 'By clicking "Subscribe" you agree to Terms & Privacy Policy\n🔔 You can cancel subscription only during trial period (3 days)',
+                subSubmitBtn: '🚀 Subscribe with 3 Days Free Trial',
+                cancelBtn: '🗑️ Cancel Subscription (Only during trial)',
+                trialRemaining: '⏳ Trial remaining: {days} days',
+                trialEnded: '⏰ Trial period ended'
             },
             fr: {
                 siteName: '🏆 Million Carrés',
@@ -2249,7 +2727,7 @@
                 labelSubs: '👥 Abonnés',
                 labelRevenue: '💰 Revenus',
                 trialBadge: '🎁 3 jours gratuits',
-                trialText: '✨ Essai complet',
+                trialText: '✨ Abonnez-vous maintenant',
                 sponsorTitle: '🌟 Sponsors',
                 squaresTitle: '📦 Carrés',
                 squaresCount: '📊 Affichage {count} sur {total}',
@@ -2287,23 +2765,42 @@
                 resetBtn: '🔄 Réinitialiser',
                 modalContact: '📧 Contacter',
                 modalClose: '✕ Fermer',
+                modalSubscribe: '🚀 S\'abonner',
                 modalLabelLocation: '📍 Lieu',
                 modalLabelEmail: '✉️ Email',
                 modalLabelDate: '📅 Inscrit',
                 modalLabelStatus: '🏷️ Statut',
                 modalLabelPlanFeatures: '⭐ Avantages',
+                modalLabelSubscription: '📋 Statut abonnement',
                 modalStatusActive: 'Actif',
                 modalStatusNew: 'Nouveau',
                 modalViewHint: '👆 Cliquez détails',
                 unreserved: '🟩 Carré libre',
-                unreservedHint: 'Disponible',
+                unreservedHint: '👆 Cliquez pour vous abonner',
                 suggestionTitle: '💡 Partagez votre suggestion',
                 suggestionNameLabel: '👤 Nom',
                 suggestionEmailLabel: '✉️ Email',
                 suggestionTextLabel: '💡 Suggestion',
                 suggestionSubmitBtn: '🚀 Envoyer',
                 seoTitle: '🚀 Million Carrés - La première plateforme visuelle interactive',
-                seoText: `Million Carrés est la première plateforme visuelle interactive du monde arabe, offrant des carrés publicitaires interactifs permettant aux marques et aux individus de se connecter visuellement avec leur public cible. Grâce aux publicités carrées, vous pouvez construire une communauté numérique active, renforcer le marketing digital et accroître la notoriété de la marque. Rejoignez la plateforme publicitaire innovante et bénéficiez du marketing visuel et des publicités interactives pour atteindre une large diffusion et une croissance durable.`
+                seoText: `Million Carrés est la première plateforme visuelle interactive du monde arabe, offrant des carrés publicitaires interactifs permettant aux marques et aux individus de se connecter visuellement avec leur public cible. Grâce aux publicités carrées, vous pouvez construire une communauté numérique active, renforcer le marketing digital et accroître la notoriété de la marque. Rejoignez la plateforme publicitaire innovante et bénéficiez du marketing visuel et des publicités interactives pour atteindre une large diffusion et une croissance durable.`,
+                subModalTitle: '🚀 S\'abonner',
+                trialInfoText: '🎁 <span class="days">3 jours</span> d\'essai gratuit',
+                trialInfoSub: 'Après la période d\'essai, le montant sera prélevé automatiquement',
+                subLabelName: '👤 Nom complet',
+                subLabelEmail: '✉️ Email',
+                subLabelLocation: '📍 Lieu (Ville, Pays)',
+                subLabelSpecialty: '🔬 Spécialité',
+                subLabelPhone: '📱 Téléphone',
+                subLabelPlan: '💎 Choisir forfait',
+                subLabelAvatar: '🖼️ Photo (Optionnel)',
+                subLabelMessage: '📝 Message (Optionnel)',
+                subAvatarLabel: '📤 Choisir image',
+                subTerms: 'En cliquant "S\'abonner" vous acceptez les conditions\n🔔 Annulation uniquement pendant la période d\'essai',
+                subSubmitBtn: '🚀 S\'abonner 3 jours gratuits',
+                cancelBtn: '🗑️ Annuler (Pendant l\'essai)',
+                trialRemaining: '⏳ Essai restant: {days} jours',
+                trialEnded: '⏰ Période d\'essai terminée'
             },
             es: {
                 siteName: '🏆 Millón de Cuadrados',
@@ -2325,7 +2822,7 @@
                 labelSubs: '👥 Suscriptores',
                 labelRevenue: '💰 Ingresos',
                 trialBadge: '🎁 3 días gratis',
-                trialText: '✨ Prueba completa',
+                trialText: '✨ Suscríbete ahora',
                 sponsorTitle: '🌟 Patrocinadores',
                 squaresTitle: '📦 Cuadrados',
                 squaresCount: '📊 Mostrando {count} de {total}',
@@ -2363,23 +2860,42 @@
                 resetBtn: '🔄 Restablecer',
                 modalContact: '📧 Contactar',
                 modalClose: '✕ Cerrar',
+                modalSubscribe: '🚀 Suscribirse',
                 modalLabelLocation: '📍 Ubicación',
                 modalLabelEmail: '✉️ Email',
                 modalLabelDate: '📅 Registrado',
                 modalLabelStatus: '🏷️ Estado',
                 modalLabelPlanFeatures: '⭐ Beneficios',
+                modalLabelSubscription: '📋 Estado suscripción',
                 modalStatusActive: 'Activo',
                 modalStatusNew: 'Nuevo',
                 modalViewHint: '👆 Haz clic detalles',
                 unreserved: '🟩 Cuadrado libre',
-                unreservedHint: 'Disponible',
+                unreservedHint: '👆 Haz clic para suscribirte',
                 suggestionTitle: '💡 Comparte tu sugerencia',
                 suggestionNameLabel: '👤 Nombre',
                 suggestionEmailLabel: '✉️ Email',
                 suggestionTextLabel: '💡 Sugerencia',
                 suggestionSubmitBtn: '🚀 Enviar',
                 seoTitle: '🚀 Millón de Cuadrados - La primera plataforma visual interactiva',
-                seoText: `Millón de Cuadrados es la primera plataforma visual interactiva del mundo árabe, que ofrece cuadrados publicitarios interactivos que permiten a las marcas y a los individuos conectarse visualmente con su público objetivo. A través de anuncios cuadrados, puede construir una comunidad digital activa, mejorar el marketing digital y aumentar el conocimiento de la marca. Únase a la plataforma publicitaria innovadora y benefíciese del marketing visual y los anuncios interactivos para lograr un amplio alcance y un crecimiento sostenible.`
+                seoText: `Millón de Cuadrados es la primera plataforma visual interactiva del mundo árabe, que ofrece cuadrados publicitarios interactivos que permiten a las marcas y a los individuos conectarse visualmente con su público objetivo. A través de anuncios cuadrados, puede construir una comunidad digital activa, mejorar el marketing digital y aumentar el conocimiento de la marca. Únase a la plataforma publicitaria innovadora y benefíciese del marketing visual y los anuncios interactivos para lograr un amplio alcance y un crecimiento sostenible.`,
+                subModalTitle: '🚀 Suscribirse',
+                trialInfoText: '🎁 <span class="days">3 días</span> de prueba gratis',
+                trialInfoSub: 'Después de la prueba, se cobrará automáticamente',
+                subLabelName: '👤 Nombre completo',
+                subLabelEmail: '✉️ Email',
+                subLabelLocation: '📍 Ubicación (Ciudad, País)',
+                subLabelSpecialty: '🔬 Especialidad',
+                subLabelPhone: '📱 Teléfono',
+                subLabelPlan: '💎 Elegir plan',
+                subLabelAvatar: '🖼️ Foto (Opcional)',
+                subLabelMessage: '📝 Mensaje (Opcional)',
+                subAvatarLabel: '📤 Elegir imagen',
+                subTerms: 'Al hacer clic "Suscribirse" aceptas los términos\n🔔 Cancelación solo durante el período de prueba',
+                subSubmitBtn: '🚀 Suscribirse 3 días gratis',
+                cancelBtn: '🗑️ Cancelar (Durante la prueba)',
+                trialRemaining: '⏳ Prueba restante: {days} días',
+                trialEnded: '⏰ Período de prueba terminado'
             },
             de: {
                 siteName: '🏆 Millionen Quadrate',
@@ -2401,7 +2917,7 @@
                 labelSubs: '👥 Abonnenten',
                 labelRevenue: '💰 Einnahmen',
                 trialBadge: '🎁 3 Tage kostenlos',
-                trialText: '✨ Vollversion Test',
+                trialText: '✨ Jetzt abonnieren',
                 sponsorTitle: '🌟 Sponsoren',
                 squaresTitle: '📦 Quadrate',
                 squaresCount: '📊 Zeige {count} von {total}',
@@ -2439,23 +2955,42 @@
                 resetBtn: '🔄 Zurücksetzen',
                 modalContact: '📧 Kontakt',
                 modalClose: '✕ Schließen',
+                modalSubscribe: '🚀 Abonnieren',
                 modalLabelLocation: '📍 Ort',
                 modalLabelEmail: '✉️ E-Mail',
                 modalLabelDate: '📅 Registriert',
                 modalLabelStatus: '🏷️ Status',
                 modalLabelPlanFeatures: '⭐ Vorteile',
+                modalLabelSubscription: '📋 Abonnementstatus',
                 modalStatusActive: 'Aktiv',
                 modalStatusNew: 'Neu',
                 modalViewHint: '👆 Klicke Details',
                 unreserved: '🟩 Freies Quadrat',
-                unreservedHint: 'Verfügbar',
+                unreservedHint: '👆 Klicke zum Abonnieren',
                 suggestionTitle: '💡 Teile deinen Vorschlag',
                 suggestionNameLabel: '👤 Name',
                 suggestionEmailLabel: '✉️ E-Mail',
                 suggestionTextLabel: '💡 Vorschlag',
                 suggestionSubmitBtn: '🚀 Senden',
                 seoTitle: '🚀 Millionen Quadrate - Die erste interaktive visuelle Plattform',
-                seoText: `Millionen Quadrate ist die erste interaktive visuelle Plattform in der arabischen Welt, die interaktive Werbequadrate bietet, die es Marken und Einzelpersonen ermöglichen, sich visuell mit ihrer Zielgruppe zu verbinden. Durch Quadratwerbung können Sie eine aktive digitale Gemeinschaft aufbauen, das digitale Marketing verbessern und die Markenbekanntheit steigern. Treten Sie der innovativen Werbeplattform bei und profitieren Sie von visuellem Marketing und interaktiver Werbung, um eine breite Reichweite und nachhaltiges Wachstum zu erzielen.`
+                seoText: `Millionen Quadrate ist die erste interaktive visuelle Plattform in der arabischen Welt, die interaktive Werbequadrate bietet, die es Marken und Einzelpersonen ermöglichen, sich visuell mit ihrer Zielgruppe zu verbinden. Durch Quadratwerbung können Sie eine aktive digitale Gemeinschaft aufbauen, das digitale Marketing verbessern und die Markenbekanntheit steigern. Treten Sie der innovativen Werbeplattform bei und profitieren Sie von visuellem Marketing und interaktiver Werbung, um eine breite Reichweite und nachhaltiges Wachstum zu erzielen.`,
+                subModalTitle: '🚀 Abonnieren',
+                trialInfoText: '🎁 <span class="days">3 Tage</span> kostenlose Testversion',
+                trialInfoSub: 'Nach der Testphase wird der Betrag automatisch abgebucht',
+                subLabelName: '👤 Vollständiger Name',
+                subLabelEmail: '✉️ E-Mail',
+                subLabelLocation: '📍 Ort (Stadt, Land)',
+                subLabelSpecialty: '🔬 Fachgebiet',
+                subLabelPhone: '📱 Telefon',
+                subLabelPlan: '💎 Plan wählen',
+                subLabelAvatar: '🖼️ Profilbild (Optional)',
+                subLabelMessage: '📝 Nachricht (Optional)',
+                subAvatarLabel: '📤 Bild wählen',
+                subTerms: 'Mit Klick "Abonnieren" akzeptierst du die Bedingungen\n🔔 Kündigung nur während der Testphase',
+                subSubmitBtn: '🚀 Abonnieren 3 Tage kostenlos',
+                cancelBtn: '🗑️ Kündigen (Während der Testphase)',
+                trialRemaining: '⏳ Testphase: {days} Tage',
+                trialEnded: '⏰ Testphase beendet'
             }
         };
 
@@ -2517,11 +3052,13 @@
 
             document.getElementById('modalBtnContact').textContent = t.modalContact;
             document.getElementById('modalBtnClose').textContent = t.modalClose;
+            document.getElementById('modalBtnSubscribe').textContent = t.modalSubscribe;
             document.getElementById('modalLabelLocation').textContent = t.modalLabelLocation;
             document.getElementById('modalLabelEmail').textContent = t.modalLabelEmail;
             document.getElementById('modalLabelDate').textContent = t.modalLabelDate;
             document.getElementById('modalLabelStatus').textContent = t.modalLabelStatus;
             document.getElementById('modalLabelPlanFeatures').textContent = t.modalLabelPlanFeatures;
+            document.getElementById('modalLabelSubscription').textContent = t.modalLabelSubscription;
 
             document.getElementById('suggestionTitle').textContent = t.suggestionTitle;
             document.getElementById('suggestionNameLabel').textContent = t.suggestionNameLabel;
@@ -2531,6 +3068,22 @@
 
             document.getElementById('seoTitle').textContent = t.seoTitle;
             document.getElementById('seoText').innerHTML = t.seoText;
+
+            document.getElementById('subModalTitle').textContent = t.subModalTitle;
+            document.getElementById('trialInfoText').innerHTML = t.trialInfoText;
+            document.getElementById('trialInfoSub').textContent = t.trialInfoSub;
+            document.getElementById('subLabelName').textContent = t.subLabelName;
+            document.getElementById('subLabelEmail').textContent = t.subLabelEmail;
+            document.getElementById('subLabelLocation').textContent = t.subLabelLocation;
+            document.getElementById('subLabelSpecialty').textContent = t.subLabelSpecialty;
+            document.getElementById('subLabelPhone').textContent = t.subLabelPhone;
+            document.getElementById('subLabelPlan').textContent = t.subLabelPlan;
+            document.getElementById('subLabelAvatar').textContent = t.subLabelAvatar;
+            document.getElementById('subLabelMessage').textContent = t.subLabelMessage;
+            document.getElementById('subAvatarLabel').textContent = t.subAvatarLabel;
+            document.getElementById('subTerms').innerHTML = t.subTerms.replace(/\n/g, '<br>');
+            document.getElementById('subSubmitBtn').textContent = t.subSubmitBtn;
+            document.querySelector('.cancel-subscription button').textContent = t.cancelBtn;
 
             if (adminLoggedIn) {
                 document.getElementById('toggleAdminBtn').textContent = '🔒 ' + (t.adminPanelTitle || 'إدارة الموقع') +
@@ -2562,6 +3115,7 @@
             const isNew = user._new || false;
             const joined = user.joined || new Date(user._date || Date.now()).toLocaleDateString();
             const features = getPlanFeatures(user.plan, currentLang);
+            const status = getSubscriptionStatus(user);
 
             document.getElementById('modalName').textContent = name;
             document.getElementById('modalLocation').textContent = `${location}${country ? `, ${country}` : ''}`;
@@ -2571,6 +3125,7 @@
             document.getElementById('modalPlan').textContent = user.plan;
             document.getElementById('modalSpecialty').textContent = `🔬 ${specialty}`;
             document.getElementById('modalPlanFeatures').textContent = features;
+            document.getElementById('modalSubscription').textContent = status;
 
             const fullStars = Math.floor(user.rating || 0);
             const halfStar = (user.rating - fullStars) >= 0.5 ? '☆' : '';
@@ -2602,6 +3157,225 @@
             );
             window.open(`mailto:${email}?subject=${subject}&body=${body}`);
             closeModal();
+        }
+
+        // ============================================================
+        //  SUBSCRIPTION MODAL
+        // ============================================================
+        function openSubscribeModal(email) {
+            editingSubscription = email || null;
+
+            // Reset form
+            document.getElementById('subscribeForm').reset();
+            document.getElementById('subSelectedPlan').value = '💎 عادي ($1/سنة)';
+            document.getElementById('subSelectedPlanType').value = 'basic';
+            document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
+            document.querySelector('.plan-option').classList.add('selected');
+            document.getElementById('subAvatarLabel').textContent = langData[currentLang]?.subAvatarLabel ||
+                '📤 اضغط لاختيار صورة';
+            subAvatarFile = null;
+
+            // Hide cancel button initially
+            document.getElementById('cancelSubscriptionDiv').style.display = 'none';
+
+            // If editing existing subscription
+            if (email) {
+                const user = usersData.find(u => u.email === email);
+                if (user && user._subscription && user._subscription.trial) {
+                    document.getElementById('cancelSubscriptionDiv').style.display = 'block';
+                    // Pre-fill form
+                    document.getElementById('subFullName').value = user.name;
+                    document.getElementById('subFullEmail').value = user.email;
+                    document.getElementById('subFullLocation').value = user.location;
+                    document.getElementById('subFullSpecialty').value = user.specialty || '';
+                    document.getElementById('subFullPhone').value = user.phone || '';
+                    // Select plan
+                    const planOption = document.querySelector(`.plan-option[data-plan="${user.plan}"]`);
+                    if (planOption) {
+                        document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
+                        planOption.classList.add('selected');
+                        document.getElementById('subSelectedPlan').value = user.plan;
+                        document.getElementById('subSelectedPlanType').value = user._planType || 'basic';
+                    }
+                    // Show trial info
+                    updateTrialCountdown(user);
+                }
+            }
+
+            document.getElementById('subscribeOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSubscribeModal() {
+            document.getElementById('subscribeOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            editingSubscription = null;
+        }
+
+        function selectPlan(el) {
+            document.querySelectorAll('.plan-option').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('subSelectedPlan').value = el.dataset.plan;
+            document.getElementById('subSelectedPlanType').value = el.dataset.planType || 'basic';
+        }
+
+        function handleSubAvatar(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                subAvatarFile = e.target.result;
+                document.getElementById('subAvatarLabel').textContent = '✅ ' + (currentLang === 'ar' ? 'تم رفع الصورة' :
+                    'Image uploaded');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateTrialCountdown(user) {
+            if (!user || !user._subscription || !user._subscription.trialEnd) return;
+            const now = Date.now();
+            const trialEnd = new Date(user._subscription.trialEnd).getTime();
+            const remaining = Math.max(0, Math.floor((trialEnd - now) / (1000 * 60 * 60 * 24)));
+
+            const t = langData[currentLang];
+            const countdownEl = document.getElementById('trialCountdown');
+            if (countdownEl) {
+                if (remaining > 0) {
+                    countdownEl.textContent = t.trialRemaining.replace('{days}', remaining);
+                } else {
+                    countdownEl.textContent = t.trialEnded;
+                    countdownEl.style.color = 'var(--red)';
+                }
+            }
+        }
+
+        function handleSubscription(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('subFullName').value.trim();
+            const email = document.getElementById('subFullEmail').value.trim();
+            const location = document.getElementById('subFullLocation').value.trim();
+            const specialty = document.getElementById('subFullSpecialty').value.trim();
+            const phone = document.getElementById('subFullPhone').value.trim();
+            const plan = document.getElementById('subSelectedPlan').value;
+            const planType = document.getElementById('subSelectedPlanType').value;
+            const message = document.getElementById('subFullMessage').value.trim();
+
+            if (!name || !email || !location) {
+                alert(currentLang === 'ar' ? '⚠️ الرجاء ملء الحقول الأساسية!' : '⚠️ Please fill required fields!');
+                return;
+            }
+
+            // Check if email already exists
+            if (!editingSubscription) {
+                const existing = usersData.find(u => u.email === email);
+                if (existing) {
+                    alert(currentLang === 'ar' ? '⚠️ هذا البريد الإلكتروني مسجل بالفعل!' :
+                        '⚠️ This email is already registered!');
+                    return;
+                }
+            }
+
+            const rating = (Math.random() * 2 + 2.5).toFixed(1);
+            const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
+            const today = new Date().toISOString().slice(0, 10);
+            const now = Date.now();
+            const trialEnd = new Date(now + TRIAL_DAYS * 24 * 60 * 60 * 1000).toISOString();
+            const amount = getPlanAmount(plan);
+
+            let newUser;
+
+            if (editingSubscription) {
+                // Update existing user
+                const user = usersData.find(u => u.email === editingSubscription);
+                if (user) {
+                    user.name = name;
+                    user.location = location;
+                    user.specialty = specialty || 'عام';
+                    user.phone = phone || '';
+                    user.plan = plan;
+                    user._planType = planType;
+                    if (subAvatarFile) {
+                        user.avatar = subAvatarFile;
+                    }
+                    // Reset subscription
+                    user._subscription = {
+                        active: true,
+                        trial: true,
+                        trialStart: new Date(now).toISOString(),
+                        trialEnd: trialEnd,
+                        subscribed: false,
+                        amount: amount
+                    };
+                    newUser = user;
+                }
+            } else {
+                // Create new user
+                newUser = {
+                    name: name,
+                    location: location,
+                    country: 'غير محدد',
+                    email: email,
+                    specialty: specialty || 'عام',
+                    plan: plan,
+                    rating: parseFloat(rating),
+                    icon: icons[Math.floor(Math.random() * icons.length)],
+                    avatar: subAvatarFile || '',
+                    phone: phone || '',
+                    _new: true,
+                    _date: now,
+                    joined: today,
+                    _planType: planType,
+                    _subscription: {
+                        active: true,
+                        trial: true,
+                        trialStart: new Date(now).toISOString(),
+                        trialEnd: trialEnd,
+                        subscribed: false,
+                        amount: amount
+                    },
+                    _subscriptionMessage: message || ''
+                };
+
+                usersData.push(newUser);
+            }
+
+            if (subAvatarFile) {
+                // Avatar is already saved in the user object
+                subAvatarFile = null;
+            }
+
+            saveState();
+
+            // Show welcome notification
+            showNotification(
+                langData[currentLang]?.newMember || '🎉 عضو جديد!',
+                (langData[currentLang]?.newMemberText || 'مرحباً {name} في مجتمع مليون مربع').replace('{name}', name)
+            );
+
+            closeSubscribeModal();
+            renderAll();
+
+            const trialEndDate = new Date(trialEnd);
+            const trialEndStr = trialEndDate.toLocaleDateString(currentLang === 'ar' ? 'ar-SA' : 'en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            alert(currentLang === 'ar' ?
+                `✅ تم اشتراكك بنجاح!\n\n🎁 لديك ${TRIAL_DAYS} أيام تجريبية مجانية.\n📅 تنتهي الفترة التجريبية في: ${trialEndStr}\n\n💳 بعد انتهاء الفترة التجريبية، سيتم تحصيل قيمة الاشتراك ($${amount}) تلقائياً.\n🔔 يمكنك إلغاء الاشتراك خلال الفترة التجريبية فقط.` :
+                `✅ You have successfully subscribed!\n\n🎁 You have ${TRIAL_DAYS} days free trial.\n📅 Trial ends on: ${trialEndStr}\n\n💳 After the trial period, $${amount} will be automatically charged.\n🔔 You can cancel only during the trial period.`
+            );
+        }
+
+        function cancelSubscriptionAction() {
+            if (!editingSubscription) {
+                alert(currentLang === 'ar' ? '❌ لا يوجد اشتراك نشط للإلغاء' :
+                    '❌ No active subscription to cancel');
+                return;
+            }
+            cancelSubscription(editingSubscription);
         }
 
         // ============================================================
@@ -2664,6 +3438,8 @@
                 const isNew = u._new || false;
                 const planClass = getPlanClass(u.plan);
                 const planType = getPlanType(u.plan);
+                const onTrial = isUserOnTrial(u);
+                const subscribed = isUserSubscribed(u);
 
                 const card = document.createElement('div');
                 card.className = `square-card ${planClass}`;
@@ -2674,6 +3450,8 @@
                 };
                 card.innerHTML = `
                         ${isNew ? '<div class="new-badge">🎉 جديد</div>' : ''}
+                        ${onTrial ? '<div class="trial-badge-sub">⏳ تجربة</div>' : ''}
+                        ${subscribed ? '<div class="subscribed-badge">✅ مشترك</div>' : ''}
                         <span class="plan-badge">${planType === 'basic' ? '💎' : planType === 'silver' ? '⭐' : planType === 'gold' ? '👑' : '💠'}</span>
                         <button class="delete-btn" onclick="event.stopPropagation();deleteSubscriber('${u.email}')" title="🗑️ حذف">✕</button>
                         <div class="avatar">${u.icon || '🧑'}</div>
@@ -2688,15 +3466,18 @@
                 grid.appendChild(card);
             });
 
-            // Render unreserved squares
-            for (let i = 0; i < unreservedCount && i < 100; i++) {
+            // Render unreserved squares - clickable for subscription
+            for (let i = 0; i < Math.min(unreservedCount, 100); i++) {
                 const card = document.createElement('div');
                 card.className = 'square-card unreserved';
+                card.onclick = function() {
+                    openSubscribeModal();
+                };
                 card.innerHTML = `
                         <div style="text-align:center;width:100%;">
                             <span class="unreserved-icon">🟩</span>
                             <div style="font-size:0.7rem;font-weight:700;color:var(--text-secondary);">${t.unreserved || '🟩 مربع غير محجوز'}</div>
-                            <div style="font-size:0.55rem;color:var(--text-muted);">${t.unreservedHint || 'متاح للاشتراك'}</div>
+                            <div style="font-size:0.55rem;color:var(--text-muted);">${t.unreservedHint || '👆 اضغط للاشتراك'}</div>
                         </div>
                     `;
                 grid.appendChild(card);
@@ -2706,13 +3487,16 @@
             countSpan.textContent = t.squaresCount.replace('{count}', totalDisplay).replace('{total}', total + 500);
             updateStats();
             updateSubCount();
+            updateSubscriptionStats();
         }
 
         function updateStats() {
             document.getElementById('statSubs').textContent = usersData.length;
             const revenue = usersData.reduce((sum, u) => {
-                const match = u.plan.match(/\$(\d+)/);
-                return sum + (match ? parseInt(match[1]) : 0);
+                if (isUserSubscribed(u)) {
+                    return sum + (u._subscription?.amount || getPlanAmount(u.plan));
+                }
+                return sum;
             }, 0);
             document.getElementById('statRevenue').textContent = `$${revenue.toLocaleString()}`;
             document.getElementById('statSold').textContent = usersData.length;
@@ -2721,6 +3505,21 @@
 
         function updateSubCount() {
             document.getElementById('subCountDisplay').textContent = usersData.length;
+        }
+
+        function updateSubscriptionStats() {
+            const trialCount = usersData.filter(u => isUserOnTrial(u)).length;
+            const activeCount = usersData.filter(u => isUserSubscribed(u)).length;
+            const totalRevenue = usersData.reduce((sum, u) => {
+                if (isUserSubscribed(u)) {
+                    return sum + (u._subscription?.amount || getPlanAmount(u.plan));
+                }
+                return sum;
+            }, 0);
+
+            document.getElementById('trialCount').textContent = trialCount;
+            document.getElementById('activeCount').textContent = activeCount;
+            document.getElementById('totalRevenueDisplay').textContent = `$${totalRevenue}`;
         }
 
         function renderSuggestions() {
@@ -2749,10 +3548,11 @@
             populateFilters();
             renderSuggestions();
             updateSubCount();
+            updateSubscriptionStats();
             // Update admin form placeholders
-            document.getElementById('paypalAccount').placeholder = paymentAccounts.paypal || '💳 PayPal';
-            document.getElementById('stripeAccount').placeholder = paymentAccounts.stripe || '⚡ Stripe';
-            document.getElementById('bankAccount').placeholder = paymentAccounts.bank || '🏦 IBAN';
+            document.getElementById('paypalAccount').value = paymentAccounts.paypal || '';
+            document.getElementById('stripeAccount').value = paymentAccounts.stripe || '';
+            document.getElementById('bankAccount').value = paymentAccounts.bank || '';
             if (document.getElementById('autoPayment')) {
                 document.getElementById('autoPayment').checked = paymentAccounts.autoPayment || false;
             }
@@ -2929,6 +3729,8 @@
             const icons = ['💎', '⭐', '👑', '💠', '🌟', '🔥', '✨', '🎯', '🚀', '💫'];
             const today = new Date().toISOString().slice(0, 10);
             const planType = getPlanType(plan);
+            const amount = getPlanAmount(plan);
+            const now = Date.now();
 
             const newUser = {
                 name: name,
@@ -2940,9 +3742,17 @@
                 rating: parseFloat(rating),
                 icon: icons[Math.floor(Math.random() * icons.length)],
                 _new: true,
-                _date: Date.now(),
+                _date: now,
                 joined: today,
-                _planType: planType
+                _planType: planType,
+                _subscription: {
+                    active: true,
+                    trial: true,
+                    trialStart: new Date(now).toISOString(),
+                    trialEnd: new Date(now + TRIAL_DAYS * 24 * 60 * 60 * 1000).toISOString(),
+                    subscribed: false,
+                    amount: amount
+                }
             };
 
             usersData.push(newUser);
@@ -3028,6 +3838,14 @@
         // ============================================================
         //  DATA MANAGEMENT
         // ============================================================
+        function processAutoPaymentsManual() {
+            const result = processAutoPayments();
+            if (result.processed === 0) {
+                alert(currentLang === 'ar' ? '✅ لا توجد دفعات مستحقة حالياً' :
+                    '✅ No pending payments at this time');
+            }
+        }
+
         function resetToDefault() {
             if (!confirm(currentLang === 'ar' ? '⚠️ سيتم استعادة البيانات الافتراضية!' :
                     '⚠️ Default data will be restored!')) return;
@@ -3146,6 +3964,7 @@
             if (e.key === 'Escape') {
                 closeNotification();
                 closeModal();
+                closeSubscribeModal();
                 document.getElementById('adminOverlay').classList.remove('active');
             }
             if (e.key === 'Enter' && document.getElementById('adminOverlay').classList.contains('active')) {
@@ -3156,23 +3975,18 @@
         // ============================================================
         //  CTA BUTTONS
         // ============================================================
-        document.getElementById('ctaSubscribe').addEventListener('click', () => {
-            const paypal = paymentAccounts.paypal || 'غير محدد';
-            const stripe = paymentAccounts.stripe || 'غير محدد';
-            const bank = paymentAccounts.bank || 'غير محدد';
-            const auto = paymentAccounts.autoPayment ? '✅ مفعل' : '❌ غير مفعل';
-
-            alert(currentLang === 'ar' ?
-                `🚀 مرحباً بك!\n\n🎁 لديك ${TRIAL_DAYS} أيام تجريبية مجانية.\n📧 سيتم إرسال بريد إلكتروني ترحيبي بالتفاصيل.\n\n💳 حسابات الدفع:\n• PayPal: ${paypal}\n• Stripe: ${stripe}\n• Bank: ${bank}\n• الدفع التلقائي: ${auto}\n\n💳 بعد انتهاء الفترة التجريبية، سيتم توجيهك لصفحة الدفع الإلكتروني.` :
-                `🚀 Welcome!\n\n🎁 You have ${TRIAL_DAYS} days free trial.\n📧 A welcome email will be sent with details.\n\n💳 Payment Accounts:\n• PayPal: ${paypal}\n• Stripe: ${stripe}\n• Bank: ${bank}\n• Auto Payment: ${auto}\n\n💳 After the trial period, you will be redirected to payment.`
-            );
+        document.getElementById('ctaSubscribe').addEventListener('click', function() {
+            openSubscribeModal();
         });
 
         document.getElementById('ctaMore').addEventListener('click', () => {
             const total = usersData.length;
+            const trial = usersData.filter(u => isUserOnTrial(u)).length;
+            const subscribed = usersData.filter(u => isUserSubscribed(u)).length;
             alert(currentLang === 'ar' ?
-                `📋 إجمالي المشتركين: ${total} مشترك.\n📊 1000 مربع لكل صفحة.\n💡 استخدم البحث والفلترة للتصفح.` :
-                `📋 Total subscribers: ${total}.\n📊 1000 squares per page.\n💡 Use search and filters to browse.`);
+                `📋 إجمالي المشتركين: ${total}\n⏳ في الفترة التجريبية: ${trial}\n✅ مشتركين نشطين: ${subscribed}\n📊 1000 مربع لكل صفحة.` :
+                `📋 Total subscribers: ${total}\n⏳ On trial: ${trial}\n✅ Active subscribers: ${subscribed}\n📊 1000 squares per page.`
+            );
         });
 
         // ============================================================
@@ -3182,14 +3996,20 @@
         setLang('ar');
         document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 
-        console.log('✅ مليون مربع - النسخة المتكاملة!');
+        // Process auto payments on load
+        setTimeout(() => {
+            processAutoPayments();
+        }, 1000);
+
+        console.log('✅ مليون مربع - النسخة المتكاملة مع نظام الاشتراكات!');
         console.log('🔑 اسم المدير:', ADMIN_USERNAME);
         console.log('🔑 كلمة مرور المدير:', ADMIN_PASSWORD);
         console.log('📊 عدد المشتركين:', usersData.length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
         console.log('💡 نظام الاقتراحات مفعل');
-        console.log('💰 حسابات الدفع:', paymentAccounts);
-        console.log('🌟 الرعاة:', sponsors);
+        console.log('💰 الدفع التلقائي:', paymentAccounts.autoPayment ? 'مفعل' : 'غير مفعل');
+        console.log('🎁 فترة التجربة:', TRIAL_DAYS, 'أيام');
+        console.log('🟩 اضغط على مربع غير محجوز للاشتراك');
     </script>
 </body>
 </html>
