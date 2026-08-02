@@ -595,6 +595,22 @@
         }
 
         /* ============================================================
+                   SPONSOR SECTION WRAPPER
+                   ============================================================ */
+        .sponsor-section-wrapper {
+            margin: 25px 0 20px;
+        }
+        .sponsor-section-wrapper .sponsor-cta-text {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+        .sponsor-section-wrapper .sponsor-cta-text .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* ============================================================
                    SPONSOR STRIP - ANIMATED
                    ============================================================ */
         .sponsor-strip {
@@ -602,7 +618,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             padding: 16px 10px;
-            margin: 25px 0 20px;
+            margin: 0;
             overflow: hidden;
             position: relative;
         }
@@ -1858,14 +1874,13 @@
             background: linear-gradient(135deg, var(--purple), var(--blue));
             border: none;
             color: #fff;
-            padding: 14px 40px;
+            padding: 12px 32px;
             border-radius: 60px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 8px 30px rgba(79, 124, 247, 0.3);
-            margin: 0 8px;
         }
         .btn-sponsor:hover {
             transform: scale(1.05);
@@ -2066,8 +2081,7 @@
             }
             .btn-sponsor {
                 padding: 10px 20px;
-                font-size: 0.95rem;
-                margin: 4px 0;
+                font-size: 0.9rem;
             }
             .cta-section {
                 display: flex;
@@ -2083,6 +2097,13 @@
             }
             .sponsor-form .form-group .two-col {
                 grid-template-columns: 1fr !important;
+            }
+            .sponsor-section-wrapper .sponsor-cta-text {
+                font-size: 0.7rem;
+            }
+            .sponsor-section-wrapper .btn-sponsor {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
         }
         @media (max-width: 480px) {
@@ -2609,11 +2630,24 @@
         </div>
 
         <!-- ============================================================
-        SPONSOR STRIP
+        SPONSOR SECTION - With Button Above Strip
         ============================================================ -->
-        <div class="sponsor-strip">
-            <div class="title" id="sponsorTitle">🌟 الرعاة الداعمون</div>
-            <div class="sponsor-track" id="sponsorTrack"></div>
+        <div class="sponsor-section-wrapper">
+            <!-- Sponsor CTA Button -->
+            <div style="text-align:center;margin:10px 0 20px;">
+                <button class="btn-sponsor" onclick="openSponsorModal()" id="ctaSponsorTop">
+                    <span class="sparkle">✨</span> دعم المنصة <span class="sparkle">✨</span>
+                </button>
+                <p style="color:var(--text-muted);font-size:0.8rem;margin-top:6px;">
+                    ساهم في استمرارية المنصة وكن جزءاً من نجاحها
+                </p>
+            </div>
+
+            <!-- Sponsor Strip -->
+            <div class="sponsor-strip">
+                <div class="title" id="sponsorTitle">🌟 الرعاة الداعمون</div>
+                <div class="sponsor-track" id="sponsorTrack"></div>
+            </div>
         </div>
 
         <!-- ============================================================
@@ -3705,6 +3739,10 @@
             openSubscribeModal();
         });
 
+        document.getElementById('ctaSponsorTop').addEventListener('click', function() {
+            openSponsorModal();
+        });
+
         document.getElementById('ctaSponsor').addEventListener('click', function() {
             openSponsorModal();
         });
@@ -3976,6 +4014,7 @@
             document.getElementById('squaresTitle').textContent = t.squaresTitle;
             document.getElementById('ctaSubscribe').textContent = t.ctaSubscribe;
             document.getElementById('ctaSponsor').textContent = t.ctaSponsor;
+            document.getElementById('ctaSponsorTop').textContent = t.ctaSponsor;
             document.getElementById('ctaMore').textContent = t.ctaMore;
             document.getElementById('footerText').textContent = t.footer;
             document.getElementById('scrollHint').textContent = t.scrollHint;
@@ -4417,6 +4456,7 @@
         console.log('💡 عدد الاقتراحات:', suggestions.length);
         console.log('🌍 اللغات المتاحة:', LANGUAGES.join(', '));
         console.log('🖱️ اضغط على "✨ دعم المنصة ✨" لرؤية عروض الدعم');
+        console.log('📍 زر الداعمين يظهر فوق شريط الداعمين');
     </script>
 </body>
 </html>
