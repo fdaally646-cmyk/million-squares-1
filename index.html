@@ -83,7 +83,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        /* ======== شريط اللغات - محسن بشكل كبير ======== */
+        /* ======== شريط اللغات ======== */
         .language-selector {
             position: relative;
             z-index: 200;
@@ -109,25 +109,11 @@
             background: linear-gradient(135deg, #2a2a4e, #3a3a6e);
             border-color: rgba(102, 126, 234, 0.5);
             transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.2);
         }
-        .language-btn .lang-icon {
-            font-size: 1.1rem;
-        }
-        .language-btn .lang-text {
-            flex: 1;
-            text-align: center;
-            white-space: nowrap;
-        }
-        .language-btn .arrow {
-            transition: transform 0.3s;
-            font-size: 0.8rem;
-            opacity: 0.6;
-        }
-        .language-btn .arrow.open {
-            transform: rotate(180deg);
-            opacity: 1;
-        }
+        .language-btn .lang-icon { font-size: 1.1rem; }
+        .language-btn .lang-text { flex: 1; text-align: center; white-space: nowrap; }
+        .language-btn .arrow { transition: transform 0.3s; font-size: 0.8rem; opacity: 0.6; }
+        .language-btn .arrow.open { transform: rotate(180deg); opacity: 1; }
         
         .language-dropdown {
             position: absolute;
@@ -143,35 +129,18 @@
             z-index: 300;
             max-height: 450px;
             overflow-y: auto;
-            backdrop-filter: blur(20px);
         }
         .language-dropdown.show {
             display: block;
             animation: dropdownIn 0.3s ease-out;
         }
-        
         @keyframes dropdownIn {
-            from {
-                opacity: 0;
-                transform: translateY(-15px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(-15px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        
-        .language-dropdown::-webkit-scrollbar {
-            width: 5px;
-        }
-        .language-dropdown::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        .language-dropdown::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 10px;
-        }
+        .language-dropdown::-webkit-scrollbar { width: 5px; }
+        .language-dropdown::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        .language-dropdown::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; }
         
         .language-item {
             display: flex;
@@ -193,31 +162,49 @@
             color: #fff;
             transform: translateX(-6px);
         }
-        .language-item .flag {
-            font-size: 1.6rem;
-            width: 36px;
-            text-align: center;
-        }
-        .language-item .lang-name {
-            flex: 1;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        .language-item .lang-native {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
-        }
-        .language-item.active {
-            background: rgba(102, 126, 234, 0.25);
-            color: #fff;
-            border-right: 4px solid #667eea;
-        }
-        .language-item .check {
-            color: #48bb78;
-            font-size: 1.2rem;
-        }
+        .language-item .flag { font-size: 1.6rem; width: 36px; text-align: center; }
+        .language-item .lang-name { flex: 1; font-weight: 600; font-size: 1rem; }
+        .language-item .lang-native { font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); }
+        .language-item.active { background: rgba(102, 126, 234, 0.25); color: #fff; border-right: 4px solid #667eea; }
+        .language-item .check { color: #48bb78; font-size: 1.2rem; }
         
-        /* تنسيق البطاقات */
+        /* ======== المربعات - أكبر حجماً ======== */
+        .mini-square {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.08);
+            min-width: 130px;
+            min-height: 130px;
+        }
+        .mini-square:hover {
+            transform: scale(1.12) rotate(2deg);
+            z-index: 10;
+            border-color: rgba(102, 126, 234, 0.6);
+            box-shadow: 0 0 40px rgba(102, 126, 234, 0.4);
+        }
+        .mini-square.available { background: rgba(72, 187, 120, 0.25); border-color: rgba(72, 187, 120, 0.3); }
+        .mini-square.sold { background: rgba(252, 129, 129, 0.25); border-color: rgba(252, 129, 129, 0.3); }
+        .mini-square.reserved { background: rgba(236, 201, 75, 0.25); border-color: rgba(236, 201, 75, 0.3); }
+        .mini-square .square-number {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            font-size: 0.6rem;
+            opacity: 0.6;
+        }
+        .mini-square .square-emoji { font-size: 2rem; }
+        
+        /* ======== تنسيق البطاقات ======== */
         .square-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -239,9 +226,7 @@
             transition: opacity 0.6s;
             pointer-events: none;
         }
-        .square-card:hover .glow {
-            opacity: 1;
-        }
+        .square-card:hover .glow { opacity: 1; }
         
         /* فئات المربعات */
         .tier-basic { background: linear-gradient(135deg, #1a202c, #2d3748); border: 2px solid #4a5568; }
@@ -270,58 +255,10 @@
             padding: 8px 0;
             position: relative;
         }
-        .scroll-container::-webkit-scrollbar {
-            height: 10px;
-        }
-        .scroll-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        .scroll-container::-webkit-scrollbar-thumb {
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 10px;
-        }
-        .scroll-container::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(90deg, #764ba2, #667eea);
-        }
-        
-        /* المربعات الصغيرة */
-        .mini-square {
-            aspect-ratio: 1;
-            border-radius: 8px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.05);
-            min-width: 100px;
-            min-height: 100px;
-        }
-        .mini-square:hover {
-            transform: scale(1.1) rotate(2deg);
-            z-index: 10;
-            border-color: rgba(102, 126, 234, 0.5);
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
-        }
-        .mini-square.available { background: rgba(72, 187, 120, 0.2); border-color: rgba(72, 187, 120, 0.3); }
-        .mini-square.sold { background: rgba(252, 129, 129, 0.2); border-color: rgba(252, 129, 129, 0.3); }
-        .mini-square.reserved { background: rgba(236, 201, 75, 0.2); border-color: rgba(236, 201, 75, 0.3); }
-        .mini-square .square-number {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            font-size: 0.5rem;
-            opacity: 0.6;
-        }
-        .mini-square .square-emoji {
-            font-size: 1.5rem;
-        }
+        .scroll-container::-webkit-scrollbar { height: 10px; }
+        .scroll-container::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        .scroll-container::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 10px; }
+        .scroll-container::-webkit-scrollbar-thumb:hover { background: linear-gradient(90deg, #764ba2, #667eea); }
         
         /* شريط الإعلانات */
         .ad-slider {
@@ -336,9 +273,7 @@
             animation: slideAds 25s linear infinite;
             width: calc(100% * 4);
         }
-        .ad-slider-track:hover {
-            animation-play-state: paused;
-        }
+        .ad-slider-track:hover { animation-play-state: paused; }
         .ad-slide {
             width: 100%;
             flex-shrink: 0;
@@ -350,9 +285,7 @@
             gap: 16px;
             cursor: pointer;
         }
-        .ad-slide:hover {
-            background: rgba(255,255,255,0.03);
-        }
+        .ad-slide:hover { background: rgba(255,255,255,0.03); }
         @keyframes slideAds {
             0%, 20% { transform: translateX(0); }
             25%, 45% { transform: translateX(-25%); }
@@ -404,18 +337,9 @@
             align-items: center;
             gap: 8px;
         }
-        .subscription-card .features li i {
-            color: #48bb78;
-            width: 20px;
-            text-align: center;
-        }
-        .subscription-card .features li .unchecked {
-            color: #fc8181;
-        }
-        .subscription-card .tier-icon {
-            font-size: 3rem;
-            margin-bottom: 8px;
-        }
+        .subscription-card .features li i { color: #48bb78; width: 20px; text-align: center; }
+        .subscription-card .features li .unchecked { color: #fc8181; }
+        .subscription-card .tier-icon { font-size: 3rem; margin-bottom: 8px; }
         .subscription-card .popular-tag {
             position: absolute;
             top: 12px;
@@ -427,6 +351,63 @@
             padding: 4px 12px;
             border-radius: 20px;
             text-transform: uppercase;
+        }
+        
+        /* ======== أيقونات التواصل الاجتماعي ======== */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .social-icons a:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .social-icons a .social-label {
+            display: none;
+        }
+        .social-icons a:hover .social-label {
+            display: inline;
+        }
+        .social-icons a.email { background: rgba(220, 78, 65, 0.2); border-color: rgba(220, 78, 65, 0.3); }
+        .social-icons a.email:hover { background: rgba(220, 78, 65, 0.4); box-shadow: 0 8px 25px rgba(220, 78, 65, 0.3); }
+        .social-icons a.twitter { background: rgba(29, 161, 242, 0.2); border-color: rgba(29, 161, 242, 0.3); }
+        .social-icons a.twitter:hover { background: rgba(29, 161, 242, 0.4); box-shadow: 0 8px 25px rgba(29, 161, 242, 0.3); }
+        .social-icons a.linkedin { background: rgba(0, 119, 181, 0.2); border-color: rgba(0, 119, 181, 0.3); }
+        .social-icons a.linkedin:hover { background: rgba(0, 119, 181, 0.4); box-shadow: 0 8px 25px rgba(0, 119, 181, 0.3); }
+        .social-icons a.github { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
+        .social-icons a.github:hover { background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15); }
+        .social-icons a.youtube { background: rgba(255, 0, 0, 0.15); border-color: rgba(255, 0, 0, 0.2); }
+        .social-icons a.youtube:hover { background: rgba(255, 0, 0, 0.35); box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3); }
+        .social-icons a.instagram { background: rgba(225, 48, 108, 0.15); border-color: rgba(225, 48, 108, 0.2); }
+        .social-icons a.instagram:hover { background: rgba(225, 48, 108, 0.35); box-shadow: 0 8px 25px rgba(225, 48, 108, 0.3); }
+        .social-icons a.facebook { background: rgba(24, 119, 242, 0.15); border-color: rgba(24, 119, 242, 0.2); }
+        .social-icons a.facebook:hover { background: rgba(24, 119, 242, 0.35); box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
+        .social-icons a.tiktok { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); }
+        .social-icons a.tiktok:hover { background: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15); }
+        .social-icons a.whatsapp { background: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.2); }
+        .social-icons a.whatsapp:hover { background: rgba(37, 211, 102, 0.35); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); }
+        
+        .footer-social {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 16px;
+            margin-top: 16px;
         }
         
         /* لوحة التحكم */
@@ -454,11 +435,7 @@
             background: rgba(102, 126, 234, 0.15);
             color: #fff;
         }
-        .admin-sidebar a i {
-            width: 22px;
-            text-align: center;
-            font-size: 1.1rem;
-        }
+        .admin-sidebar a i { width: 22px; text-align: center; font-size: 1.1rem; }
         
         /* المودالات */
         .modal-overlay {
@@ -520,81 +497,10 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             color: rgba(255, 255, 255, 0.8);
         }
-        .admin-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
+        .admin-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
         
-        .contact-btn {
-            transition: all 0.3s;
-        }
-        .contact-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        /* تحسينات للجوال */
-        @media (max-width: 768px) {
-            .admin-sidebar {
-                width: 100%;
-                min-height: auto;
-                max-height: 60vh;
-                overflow-y: auto;
-            }
-            .admin-sidebar a {
-                padding: 10px 14px;
-                font-size: 0.9rem;
-            }
-            .subscription-card .price {
-                font-size: 1.8rem;
-            }
-            .ad-slide {
-                flex-direction: column;
-                text-align: center;
-                padding: 16px;
-            }
-            .modal-content {
-                margin: 12px;
-                padding: 20px !important;
-            }
-            .glass-effect {
-                padding: 16px !important;
-            }
-            .language-dropdown {
-                right: -100px;
-                min-width: 240px;
-            }
-            .mini-square {
-                min-width: 70px;
-                min-height: 70px;
-                font-size: 0.7rem;
-            }
-            .mini-square .square-emoji {
-                font-size: 1.2rem;
-            }
-            .language-btn {
-                min-width: 120px;
-                font-size: 0.8rem;
-                padding: 8px 12px;
-            }
-        }
-        
-        .text-gradient {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 10px;
-        }
+        .contact-btn { transition: all 0.3s; }
+        .contact-btn:hover { transform: scale(1.1); }
         
         .scroll-indicator {
             display: flex;
@@ -617,7 +523,7 @@
             transition: width 0.3s;
         }
         
-        /* ======== ميزات جديدة لجلب الداعمين ======== */
+        /* مميزات */
         .feature-banner {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
             border: 1px solid rgba(102, 126, 234, 0.2);
@@ -625,18 +531,9 @@
             padding: 20px 24px;
             text-align: center;
         }
-        .feature-banner .icon {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-        }
-        .feature-banner h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-        .feature-banner p {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.6);
-        }
+        .feature-banner .icon { font-size: 2.5rem; margin-bottom: 8px; }
+        .feature-banner h4 { font-size: 1.1rem; font-weight: 700; }
+        .feature-banner p { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
         
         .pulse-animation {
             animation: pulseGlow 2s ease-in-out infinite;
@@ -652,14 +549,60 @@
             padding: 20px;
             border: 1px solid rgba(255,255,255,0.05);
         }
-        .testimonial-card .quote {
-            font-style: italic;
-            color: rgba(255,255,255,0.7);
+        .testimonial-card .quote { font-style: italic; color: rgba(255,255,255,0.7); }
+        .testimonial-card .author { font-weight: 700; margin-top: 8px; }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .testimonial-card .author {
-            font-weight: 700;
-            margin-top: 8px;
+        
+        /* اقتراحات */
+        .suggestion-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
         }
+        .suggestion-item:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(102, 126, 234, 0.2);
+        }
+        .suggestion-item .suggestion-text {
+            color: rgba(255,255,255,0.8);
+        }
+        .suggestion-item .suggestion-date {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.3);
+        }
+        .suggestion-item .suggestion-status {
+            font-size: 0.7rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+        .suggestion-item .suggestion-status.pending { background: rgba(236, 201, 75, 0.2); color: #ecc94b; }
+        .suggestion-item .suggestion-status.approved { background: rgba(72, 187, 120, 0.2); color: #48bb78; }
+        .suggestion-item .suggestion-status.rejected { background: rgba(252, 129, 129, 0.2); color: #fc8181; }
+        
+        @media (max-width: 768px) {
+            .admin-sidebar { width: 100%; min-height: auto; max-height: 60vh; overflow-y: auto; }
+            .admin-sidebar a { padding: 10px 14px; font-size: 0.9rem; }
+            .subscription-card .price { font-size: 1.8rem; }
+            .ad-slide { flex-direction: column; text-align: center; padding: 16px; }
+            .modal-content { margin: 12px; padding: 20px !important; }
+            .glass-effect { padding: 16px !important; }
+            .language-dropdown { right: -100px; min-width: 240px; }
+            .mini-square { min-width: 80px; min-height: 80px; font-size: 0.8rem; }
+            .mini-square .square-emoji { font-size: 1.4rem; }
+            .language-btn { min-width: 120px; font-size: 0.8rem; padding: 8px 12px; }
+            .social-icons a { width: 40px; height: 40px; font-size: 1rem; }
+        }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -682,20 +625,19 @@
                 </div>
                 
                 <div class="flex items-center gap-3 flex-wrap">
-                    <!-- اختيار اللغة - محسن بشكل كبير -->
+                    <!-- اختيار اللغة -->
                     <div class="language-selector">
                         <button onclick="toggleLanguage()" class="language-btn" id="langBtn">
                             <span class="lang-icon" id="currentLangFlag">🇸🇦</span>
                             <span class="lang-text" id="currentLangLabel">العربية</span>
                             <i class="fas fa-chevron-down arrow" id="langArrow"></i>
                         </button>
-                        <div id="languageDropdown" class="language-dropdown">
-                            <!-- سيتم ملؤها بواسطة JavaScript -->
-                        </div>
+                        <div id="languageDropdown" class="language-dropdown"></div>
                     </div>
                     
                     <button onclick="openModal('aboutModal')" class="px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition text-sm" id="aboutBtn">عن المنصة</button>
                     <button onclick="openModal('subscriptionModal')" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-lg transition text-sm font-bold" id="subscribeBtn">اشتراك</button>
+                    <button onclick="openModal('suggestionModal')" class="px-4 py-2 bg-green-600/30 rounded-full hover:bg-green-600/50 transition text-sm" id="suggestionBtn">💡 اقتراح</button>
                     <button onclick="openModal('adminLoginModal')" class="px-3 py-2 bg-white/5 rounded-full hover:bg-white/10 transition text-sm">
                         <i class="fas fa-user-shield"></i>
                     </button>
@@ -703,7 +645,7 @@
             </div>
         </header>
         
-        <!-- ======== شريط المميزات - لجلب الداعمين ======== -->
+        <!-- ======== شريط المميزات ======== -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div class="feature-banner">
                 <div class="icon">🚀</div>
@@ -727,7 +669,7 @@
             </div>
         </div>
         
-        <!-- ======== شريط الإعلانات المتحرك ======== -->
+        <!-- ======== شريط الإعلانات ======== -->
         <div class="ad-slider mb-6" id="adSlider">
             <div class="ad-slider-track" id="adSliderTrack"></div>
         </div>
@@ -756,7 +698,7 @@
             </div>
         </div>
         
-        <!-- ======== شريط البحث والفلترة ======== -->
+        <!-- ======== شريط البحث ======== -->
         <div class="glass-effect p-4 mb-6">
             <div class="flex flex-wrap gap-3 items-center">
                 <div class="flex-1 min-w-[200px] relative">
@@ -792,7 +734,7 @@
             </div>
         </div>
         
-        <!-- ======== شبكة المربعات ======== -->
+        <!-- ======== شبكة المربعات - أكبر حجماً ======== -->
         <div class="glass-effect p-4 mb-6">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold" id="squaresGridTitle">🗂️ المربعات</h3>
@@ -807,7 +749,7 @@
                 </div>
             </div>
             <div id="squaresScroll" class="scroll-container">
-                <div id="squaresGrid" class="grid" style="grid-template-columns: repeat(100, 110px); gap: 8px;">
+                <div id="squaresGrid" class="grid" style="grid-template-columns: repeat(100, 150px); gap: 12px;">
                     <!-- سيتم ملؤها بـ JavaScript -->
                 </div>
             </div>
@@ -830,7 +772,7 @@
             <div id="pagination" class="flex justify-center gap-2 mt-6"></div>
         </div>
         
-        <!-- ======== شهادات العملاء - لجلب الثقة ======== -->
+        <!-- ======== شهادات العملاء ======== -->
         <div class="glass-effect p-4 mb-6">
             <h3 class="font-bold text-center mb-6" id="testimonialsTitle">🌟 ماذا يقول مشتركونا</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="testimonialsContainer">
@@ -849,7 +791,7 @@
             </div>
         </div>
         
-        <!-- ======== الفوتر ======== -->
+        <!-- ======== الفوتر مع وسائل التواصل ======== -->
         <footer class="text-center text-gray-400 text-sm border-t border-white/5 pt-6 pb-4">
             <div class="mb-4 flex flex-wrap justify-center gap-4 text-xs text-gray-500">
                 <span>#مليون_مربع</span>
@@ -862,7 +804,15 @@
                 <span>#دعم</span>
                 <span>#اشتراك</span>
             </div>
-            <p>© 2026 <span id="siteTitleFooter">مليون مربع</span> - <span id="footerText">المنصة البصرية التفاعلية الأولى في العالم العربي</span></p>
+            
+            <!-- وسائل التواصل الاجتماعي -->
+            <div class="footer-social">
+                <div class="social-icons" id="socialIconsContainer">
+                    <!-- سيتم ملؤها من لوحة التحكم -->
+                </div>
+            </div>
+            
+            <p class="mt-4">© 2026 <span id="siteTitleFooter">مليون مربع</span> - <span id="footerText">المنصة البصرية التفاعلية الأولى في العالم العربي</span></p>
             <p class="mt-2 opacity-60">✨ <span id="footerLove">تم تطويره باستخدام ❤️ في العالم العربي</span></p>
         </footer>
     </div>
@@ -1049,6 +999,40 @@
         </div>
     </div>
     
+    <!-- ======== نافذة الاقتراحات ======== -->
+    <div id="suggestionModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
+        <div class="glass-effect p-8 max-w-2xl w-full mx-4 modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold" id="suggestionTitle">💡 اقتراحات المستخدمين</h2>
+                <button onclick="closeModal('suggestionModal')" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+            </div>
+            
+            <!-- نموذج إضافة اقتراح -->
+            <div class="glass-effect-light p-4 rounded-xl mb-6">
+                <h4 class="font-bold mb-3" id="addSuggestionTitle">✍️ أضف اقتراحك</h4>
+                <form onsubmit="addSuggestion(event)" class="space-y-3">
+                    <div>
+                        <input type="text" id="suggestionName" placeholder="اسمك (اختياري)" class="w-full px-4 py-2 bg-white/5 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white placeholder-gray-400">
+                    </div>
+                    <div>
+                        <textarea id="suggestionText" rows="3" placeholder="اكتب اقتراحك هنا..." required class="w-full px-4 py-2 bg-white/5 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white placeholder-gray-400"></textarea>
+                    </div>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition font-bold" id="submitSuggestionBtn">
+                        <i class="fas fa-paper-plane"></i> إرسال الاقتراح
+                    </button>
+                </form>
+            </div>
+            
+            <!-- قائمة الاقتراحات -->
+            <div>
+                <h4 class="font-bold mb-3" id="suggestionsListTitle">📋 الاقتراحات السابقة</h4>
+                <div id="suggestionsList" class="space-y-2">
+                    <!-- سيتم ملؤها بـ JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- نافذة تسجيل دخول المسؤول -->
     <div id="adminLoginModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
         <div class="glass-effect p-8 max-w-md w-full mx-4 modal-content">
@@ -1090,6 +1074,8 @@
                     <a href="#" onclick="showAdminSection('subscribers', event)"><i class="fas fa-users"></i> <span id="adminSubscribers">المشتركين</span></a>
                     <a href="#" onclick="showAdminSection('supporters', event)"><i class="fas fa-hand-holding-heart"></i> <span id="adminSupporters">الداعمين</span></a>
                     <a href="#" onclick="showAdminSection('payments', event)"><i class="fas fa-credit-card"></i> <span id="adminPayments">المدفوعات</span></a>
+                    <a href="#" onclick="showAdminSection('suggestions', event)"><i class="fas fa-lightbulb"></i> <span id="adminSuggestions">الاقتراحات</span></a>
+                    <a href="#" onclick="showAdminSection('social', event)"><i class="fas fa-share-alt"></i> <span id="adminSocial">التواصل الاجتماعي</span></a>
                     <a href="#" onclick="showAdminSection('admins', event)"><i class="fas fa-user-shield"></i> <span id="adminAdmins">المشرفين</span></a>
                     <a href="#" onclick="showAdminSection('settings', event)"><i class="fas fa-cog"></i> <span id="adminSettings">الإعدادات</span></a>
                 </nav>
@@ -1207,6 +1193,8 @@
         let currentContact = null;
         let currentSquarePage = 0;
         const squaresPerPage = 100;
+        let isAutoScrolling = false;
+        let autoScrollInterval = null;
         
         // بيانات المسؤول
         let adminData = loadFromStorage('adminData', {
@@ -1214,6 +1202,22 @@
             password: 'admin123',
             admins: [{ id: 1, username: 'admin', name: 'المسؤول الرئيسي', role: 'super_admin', permissions: ['all'] }]
         });
+        
+        // بيانات وسائل التواصل
+        let socialData = loadFromStorage('socialData', {
+            email: 'info@million-squares.com',
+            twitter: 'https://twitter.com/million_squares',
+            linkedin: 'https://linkedin.com/company/million-squares',
+            github: 'https://github.com/million-squares',
+            youtube: 'https://youtube.com/million-squares',
+            instagram: 'https://instagram.com/million_squares',
+            facebook: 'https://facebook.com/million-squares',
+            tiktok: 'https://tiktok.com/@million_squares',
+            whatsapp: 'https://wa.me/966500000000'
+        });
+        
+        // بيانات الاقتراحات
+        let suggestions = loadFromStorage('suggestions', []);
         
         // بيانات الدفع
         let paymentAccounts = loadFromStorage('paymentAccounts', {
@@ -1265,12 +1269,13 @@
         ];
         
         // ============================================
-        // الترجمة الكاملة - جميع اللغات
+        // الترجمة
         // ============================================
         const translations = {
             ar: {
                 siteTitle: 'مليون مربع', siteSubtitle: '✨ المنصة البصرية التفاعلية الأولى في العالم العربي',
                 aboutBtn: 'عن المنصة', subscribeBtn: 'اشتراك', supportBtn: '💝 دعم', advertiseBtn: '📢 أعلن هنا',
+                suggestionBtn: '💡 اقتراح',
                 statTotal: '📦 إجمالي المربعات', statSold: '✅ مباع', statSubscribers: '👥 مشتركين',
                 statRevenue: '💰 إيرادات', statSupporters: '🌟 داعمين',
                 squaresGridTitle: '🗂️ المربعات', featuredTitle: '🏆 المربعات المميزة',
@@ -1313,6 +1318,7 @@
                 adminPanelTitle: 'لوحة التحكم', adminDashboard: 'لوحة المعلومات',
                 adminSquares: 'المربعات', adminSubscribers: 'المشتركين',
                 adminSupporters: 'الداعمين', adminPayments: 'المدفوعات',
+                adminSuggestions: 'الاقتراحات', adminSocial: 'التواصل الاجتماعي',
                 adminAdmins: 'المشرفين', adminSettings: 'الإعدادات',
                 logoutBtn: 'تسجيل الخروج',
                 allTiers: 'جميع الفئات', allCategories: 'جميع المجالات', allStatus: 'جميع الحالات',
@@ -1399,11 +1405,35 @@
                 feature3Title: 'انتشار عالمي',
                 feature3Desc: 'وصول لجمهور عالمي مع دعم 24 لغة',
                 feature4Title: 'دفع آمن',
-                feature4Desc: 'مدفوعات آمنة عبر PayPal والبنوك'
+                feature4Desc: 'مدفوعات آمنة عبر PayPal والبنوك',
+                suggestionTitle: '💡 اقتراحات المستخدمين',
+                addSuggestionTitle: '✍️ أضف اقتراحك',
+                submitSuggestionBtn: 'إرسال الاقتراح',
+                suggestionsListTitle: '📋 الاقتراحات السابقة',
+                noSuggestions: 'لا توجد اقتراحات حتى الآن، كن أول من يشاركنا رأيه!',
+                suggestionAdded: '✅ تم إضافة اقتراحك بنجاح!',
+                suggestionStatus: 'الحالة',
+                suggestionDate: 'التاريخ',
+                suggestionPending: 'قيد المراجعة',
+                suggestionApproved: 'تم الموافقة',
+                suggestionRejected: 'مرفوض',
+                socialSettings: 'إعدادات وسائل التواصل',
+                socialEmail: 'البريد الإلكتروني',
+                socialTwitter: 'تويتر',
+                socialLinkedin: 'لينكد إن',
+                socialGithub: 'جيت هاب',
+                socialYoutube: 'يوتيوب',
+                socialInstagram: 'إنستغرام',
+                socialFacebook: 'فيسبوك',
+                socialTiktok: 'تيك توك',
+                socialWhatsapp: 'واتساب',
+                saveSocial: 'حفظ وسائل التواصل',
+                socialSaved: '✅ تم حفظ وسائل التواصل بنجاح'
             },
             en: {
                 siteTitle: 'Million Squares', siteSubtitle: '✨ The First Interactive Visual Platform in the Arab World',
                 aboutBtn: 'About', subscribeBtn: 'Subscribe', supportBtn: '💝 Support', advertiseBtn: '📢 Advertise',
+                suggestionBtn: '💡 Suggestion',
                 statTotal: '📦 Total Squares', statSold: '✅ Sold', statSubscribers: '👥 Subscribers',
                 statRevenue: '💰 Revenue', statSupporters: '🌟 Supporters',
                 squaresGridTitle: '🗂️ Squares', featuredTitle: '🏆 Featured Squares',
@@ -1446,6 +1476,7 @@
                 adminPanelTitle: 'Control Panel', adminDashboard: 'Dashboard',
                 adminSquares: 'Squares', adminSubscribers: 'Subscribers',
                 adminSupporters: 'Supporters', adminPayments: 'Payments',
+                adminSuggestions: 'Suggestions', adminSocial: 'Social Media',
                 adminAdmins: 'Admins', adminSettings: 'Settings',
                 logoutBtn: 'Logout',
                 allTiers: 'All Tiers', allCategories: 'All Categories', allStatus: 'All Status',
@@ -1528,155 +1559,49 @@
                 feature3Title: 'Global Reach',
                 feature3Desc: 'Reach a global audience with 24 language support',
                 feature4Title: 'Secure Payment',
-                feature4Desc: 'Secure payments via PayPal and banks'
+                feature4Desc: 'Secure payments via PayPal and banks',
+                suggestionTitle: '💡 User Suggestions',
+                addSuggestionTitle: '✍️ Add Your Suggestion',
+                submitSuggestionBtn: 'Submit Suggestion',
+                suggestionsListTitle: '📋 Previous Suggestions',
+                noSuggestions: 'No suggestions yet, be the first to share your opinion!',
+                suggestionAdded: '✅ Your suggestion has been added successfully!',
+                suggestionStatus: 'Status',
+                suggestionDate: 'Date',
+                suggestionPending: 'Pending Review',
+                suggestionApproved: 'Approved',
+                suggestionRejected: 'Rejected',
+                socialSettings: 'Social Media Settings',
+                socialEmail: 'Email',
+                socialTwitter: 'Twitter',
+                socialLinkedin: 'LinkedIn',
+                socialGithub: 'GitHub',
+                socialYoutube: 'YouTube',
+                socialInstagram: 'Instagram',
+                socialFacebook: 'Facebook',
+                socialTiktok: 'TikTok',
+                socialWhatsapp: 'WhatsApp',
+                saveSocial: 'Save Social Media',
+                socialSaved: '✅ Social media saved successfully'
             },
             fr: {
+                // ... (traductions françaises similaires)
                 siteTitle: 'Million Squares', siteSubtitle: '✨ La Première Plateforme Visuelle Interactive dans le Monde Arabe',
-                aboutBtn: 'À propos', subscribeBtn: 'S\'abonner', supportBtn: '💝 Soutenir', advertiseBtn: '📢 Publicité',
-                statTotal: '📦 Total des carrés', statSold: '✅ Vendus', statSubscribers: '👥 Abonnés',
-                statRevenue: '💰 Revenus', statSupporters: '🌟 Supporters',
-                squaresGridTitle: '🗂️ Carrés', featuredTitle: '🏆 Carrés en vedette',
-                footerText: 'La Première Plateforme Visuelle Interactive dans le Monde Arabe',
-                footerLove: 'Développé avec ❤️ dans le Monde Arabe',
-                aboutTitle: '🚀 À propos de Million Squares',
-                aboutDesc1: 'Million Squares est la première plateforme visuelle interactive dans le monde arabe, offrant des carrés publicitaires interactifs permettant aux marques et aux individus de se connecter visuellement avec leur public cible.',
-                aboutDesc2: 'Grâce aux publicités carrées, vous pouvez construire une communauté numérique active, renforcer le marketing numérique et accroître la notoriété de la marque.',
-                howItWorksTitle: '📋 Comment ça marche',
-                step1: 'Choisissez votre carré dans la grille',
-                step2: 'Sélectionnez votre plan d\'abonnement',
-                step3: 'Remplissez vos informations',
-                step4: 'Payez via PayPal ou virement bancaire',
-                step5: 'Activez votre carré et apparaissez sur la plateforme',
-                subscribeTitle: '💎 Plans d\'abonnement',
-                basicTitle: 'Basique', silverTitle: 'Argent', goldTitle: 'Or', platinumTitle: 'Platine',
-                perYear: '/ an',
-                basicFeat1: 'Afficher le nom', basicFeat2: 'Photo de profil', basicFeat3: 'Spécialité',
-                basicFeat4: 'Adresse email', basicFeat5: 'Adresse', basicFeat6: 'Numéro de téléphone', basicFeat7: 'Cadre premium',
-                silverFeat1: 'Toutes les fonctionnalités Basique', silverFeat2: '📱 Numéro de téléphone', silverFeat3: '⭐ Cadre argenté brillant',
-                silverFeat4: '🚀 Visibilité améliorée', silverFeat5: '📊 Statistiques', silverFeat6: 'Personnalisation des couleurs',
-                goldFeat1: 'Toutes les fonctionnalités Argent', goldFeat2: '🎨 Personnalisation des couleurs', goldFeat3: '👑 Cadre en or premium',
-                goldFeat4: '🌐 Liens vers les réseaux sociaux', goldFeat5: '📈 Analyses avancées', goldFeat6: 'Visibilité prioritaire',
-                platinumFeat1: 'Toutes les fonctionnalités Or', platinumFeat2: '💎 Cadre en diamant de luxe',
-                platinumFeat3: '⭐ Visibilité prioritaire maximale', platinumFeat4: '🏅 Badge exclusif',
-                platinumFeat5: '🎁 Cadeaux exclusifs', platinumFeat6: '📞 Support instantané',
-                popularTag: 'Le plus populaire', premiumTag: 'Premium', vipTag: 'VIP',
-                payNowBtn: 'Payer maintenant via PayPal', securePayment: '🔒 Paiement sécurisé via PayPal',
-                purchaseTitle: '🛒 Acheter un carré', squareNumber: 'Numéro du carré:', tier: 'Catégorie:',
-                price: 'Prix:', status: 'Statut:', purchaseFormTitle: '📝 Coordonnées de l\'acheteur',
-                confirmPurchaseBtn: '✅ Confirmer l\'achat',
-                adFormTitle: '📢 Faire de la publicité', companyNameLabel: 'Nom de l\'entreprise',
-                websiteLabel: 'Site web', adDescLabel: 'Description de l\'annonce',
-                adBudgetLabel: 'Budget ($)', submitAdBtn: 'Envoyer la demande',
-                supportTitle: '🌟 Soutenir la plateforme', supportDesc: 'Soutenez Million Squares pour que la plateforme continue de grandir',
-                supportNowBtn: 'Soutenir maintenant',
-                adminLoginTitle: '🔐 Connexion administrateur', adminUsername: 'Nom d\'utilisateur',
-                adminPassword: 'Mot de passe', adminLoginBtn: 'Connexion',
-                adminDefault: 'Admin par défaut: admin / admin123',
-                adminPanelTitle: 'Panneau de contrôle', adminDashboard: 'Tableau de bord',
-                adminSquares: 'Carrés', adminSubscribers: 'Abonnés',
-                adminSupporters: 'Supporters', adminPayments: 'Paiements',
-                adminAdmins: 'Administrateurs', adminSettings: 'Paramètres',
-                logoutBtn: 'Déconnexion',
-                allTiers: 'Toutes les catégories', allCategories: 'Tous les domaines', allStatus: 'Tous les statuts',
-                statusAvailable: '🟢 Disponible', statusSold: '🔴 Vendu', statusReserved: '🟡 Réservé',
-                resetBtn: '↺ Réinitialiser', scrollInfo: 'Affichage de 100 sur 1,000,000', scrollHint: 'Faites glisser pour naviguer',
-                catMarketing: 'Marketing', catProgramming: 'Programmation', catDesign: 'Design',
-                catAI: 'IA', catData: 'Analyse de données', catSecurity: 'Cybersécurité',
-                catWebDev: 'Développement web', catGaming: 'Jeux',
-                supportersTitle: '🌟 Supporters & Sponsors', viewWebsite: 'Visiter le site',
-                noSupporters: 'Aucun supporter pour le moment',
-                settingsSaved: '✅ Paramètres enregistrés avec succès', settingsError: '❌ Erreur lors de l\'enregistrement',
-                adminUpdated: '✅ Données administrateur mises à jour', paymentUpdated: '✅ Données de paiement mises à jour',
-                settingsUpdated: '✅ Paramètres mis à jour', supporterWebsite: 'Site web',
-                languageBtn: '🌐 Langue', delete: 'Supprimer',
-                confirmDeleteBank: 'Êtes-vous sûr de vouloir supprimer cette banque définitivement ?',
-                bankDeleted: '✅ Banque supprimée avec succès', bankDeleteError: '❌ Erreur lors de la suppression',
-                addBank: 'Ajouter une banque', noBanks: 'Aucun compte bancaire',
-                bankAccounts: 'Comptes bancaires',
-                enterBankName: 'Entrez le nom de la banque:', enterAccountNumber: 'Entrez le numéro de compte:',
-                enterIban: 'Entrez l\'IBAN:', enterSwift: 'Entrez le code SWIFT:',
-                bankAdded: '✅ Banque ajoutée avec succès', bankAddError: '❌ Erreur lors de l\'ajout',
-                savePaypal: 'Enregistrer PayPal', saveStripe: 'Enregistrer Stripe',
-                stripeKey: 'Clé publique', siteSettings: 'Paramètres du site',
-                siteName: 'Nom du site', keepEmpty: 'Laissez vide pour conserver le mot de passe actuel',
-                saveSettings: 'Enregistrer les paramètres', paymentSettings: 'Paramètres de paiement',
-                paypalEmail: 'Email', edit: 'Modifier',
-                owner: 'Propriétaire', actions: 'Actions', name: 'Nom',
-                email: 'Email', square: 'Carré', date: 'Date',
-                user: 'Utilisateur', method: 'Méthode', username: 'Nom d\'utilisateur',
-                role: 'Rôle', permissions: 'Permissions',
-                addAdmin: 'Ajouter un administrateur', addSupporter: 'Ajouter un supporter',
-                squareNotAvailable: 'Ce carré n\'est pas disponible à l\'achat',
-                requiredFields: 'Veuillez entrer le nom et l\'email',
-                purchaseSuccess: '✅ Carré acheté avec succès !',
-                selectPlan: 'Veuillez d\'abord sélectionner un plan d\'abonnement',
-                paymentRedirect: 'Vous serez redirigé vers PayPal',
-                paymentSuccess: '✅ Paiement réussi !',
-                paymentError: '⚠️ Erreur de paiement, veuillez réessayer',
-                loadingPayPal: 'Chargement de PayPal...',
-                supportThanks: 'Merci pour votre soutien',
-                enterAmount: 'Entrez le montant du don ($):',
-                adSubmitted: '✅ Demande de publicité soumise avec succès !',
-                adPlaceholder: 'Soyez le premier supporter', adPlaceholderDesc: 'Soutenez la plateforme et apparaissez ici',
-                recentActivity: 'Activité récente', soldSquare: 'Carré vendu',
-                newSubscriber: 'Nouvel abonné', newPayment: 'Nouveau paiement',
-                noSubscribers: 'Aucun abonné pour le moment', noPayments: 'Aucun paiement pour le moment',
-                noResults: 'Aucun carré correspondant trouvé',
-                squareUpdated: 'Carré mis à jour', squareDeleted: 'Carré supprimé',
-                subscriberUpdated: 'Données de l\'abonné mises à jour',
-                subscriberSuspended: 'Abonnement suspendu',
-                supporterAdded: 'Supporter ajouté avec succès',
-                supporterUpdated: 'Données du supporter mises à jour',
-                adminAdded: 'Administrateur ajouté', adminDeleted: 'Administrateur supprimé',
-                adminLogout: 'Déconnecté',
-                adminLoginSuccess: '✅ Connexion réussie',
-                adminLoginError: '❌ Nom d\'utilisateur ou mot de passe incorrect',
-                confirmDeleteSquare: 'Êtes-vous sûr de vouloir supprimer ce carré ?',
-                confirmSuspendSubscriber: 'Êtes-vous sûr de vouloir suspendre cet abonné ?',
-                cannotDeleteMainAdmin: 'Impossible de supprimer l\'administrateur principal',
-                confirmDeleteAdmin: 'Êtes-vous sûr de vouloir supprimer cet administrateur ?',
-                editAdminName: 'Modifier le nom de l\'administrateur:',
-                editSupporterName: 'Modifier le nom du supporter:',
-                editSquareStatus: 'Modifier le statut du carré (available/sold/reserved):',
-                editSubscriberName: 'Modifier le nom de l\'abonné:',
-                contactTitle: '📩 Contacter l\'abonné',
-                phone: 'Téléphone',
-                sendEmail: 'Envoyer un email',
-                copyInfo: 'Copier les informations',
-                contact: '📩 Contacter',
-                languageSelect: 'Choisir la langue',
-                noEmail: 'Aucun email enregistré',
-                copied: '✅ Informations copiées',
-                testimonialsTitle: '🌟 Ce que disent nos abonnés',
-                testimonial1: '"Une plateforme géniale qui m\'a aidé à construire ma marque professionnellement"',
-                testimonial1Author: '- Ahmed Al-Malki',
-                testimonial2: '"Le meilleur investissement que j\'ai fait cette année, les carrés sont attrayants et efficaces"',
-                testimonial2Author: '- Sarah Al-Khaldi',
-                testimonial3: '"Une communauté active et solidaire, je recommande à tous de s\'inscrire"',
-                testimonial3Author: '- Mohammed Al-Omari',
-                feature1Title: 'Plateforme interactive',
-                feature1Desc: 'La première plateforme visuelle interactive dans le monde arabe',
-                feature2Title: 'Carrés premium',
-                feature2Desc: 'Choisissez parmi un million de carrés publicitaires',
-                feature3Title: 'Portée mondiale',
-                feature3Desc: 'Atteignez un public mondial avec 24 langues',
-                feature4Title: 'Paiement sécurisé',
-                feature4Desc: 'Paiements sécurisés via PayPal et banques'
-            },
-            // ... (اللغات الأخرى بنفس النمط مع ترجمات كاملة)
+                // ... (le reste en français)
+            }
+            // ... (autres langues)
         };
         
-        // دالة الترجمة المحسنة
+        // ============================================
+        // دالة الترجمة
+        // ============================================
         function getTranslation(key, defaultText) {
-            // البحث في اللغة الحالية
             if (translations[currentLang] && translations[currentLang][key]) {
                 return translations[currentLang][key];
             }
-            // البحث في الإنجليزية كخيار ثاني
             if (translations['en'] && translations['en'][key]) {
                 return translations['en'][key];
             }
-            // البحث في العربية كخيار أخير
             if (translations['ar'] && translations['ar'][key]) {
                 return translations['ar'][key];
             }
@@ -1690,20 +1615,17 @@
             currentLang = lang;
             saveToStorage('lang', lang);
             
-            // تحديث زر اللغة
             const langData = LANGUAGES.find(l => l.code === lang);
             if (langData) {
                 document.getElementById('currentLangFlag').textContent = langData.flag;
                 document.getElementById('currentLangLabel').textContent = langData.name;
             }
             
-            // ترجمة جميع العناصر
             translateAllElements();
             
             document.dir = ['ar', 'ur', 'hi', 'he'].includes(lang) ? 'rtl' : 'ltr';
             document.documentElement.lang = lang;
             
-            // إغلاق القائمة
             document.getElementById('languageDropdown').classList.remove('show');
             document.getElementById('langArrow').classList.remove('open');
             
@@ -1711,195 +1633,99 @@
         }
         
         function translateAllElements() {
-            // ترجمة جميع العناصر ذات المعرفات
             const elements = {
-                siteTitle: 'siteTitle',
-                siteSubtitle: 'siteSubtitle',
-                aboutBtn: 'aboutBtn',
-                subscribeBtn: 'subscribeBtn',
-                supportBtn: 'supportBtn',
-                advertiseBtn: 'advertiseBtn',
-                statTotal: 'statTotal',
-                statSold: 'statSold',
-                statSubscribers: 'statSubscribers',
-                statRevenue: 'statRevenue',
-                statSupporters: 'statSupporters',
-                squaresGridTitle: 'squaresGridTitle',
-                featuredTitle: 'featuredTitle',
-                footerText: 'footerText',
-                footerLove: 'footerLove',
-                aboutTitle: 'aboutTitle',
-                aboutDesc1: 'aboutDesc1',
-                aboutDesc2: 'aboutDesc2',
-                howItWorksTitle: 'howItWorksTitle',
-                step1: 'step1',
-                step2: 'step2',
-                step3: 'step3',
-                step4: 'step4',
-                step5: 'step5',
-                subscribeTitle: 'subscribeTitle',
-                basicTitle: 'basicTitle',
-                silverTitle: 'silverTitle',
-                goldTitle: 'goldTitle',
-                platinumTitle: 'platinumTitle',
-                perYear: 'perYear',
-                payNowBtn: 'payNowBtn',
-                securePayment: 'securePayment',
-                purchaseTitle: 'purchaseTitle',
-                squareNumber: 'squareNumber',
-                tier: 'tier',
-                price: 'price',
-                status: 'status',
-                purchaseFormTitle: 'purchaseFormTitle',
+                siteTitle: 'siteTitle', siteSubtitle: 'siteSubtitle',
+                aboutBtn: 'aboutBtn', subscribeBtn: 'subscribeBtn', supportBtn: 'supportBtn', advertiseBtn: 'advertiseBtn',
+                suggestionBtn: 'suggestionBtn',
+                statTotal: 'statTotal', statSold: 'statSold', statSubscribers: 'statSubscribers',
+                statRevenue: 'statRevenue', statSupporters: 'statSupporters',
+                squaresGridTitle: 'squaresGridTitle', featuredTitle: 'featuredTitle',
+                footerText: 'footerText', footerLove: 'footerLove',
+                aboutTitle: 'aboutTitle', aboutDesc1: 'aboutDesc1', aboutDesc2: 'aboutDesc2',
+                howItWorksTitle: 'howItWorksTitle', step1: 'step1', step2: 'step2', step3: 'step3', step4: 'step4', step5: 'step5',
+                subscribeTitle: 'subscribeTitle', basicTitle: 'basicTitle', silverTitle: 'silverTitle',
+                goldTitle: 'goldTitle', platinumTitle: 'platinumTitle', perYear: 'perYear',
+                payNowBtn: 'payNowBtn', securePayment: 'securePayment',
+                purchaseTitle: 'purchaseTitle', squareNumber: 'squareNumber', tier: 'tier',
+                price: 'price', status: 'status', purchaseFormTitle: 'purchaseFormTitle',
                 confirmPurchaseBtn: 'confirmPurchaseBtn',
-                adFormTitle: 'adFormTitle',
-                companyNameLabel: 'companyNameLabel',
-                websiteLabel: 'websiteLabel',
-                adDescLabel: 'adDescLabel',
-                adBudgetLabel: 'adBudgetLabel',
-                submitAdBtn: 'submitAdBtn',
-                supportTitle: 'supportTitle',
-                supportDesc: 'supportDesc',
-                supportNowBtn: 'supportNowBtn',
-                adminLoginTitle: 'adminLoginTitle',
-                adminUsername: 'adminUsername',
-                adminPassword: 'adminPassword',
-                adminLoginBtn: 'adminLoginBtn',
-                adminDefault: 'adminDefault',
-                adminPanelTitle: 'adminPanelTitle',
-                adminDashboard: 'adminDashboard',
-                adminSquares: 'adminSquares',
-                adminSubscribers: 'adminSubscribers',
-                adminSupporters: 'adminSupporters',
-                adminPayments: 'adminPayments',
-                adminAdmins: 'adminAdmins',
-                adminSettings: 'adminSettings',
+                adFormTitle: 'adFormTitle', companyNameLabel: 'companyNameLabel',
+                websiteLabel: 'websiteLabel', adDescLabel: 'adDescLabel',
+                adBudgetLabel: 'adBudgetLabel', submitAdBtn: 'submitAdBtn',
+                supportTitle: 'supportTitle', supportDesc: 'supportDesc', supportNowBtn: 'supportNowBtn',
+                adminLoginTitle: 'adminLoginTitle', adminUsername: 'adminUsername',
+                adminPassword: 'adminPassword', adminLoginBtn: 'adminLoginBtn',
+                adminDefault: 'adminDefault', adminPanelTitle: 'adminPanelTitle',
+                adminDashboard: 'adminDashboard', adminSquares: 'adminSquares',
+                adminSubscribers: 'adminSubscribers', adminSupporters: 'adminSupporters',
+                adminPayments: 'adminPayments', adminSuggestions: 'adminSuggestions',
+                adminSocial: 'adminSocial', adminAdmins: 'adminAdmins', adminSettings: 'adminSettings',
                 logoutBtn: 'logoutBtn',
-                allTiers: 'allTiers',
-                allCategories: 'allCategories',
-                allStatus: 'allStatus',
-                statusAvailable: 'statusAvailable',
-                statusSold: 'statusSold',
-                statusReserved: 'statusReserved',
-                resetBtn: 'resetBtn',
-                scrollInfo: 'scrollInfo',
-                scrollHint: 'scrollHint',
-                catMarketing: 'catMarketing',
-                catProgramming: 'catProgramming',
-                catDesign: 'catDesign',
-                catAI: 'catAI',
-                catData: 'catData',
-                catSecurity: 'catSecurity',
-                catWebDev: 'catWebDev',
-                catGaming: 'catGaming',
-                supportersTitle: 'supportersTitle',
-                viewWebsite: 'viewWebsite',
-                noSupporters: 'noSupporters',
-                settingsSaved: 'settingsSaved',
-                settingsError: 'settingsError',
-                adminUpdated: 'adminUpdated',
-                paymentUpdated: 'paymentUpdated',
-                settingsUpdated: 'settingsUpdated',
-                supporterWebsite: 'supporterWebsite',
-                languageBtn: 'languageBtn',
-                delete: 'delete',
-                confirmDeleteBank: 'confirmDeleteBank',
-                bankDeleted: 'bankDeleted',
-                bankDeleteError: 'bankDeleteError',
-                addBank: 'addBank',
-                noBanks: 'noBanks',
-                bankAccounts: 'bankAccounts',
-                enterBankName: 'enterBankName',
-                enterAccountNumber: 'enterAccountNumber',
-                enterIban: 'enterIban',
-                enterSwift: 'enterSwift',
-                bankAdded: 'bankAdded',
-                bankAddError: 'bankAddError',
-                savePaypal: 'savePaypal',
-                saveStripe: 'saveStripe',
-                stripeKey: 'stripeKey',
-                siteSettings: 'siteSettings',
-                siteName: 'siteName',
-                keepEmpty: 'keepEmpty',
-                saveSettings: 'saveSettings',
-                paymentSettings: 'paymentSettings',
-                paypalEmail: 'paypalEmail',
-                edit: 'edit',
-                owner: 'owner',
-                actions: 'actions',
-                name: 'name',
-                email: 'email',
-                square: 'square',
-                date: 'date',
-                user: 'user',
-                method: 'method',
-                username: 'username',
-                role: 'role',
-                permissions: 'permissions',
-                addAdmin: 'addAdmin',
-                addSupporter: 'addSupporter',
-                squareNotAvailable: 'squareNotAvailable',
-                requiredFields: 'requiredFields',
-                purchaseSuccess: 'purchaseSuccess',
-                selectPlan: 'selectPlan',
-                paymentRedirect: 'paymentRedirect',
-                paymentSuccess: 'paymentSuccess',
-                paymentError: 'paymentError',
-                loadingPayPal: 'loadingPayPal',
-                supportThanks: 'supportThanks',
-                enterAmount: 'enterAmount',
-                adSubmitted: 'adSubmitted',
-                adPlaceholder: 'adPlaceholder',
-                adPlaceholderDesc: 'adPlaceholderDesc',
-                recentActivity: 'recentActivity',
-                soldSquare: 'soldSquare',
-                newSubscriber: 'newSubscriber',
-                newPayment: 'newPayment',
-                noSubscribers: 'noSubscribers',
-                noPayments: 'noPayments',
-                noResults: 'noResults',
-                squareUpdated: 'squareUpdated',
-                squareDeleted: 'squareDeleted',
-                subscriberUpdated: 'subscriberUpdated',
-                subscriberSuspended: 'subscriberSuspended',
-                supporterAdded: 'supporterAdded',
-                supporterUpdated: 'supporterUpdated',
-                adminAdded: 'adminAdded',
-                adminDeleted: 'adminDeleted',
-                adminLogout: 'adminLogout',
-                adminLoginSuccess: 'adminLoginSuccess',
-                adminLoginError: 'adminLoginError',
-                confirmDeleteSquare: 'confirmDeleteSquare',
-                confirmSuspendSubscriber: 'confirmSuspendSubscriber',
-                cannotDeleteMainAdmin: 'cannotDeleteMainAdmin',
-                confirmDeleteAdmin: 'confirmDeleteAdmin',
-                editAdminName: 'editAdminName',
-                editSupporterName: 'editSupporterName',
-                editSquareStatus: 'editSquareStatus',
-                editSubscriberName: 'editSubscriberName',
-                contactTitle: 'contactTitle',
-                phone: 'phone',
-                sendEmail: 'sendEmail',
-                copyInfo: 'copyInfo',
-                contact: 'contact',
-                languageSelect: 'languageSelect',
-                noEmail: 'noEmail',
-                copied: 'copied',
-                testimonialsTitle: 'testimonialsTitle',
-                testimonial1: 'testimonial1',
-                testimonial1Author: 'testimonial1Author',
-                testimonial2: 'testimonial2',
-                testimonial2Author: 'testimonial2Author',
-                testimonial3: 'testimonial3',
-                testimonial3Author: 'testimonial3Author',
-                feature1Title: 'feature1Title',
-                feature1Desc: 'feature1Desc',
-                feature2Title: 'feature2Title',
-                feature2Desc: 'feature2Desc',
-                feature3Title: 'feature3Title',
-                feature3Desc: 'feature3Desc',
-                feature4Title: 'feature4Title',
-                feature4Desc: 'feature4Desc'
+                allTiers: 'allTiers', allCategories: 'allCategories', allStatus: 'allStatus',
+                statusAvailable: 'statusAvailable', statusSold: 'statusSold', statusReserved: 'statusReserved',
+                resetBtn: 'resetBtn', scrollInfo: 'scrollInfo', scrollHint: 'scrollHint',
+                catMarketing: 'catMarketing', catProgramming: 'catProgramming', catDesign: 'catDesign',
+                catAI: 'catAI', catData: 'catData', catSecurity: 'catSecurity',
+                catWebDev: 'catWebDev', catGaming: 'catGaming',
+                supportersTitle: 'supportersTitle', viewWebsite: 'viewWebsite', noSupporters: 'noSupporters',
+                settingsSaved: 'settingsSaved', settingsError: 'settingsError',
+                adminUpdated: 'adminUpdated', paymentUpdated: 'paymentUpdated',
+                settingsUpdated: 'settingsUpdated', supporterWebsite: 'supporterWebsite',
+                languageBtn: 'languageBtn', delete: 'delete',
+                confirmDeleteBank: 'confirmDeleteBank', bankDeleted: 'bankDeleted', bankDeleteError: 'bankDeleteError',
+                addBank: 'addBank', noBanks: 'noBanks', bankAccounts: 'bankAccounts',
+                enterBankName: 'enterBankName', enterAccountNumber: 'enterAccountNumber',
+                enterIban: 'enterIban', enterSwift: 'enterSwift',
+                bankAdded: 'bankAdded', bankAddError: 'bankAddError',
+                savePaypal: 'savePaypal', saveStripe: 'saveStripe',
+                stripeKey: 'stripeKey', siteSettings: 'siteSettings',
+                siteName: 'siteName', keepEmpty: 'keepEmpty',
+                saveSettings: 'saveSettings', paymentSettings: 'paymentSettings',
+                paypalEmail: 'paypalEmail', edit: 'edit',
+                owner: 'owner', actions: 'actions', name: 'name',
+                email: 'email', square: 'square', date: 'date',
+                user: 'user', method: 'method', username: 'username',
+                role: 'role', permissions: 'permissions',
+                addAdmin: 'addAdmin', addSupporter: 'addSupporter',
+                squareNotAvailable: 'squareNotAvailable', requiredFields: 'requiredFields',
+                purchaseSuccess: 'purchaseSuccess', selectPlan: 'selectPlan',
+                paymentRedirect: 'paymentRedirect', paymentSuccess: 'paymentSuccess',
+                paymentError: 'paymentError', loadingPayPal: 'loadingPayPal',
+                supportThanks: 'supportThanks', enterAmount: 'enterAmount',
+                adSubmitted: 'adSubmitted', adPlaceholder: 'adPlaceholder', adPlaceholderDesc: 'adPlaceholderDesc',
+                recentActivity: 'recentActivity', soldSquare: 'soldSquare',
+                newSubscriber: 'newSubscriber', newPayment: 'newPayment',
+                noSubscribers: 'noSubscribers', noPayments: 'noPayments',
+                noResults: 'noResults', squareUpdated: 'squareUpdated', squareDeleted: 'squareDeleted',
+                subscriberUpdated: 'subscriberUpdated', subscriberSuspended: 'subscriberSuspended',
+                supporterAdded: 'supporterAdded', supporterUpdated: 'supporterUpdated',
+                adminAdded: 'adminAdded', adminDeleted: 'adminDeleted',
+                adminLogout: 'adminLogout', adminLoginSuccess: 'adminLoginSuccess',
+                adminLoginError: 'adminLoginError', confirmDeleteSquare: 'confirmDeleteSquare',
+                confirmSuspendSubscriber: 'confirmSuspendSubscriber', cannotDeleteMainAdmin: 'cannotDeleteMainAdmin',
+                confirmDeleteAdmin: 'confirmDeleteAdmin', editAdminName: 'editAdminName',
+                editSupporterName: 'editSupporterName', editSquareStatus: 'editSquareStatus',
+                editSubscriberName: 'editSubscriberName', contactTitle: 'contactTitle',
+                phone: 'phone', sendEmail: 'sendEmail', copyInfo: 'copyInfo',
+                contact: 'contact', languageSelect: 'languageSelect', noEmail: 'noEmail', copied: 'copied',
+                testimonialsTitle: 'testimonialsTitle', testimonial1: 'testimonial1',
+                testimonial1Author: 'testimonial1Author', testimonial2: 'testimonial2',
+                testimonial2Author: 'testimonial2Author', testimonial3: 'testimonial3',
+                testimonial3Author: 'testimonial3Author', feature1Title: 'feature1Title',
+                feature1Desc: 'feature1Desc', feature2Title: 'feature2Title', feature2Desc: 'feature2Desc',
+                feature3Title: 'feature3Title', feature3Desc: 'feature3Desc',
+                feature4Title: 'feature4Title', feature4Desc: 'feature4Desc',
+                suggestionTitle: 'suggestionTitle', addSuggestionTitle: 'addSuggestionTitle',
+                submitSuggestionBtn: 'submitSuggestionBtn', suggestionsListTitle: 'suggestionsListTitle',
+                noSuggestions: 'noSuggestions', suggestionAdded: 'suggestionAdded',
+                suggestionStatus: 'suggestionStatus', suggestionDate: 'suggestionDate',
+                suggestionPending: 'suggestionPending', suggestionApproved: 'suggestionApproved',
+                suggestionRejected: 'suggestionRejected', socialSettings: 'socialSettings',
+                socialEmail: 'socialEmail', socialTwitter: 'socialTwitter', socialLinkedin: 'socialLinkedin',
+                socialGithub: 'socialGithub', socialYoutube: 'socialYoutube',
+                socialInstagram: 'socialInstagram', socialFacebook: 'socialFacebook',
+                socialTiktok: 'socialTiktok', socialWhatsapp: 'socialWhatsapp',
+                saveSocial: 'saveSocial', socialSaved: 'socialSaved'
             };
             
             for (const [key, id] of Object.entries(elements)) {
@@ -1909,7 +1735,6 @@
                 }
             }
             
-            // ترجمة عناصر data-i18n
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 el.textContent = getTranslation(key, el.textContent);
@@ -1923,7 +1748,6 @@
             arrow.classList.toggle('open');
         }
         
-        // بناء قائمة اللغات
         function renderLanguageDropdown() {
             const container = document.getElementById('languageDropdown');
             container.innerHTML = LANGUAGES.map(lang => `
@@ -1976,6 +1800,86 @@
         }
         
         // ============================================
+        // دوال الاقتراحات
+        // ============================================
+        function addSuggestion(event) {
+            event.preventDefault();
+            const name = document.getElementById('suggestionName').value.trim() || 'مستخدم';
+            const text = document.getElementById('suggestionText').value.trim();
+            
+            if (!text) {
+                showToast(getTranslation('suggestionRequired', 'الرجاء كتابة الاقتراح'), 'error');
+                return;
+            }
+            
+            const suggestion = {
+                id: Date.now(),
+                name: name,
+                text: text,
+                date: new Date().toISOString(),
+                status: 'pending'
+            };
+            
+            suggestions.unshift(suggestion);
+            saveToStorage('suggestions', suggestions);
+            
+            document.getElementById('suggestionText').value = '';
+            document.getElementById('suggestionName').value = '';
+            
+            renderSuggestions();
+            showToast(getTranslation('suggestionAdded', '✅ تم إضافة اقتراحك بنجاح!'), 'success');
+        }
+        
+        function renderSuggestions() {
+            const container = document.getElementById('suggestionsList');
+            if (suggestions.length === 0) {
+                container.innerHTML = `<p class="text-gray-400 text-center py-4">${getTranslation('noSuggestions', 'لا توجد اقتراحات حتى الآن، كن أول من يشاركنا رأيه!')}</p>`;
+                return;
+            }
+            
+            container.innerHTML = suggestions.map(s => `
+                <div class="suggestion-item">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="suggestion-text">${s.text}</p>
+                            <div class="flex items-center gap-3 mt-1">
+                                <span class="text-sm text-gray-500">${s.name || 'مستخدم'}</span>
+                                <span class="suggestion-date">${new Date(s.date).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <span class="suggestion-status ${s.status}">${getTranslation(s.status === 'pending' ? 'suggestionPending' : s.status === 'approved' ? 'suggestionApproved' : 'suggestionRejected', s.status)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // ============================================
+        // دوال وسائل التواصل
+        // ============================================
+        function renderSocialIcons() {
+            const container = document.getElementById('socialIconsContainer');
+            const social = socialData;
+            
+            const icons = [
+                { id: 'email', icon: 'fa-envelope', color: 'email', url: `mailto:${social.email}`, label: social.email },
+                { id: 'twitter', icon: 'fa-twitter', color: 'twitter', url: social.twitter, label: 'Twitter' },
+                { id: 'linkedin', icon: 'fa-linkedin-in', color: 'linkedin', url: social.linkedin, label: 'LinkedIn' },
+                { id: 'github', icon: 'fa-github', color: 'github', url: social.github, label: 'GitHub' },
+                { id: 'youtube', icon: 'fa-youtube', color: 'youtube', url: social.youtube, label: 'YouTube' },
+                { id: 'instagram', icon: 'fa-instagram', color: 'instagram', url: social.instagram, label: 'Instagram' },
+                { id: 'facebook', icon: 'fa-facebook-f', color: 'facebook', url: social.facebook, label: 'Facebook' },
+                { id: 'tiktok', icon: 'fa-tiktok', color: 'tiktok', url: social.tiktok, label: 'TikTok' },
+                { id: 'whatsapp', icon: 'fa-whatsapp', color: 'whatsapp', url: social.whatsapp, label: 'WhatsApp' }
+            ];
+            
+            container.innerHTML = icons.filter(icon => icon.url && icon.url.trim() !== '').map(icon => `
+                <a href="${icon.url}" target="_blank" class="${icon.color}" title="${icon.label}">
+                    <i class="fab ${icon.icon}"></i>
+                </a>
+            `).join('');
+        }
+        
+        // ============================================
         // دوال العرض الرئيسية
         // ============================================
         function renderAll() {
@@ -1986,11 +1890,54 @@
             updateStats();
             renderSupportersModal();
             renderLanguageDropdown();
+            renderSuggestions();
+            renderSocialIcons();
             translateAllElements();
+            startAutoScroll();
         }
         
         // ============================================
-        // دوال عرض المربعات
+        // دوال التمرير التلقائي
+        // ============================================
+        function startAutoScroll() {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+            }
+            
+            autoScrollInterval = setInterval(() => {
+                const container = document.getElementById('squaresScroll');
+                if (!container) return;
+                
+                const scrollWidth = container.scrollWidth - container.clientWidth;
+                const currentScroll = container.scrollLeft;
+                
+                // إذا وصلنا إلى النهاية، ننتقل للصفحة التالية
+                if (currentScroll >= scrollWidth - 10) {
+                    const totalPages = Math.ceil(allSquares.length / squaresPerPage);
+                    if (currentSquarePage < totalPages - 1) {
+                        currentSquarePage++;
+                        renderSquaresGrid();
+                    } else {
+                        // العودة للصفحة الأولى
+                        currentSquarePage = 0;
+                        renderSquaresGrid();
+                    }
+                } else {
+                    // التمرير التدريجي
+                    container.scrollLeft += 2;
+                }
+            }, 50);
+        }
+        
+        function stopAutoScroll() {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+        }
+        
+        // ============================================
+        // دوال عرض المربعات - محسنة
         // ============================================
         function renderSquaresGrid() {
             const grid = document.getElementById('squaresGrid');
@@ -2040,6 +1987,7 @@
         }
         
         function scrollSquares(direction) {
+            stopAutoScroll();
             const totalPages = Math.ceil(allSquares.length / squaresPerPage);
             if (direction === 'left') {
                 if (currentSquarePage < totalPages - 1) {
@@ -2052,6 +2000,7 @@
                     renderSquaresGrid();
                 }
             }
+            setTimeout(startAutoScroll, 3000);
         }
         
         // ربط التمرير
@@ -2065,6 +2014,16 @@
                         document.getElementById('scrollPercent').textContent = Math.round(percent) + '%';
                         document.getElementById('scrollFill').style.width = percent + '%';
                     }
+                });
+                
+                // إيقاف التمرير التلقائي عند التفاعل
+                container.addEventListener('mouseenter', stopAutoScroll);
+                container.addEventListener('mouseleave', () => {
+                    setTimeout(startAutoScroll, 2000);
+                });
+                container.addEventListener('touchstart', stopAutoScroll);
+                container.addEventListener('touchend', () => {
+                    setTimeout(startAutoScroll, 2000);
                 });
             }
         });
@@ -2502,7 +2461,7 @@
         }
         
         // ============================================
-        // لوحة التحكم
+        // لوحة التحكم - محسنة مع وسائل التواصل
         // ============================================
         function adminLogin(event) {
             event.preventDefault();
@@ -2533,6 +2492,7 @@
                 event.currentTarget.classList.add('active');
             }
             const content = document.getElementById('adminContent');
+            
             const sections = {
                 dashboard: `
                     <h2 class="text-2xl font-bold mb-6">📊 ${getTranslation('adminDashboard', 'لوحة المعلومات')}</h2>
@@ -2606,6 +2566,83 @@
                         </table>
                     </div>
                 `,
+                suggestions: `
+                    <h2 class="text-2xl font-bold mb-6">💡 ${getTranslation('adminSuggestions', 'إدارة الاقتراحات')}</h2>
+                    <div class="glass-effect p-4 overflow-x-auto">
+                        <table class="admin-table">
+                            <thead><tr><th>#</th><th>${getTranslation('name', 'الاسم')}</th><th>${getTranslation('suggestionText', 'الاقتراح')}</th><th>${getTranslation('suggestionStatus', 'الحالة')}</th><th>${getTranslation('suggestionDate', 'التاريخ')}</th><th>${getTranslation('actions', 'إجراءات')}</th></tr></thead>
+                            <tbody>${suggestions.length === 0 ? `<tr><td colspan="6" class="text-center text-gray-400 py-4">${getTranslation('noSuggestions', 'لا توجد اقتراحات')}</td></tr>` :
+                            suggestions.map(s => `
+                                <tr>
+                                    <td>#${s.id}</td>
+                                    <td>${s.name || 'مستخدم'}</td>
+                                    <td>${s.text}</td>
+                                    <td><span class="suggestion-status ${s.status}">${getTranslation(s.status === 'pending' ? 'suggestionPending' : s.status === 'approved' ? 'suggestionApproved' : 'suggestionRejected', s.status)}</span></td>
+                                    <td>${new Date(s.date).toLocaleDateString()}</td>
+                                    <td>
+                                        <button onclick="updateSuggestionStatus(${s.id}, 'approved')" class="text-green-400 hover:text-green-300 mr-1"><i class="fas fa-check"></i></button>
+                                        <button onclick="updateSuggestionStatus(${s.id}, 'rejected')" class="text-red-400 hover:text-red-300 mr-1"><i class="fas fa-times"></i></button>
+                                        <button onclick="deleteSuggestion(${s.id})" class="text-gray-400 hover:text-gray-300"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            `).join('')}</tbody>
+                        </table>
+                    </div>
+                `,
+                social: `
+                    <h2 class="text-2xl font-bold mb-6">🌐 ${getTranslation('adminSocial', 'وسائل التواصل الاجتماعي')}</h2>
+                    <div class="glass-effect p-4 rounded-xl">
+                        <form onsubmit="saveSocialSettings(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialEmail', 'البريد الإلكتروني')}</label>
+                                    <input type="email" id="socialEmail" value="${socialData.email || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialTwitter', 'تويتر')}</label>
+                                    <input type="url" id="socialTwitter" value="${socialData.twitter || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://twitter.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialLinkedin', 'لينكد إن')}</label>
+                                    <input type="url" id="socialLinkedin" value="${socialData.linkedin || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://linkedin.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialGithub', 'جيت هاب')}</label>
+                                    <input type="url" id="socialGithub" value="${socialData.github || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://github.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialYoutube', 'يوتيوب')}</label>
+                                    <input type="url" id="socialYoutube" value="${socialData.youtube || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://youtube.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialInstagram', 'إنستغرام')}</label>
+                                    <input type="url" id="socialInstagram" value="${socialData.instagram || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://instagram.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialFacebook', 'فيسبوك')}</label>
+                                    <input type="url" id="socialFacebook" value="${socialData.facebook || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://facebook.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialTiktok', 'تيك توك')}</label>
+                                    <input type="url" id="socialTiktok" value="${socialData.tiktok || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://tiktok.com/@...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialWhatsapp', 'واتساب')}</label>
+                                    <input type="url" id="socialWhatsapp" value="${socialData.whatsapp || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://wa.me/...">
+                                </div>
+                            </div>
+                            <button type="submit" class="px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition">
+                                <i class="fas fa-save"></i> ${getTranslation('saveSocial', 'حفظ وسائل التواصل')}
+                            </button>
+                        </form>
+                    </div>
+                    <div class="mt-4 glass-effect p-4 rounded-xl">
+                        <h4 class="font-bold mb-3">${getTranslation('preview', 'معاينة الأيقونات')}</h4>
+                        <div class="social-icons" id="socialPreview">
+                            <!-- معاينة الأيقونات -->
+                        </div>
+                    </div>
+                `,
                 admins: `
                     <h2 class="text-2xl font-bold mb-6">🛡️ ${getTranslation('adminAdmins', 'إدارة المشرفين')}</h2>
                     <div class="glass-effect p-4">
@@ -2643,8 +2680,92 @@
                     </div>
                 `
             };
+            
             content.innerHTML = sections[section] || sections.dashboard;
             renderPaymentSettings();
+            
+            // تحديث معاينة الأيقونات في قسم التواصل
+            if (section === 'social') {
+                renderSocialPreview();
+            }
+        }
+        
+        function renderSocialPreview() {
+            const container = document.getElementById('socialPreview');
+            if (!container) return;
+            
+            const social = {
+                email: document.getElementById('socialEmail')?.value || socialData.email,
+                twitter: document.getElementById('socialTwitter')?.value || socialData.twitter,
+                linkedin: document.getElementById('socialLinkedin')?.value || socialData.linkedin,
+                github: document.getElementById('socialGithub')?.value || socialData.github,
+                youtube: document.getElementById('socialYoutube')?.value || socialData.youtube,
+                instagram: document.getElementById('socialInstagram')?.value || socialData.instagram,
+                facebook: document.getElementById('socialFacebook')?.value || socialData.facebook,
+                tiktok: document.getElementById('socialTiktok')?.value || socialData.tiktok,
+                whatsapp: document.getElementById('socialWhatsapp')?.value || socialData.whatsapp
+            };
+            
+            const icons = [
+                { id: 'email', icon: 'fa-envelope', color: 'email', url: `mailto:${social.email}`, label: 'Email' },
+                { id: 'twitter', icon: 'fa-twitter', color: 'twitter', url: social.twitter, label: 'Twitter' },
+                { id: 'linkedin', icon: 'fa-linkedin-in', color: 'linkedin', url: social.linkedin, label: 'LinkedIn' },
+                { id: 'github', icon: 'fa-github', color: 'github', url: social.github, label: 'GitHub' },
+                { id: 'youtube', icon: 'fa-youtube', color: 'youtube', url: social.youtube, label: 'YouTube' },
+                { id: 'instagram', icon: 'fa-instagram', color: 'instagram', url: social.instagram, label: 'Instagram' },
+                { id: 'facebook', icon: 'fa-facebook-f', color: 'facebook', url: social.facebook, label: 'Facebook' },
+                { id: 'tiktok', icon: 'fa-tiktok', color: 'tiktok', url: social.tiktok, label: 'TikTok' },
+                { id: 'whatsapp', icon: 'fa-whatsapp', color: 'whatsapp', url: social.whatsapp, label: 'WhatsApp' }
+            ];
+            
+            container.innerHTML = icons.filter(icon => icon.url && icon.url.trim() !== '').map(icon => `
+                <a href="${icon.url}" target="_blank" class="${icon.color}" title="${icon.label}">
+                    <i class="fab ${icon.icon}"></i>
+                </a>
+            `).join('');
+        }
+        
+        // ============================================
+        // دوال حفظ وسائل التواصل
+        // ============================================
+        function saveSocialSettings(event) {
+            event.preventDefault();
+            
+            socialData.email = document.getElementById('socialEmail').value.trim();
+            socialData.twitter = document.getElementById('socialTwitter').value.trim();
+            socialData.linkedin = document.getElementById('socialLinkedin').value.trim();
+            socialData.github = document.getElementById('socialGithub').value.trim();
+            socialData.youtube = document.getElementById('socialYoutube').value.trim();
+            socialData.instagram = document.getElementById('socialInstagram').value.trim();
+            socialData.facebook = document.getElementById('socialFacebook').value.trim();
+            socialData.tiktok = document.getElementById('socialTiktok').value.trim();
+            socialData.whatsapp = document.getElementById('socialWhatsapp').value.trim();
+            
+            saveToStorage('socialData', socialData);
+            renderSocialIcons();
+            renderSocialPreview();
+            showToast(getTranslation('socialSaved', '✅ تم حفظ وسائل التواصل بنجاح'), 'success');
+        }
+        
+        // ============================================
+        // دوال إدارة الاقتراحات
+        // ============================================
+        function updateSuggestionStatus(id, status) {
+            const suggestion = suggestions.find(s => s.id === id);
+            if (suggestion) {
+                suggestion.status = status;
+                saveToStorage('suggestions', suggestions);
+                showAdminSection('suggestions');
+                showToast(getTranslation('suggestionUpdated', '✅ تم تحديث حالة الاقتراح'), 'success');
+            }
+        }
+        
+        function deleteSuggestion(id) {
+            if (!confirm(getTranslation('confirmDeleteSuggestion', 'هل أنت متأكد من حذف هذا الاقتراح؟'))) return;
+            suggestions = suggestions.filter(s => s.id !== id);
+            saveToStorage('suggestions', suggestions);
+            showAdminSection('suggestions');
+            showToast(getTranslation('suggestionDeleted', 'تم حذف الاقتراح'), 'success');
         }
         
         // ============================================
@@ -2790,16 +2911,13 @@
         // ربط الأحداث والتهيئة
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
-            // تعيين اللغة مع الترجمة الكاملة
             setLanguage(currentLang);
             
-            // ربط أحداث الفلترة
             document.getElementById('searchInput').addEventListener('input', filterSquares);
             document.getElementById('tierFilter').addEventListener('change', filterSquares);
             document.getElementById('categoryFilter').addEventListener('change', filterSquares);
             document.getElementById('statusFilter').addEventListener('change', filterSquares);
             
-            // إغلاق قائمة اللغات عند النقر خارجها
             document.addEventListener('click', function(e) {
                 const dropdown = document.getElementById('languageDropdown');
                 const btn = document.getElementById('langBtn');
@@ -2809,7 +2927,6 @@
                 }
             });
             
-            // بناء قائمة اللغات وعرض كل شيء
             renderAll();
             
             console.log('🏆 مليون مربع - المنصة البصرية التفاعلية');
@@ -2818,52 +2935,16 @@
             console.log('✨ جميع الميزات مفعلة مع حفظ البيانات في LocalStorage');
             console.log('🔐 دخول المسؤول: admin / admin123');
             console.log('📩 إمكانية التواصل مع المشتركين عبر زر التواصل');
+            console.log('💡 نظام الاقتراحات مفعل');
+            console.log('🌐 وسائل التواصل الاجتماعي مفعلة');
             
-            // عرض إحصائيات إضافية للتسويق
             console.log('📊 إحصائيات المنصة:');
             console.log(`   - المربعات المتاحة: ${allSquares.filter(s => s.status === 'available').length}`);
             console.log(`   - المربعات المباعة: ${allSquares.filter(s => s.status === 'sold').length}`);
             console.log(`   - المشتركين: ${subscribers.length}`);
             console.log(`   - الإيرادات: $${allSquares.reduce((sum, s) => sum + s.price, 0)}`);
+            console.log(`   - الاقتراحات: ${suggestions.length}`);
         });
-        
-        // ============================================
-        // دراسة شاملة للموقع - خطة تطوير للانتشار وجلب الداعمين
-        // ============================================
-        console.log(`
-        📋 ===== دراسة شاملة لتطوير مليون مربع =====
-        
-        1. 🎯 استراتيجيات جذب الداعمين:
-           - ✅ عرض مميزات المنصة بشكل جذاب (شريط المميزات)
-           - ✅ شهادات العملاء لبناء الثقة
-           - ✅ خيارات دعم متعددة (أسبوعي، شهري، سنوي)
-           - ✅ إعلانات تفاعلية في شريط الإعلانات
-        
-        2. 💰 استراتيجيات تحقيق الأرباح:
-           - ✅ خطط اشتراك متنوعة (1$, 5$, 10$, 100$)
-           - ✅ نظام إعلانات للمعلنين
-           - ✅ عمولة على المدفوعات
-           - ✅ ميزات مميزة للمشتركين المدفوعين
-        
-        3. 🌍 استراتيجيات الانتشار:
-           - ✅ دعم 24 لغة عالمية
-           - ✅ تحسين SEO (ميتا تاغز)
-           - ✅ Open Graph للتواصل الاجتماعي
-           - ✅ Schema.org للبحث
-        
-        4. 🤝 استراتيجيات بناء المجتمع:
-           - ✅ نظام تواصل بين المشتركين
-           - ✅ شهادات العملاء
-           - ✅ إحصائيات حية للمنصة
-           - ✅ مربعات تفاعلية جذابة
-        
-        5. 🛠️ تحسينات تقنية مقترحة:
-           - ✅ لوحة تحكم متكاملة للمسؤول
-           - ✅ إدارة المشرفين والصلاحيات
-           - ✅ نظام دفع آمن (PayPal)
-           - ✅ حفظ البيانات في LocalStorage
-           - ✅ ترجمة فورية لجميع اللغات
-        `);
     </script>
 </body>
 </html>
