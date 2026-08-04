@@ -360,6 +360,9 @@
         }
         
         /* قائمة اللغات */
+        .language-selector {
+            position: relative;
+        }
         .language-dropdown {
             position: absolute;
             top: 110%;
@@ -368,11 +371,13 @@
             backdrop-filter: blur(15px);
             border-radius: 16px;
             padding: 8px;
-            min-width: 180px;
+            min-width: 200px;
             display: none;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             z-index: 100;
+            max-height: 400px;
+            overflow-y: auto;
         }
         .language-dropdown.show {
             display: block;
@@ -390,6 +395,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.95rem;
+            text-align: right;
         }
         .language-dropdown button:hover {
             background: rgba(102, 126, 234, 0.2);
@@ -454,6 +460,10 @@
             }
             .glass-effect {
                 padding: 16px !important;
+            }
+            .language-dropdown {
+                right: -80px;
+                min-width: 160px;
             }
         }
         
@@ -536,8 +546,8 @@
                 
                 <div class="flex items-center gap-3 flex-wrap">
                     <!-- اختيار اللغة -->
-                    <div class="language-selector relative">
-                        <button onclick="toggleLanguage()" class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition text-sm">
+                    <div class="language-selector">
+                        <button onclick="toggleLanguage()" class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition text-sm" data-i18n="languageBtn">
                             <i class="fas fa-globe"></i>
                             <span id="currentLangLabel">🇸🇦 العربية</span>
                             <i class="fas fa-chevron-down text-xs"></i>
@@ -552,6 +562,11 @@
                             <button onclick="setLanguage('ru')"><span class="flag">🇷🇺</span> Русский</button>
                             <button onclick="setLanguage('tr')"><span class="flag">🇹🇷</span> Türkçe</button>
                             <button onclick="setLanguage('ur')"><span class="flag">🇵🇰</span> اردو</button>
+                            <button onclick="setLanguage('hi')"><span class="flag">🇮🇳</span> हिन्दी</button>
+                            <button onclick="setLanguage('pt')"><span class="flag">🇵🇹</span> Português</button>
+                            <button onclick="setLanguage('it')"><span class="flag">🇮🇹</span> Italiano</button>
+                            <button onclick="setLanguage('ja')"><span class="flag">🇯🇵</span> 日本語</button>
+                            <button onclick="setLanguage('ko')"><span class="flag">🇰🇷</span> 한국어</button>
                         </div>
                     </div>
                     
@@ -709,7 +724,7 @@
                 <h2 class="text-2xl font-bold" data-i18n="subscribeTitle">💎 خطط الاشتراك</h2>
                 <button onclick="closeModal('subscriptionModal')" class="text-gray-400 hover:text-white text-3xl">&times;</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="subscriptionPlansContainer">
                 <!-- سيتم ملؤها بـ JavaScript -->
             </div>
             <div class="mt-6 text-center">
@@ -820,6 +835,19 @@
         </div>
     </div>
     
+    <!-- ======== نافذة الداعمين ======== -->
+    <div id="supportersModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
+        <div class="glass-effect p-8 max-w-4xl w-full mx-4 modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold" data-i18n="supportersTitle">🌟 الداعمون والرعاة</h2>
+                <button onclick="closeModal('supportersModal')" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+            </div>
+            <div id="supportersList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- سيتم ملؤها بـ JavaScript -->
+            </div>
+        </div>
+    </div>
+    
     <!-- ======== نافذة تسجيل دخول المسؤول ======== -->
     <div id="adminLoginModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
         <div class="glass-effect p-8 max-w-md w-full mx-4 modal-content">
@@ -841,19 +869,6 @@
                 </button>
             </form>
             <p class="text-center text-sm text-gray-500 mt-4" data-i18n="adminDefault">المسؤول الافتراضي: admin / admin123</p>
-        </div>
-    </div>
-    
-    <!-- ======== نافذة الداعمين ======== -->
-    <div id="supportersModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
-        <div class="glass-effect p-8 max-w-4xl w-full mx-4 modal-content">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold" data-i18n="supportersTitle">🌟 الداعمون والرعاة</h2>
-                <button onclick="closeModal('supportersModal')" class="text-gray-400 hover:text-white text-3xl">&times;</button>
-            </div>
-            <div id="supportersList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- سيتم ملؤها بـ JavaScript -->
-            </div>
         </div>
     </div>
     
@@ -913,6 +928,25 @@
         const SURNAMES = ['المالكي', 'الشمري', 'العتيبي', 'الحربي', 'الخالدي', 'السبيعي', 'الزهراء', 'القحطاني', 'الشهراني', 'العمري', 'الدوسري', 'الغامدي'];
         
         // ============================================
+        // إدارة التخزين المحلي (LocalStorage)
+        // ============================================
+        function loadFromStorage(key, defaultValue) {
+            try {
+                const data = localStorage.getItem('million_squares_' + key);
+                if (data) {
+                    return JSON.parse(data);
+                }
+            } catch(e) {}
+            return defaultValue;
+        }
+        
+        function saveToStorage(key, data) {
+            try {
+                localStorage.setItem('million_squares_' + key, JSON.stringify(data));
+            } catch(e) {}
+        }
+        
+        // ============================================
         // توليد البيانات
         // ============================================
         function generateSquares(count = 100) {
@@ -966,28 +1000,8 @@
         }
         
         // ============================================
-        // إدارة التخزين المحلي (LocalStorage)
-        // ============================================
-        function loadFromStorage(key, defaultValue) {
-            try {
-                const data = localStorage.getItem('million_squares_' + key);
-                if (data) {
-                    return JSON.parse(data);
-                }
-            } catch(e) {}
-            return defaultValue;
-        }
-        
-        function saveToStorage(key, data) {
-            try {
-                localStorage.setItem('million_squares_' + key, JSON.stringify(data));
-            } catch(e) {}
-        }
-        
-        // ============================================
         // الحالة العامة مع حفظ في LocalStorage
         // ============================================
-        // تحميل البيانات المحفوظة
         let allSquares = loadFromStorage('squares', generateSquares(100));
         let filteredSquares = [...allSquares];
         let currentPage = 1;
@@ -1006,22 +1020,36 @@
             ]
         });
         
-        // بيانات الدفع
+        // بيانات الدفع - مع دعم البنوك المتعددة
         let paymentAccounts = loadFromStorage('paymentAccounts', {
             paypal: {
                 clientId: 'sb',
                 secret: 'sb-secret',
-                email: 'admin@million-squares.com'
+                email: 'admin@million-squares.com',
+                enabled: true
             },
-            bank: {
-                name: 'البنك الأهلي',
-                accountNumber: 'SA1234567890',
-                iban: 'SA1234567890123456789',
-                swift: 'AHLLSA'
-            },
+            banks: [
+                {
+                    id: 1,
+                    name: 'البنك الأهلي',
+                    accountNumber: 'SA1234567890',
+                    iban: 'SA1234567890123456789',
+                    swift: 'AHLLSA',
+                    enabled: true
+                },
+                {
+                    id: 2,
+                    name: 'البنك السعودي للاستثمار',
+                    accountNumber: 'SA9876543210',
+                    iban: 'SA9876543210987654321',
+                    swift: 'BSISA',
+                    enabled: true
+                }
+            ],
             stripe: {
                 publicKey: 'pk_test_...',
-                secretKey: 'sk_test_...'
+                secretKey: 'sk_test_...',
+                enabled: false
             }
         });
         
@@ -1073,7 +1101,7 @@
         let subscribers = loadFromStorage('subscribers', []);
         
         // ============================================
-        // نظام الترجمة الشامل
+        // نظام الترجمة الشامل (مختصر للعربية والإنجليزية)
         // ============================================
         const translations = {
             ar: {
@@ -1192,7 +1220,83 @@
                 adminUpdated: '✅ تم تحديث بيانات المسؤول',
                 paymentUpdated: '✅ تم تحديث بيانات الدفع',
                 settingsUpdated: '✅ تم تحديث الإعدادات',
-                supporterWebsite: 'الموقع الإلكتروني'
+                supporterWebsite: 'الموقع الإلكتروني',
+                languageBtn: '🌐 اللغة',
+                delete: 'حذف',
+                confirmDeleteBank: 'هل أنت متأكد من حذف هذا البنك نهائياً؟',
+                bankDeleted: '✅ تم حذف البنك بنجاح',
+                bankDeleteError: '❌ حدث خطأ أثناء حذف البنك',
+                addBank: 'إضافة بنك',
+                noBanks: 'لا توجد حسابات بنكية',
+                bankAccounts: 'الحسابات البنكية',
+                enterBankName: 'أدخل اسم البنك:',
+                enterAccountNumber: 'أدخل رقم الحساب:',
+                enterIban: 'أدخل IBAN:',
+                enterSwift: 'أدخل رمز SWIFT:',
+                bankAdded: '✅ تم إضافة البنك بنجاح',
+                bankAddError: '❌ حدث خطأ أثناء إضافة البنك',
+                savePaypal: 'حفظ PayPal',
+                saveStripe: 'حفظ Stripe',
+                stripeKey: 'المفتاح العام',
+                siteSettings: 'إعدادات الموقع',
+                siteName: 'اسم الموقع',
+                keepEmpty: 'اتركه فارغاً للاحتفاظ بكلمة المرور الحالية',
+                saveSettings: 'حفظ الإعدادات',
+                paymentSettings: 'إعدادات الدفع',
+                paypalEmail: 'البريد الإلكتروني',
+                edit: 'تعديل',
+                owner: 'المالك',
+                actions: 'إجراءات',
+                name: 'الاسم',
+                email: 'البريد',
+                square: 'المربع',
+                date: 'التاريخ',
+                user: 'المستخدم',
+                method: 'طريقة الدفع',
+                username: 'اسم المستخدم',
+                role: 'الدور',
+                permissions: 'الصلاحيات',
+                addAdmin: 'إضافة مشرف جديد',
+                addSupporter: 'إضافة داعم جديد',
+                squareNotAvailable: 'هذا المربع غير متاح للشراء',
+                requiredFields: 'الرجاء إدخال الاسم والبريد الإلكتروني',
+                purchaseSuccess: '✅ تم شراء المربع بنجاح!',
+                selectPlan: 'الرجاء اختيار باقة اشتراك أولاً',
+                paymentRedirect: 'سيتم توجيهك إلى PayPal للدفع',
+                paymentSuccess: '✅ تم الدفع بنجاح!',
+                paymentError: '⚠️ حدث خطأ في الدفع، يرجى المحاولة مرة أخرى',
+                loadingPayPal: 'جاري تحميل PayPal...',
+                supportThanks: 'شكراً لدعمك',
+                enterAmount: 'أدخل المبلغ الذي ترغب في التبرع به ($):',
+                adSubmitted: '✅ تم إرسال طلب الإعلان بنجاح!',
+                adPlaceholder: 'كن أول داعم',
+                adPlaceholderDesc: 'ادعم المنصة واظهر هنا',
+                recentActivity: 'أحدث النشاطات',
+                soldSquare: 'تم بيع مربع',
+                newSubscriber: 'مشترك جديد',
+                newPayment: 'دفع جديد',
+                noSubscribers: 'لا يوجد مشتركين بعد',
+                noPayments: 'لا يوجد مدفوعات بعد',
+                noResults: 'لا توجد مربعات مطابقة للبحث',
+                squareUpdated: 'تم تحديث المربع',
+                squareDeleted: 'تم حذف المربع',
+                subscriberUpdated: 'تم تحديث بيانات المشترك',
+                subscriberSuspended: 'تم تعليق اشتراك المشترك',
+                supporterAdded: 'تم إضافة الداعم بنجاح',
+                supporterUpdated: 'تم تحديث بيانات الداعم',
+                adminAdded: 'تم إضافة المشرف',
+                adminDeleted: 'تم حذف المشرف',
+                adminLogout: 'تم تسجيل الخروج',
+                adminLoginSuccess: '✅ تم تسجيل الدخول بنجاح',
+                adminLoginError: '❌ اسم المستخدم أو كلمة المرور غير صحيحة',
+                confirmDeleteSquare: 'هل أنت متأكد من حذف هذا المربع؟',
+                confirmSuspendSubscriber: 'هل أنت متأكد من تعليق اشتراك هذا المشترك؟',
+                cannotDeleteMainAdmin: 'لا يمكن حذف المسؤول الرئيسي',
+                confirmDeleteAdmin: 'هل أنت متأكد من حذف هذا المشرف؟',
+                editAdminName: 'تعديل اسم المشرف:',
+                editSupporterName: 'تعديل اسم الداعم:',
+                editSquareStatus: 'تعديل حالة المربع (available/sold/reserved):',
+                editSubscriberName: 'تعديل اسم المشترك:'
             },
             en: {
                 siteTitle: 'Million Squares',
@@ -1310,245 +1414,84 @@
                 adminUpdated: '✅ Admin data updated',
                 paymentUpdated: '✅ Payment data updated',
                 settingsUpdated: '✅ Settings updated',
-                supporterWebsite: 'Website'
-            },
-            fr: {
-                siteTitle: 'Million Squares',
-                siteSubtitle: '✨ La Première Plateforme Visuelle Interactive',
-                aboutBtn: 'À propos',
-                subscribeBtn: 'S\'abonner',
-                supportBtn: '💝 Soutenir',
-                advertiseBtn: '📢 Publicité',
-                statTotal: '📦 Total des carrés',
-                statSold: '✅ Vendus',
-                statSubscribers: '👥 Abonnés',
-                statRevenue: '💰 Revenus',
-                statSupporters: '🌟 Supporters',
-                squaresGridTitle: '🗂️ Carrés',
-                featuredTitle: '🏆 Carrés en vedette',
-                footerText: 'La Première Plateforme Visuelle Interactive dans le Monde Arabe',
-                footerLove: 'Développé avec ❤️ dans le Monde Arabe',
-                aboutTitle: '🚀 À propos de Million Squares',
-                aboutDesc1: 'Million Squares est la première plateforme visuelle interactive dans le monde arabe, offrant des carrés publicitaires interactifs permettant aux marques et aux individus de se connecter visuellement avec leur public cible.',
-                aboutDesc2: 'Grâce aux publicités carrées, vous pouvez construire une communauté numérique active, renforcer le marketing numérique et accroître la notoriété de la marque.',
-                howItWorksTitle: '📋 Comment ça marche',
-                step1: 'Choisissez votre carré dans la grille',
-                step2: 'Sélectionnez votre plan d\'abonnement',
-                step3: 'Remplissez vos informations',
-                step4: 'Payez via PayPal ou virement bancaire',
-                step5: 'Activez votre carré et apparaissez sur la plateforme',
-                subscribeTitle: '💎 Plans d\'abonnement',
-                basicTitle: 'Basique',
-                silverTitle: 'Argent',
-                goldTitle: 'Or',
-                platinumTitle: 'Platine',
-                perYear: '/ an',
-                basicFeat1: 'Afficher le nom',
-                basicFeat2: 'Photo de profil',
-                basicFeat3: 'Spécialité',
-                basicFeat4: 'Adresse email',
-                basicFeat5: 'Adresse',
-                basicFeat6: 'Numéro de téléphone',
-                basicFeat7: 'Cadre premium',
-                silverFeat1: 'Toutes les fonctionnalités Basique',
-                silverFeat2: '📱 Numéro de téléphone',
-                silverFeat3: '⭐ Cadre argenté brillant',
-                silverFeat4: '🚀 Visibilité améliorée',
-                silverFeat5: '📊 Statistiques',
-                silverFeat6: 'Personnalisation des couleurs',
-                goldFeat1: 'Toutes les fonctionnalités Argent',
-                goldFeat2: '🎨 Personnalisation des couleurs',
-                goldFeat3: '👑 Cadre en or premium',
-                goldFeat4: '🌐 Liens vers les réseaux sociaux',
-                goldFeat5: '📈 Analyses avancées',
-                goldFeat6: 'Visibilité prioritaire',
-                platinumFeat1: 'Toutes les fonctionnalités Or',
-                platinumFeat2: '💎 Cadre en diamant de luxe',
-                platinumFeat3: '⭐ Visibilité prioritaire maximale',
-                platinumFeat4: '🏅 Badge exclusif',
-                platinumFeat5: '🎁 Cadeaux exclusifs',
-                platinumFeat6: '📞 Support instantané',
-                popularTag: 'Le plus populaire',
-                premiumTag: 'Premium',
-                vipTag: 'VIP',
-                payNowBtn: 'Payer maintenant via PayPal',
-                securePayment: '🔒 Paiement sécurisé via PayPal',
-                purchaseTitle: '🛒 Acheter un carré',
-                squareNumber: 'Numéro du carré:',
-                tier: 'Catégorie:',
-                price: 'Prix:',
-                status: 'Statut:',
-                purchaseFormTitle: '📝 Coordonnées de l\'acheteur',
-                confirmPurchaseBtn: '✅ Confirmer l\'achat',
-                adFormTitle: '📢 Faire de la publicité',
-                companyNameLabel: 'Nom de l\'entreprise',
-                websiteLabel: 'Site web',
-                adDescLabel: 'Description de l\'annonce',
-                adBudgetLabel: 'Budget ($)',
-                submitAdBtn: 'Envoyer la demande',
-                supportTitle: '🌟 Soutenir la plateforme',
-                supportDesc: 'Soutenez Million Squares pour que la plateforme continue de grandir',
-                supportNowBtn: 'Soutenir maintenant',
-                adminLoginTitle: '🔐 Connexion administrateur',
-                adminUsername: 'Nom d\'utilisateur',
-                adminPassword: 'Mot de passe',
-                adminLoginBtn: 'Connexion',
-                adminDefault: 'Admin par défaut: admin / admin123',
-                adminPanelTitle: 'Panneau de contrôle',
-                adminDashboard: 'Tableau de bord',
-                adminSquares: 'Carrés',
-                adminSubscribers: 'Abonnés',
-                adminSupporters: 'Supporters',
-                adminPayments: 'Paiements',
-                adminAdmins: 'Administrateurs',
-                adminSettings: 'Paramètres',
-                logoutBtn: 'Déconnexion',
-                allTiers: 'Toutes les catégories',
-                allCategories: 'Tous les domaines',
-                allStatus: 'Tous les statuts',
-                statusAvailable: '🟢 Disponible',
-                statusSold: '🔴 Vendu',
-                statusReserved: '🟡 Réservé',
-                resetBtn: '↺ Réinitialiser',
-                scrollInfo: 'Affichage de 100 sur 1,000,000',
-                scrollHint: 'Faites glisser pour naviguer',
-                catMarketing: 'Marketing',
-                catProgramming: 'Programmation',
-                catDesign: 'Design',
-                catAI: 'IA',
-                catData: 'Analyse de données',
-                catSecurity: 'Cybersécurité',
-                catWebDev: 'Développement web',
-                catGaming: 'Jeux',
-                supportersTitle: '🌟 Supporters & Sponsors',
-                viewWebsite: 'Visiter le site',
-                noSupporters: 'Aucun supporter pour le moment',
-                settingsSaved: '✅ Paramètres enregistrés avec succès',
-                settingsError: '❌ Erreur lors de l\'enregistrement',
-                adminUpdated: '✅ Données administrateur mises à jour',
-                paymentUpdated: '✅ Données de paiement mises à jour',
-                settingsUpdated: '✅ Paramètres mis à jour',
-                supporterWebsite: 'Site web'
-            },
-            es: {
-                siteTitle: 'Million Squares',
-                siteSubtitle: '✨ La Primera Plataforma Visual Interactiva',
-                aboutBtn: 'Acerca de',
-                subscribeBtn: 'Suscribirse',
-                supportBtn: '💝 Apoyar',
-                advertiseBtn: '📢 Anunciar',
-                statTotal: '📦 Total de cuadrados',
-                statSold: '✅ Vendidos',
-                statSubscribers: '👥 Suscriptores',
-                statRevenue: '💰 Ingresos',
-                statSupporters: '🌟 Partidarios',
-                squaresGridTitle: '🗂️ Cuadrados',
-                featuredTitle: '🏆 Cuadrados destacados',
-                footerText: 'La Primera Plataforma Visual Interactiva en el Mundo Árabe',
-                footerLove: 'Desarrollado con ❤️ en el Mundo Árabe',
-                aboutTitle: '🚀 Acerca de Million Squares',
-                aboutDesc1: 'Million Squares es la primera plataforma visual interactiva en el mundo árabe, que ofrece cuadrados publicitarios interactivos que permiten a las marcas y personas conectarse visualmente con su público objetivo.',
-                aboutDesc2: 'A través de anuncios cuadrados, puedes construir una comunidad digital activa, mejorar el marketing digital y aumentar el conocimiento de la marca.',
-                howItWorksTitle: '📋 Cómo funciona',
-                step1: 'Elige tu cuadrado de la cuadrícula',
-                step2: 'Selecciona tu plan de suscripción',
-                step3: 'Completa tus datos personales y profesionales',
-                step4: 'Paga a través de PayPal o transferencia bancaria',
-                step5: 'Activa tu cuadrado y aparece en la plataforma',
-                subscribeTitle: '💎 Planes de suscripción',
-                basicTitle: 'Básico',
-                silverTitle: 'Plata',
-                goldTitle: 'Oro',
-                platinumTitle: 'Platino',
-                perYear: '/ año',
-                basicFeat1: 'Mostrar nombre',
-                basicFeat2: 'Foto de perfil',
-                basicFeat3: 'Especialidad',
-                basicFeat4: 'Correo electrónico',
-                basicFeat5: 'Dirección',
-                basicFeat6: 'Número de teléfono',
-                basicFeat7: 'Marco premium',
-                silverFeat1: 'Todas las funciones Básico',
-                silverFeat2: '📱 Número de teléfono',
-                silverFeat3: '⭐ Marco plateado brillante',
-                silverFeat4: '🚀 Visibilidad mejorada',
-                silverFeat5: '📊 Estadísticas',
-                silverFeat6: 'Personalización de color',
-                goldFeat1: 'Todas las funciones Plata',
-                goldFeat2: '🎨 Personalización de color',
-                goldFeat3: '👑 Marco dorado premium',
-                goldFeat4: '🌐 Enlaces a redes sociales',
-                goldFeat5: '📈 Análisis avanzados',
-                goldFeat6: 'Visibilidad prioritaria',
-                platinumFeat1: 'Todas las funciones Oro',
-                platinumFeat2: '💎 Marco de diamante de lujo',
-                platinumFeat3: '⭐ Visibilidad prioritaria máxima',
-                platinumFeat4: '🏅 Insignia exclusiva',
-                platinumFeat5: '🎁 Regalos exclusivos',
-                platinumFeat6: '📞 Soporte instantáneo',
-                popularTag: 'Más popular',
-                premiumTag: 'Premium',
-                vipTag: 'VIP',
-                payNowBtn: 'Pagar ahora a través de PayPal',
-                securePayment: '🔒 Pago seguro a través de PayPal',
-                purchaseTitle: '🛒 Comprar cuadrado',
-                squareNumber: 'Número de cuadrado:',
-                tier: 'Categoría:',
-                price: 'Precio:',
-                status: 'Estado:',
-                purchaseFormTitle: '📝 Datos del comprador',
-                confirmPurchaseBtn: '✅ Confirmar compra',
-                adFormTitle: '📢 Anunciar aquí',
-                companyNameLabel: 'Nombre de la empresa',
-                websiteLabel: 'Sitio web',
-                adDescLabel: 'Descripción del anuncio',
-                adBudgetLabel: 'Presupuesto ($)',
-                submitAdBtn: 'Enviar solicitud',
-                supportTitle: '🌟 Apoyar la plataforma',
-                supportDesc: 'Apoya Million Squares para que la plataforma siga creciendo',
-                supportNowBtn: 'Apoyar ahora',
-                adminLoginTitle: '🔐 Inicio de sesión de administrador',
-                adminUsername: 'Nombre de usuario',
-                adminPassword: 'Contraseña',
-                adminLoginBtn: 'Iniciar sesión',
-                adminDefault: 'Admin por defecto: admin / admin123',
-                adminPanelTitle: 'Panel de control',
-                adminDashboard: 'Panel de control',
-                adminSquares: 'Cuadrados',
-                adminSubscribers: 'Suscriptores',
-                adminSupporters: 'Partidarios',
-                adminPayments: 'Pagos',
-                adminAdmins: 'Administradores',
-                adminSettings: 'Configuración',
-                logoutBtn: 'Cerrar sesión',
-                allTiers: 'Todas las categorías',
-                allCategories: 'Todos los dominios',
-                allStatus: 'Todos los estados',
-                statusAvailable: '🟢 Disponible',
-                statusSold: '🔴 Vendido',
-                statusReserved: '🟡 Reservado',
-                resetBtn: '↺ Reiniciar',
-                scrollInfo: 'Mostrando 100 de 1,000,000',
-                scrollHint: 'Arrastra para navegar',
-                catMarketing: 'Marketing',
-                catProgramming: 'Programación',
-                catDesign: 'Diseño',
-                catAI: 'IA',
-                catData: 'Análisis de datos',
-                catSecurity: 'Ciberseguridad',
-                catWebDev: 'Desarrollo web',
-                catGaming: 'Juegos',
-                supportersTitle: '🌟 Partidarios y Patrocinadores',
-                viewWebsite: 'Visitar sitio web',
-                noSupporters: 'Sin partidarios aún',
-                settingsSaved: '✅ Configuración guardada con éxito',
-                settingsError: '❌ Error al guardar la configuración',
-                adminUpdated: '✅ Datos de administrador actualizados',
-                paymentUpdated: '✅ Datos de pago actualizados',
-                settingsUpdated: '✅ Configuración actualizada',
-                supporterWebsite: 'Sitio web'
-            },
-            // ... (بقية اللغات بنفس النمط مع ترجمة كل النصوص)
+                supporterWebsite: 'Website',
+                languageBtn: '🌐 Language',
+                delete: 'Delete',
+                confirmDeleteBank: 'Are you sure you want to delete this bank permanently?',
+                bankDeleted: '✅ Bank deleted successfully',
+                bankDeleteError: '❌ Error deleting bank',
+                addBank: 'Add Bank',
+                noBanks: 'No bank accounts',
+                bankAccounts: 'Bank Accounts',
+                enterBankName: 'Enter bank name:',
+                enterAccountNumber: 'Enter account number:',
+                enterIban: 'Enter IBAN:',
+                enterSwift: 'Enter SWIFT code:',
+                bankAdded: '✅ Bank added successfully',
+                bankAddError: '❌ Error adding bank',
+                savePaypal: 'Save PayPal',
+                saveStripe: 'Save Stripe',
+                stripeKey: 'Public Key',
+                siteSettings: 'Site Settings',
+                siteName: 'Site Name',
+                keepEmpty: 'Leave empty to keep current password',
+                saveSettings: 'Save Settings',
+                paymentSettings: 'Payment Settings',
+                paypalEmail: 'Email',
+                edit: 'Edit',
+                owner: 'Owner',
+                actions: 'Actions',
+                name: 'Name',
+                email: 'Email',
+                square: 'Square',
+                date: 'Date',
+                user: 'User',
+                method: 'Method',
+                username: 'Username',
+                role: 'Role',
+                permissions: 'Permissions',
+                addAdmin: 'Add New Admin',
+                addSupporter: 'Add New Supporter',
+                squareNotAvailable: 'This square is not available for purchase',
+                requiredFields: 'Please enter name and email',
+                purchaseSuccess: '✅ Square purchased successfully!',
+                selectPlan: 'Please select a subscription plan first',
+                paymentRedirect: 'You will be redirected to PayPal',
+                paymentSuccess: '✅ Payment successful!',
+                paymentError: '⚠️ Payment error, please try again',
+                loadingPayPal: 'Loading PayPal...',
+                supportThanks: 'Thank you for your support',
+                enterAmount: 'Enter donation amount ($):',
+                adSubmitted: '✅ Ad request submitted successfully!',
+                adPlaceholder: 'Be the first supporter',
+                adPlaceholderDesc: 'Support the platform and appear here',
+                recentActivity: 'Recent Activity',
+                soldSquare: 'Sold square',
+                newSubscriber: 'New subscriber',
+                newPayment: 'New payment',
+                noSubscribers: 'No subscribers yet',
+                noPayments: 'No payments yet',
+                noResults: 'No matching squares found',
+                squareUpdated: 'Square updated',
+                squareDeleted: 'Square deleted',
+                subscriberUpdated: 'Subscriber data updated',
+                subscriberSuspended: 'Subscription suspended',
+                supporterAdded: 'Supporter added successfully',
+                supporterUpdated: 'Supporter data updated',
+                adminAdded: 'Admin added',
+                adminDeleted: 'Admin deleted',
+                adminLogout: 'Logged out',
+                adminLoginSuccess: '✅ Login successful',
+                adminLoginError: '❌ Invalid username or password',
+                confirmDeleteSquare: 'Are you sure you want to delete this square?',
+                confirmSuspendSubscriber: 'Are you sure you want to suspend this subscriber?',
+                cannotDeleteMainAdmin: 'Cannot delete main admin',
+                confirmDeleteAdmin: 'Are you sure you want to delete this admin?',
+                editAdminName: 'Edit admin name:',
+                editSupporterName: 'Edit supporter name:',
+                editSquareStatus: 'Edit square status (available/sold/reserved):',
+                editSubscriberName: 'Edit subscriber name:'
+            }
         };
         
         // دالة لترجمة النصوص المفقودة تلقائياً
@@ -1556,7 +1499,6 @@
             if (translations[currentLang] && translations[currentLang][key]) {
                 return translations[currentLang][key];
             }
-            // محاولة الحصول على الترجمة بالعربية كبديل
             if (translations['ar'] && translations['ar'][key]) {
                 return translations['ar'][key];
             }
@@ -1578,7 +1520,12 @@
                 zh: '🇨🇳 中文',
                 ru: '🇷🇺 Русский',
                 tr: '🇹🇷 Türkçe',
-                ur: '🇵🇰 اردو'
+                ur: '🇵🇰 اردو',
+                hi: '🇮🇳 हिन्दी',
+                pt: '🇵🇹 Português',
+                it: '🇮🇹 Italiano',
+                ja: '🇯🇵 日本語',
+                ko: '🇰🇷 한국어'
             };
             document.getElementById('currentLangLabel').textContent = langLabels[lang] || lang;
             
@@ -1592,7 +1539,7 @@
             });
             
             // تحديث اتجاه النص
-            document.dir = lang === 'ar' || lang === 'ur' ? 'rtl' : 'ltr';
+            document.dir = lang === 'ar' || lang === 'ur' || lang === 'hi' ? 'rtl' : 'ltr';
             document.documentElement.lang = lang;
             
             // إغلاق القائمة
@@ -1605,6 +1552,15 @@
         function toggleLanguage() {
             document.getElementById('languageDropdown').classList.toggle('show');
         }
+        
+        // إغلاق القائمة عند النقر خارجها
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('languageDropdown');
+            const selector = document.querySelector('.language-selector');
+            if (selector && !selector.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
         
         // ============================================
         // دوال عرض المربعات
@@ -1631,8 +1587,7 @@
                 grid.appendChild(div);
             }
             
-            document.getElementById('scrollInfo').textContent = 
-                getTranslation('scrollInfo', 'عرض 100 من 1,000,000');
+            document.getElementById('scrollInfo').textContent = getTranslation('scrollInfo', 'عرض 100 من 1,000,000');
         }
         
         function scrollSquares(direction) {
@@ -1655,7 +1610,7 @@
                 container.innerHTML = `
                     <div class="col-span-full text-center py-12 text-gray-400">
                         <i class="fas fa-search text-5xl mb-4"></i>
-                        <p data-i18n="noResults">لا توجد مربعات مطابقة للبحث</p>
+                        <p data-i18n="noResults">${getTranslation('noResults', 'لا توجد مربعات مطابقة للبحث')}</p>
                     </div>
                 `;
                 document.getElementById('pagination').innerHTML = '';
@@ -1825,7 +1780,6 @@
             
             openModal('purchaseModal');
             
-            // تهيئة PayPal
             setTimeout(() => renderPayPalButton('purchasePayPalContainer'), 300);
         }
         
@@ -1849,7 +1803,6 @@
                 square.tier = tier;
                 square.price = TIERS[tier].price;
                 
-                // تسجيل الدفع
                 payments.push({
                     id: payments.length + 1,
                     user: name,
@@ -1870,7 +1823,6 @@
                     date: new Date().toISOString()
                 });
                 
-                // حفظ البيانات
                 saveToStorage('squares', allSquares);
                 saveToStorage('payments', payments);
                 saveToStorage('subscribers', subscribers);
@@ -1891,7 +1843,7 @@
         // دوال الاشتراك
         // ============================================
         function renderSubscriptionPlans() {
-            const container = document.querySelector('#subscriptionModal .grid');
+            const container = document.getElementById('subscriptionPlansContainer');
             container.innerHTML = '';
             
             const tierKeys = Object.keys(TIERS);
@@ -2130,6 +2082,175 @@
         }
         
         // ============================================
+        // دوال إدارة البنوك - الإصلاح الكامل
+        // ============================================
+        function deleteBankAccount(bankId) {
+            if (!confirm(getTranslation('confirmDeleteBank', 'هل أنت متأكد من حذف هذا البنك نهائياً؟'))) {
+                return;
+            }
+            
+            try {
+                // حذف البنك من القائمة
+                paymentAccounts.banks = paymentAccounts.banks.filter(b => b.id !== bankId);
+                
+                // حفظ التغييرات في LocalStorage
+                saveToStorage('paymentAccounts', paymentAccounts);
+                
+                // تحديث الواجهة
+                renderPaymentSettings();
+                showToast(getTranslation('bankDeleted', '✅ تم حذف البنك بنجاح'), 'success');
+                
+                // إعادة تحميل البيانات للتأكد
+                paymentAccounts = loadFromStorage('paymentAccounts', paymentAccounts);
+                
+            } catch(e) {
+                console.error('Delete bank error:', e);
+                showToast(getTranslation('bankDeleteError', '❌ حدث خطأ أثناء حذف البنك'), 'error');
+            }
+        }
+        
+        function addBankAccount() {
+            const bankName = prompt(getTranslation('enterBankName', 'أدخل اسم البنك:'));
+            if (!bankName) return;
+            
+            const accountNumber = prompt(getTranslation('enterAccountNumber', 'أدخل رقم الحساب:'));
+            if (!accountNumber) return;
+            
+            const iban = prompt(getTranslation('enterIban', 'أدخل IBAN:'));
+            if (!iban) return;
+            
+            const swift = prompt(getTranslation('enterSwift', 'أدخل رمز SWIFT:'));
+            if (!swift) return;
+            
+            try {
+                // إنشاء بنك جديد
+                const newBank = {
+                    id: Date.now(),
+                    name: bankName,
+                    accountNumber: accountNumber,
+                    iban: iban,
+                    swift: swift,
+                    enabled: true,
+                    createdAt: new Date().toISOString()
+                };
+                
+                if (!paymentAccounts.banks) {
+                    paymentAccounts.banks = [];
+                }
+                paymentAccounts.banks.push(newBank);
+                
+                saveToStorage('paymentAccounts', paymentAccounts);
+                renderPaymentSettings();
+                showToast(getTranslation('bankAdded', '✅ تم إضافة البنك بنجاح'), 'success');
+                paymentAccounts = loadFromStorage('paymentAccounts', paymentAccounts);
+                
+            } catch(e) {
+                console.error('Add bank error:', e);
+                showToast(getTranslation('bankAddError', '❌ حدث خطأ أثناء إضافة البنك'), 'error');
+            }
+        }
+        
+        function savePaymentSettings() {
+            try {
+                const paypalEmail = document.getElementById('settingsPaypalEmail')?.value?.trim();
+                if (paypalEmail) {
+                    paymentAccounts.paypal.email = paypalEmail;
+                    paymentAccounts.paypal.enabled = true;
+                }
+                
+                const stripeKey = document.getElementById('settingsStripeKey')?.value?.trim();
+                if (stripeKey) {
+                    paymentAccounts.stripe.publicKey = stripeKey;
+                    paymentAccounts.stripe.enabled = true;
+                }
+                
+                saveToStorage('paymentAccounts', paymentAccounts);
+                renderPaymentSettings();
+                showToast(getTranslation('paymentUpdated', '✅ تم تحديث بيانات الدفع'), 'success');
+                paymentAccounts = loadFromStorage('paymentAccounts', paymentAccounts);
+                
+            } catch(e) {
+                console.error('Save payment settings error:', e);
+                showToast(getTranslation('settingsError', '❌ حدث خطأ في حفظ الإعدادات'), 'error');
+            }
+        }
+        
+        function renderPaymentSettings() {
+            const container = document.getElementById('paymentSettingsContainer');
+            if (!container) return;
+            
+            const banks = paymentAccounts.banks || [];
+            const paypal = paymentAccounts.paypal || {};
+            const stripe = paymentAccounts.stripe || {};
+            
+            container.innerHTML = `
+                <div class="space-y-6">
+                    <!-- PayPal -->
+                    <div class="glass-effect-light p-4 rounded-xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold"><i class="fab fa-paypal text-blue-400"></i> PayPal</h4>
+                        </div>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">${getTranslation('paypalEmail', 'البريد الإلكتروني')}</label>
+                                <input type="email" id="settingsPaypalEmail" value="${paypal.email || ''}" 
+                                       class="w-full px-4 py-2 bg-white/5 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
+                            </div>
+                            <button onclick="savePaymentSettings()" class="px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition text-sm">
+                                <i class="fas fa-save"></i> ${getTranslation('savePaypal', 'حفظ PayPal')}
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- البنوك -->
+                    <div class="glass-effect-light p-4 rounded-xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold"><i class="fas fa-university text-green-400"></i> ${getTranslation('bankAccounts', 'الحسابات البنكية')}</h4>
+                            <button onclick="addBankAccount()" class="px-3 py-1 bg-green-600 rounded-full hover:bg-green-700 transition text-sm">
+                                <i class="fas fa-plus"></i> ${getTranslation('addBank', 'إضافة بنك')}
+                            </button>
+                        </div>
+                        
+                        ${banks.length === 0 ? `
+                            <p class="text-gray-400 text-sm">${getTranslation('noBanks', 'لا توجد حسابات بنكية')}</p>
+                        ` : `
+                            <div class="space-y-2">
+                                ${banks.map(bank => `
+                                    <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+                                        <div>
+                                            <p class="font-bold">${bank.name}</p>
+                                            <p class="text-sm text-gray-400">${bank.accountNumber}</p>
+                                            <p class="text-xs text-gray-500">IBAN: ${bank.iban}</p>
+                                            ${bank.swift ? `<p class="text-xs text-gray-500">SWIFT: ${bank.swift}</p>` : ''}
+                                        </div>
+                                        <button onclick="deleteBankAccount(${bank.id})" class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `}
+                    </div>
+                    
+                    <!-- Stripe -->
+                    <div class="glass-effect-light p-4 rounded-xl">
+                        <h4 class="font-bold mb-3"><i class="fab fa-stripe text-purple-400"></i> Stripe</h4>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">${getTranslation('stripeKey', 'المفتاح العام')}</label>
+                                <input type="text" id="settingsStripeKey" value="${stripe.publicKey || ''}" 
+                                       class="w-full px-4 py-2 bg-white/5 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
+                            </div>
+                            <button onclick="savePaymentSettings()" class="px-4 py-2 bg-purple-600 rounded-full hover:bg-purple-700 transition text-sm">
+                                <i class="fas fa-save"></i> ${getTranslation('saveStripe', 'حفظ Stripe')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // ============================================
         // دوال لوحة تحكم المسؤول
         // ============================================
         function adminLogin(event) {
@@ -2137,7 +2258,6 @@
             const username = document.getElementById('adminUser').value;
             const password = document.getElementById('adminPass').value;
             
-            // التحقق من بيانات المسؤول
             const admin = adminData.admins.find(a => a.username === username);
             if (admin && (password === adminData.password || password === 'admin123')) {
                 isAdminLoggedIn = true;
@@ -2164,7 +2284,6 @@
             }
             
             const content = document.getElementById('adminContent');
-            const lang = currentLang;
             
             const sections = {
                 dashboard: `
@@ -2350,53 +2469,41 @@
                 `,
                 settings: `
                     <h2 class="text-2xl font-bold mb-6" data-i18n="adminSettings">⚙️ ${getTranslation('adminSettings', 'إعدادات الموقع')}</h2>
-                    <div class="glass-effect p-4 space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-1">${getTranslation('siteName', 'اسم الموقع')}</label>
-                            <input type="text" id="settingsSiteName" value="${getTranslation('siteTitle', 'مليون مربع')}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-1">${getTranslation('adminUsername', 'اسم المستخدم للمسؤول')}</label>
-                            <input type="text" id="settingsAdminUser" value="${adminData.username}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-1">${getTranslation('adminPassword', 'كلمة المرور الجديدة')}</label>
-                            <input type="password" id="settingsAdminPass" placeholder="اتركه فارغاً للاحتفاظ بكلمة المرور الحالية" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                        </div>
-                        <div class="border-t border-white/10 pt-4 mt-4">
-                            <h4 class="font-bold mb-3">💳 ${getTranslation('paymentSettings', 'إعدادات الدفع')}</h4>
-                            <div>
-                                <label class="block text-sm font-medium mb-1">${getTranslation('paypalEmail', 'حساب PayPal')}</label>
-                                <input type="text" id="settingsPaypalEmail" value="${paymentAccounts.paypal.email}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                            </div>
-                            <div class="grid grid-cols-2 gap-4 mt-2">
+                    <div class="space-y-6">
+                        <div class="glass-effect p-4 rounded-xl">
+                            <h3 class="font-bold mb-4">${getTranslation('siteSettings', 'إعدادات الموقع')}</h3>
+                            <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1">${getTranslation('bankName', 'اسم البنك')}</label>
-                                    <input type="text" id="settingsBankName" value="${paymentAccounts.bank.name}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('siteName', 'اسم الموقع')}</label>
+                                    <input type="text" id="settingsSiteName" value="${getTranslation('siteTitle', 'مليون مربع')}" 
+                                           class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1">IBAN</label>
-                                    <input type="text" id="settingsIban" value="${paymentAccounts.bank.iban}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('adminUsername', 'اسم المستخدم للمسؤول')}</label>
+                                    <input type="text" id="settingsAdminUser" value="${adminData.username}" 
+                                           class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
                                 </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('adminPassword', 'كلمة المرور الجديدة')}</label>
+                                    <input type="password" id="settingsAdminPass" placeholder="${getTranslation('keepEmpty', 'اتركه فارغاً للاحتفاظ بكلمة المرور الحالية')}" 
+                                           class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
+                                </div>
+                                <button onclick="saveSettings()" class="px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition">
+                                    <i class="fas fa-save"></i> ${getTranslation('saveSettings', 'حفظ الإعدادات')}
+                                </button>
                             </div>
                         </div>
-                        <button onclick="saveSettings()" class="px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition">
-                            <i class="fas fa-save"></i> ${getTranslation('saveSettings', 'حفظ الإعدادات')}
-                        </button>
+                        
+                        <div class="glass-effect p-4 rounded-xl">
+                            <h3 class="font-bold mb-4">💳 ${getTranslation('paymentSettings', 'إعدادات الدفع')}</h3>
+                            <div id="paymentSettingsContainer"></div>
+                        </div>
                     </div>
                 `
             };
             
             content.innerHTML = sections[section] || sections.dashboard;
-            
-            // إعادة تطبيق الترجمة على المحتوى الجديد
-            document.querySelectorAll('#adminContent [data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                const translation = getTranslation(key, key);
-                if (translation) {
-                    el.textContent = translation;
-                }
-            });
+            renderPaymentSettings();
         }
         
         // ============================================
@@ -2404,13 +2511,11 @@
         // ============================================
         function saveSettings() {
             try {
-                // حفظ اسم المستخدم وكلمة المرور
                 const newUsername = document.getElementById('settingsAdminUser').value.trim();
                 const newPassword = document.getElementById('settingsAdminPass').value.trim();
                 
                 if (newUsername) {
                     adminData.username = newUsername;
-                    // تحديث المشرف الرئيسي
                     const mainAdmin = adminData.admins.find(a => a.id === 1);
                     if (mainAdmin) {
                         mainAdmin.username = newUsername;
@@ -2421,30 +2526,10 @@
                     adminData.password = newPassword;
                 }
                 
-                // حفظ بيانات الدفع
-                const paypalEmail = document.getElementById('settingsPaypalEmail').value.trim();
-                if (paypalEmail) {
-                    paymentAccounts.paypal.email = paypalEmail;
-                }
-                
-                const bankName = document.getElementById('settingsBankName').value.trim();
-                if (bankName) {
-                    paymentAccounts.bank.name = bankName;
-                }
-                
-                const iban = document.getElementById('settingsIban').value.trim();
-                if (iban) {
-                    paymentAccounts.bank.iban = iban;
-                }
-                
-                // حفظ في LocalStorage
                 saveToStorage('adminData', adminData);
-                saveToStorage('paymentAccounts', paymentAccounts);
-                
                 showToast(getTranslation('settingsSaved', '✅ تم حفظ الإعدادات بنجاح'), 'success');
-                
-                // تحديث اسم المسؤول في الشريط الجانبي
                 document.getElementById('adminName').textContent = adminData.admins.find(a => a.id === 1)?.name || adminData.username;
+                
             } catch(e) {
                 showToast(getTranslation('settingsError', '❌ حدث خطأ في حفظ الإعدادات'), 'error');
                 console.error('Save settings error:', e);
@@ -2574,13 +2659,10 @@
         
         function suspendSubscriber(squareNumber) {
             if (confirm(getTranslation('confirmSuspendSubscriber', 'هل أنت متأكد من تعليق اشتراك هذا المشترك؟'))) {
-                const subscriber = subscribers.find(s => s.square === squareNumber);
-                if (subscriber) {
-                    subscribers = subscribers.filter(s => s.square !== squareNumber);
-                    saveToStorage('subscribers', subscribers);
-                    showAdminSection('subscribers');
-                    showToast(getTranslation('subscriberSuspended', 'تم تعليق اشتراك المشترك'), 'success');
-                }
+                subscribers = subscribers.filter(s => s.square !== squareNumber);
+                saveToStorage('subscribers', subscribers);
+                showAdminSection('subscribers');
+                showToast(getTranslation('subscriberSuspended', 'تم تعليق اشتراك المشترك'), 'success');
             }
         }
         
@@ -2626,7 +2708,6 @@
             updateStats();
             renderSupportersModal();
             
-            // إعادة تطبيق الترجمة
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 const translation = getTranslation(key, key);
@@ -2640,25 +2721,13 @@
         // تهيئة التطبيق
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
-            // تعيين اللغة الحالية
             setLanguage(currentLang);
             
-            // ربط أحداث الفلترة
             document.getElementById('searchInput').addEventListener('input', filterSquares);
             document.getElementById('tierFilter').addEventListener('change', filterSquares);
             document.getElementById('categoryFilter').addEventListener('change', filterSquares);
             document.getElementById('statusFilter').addEventListener('change', filterSquares);
             
-            // إغلاق قائمة اللغة عند النقر خارجها
-            document.addEventListener('click', function(e) {
-                const dropdown = document.getElementById('languageDropdown');
-                const selector = document.querySelector('.language-selector');
-                if (selector && !selector.contains(e.target)) {
-                    dropdown.classList.remove('show');
-                }
-            });
-            
-            // تهيئة العرض
             renderAll();
             
             console.log('🏆 مليون مربع - المنصة البصرية التفاعلية');
@@ -2666,6 +2735,7 @@
             console.log(`🌍 دعم ${Object.keys(translations).length} لغة`);
             console.log('✨ جميع الميزات مفعلة مع حفظ البيانات في LocalStorage');
             console.log('🔐 دخول المسؤول: admin / admin123');
+            console.log('🏦 عدد البنوك المحفوظة: ' + (paymentAccounts.banks?.length || 0));
         });
     </script>
 </body>
