@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO Meta Tags -->
+    <!-- ======== Pinterest Verification ======== -->
+    <meta name="p:domain_verify" content="a1e0fd10cdf3cabb0847b5c5226d9382"/>
+    
+    <!-- ======== SEO Meta Tags ======== -->
     <title>🏆 Million Squares - The First Interactive Visual Platform</title>
     <meta name="description" content="Million Squares is the first interactive visual platform in the Arab world. Buy your interactive advertising square and start building your digital community today.">
     <meta name="keywords" content="Million Squares, interactive platform, square ads, digital marketing, digital community, interactive ads, PayPal, support, subscription">
@@ -12,18 +15,23 @@
     <meta name="author" content="Million Squares">
     <link rel="canonical" href="https://million-squares.com">
     
-    <!-- Open Graph -->
+    <!-- ======== Open Graph ======== -->
     <meta property="og:title" content="Million Squares - The First Interactive Visual Platform">
     <meta property="og:description" content="The first interactive visual platform in the Arab world. Buy your interactive advertising square today.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://million-squares.com">
+    <meta property="og:image" content="https://million-squares.com/og-image.jpg">
     
-    <!-- Twitter Card -->
+    <!-- ======== Twitter Card ======== -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Million Squares - The First Interactive Visual Platform">
     <meta name="twitter:description" content="The first interactive visual platform in the Arab world.">
+    <meta name="twitter:image" content="https://million-squares.com/twitter-image.jpg">
     
-    <!-- Schema.org -->
+    <!-- ======== Pinterest Specific ======== -->
+    <meta name="pinterest-rich-pin" content="true"/>
+    
+    <!-- ======== Schema.org ======== -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -31,23 +39,285 @@
         "name": "Million Squares",
         "description": "The first interactive visual platform in the Arab world",
         "applicationCategory": "SocialMedia",
-        "operatingSystem": "All"
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "1",
+            "priceCurrency": "USD"
+        }
     }
     </script>
     
-    <!-- Tailwind CSS -->
+    <!-- ======== Tailwind CSS ======== -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome -->
+    <!-- ======== Font Awesome ======== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Google Fonts -->
+    <!-- ======== Google Fonts ======== -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     
-    <!-- PayPal SDK -->
+    <!-- ======== PayPal SDK ======== -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons,hosted-fields"></script>
     
     <style>
+        /* ======== أنماط المساعد الذكي ======== */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+        
+        .ai-assistant .toggle-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .ai-assistant .toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        .ai-assistant .toggle-btn .notification-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            background: #fc8181;
+            border-radius: 50%;
+            border: 3px solid #1a1a2e;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        
+        .ai-assistant .chat-window {
+            width: 380px;
+            max-width: 90vw;
+            max-height: 500px;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+            display: none;
+            overflow: hidden;
+            flex-direction: column;
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        .ai-assistant .chat-window.open {
+            display: flex;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .ai-assistant .chat-header {
+            padding: 16px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ai-assistant .chat-header .title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .ai-assistant .chat-header .title .ai-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .ai-assistant .chat-header .close-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ai-assistant .chat-header .close-btn:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+        
+        .ai-assistant .chat-messages {
+            flex: 1;
+            padding: 16px 20px;
+            overflow-y: auto;
+            max-height: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .ai-assistant .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+        .ai-assistant .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .ai-assistant .chat-messages::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+        
+        .ai-assistant .message {
+            max-width: 85%;
+            padding: 10px 16px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            animation: msgIn 0.3s ease-out;
+        }
+        
+        @keyframes msgIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .ai-assistant .message.bot {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .ai-assistant .message.user {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .ai-assistant .message .time {
+            font-size: 0.6rem;
+            opacity: 0.4;
+            margin-top: 4px;
+            display: block;
+        }
+        
+        .ai-assistant .chat-input {
+            padding: 12px 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .ai-assistant .chat-input input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .ai-assistant .chat-input input:focus {
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .ai-assistant .chat-input input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .ai-assistant .chat-input .send-btn {
+            padding: 10px 18px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .ai-assistant .chat-input .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .ai-assistant .quick-actions {
+            padding: 8px 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        
+        .ai-assistant .quick-actions button {
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ai-assistant .quick-actions button:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: #fff;
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        /* باقي الأنماط */
         * {
             font-family: 'Tajawal', sans-serif;
             margin: 0;
@@ -168,7 +438,7 @@
         .language-item.active { background: rgba(102, 126, 234, 0.25); color: #fff; border-right: 4px solid #667eea; }
         .language-item .check { color: #48bb78; font-size: 1.2rem; }
         
-        /* ======== المربعات - أكبر حجماً ======== */
+        /* ======== المربعات ======== */
         .mini-square {
             aspect-ratio: 1;
             border-radius: 12px;
@@ -204,7 +474,7 @@
         }
         .mini-square .square-emoji { font-size: 2rem; }
         
-        /* ======== تنسيق البطاقات ======== */
+        /* ======== بطاقات ======== */
         .square-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -228,13 +498,11 @@
         }
         .square-card:hover .glow { opacity: 1; }
         
-        /* فئات المربعات */
         .tier-basic { background: linear-gradient(135deg, #1a202c, #2d3748); border: 2px solid #4a5568; }
         .tier-silver { background: linear-gradient(135deg, #2d3748, #718096); border: 2px solid #a0aec0; }
         .tier-gold { background: linear-gradient(135deg, #744210, #975a16); border: 2px solid #d69e2e; }
         .tier-platinum { background: linear-gradient(135deg, #4a5568, #e2e8f0); border: 2px solid #e2e8f0; }
         
-        /* شارات الحالة */
         .status-badge {
             padding: 4px 14px;
             border-radius: 20px;
@@ -247,7 +515,6 @@
         .status-sold { background: #fc8181; color: #fff; }
         .status-reserved { background: #ecc94b; color: #1a202c; }
         
-        /* حاوية التمرير */
         .scroll-container {
             overflow-x: auto;
             scroll-behavior: smooth;
@@ -260,7 +527,6 @@
         .scroll-container::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 10px; }
         .scroll-container::-webkit-scrollbar-thumb:hover { background: linear-gradient(90deg, #764ba2, #667eea); }
         
-        /* شريط الإعلانات */
         .ad-slider {
             overflow: hidden;
             position: relative;
@@ -294,7 +560,6 @@
             100% { transform: translateX(0); }
         }
         
-        /* بطاقات الاشتراك */
         .subscription-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
@@ -353,64 +618,6 @@
             text-transform: uppercase;
         }
         
-        /* ======== أيقونات التواصل الاجتماعي ======== */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 1.3rem;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        .social-icons a:hover {
-            transform: translateY(-4px) scale(1.1);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-        .social-icons a .social-label {
-            display: none;
-        }
-        .social-icons a:hover .social-label {
-            display: inline;
-        }
-        .social-icons a.email { background: rgba(220, 78, 65, 0.2); border-color: rgba(220, 78, 65, 0.3); }
-        .social-icons a.email:hover { background: rgba(220, 78, 65, 0.4); box-shadow: 0 8px 25px rgba(220, 78, 65, 0.3); }
-        .social-icons a.twitter { background: rgba(29, 161, 242, 0.2); border-color: rgba(29, 161, 242, 0.3); }
-        .social-icons a.twitter:hover { background: rgba(29, 161, 242, 0.4); box-shadow: 0 8px 25px rgba(29, 161, 242, 0.3); }
-        .social-icons a.linkedin { background: rgba(0, 119, 181, 0.2); border-color: rgba(0, 119, 181, 0.3); }
-        .social-icons a.linkedin:hover { background: rgba(0, 119, 181, 0.4); box-shadow: 0 8px 25px rgba(0, 119, 181, 0.3); }
-        .social-icons a.github { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
-        .social-icons a.github:hover { background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15); }
-        .social-icons a.youtube { background: rgba(255, 0, 0, 0.15); border-color: rgba(255, 0, 0, 0.2); }
-        .social-icons a.youtube:hover { background: rgba(255, 0, 0, 0.35); box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3); }
-        .social-icons a.instagram { background: rgba(225, 48, 108, 0.15); border-color: rgba(225, 48, 108, 0.2); }
-        .social-icons a.instagram:hover { background: rgba(225, 48, 108, 0.35); box-shadow: 0 8px 25px rgba(225, 48, 108, 0.3); }
-        .social-icons a.facebook { background: rgba(24, 119, 242, 0.15); border-color: rgba(24, 119, 242, 0.2); }
-        .social-icons a.facebook:hover { background: rgba(24, 119, 242, 0.35); box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
-        .social-icons a.tiktok { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); }
-        .social-icons a.tiktok:hover { background: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15); }
-        .social-icons a.whatsapp { background: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.2); }
-        .social-icons a.whatsapp:hover { background: rgba(37, 211, 102, 0.35); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); }
-        
-        .footer-social {
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 16px;
-            margin-top: 16px;
-        }
-        
-        /* لوحة التحكم */
         .admin-sidebar {
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(15px);
@@ -437,7 +644,6 @@
         }
         .admin-sidebar a i { width: 22px; text-align: center; font-size: 1.1rem; }
         
-        /* المودالات */
         .modal-overlay {
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
@@ -452,7 +658,6 @@
             to { transform: scale(1) translateY(0); opacity: 1; }
         }
         
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -477,7 +682,6 @@
         }
         .toast i { margin-left: 10px; }
         
-        /* جداول */
         .admin-table {
             width: 100%;
             border-collapse: collapse;
@@ -523,7 +727,6 @@
             transition: width 0.3s;
         }
         
-        /* مميزات */
         .feature-banner {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
             border: 1px solid rgba(102, 126, 234, 0.2);
@@ -558,7 +761,6 @@
             -webkit-text-fill-color: transparent;
         }
         
-        /* اقتراحات */
         .suggestion-item {
             background: rgba(255,255,255,0.03);
             border-radius: 12px;
@@ -570,13 +772,8 @@
             background: rgba(255,255,255,0.06);
             border-color: rgba(102, 126, 234, 0.2);
         }
-        .suggestion-item .suggestion-text {
-            color: rgba(255,255,255,0.8);
-        }
-        .suggestion-item .suggestion-date {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.3);
-        }
+        .suggestion-item .suggestion-text { color: rgba(255,255,255,0.8); }
+        .suggestion-item .suggestion-date { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
         .suggestion-item .suggestion-status {
             font-size: 0.7rem;
             padding: 2px 10px;
@@ -585,6 +782,56 @@
         .suggestion-item .suggestion-status.pending { background: rgba(236, 201, 75, 0.2); color: #ecc94b; }
         .suggestion-item .suggestion-status.approved { background: rgba(72, 187, 120, 0.2); color: #48bb78; }
         .suggestion-item .suggestion-status.rejected { background: rgba(252, 129, 129, 0.2); color: #fc8181; }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .social-icons a:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .social-icons a.email { background: rgba(220, 78, 65, 0.2); border-color: rgba(220, 78, 65, 0.3); }
+        .social-icons a.email:hover { background: rgba(220, 78, 65, 0.4); box-shadow: 0 8px 25px rgba(220, 78, 65, 0.3); }
+        .social-icons a.twitter { background: rgba(29, 161, 242, 0.2); border-color: rgba(29, 161, 242, 0.3); }
+        .social-icons a.twitter:hover { background: rgba(29, 161, 242, 0.4); box-shadow: 0 8px 25px rgba(29, 161, 242, 0.3); }
+        .social-icons a.linkedin { background: rgba(0, 119, 181, 0.2); border-color: rgba(0, 119, 181, 0.3); }
+        .social-icons a.linkedin:hover { background: rgba(0, 119, 181, 0.4); box-shadow: 0 8px 25px rgba(0, 119, 181, 0.3); }
+        .social-icons a.github { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
+        .social-icons a.github:hover { background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15); }
+        .social-icons a.youtube { background: rgba(255, 0, 0, 0.15); border-color: rgba(255, 0, 0, 0.2); }
+        .social-icons a.youtube:hover { background: rgba(255, 0, 0, 0.35); box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3); }
+        .social-icons a.instagram { background: rgba(225, 48, 108, 0.15); border-color: rgba(225, 48, 108, 0.2); }
+        .social-icons a.instagram:hover { background: rgba(225, 48, 108, 0.35); box-shadow: 0 8px 25px rgba(225, 48, 108, 0.3); }
+        .social-icons a.facebook { background: rgba(24, 119, 242, 0.15); border-color: rgba(24, 119, 242, 0.2); }
+        .social-icons a.facebook:hover { background: rgba(24, 119, 242, 0.35); box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3); }
+        .social-icons a.tiktok { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.1); }
+        .social-icons a.tiktok:hover { background: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15); }
+        .social-icons a.whatsapp { background: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.2); }
+        .social-icons a.whatsapp:hover { background: rgba(37, 211, 102, 0.35); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); }
+        
+        .footer-social {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 16px;
+            margin-top: 16px;
+        }
         
         @media (max-width: 768px) {
             .admin-sidebar { width: 100%; min-height: auto; max-height: 60vh; overflow-y: auto; }
@@ -598,6 +845,9 @@
             .mini-square .square-emoji { font-size: 1.4rem; }
             .language-btn { min-width: 120px; font-size: 0.8rem; padding: 8px 12px; }
             .social-icons a { width: 40px; height: 40px; font-size: 1rem; }
+            .ai-assistant .chat-window { width: 90vw; max-height: 400px; }
+            .ai-assistant { bottom: 20px; right: 20px; }
+            .ai-assistant .toggle-btn { width: 55px; height: 55px; font-size: 1.5rem; }
         }
         
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -606,6 +856,41 @@
     </style>
 </head>
 <body>
+    <!-- ============================================ -->
+    <!-- مساعد الذكاء الاصطناعي -->
+    <!-- ============================================ -->
+    <div class="ai-assistant" id="aiAssistant">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="title">
+                    <div class="ai-icon">🤖</div>
+                    <span id="aiTitle">مساعد مليون مربع الذكي</span>
+                </div>
+                <button class="close-btn" onclick="toggleChat()">×</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    👋 مرحباً بك في مليون مربع! أنا مساعدك الذكي، كيف يمكنني مساعدتك اليوم؟
+                    <span class="time">الآن</span>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <button onclick="sendQuickMessage('كيف يمكنني شراء مربع؟')">🛒 شراء مربع</button>
+                <button onclick="sendQuickMessage('ما هي خطط الاشتراك؟')">💎 خطط الاشتراك</button>
+                <button onclick="sendQuickMessage('كيف يمكنني التواصل مع الدعم؟')">📞 الدعم</button>
+                <button onclick="sendQuickMessage('ما هي مميزات المنصة؟')">✨ المميزات</button>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="اكتب رسالتك هنا..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="toggle-btn" onclick="toggleChat()" id="chatToggleBtn">
+            <i class="fas fa-robot"></i>
+            <span class="notification-dot"></span>
+        </button>
+    </div>
+    
     <!-- ============================================ -->
     <!-- واجهة المستخدم الرئيسية -->
     <!-- ============================================ -->
@@ -734,7 +1019,7 @@
             </div>
         </div>
         
-        <!-- ======== شبكة المربعات - أكبر حجماً ======== -->
+        <!-- ======== شبكة المربعات ======== -->
         <div class="glass-effect p-4 mb-6">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold" id="squaresGridTitle">🗂️ المربعات</h3>
@@ -791,7 +1076,7 @@
             </div>
         </div>
         
-        <!-- ======== الفوتر مع وسائل التواصل ======== -->
+        <!-- ======== الفوتر ======== -->
         <footer class="text-center text-gray-400 text-sm border-t border-white/5 pt-6 pb-4">
             <div class="mb-4 flex flex-wrap justify-center gap-4 text-xs text-gray-500">
                 <span>#مليون_مربع</span>
@@ -805,11 +1090,8 @@
                 <span>#اشتراك</span>
             </div>
             
-            <!-- وسائل التواصل الاجتماعي -->
             <div class="footer-social">
-                <div class="social-icons" id="socialIconsContainer">
-                    <!-- سيتم ملؤها من لوحة التحكم -->
-                </div>
+                <div class="social-icons" id="socialIconsContainer"></div>
             </div>
             
             <p class="mt-4">© 2026 <span id="siteTitleFooter">مليون مربع</span> - <span id="footerText">المنصة البصرية التفاعلية الأولى في العالم العربي</span></p>
@@ -818,7 +1100,7 @@
     </div>
     
     <!-- ============================================ -->
-    <!-- النوافذ المنبثقة -->
+    <!-- النوافذ المنبثقة (اختصاراً) -->
     <!-- ============================================ -->
     
     <!-- نافذة التعريف -->
@@ -999,7 +1281,7 @@
         </div>
     </div>
     
-    <!-- ======== نافذة الاقتراحات ======== -->
+    <!-- نافذة الاقتراحات -->
     <div id="suggestionModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
         <div class="glass-effect p-8 max-w-2xl w-full mx-4 modal-content">
             <div class="flex justify-between items-center mb-6">
@@ -1007,7 +1289,6 @@
                 <button onclick="closeModal('suggestionModal')" class="text-gray-400 hover:text-white text-3xl">&times;</button>
             </div>
             
-            <!-- نموذج إضافة اقتراح -->
             <div class="glass-effect-light p-4 rounded-xl mb-6">
                 <h4 class="font-bold mb-3" id="addSuggestionTitle">✍️ أضف اقتراحك</h4>
                 <form onsubmit="addSuggestion(event)" class="space-y-3">
@@ -1023,12 +1304,9 @@
                 </form>
             </div>
             
-            <!-- قائمة الاقتراحات -->
             <div>
                 <h4 class="font-bold mb-3" id="suggestionsListTitle">📋 الاقتراحات السابقة</h4>
-                <div id="suggestionsList" class="space-y-2">
-                    <!-- سيتم ملؤها بـ JavaScript -->
-                </div>
+                <div id="suggestionsList" class="space-y-2"></div>
             </div>
         </div>
     </div>
@@ -1093,6 +1371,107 @@
     <!-- JavaScript -->
     <!-- ============================================ -->
     <script>
+        // ============================================
+        // مساعد الذكاء الاصطناعي
+        // ============================================
+        let isChatOpen = false;
+        let chatMessages = [];
+        
+        // الردود الذكية
+        const aiResponses = {
+            'شراء مربع': 'يمكنك شراء مربع باتباع الخطوات التالية:\n1. اختر المربع المناسب من الشبكة\n2. اضغط على المربع لفتح نافذة الشراء\n3. اختر باقة الاشتراك المناسبة\n4. املأ بياناتك الشخصية\n5. قم بالدفع عبر PayPal\n\nهل تريد المساعدة في أي خطوة؟',
+            'خطط الاشتراك': 'لدينا 4 خطط اشتراك:\n💎 عادي: $1/سنة - اسم، صورة، اختصاص، بريد، عنوان\n⭐ فضي: $5/سنة - جميع ميزات العادي + رقم هاتف + إطار فضي\n👑 ذهبي: $10/سنة - جميع ميزات الفضي + تخصيص اللون + إطار ذهبي + روابط التواصل\n💠 ماسي: $100/سنة - جميع ميزات الذهبي + إطار ماسي + أولوية الظهور + شارة مميزة',
+            'الدعم': 'يمكنك التواصل مع فريق الدعم عبر:\n📧 البريد الإلكتروني: support@million-squares.com\n📱 واتساب: +966 500000000\n🌐 من خلال صفحة التواصل في الموقع\n\nنحن هنا لمساعدتك!',
+            'المميزات': 'مميزات منصة مليون مربع:\n🚀 أول منصة بصرية تفاعلية في العالم العربي\n💎 مليون مربع إعلاني للاختيار\n🌍 دعم 24 لغة عالمية\n🔒 مدفوعات آمنة عبر PayPal\n📊 تحليلات متقدمة للمربعات\n🤝 مجتمع نشط وداعم\n✨ إطارات مميزة لكل فئة اشتراك'
+        };
+        
+        function toggleChat() {
+            const window = document.getElementById('chatWindow');
+            const btn = document.getElementById('chatToggleBtn');
+            isChatOpen = !isChatOpen;
+            
+            if (isChatOpen) {
+                window.classList.add('open');
+                btn.style.background = 'linear-gradient(135deg, #fc8181, #f56565)';
+                document.getElementById('chatInput').focus();
+            } else {
+                window.classList.remove('open');
+                btn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+            }
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            addMessage(text, 'user');
+            input.value = '';
+            
+            // البحث عن رد مناسب
+            setTimeout(() => {
+                const response = getAIResponse(text);
+                addMessage(response, 'bot');
+            }, 500 + Math.random() * 500);
+        }
+        
+        function sendQuickMessage(text) {
+            addMessage(text, 'user');
+            document.getElementById('chatInput').value = '';
+            
+            setTimeout(() => {
+                const response = getAIResponse(text);
+                addMessage(response, 'bot');
+            }, 500 + Math.random() * 500);
+        }
+        
+        function addMessage(text, sender) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            
+            // تحويل النص إلى HTML مع فواصل الأسطر
+            const formattedText = text.replace(/\n/g, '<br>');
+            div.innerHTML = `${formattedText}<span class="time">${new Date().toLocaleTimeString()}</span>`;
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            
+            // حفظ الرسائل
+            chatMessages.push({ text, sender, time: new Date() });
+        }
+        
+        function getAIResponse(text) {
+            const lowerText = text.toLowerCase();
+            
+            // البحث عن كلمات مفتاحية
+            if (lowerText.includes('شراء') || lowerText.includes('مربع') || lowerText.includes('اشتراك')) {
+                if (lowerText.includes('كيف') || lowerText.includes('طريقة') || lowerText.includes('خطوات')) {
+                    return aiResponses['شراء مربع'];
+                }
+                return aiResponses['خطط الاشتراك'];
+            }
+            
+            if (lowerText.includes('خطة') || lowerText.includes('باقة') || lowerText.includes('سعر') || lowerText.includes('دولار')) {
+                return aiResponses['خطط الاشتراك'];
+            }
+            
+            if (lowerText.includes('دعم') || lowerText.includes('تواصل') || lowerText.includes('مساعدة') || lowerText.includes('اتصال')) {
+                return aiResponses['الدعم'];
+            }
+            
+            if (lowerText.includes('مميزات') || lowerText.includes('فوائد') || lowerText.includes('ميزة') || lowerText.includes('ماذا')) {
+                return aiResponses['المميزات'];
+            }
+            
+            if (lowerText.includes('مرحبا') || lowerText.includes('السلام') || lowerText.includes('اهلا') || lowerText.includes('hello')) {
+                return '👋 أهلاً بك! كيف يمكنني مساعدتك اليوم؟\nيمكنني مساعدتك في:\n- شراء مربع\n- خطط الاشتراك\n- التواصل مع الدعم\n- التعرف على المميزات';
+            }
+            
+            // رد عام
+            return '📝 شكراً لسؤالك! أنا هنا لمساعدتك.\nيمكنني تقديم معلومات عن:\n🛒 شراء المربعات\n💎 خطط الاشتراك\n📞 الدعم والمساعدة\n✨ مميزات المنصة\n\nما الذي تود معرفته؟';
+        }
+        
         // ============================================
         // البيانات الأساسية
         // ============================================
@@ -1193,7 +1572,6 @@
         let currentContact = null;
         let currentSquarePage = 0;
         const squaresPerPage = 100;
-        let isAutoScrolling = false;
         let autoScrollInterval = null;
         
         // بيانات المسؤول
@@ -1269,7 +1647,7 @@
         ];
         
         // ============================================
-        // الترجمة
+        // الترجمة (مختصرة)
         // ============================================
         const translations = {
             ar: {
@@ -1428,7 +1806,8 @@
                 socialTiktok: 'تيك توك',
                 socialWhatsapp: 'واتساب',
                 saveSocial: 'حفظ وسائل التواصل',
-                socialSaved: '✅ تم حفظ وسائل التواصل بنجاح'
+                socialSaved: '✅ تم حفظ وسائل التواصل بنجاح',
+                aiTitle: 'مساعد مليون مربع الذكي'
             },
             en: {
                 siteTitle: 'Million Squares', siteSubtitle: '✨ The First Interactive Visual Platform in the Arab World',
@@ -1582,14 +1961,168 @@
                 socialTiktok: 'TikTok',
                 socialWhatsapp: 'WhatsApp',
                 saveSocial: 'Save Social Media',
-                socialSaved: '✅ Social media saved successfully'
+                socialSaved: '✅ Social media saved successfully',
+                aiTitle: 'Million Squares AI Assistant'
             },
             fr: {
-                // ... (traductions françaises similaires)
                 siteTitle: 'Million Squares', siteSubtitle: '✨ La Première Plateforme Visuelle Interactive dans le Monde Arabe',
-                // ... (le reste en français)
+                aboutBtn: 'À propos', subscribeBtn: 'S\'abonner', supportBtn: '💝 Soutenir', advertiseBtn: '📢 Publicité',
+                suggestionBtn: '💡 Suggestion',
+                statTotal: '📦 Total des carrés', statSold: '✅ Vendus', statSubscribers: '👥 Abonnés',
+                statRevenue: '💰 Revenus', statSupporters: '🌟 Supporters',
+                squaresGridTitle: '🗂️ Carrés', featuredTitle: '🏆 Carrés en vedette',
+                footerText: 'La Première Plateforme Visuelle Interactive dans le Monde Arabe',
+                footerLove: 'Développé avec ❤️ dans le Monde Arabe',
+                aboutTitle: '🚀 À propos de Million Squares',
+                aboutDesc1: 'Million Squares est la première plateforme visuelle interactive dans le monde arabe, offrant des carrés publicitaires interactifs permettant aux marques et aux individus de se connecter visuellement avec leur public cible.',
+                aboutDesc2: 'Grâce aux publicités carrées, vous pouvez construire une communauté numérique active, renforcer le marketing numérique et accroître la notoriété de la marque.',
+                howItWorksTitle: '📋 Comment ça marche',
+                step1: 'Choisissez votre carré dans la grille',
+                step2: 'Sélectionnez votre plan d\'abonnement',
+                step3: 'Remplissez vos informations',
+                step4: 'Payez via PayPal ou virement bancaire',
+                step5: 'Activez votre carré et apparaissez sur la plateforme',
+                subscribeTitle: '💎 Plans d\'abonnement',
+                basicTitle: 'Basique', silverTitle: 'Argent', goldTitle: 'Or', platinumTitle: 'Platine',
+                perYear: '/ an',
+                basicFeat1: 'Afficher le nom', basicFeat2: 'Photo de profil', basicFeat3: 'Spécialité',
+                basicFeat4: 'Adresse email', basicFeat5: 'Adresse', basicFeat6: 'Numéro de téléphone', basicFeat7: 'Cadre premium',
+                silverFeat1: 'Toutes les fonctionnalités Basique', silverFeat2: '📱 Numéro de téléphone', silverFeat3: '⭐ Cadre argenté brillant',
+                silverFeat4: '🚀 Visibilité améliorée', silverFeat5: '📊 Statistiques', silverFeat6: 'Personnalisation des couleurs',
+                goldFeat1: 'Toutes les fonctionnalités Argent', goldFeat2: '🎨 Personnalisation des couleurs', goldFeat3: '👑 Cadre en or premium',
+                goldFeat4: '🌐 Liens vers les réseaux sociaux', goldFeat5: '📈 Analyses avancées', goldFeat6: 'Visibilité prioritaire',
+                platinumFeat1: 'Toutes les fonctionnalités Or', platinumFeat2: '💎 Cadre en diamant de luxe',
+                platinumFeat3: '⭐ Visibilité prioritaire maximale', platinumFeat4: '🏅 Badge exclusif',
+                platinumFeat5: '🎁 Cadeaux exclusifs', platinumFeat6: '📞 Support instantané',
+                popularTag: 'Le plus populaire', premiumTag: 'Premium', vipTag: 'VIP',
+                payNowBtn: 'Payer maintenant via PayPal', securePayment: '🔒 Paiement sécurisé via PayPal',
+                purchaseTitle: '🛒 Acheter un carré', squareNumber: 'Numéro du carré:', tier: 'Catégorie:',
+                price: 'Prix:', status: 'Statut:', purchaseFormTitle: '📝 Coordonnées de l\'acheteur',
+                confirmPurchaseBtn: '✅ Confirmer l\'achat',
+                adFormTitle: '📢 Faire de la publicité', companyNameLabel: 'Nom de l\'entreprise',
+                websiteLabel: 'Site web', adDescLabel: 'Description de l\'annonce',
+                adBudgetLabel: 'Budget ($)', submitAdBtn: 'Envoyer la demande',
+                supportTitle: '🌟 Soutenir la plateforme', supportDesc: 'Soutenez Million Squares pour que la plateforme continue de grandir',
+                supportNowBtn: 'Soutenir maintenant',
+                adminLoginTitle: '🔐 Connexion administrateur', adminUsername: 'Nom d\'utilisateur',
+                adminPassword: 'Mot de passe', adminLoginBtn: 'Connexion',
+                adminDefault: 'Admin par défaut: admin / admin123',
+                adminPanelTitle: 'Panneau de contrôle', adminDashboard: 'Tableau de bord',
+                adminSquares: 'Carrés', adminSubscribers: 'Abonnés',
+                adminSupporters: 'Supporters', adminPayments: 'Paiements',
+                adminSuggestions: 'Suggestions', adminSocial: 'Médias sociaux',
+                adminAdmins: 'Administrateurs', adminSettings: 'Paramètres',
+                logoutBtn: 'Déconnexion',
+                allTiers: 'Toutes les catégories', allCategories: 'Tous les domaines', allStatus: 'Tous les statuts',
+                statusAvailable: '🟢 Disponible', statusSold: '🔴 Vendu', statusReserved: '🟡 Réservé',
+                resetBtn: '↺ Réinitialiser', scrollInfo: 'Affichage de 100 sur 1,000,000', scrollHint: 'Faites glisser pour naviguer',
+                catMarketing: 'Marketing', catProgramming: 'Programmation', catDesign: 'Design',
+                catAI: 'IA', catData: 'Analyse de données', catSecurity: 'Cybersécurité',
+                catWebDev: 'Développement web', catGaming: 'Jeux',
+                supportersTitle: '🌟 Supporters & Sponsors', viewWebsite: 'Visiter le site',
+                noSupporters: 'Aucun supporter pour le moment',
+                settingsSaved: '✅ Paramètres enregistrés avec succès', settingsError: '❌ Erreur lors de l\'enregistrement',
+                adminUpdated: '✅ Données administrateur mises à jour', paymentUpdated: '✅ Données de paiement mises à jour',
+                settingsUpdated: '✅ Paramètres mis à jour', supporterWebsite: 'Site web',
+                languageBtn: '🌐 Langue', delete: 'Supprimer',
+                confirmDeleteBank: 'Êtes-vous sûr de vouloir supprimer cette banque définitivement ?',
+                bankDeleted: '✅ Banque supprimée avec succès', bankDeleteError: '❌ Erreur lors de la suppression',
+                addBank: 'Ajouter une banque', noBanks: 'Aucun compte bancaire',
+                bankAccounts: 'Comptes bancaires',
+                enterBankName: 'Entrez le nom de la banque:', enterAccountNumber: 'Entrez le numéro de compte:',
+                enterIban: 'Entrez l\'IBAN:', enterSwift: 'Entrez le code SWIFT:',
+                bankAdded: '✅ Banque ajoutée avec succès', bankAddError: '❌ Erreur lors de l\'ajout',
+                savePaypal: 'Enregistrer PayPal', saveStripe: 'Enregistrer Stripe',
+                stripeKey: 'Clé publique', siteSettings: 'Paramètres du site',
+                siteName: 'Nom du site', keepEmpty: 'Laissez vide pour conserver le mot de passe actuel',
+                saveSettings: 'Enregistrer les paramètres', paymentSettings: 'Paramètres de paiement',
+                paypalEmail: 'Email', edit: 'Modifier',
+                owner: 'Propriétaire', actions: 'Actions', name: 'Nom',
+                email: 'Email', square: 'Carré', date: 'Date',
+                user: 'Utilisateur', method: 'Méthode', username: 'Nom d\'utilisateur',
+                role: 'Rôle', permissions: 'Permissions',
+                addAdmin: 'Ajouter un administrateur', addSupporter: 'Ajouter un supporter',
+                squareNotAvailable: 'Ce carré n\'est pas disponible à l\'achat',
+                requiredFields: 'Veuillez entrer le nom et l\'email',
+                purchaseSuccess: '✅ Carré acheté avec succès !',
+                selectPlan: 'Veuillez d\'abord sélectionner un plan d\'abonnement',
+                paymentRedirect: 'Vous serez redirigé vers PayPal',
+                paymentSuccess: '✅ Paiement réussi !',
+                paymentError: '⚠️ Erreur de paiement, veuillez réessayer',
+                loadingPayPal: 'Chargement de PayPal...',
+                supportThanks: 'Merci pour votre soutien',
+                enterAmount: 'Entrez le montant du don ($):',
+                adSubmitted: '✅ Demande de publicité soumise avec succès !',
+                adPlaceholder: 'Soyez le premier supporter', adPlaceholderDesc: 'Soutenez la plateforme et apparaissez ici',
+                recentActivity: 'Activité récente', soldSquare: 'Carré vendu',
+                newSubscriber: 'Nouvel abonné', newPayment: 'Nouveau paiement',
+                noSubscribers: 'Aucun abonné pour le moment', noPayments: 'Aucun paiement pour le moment',
+                noResults: 'Aucun carré correspondant trouvé',
+                squareUpdated: 'Carré mis à jour', squareDeleted: 'Carré supprimé',
+                subscriberUpdated: 'Données de l\'abonné mises à jour',
+                subscriberSuspended: 'Abonnement suspendu',
+                supporterAdded: 'Supporter ajouté avec succès',
+                supporterUpdated: 'Données du supporter mises à jour',
+                adminAdded: 'Administrateur ajouté', adminDeleted: 'Administrateur supprimé',
+                adminLogout: 'Déconnecté',
+                adminLoginSuccess: '✅ Connexion réussie',
+                adminLoginError: '❌ Nom d\'utilisateur ou mot de passe incorrect',
+                confirmDeleteSquare: 'Êtes-vous sûr de vouloir supprimer ce carré ?',
+                confirmSuspendSubscriber: 'Êtes-vous sûr de vouloir suspendre cet abonné ?',
+                cannotDeleteMainAdmin: 'Impossible de supprimer l\'administrateur principal',
+                confirmDeleteAdmin: 'Êtes-vous sûr de vouloir supprimer cet administrateur ?',
+                editAdminName: 'Modifier le nom de l\'administrateur:',
+                editSupporterName: 'Modifier le nom du supporter:',
+                editSquareStatus: 'Modifier le statut du carré (available/sold/reserved):',
+                editSubscriberName: 'Modifier le nom de l\'abonné:',
+                contactTitle: '📩 Contacter l\'abonné',
+                phone: 'Téléphone',
+                sendEmail: 'Envoyer un email',
+                copyInfo: 'Copier les informations',
+                contact: '📩 Contacter',
+                languageSelect: 'Choisir la langue',
+                noEmail: 'Aucun email enregistré',
+                copied: '✅ Informations copiées',
+                testimonialsTitle: '🌟 Ce que disent nos abonnés',
+                testimonial1: '"Une plateforme géniale qui m\'a aidé à construire ma marque professionnellement"',
+                testimonial1Author: '- Ahmed Al-Malki',
+                testimonial2: '"Le meilleur investissement que j\'ai fait cette année, les carrés sont attrayants et efficaces"',
+                testimonial2Author: '- Sarah Al-Khaldi',
+                testimonial3: '"Une communauté active et solidaire, je recommande à tous de s\'inscrire"',
+                testimonial3Author: '- Mohammed Al-Omari',
+                feature1Title: 'Plateforme interactive',
+                feature1Desc: 'La première plateforme visuelle interactive dans le monde arabe',
+                feature2Title: 'Carrés premium',
+                feature2Desc: 'Choisissez parmi un million de carrés publicitaires',
+                feature3Title: 'Portée mondiale',
+                feature3Desc: 'Atteignez un public mondial avec 24 langues',
+                feature4Title: 'Paiement sécurisé',
+                feature4Desc: 'Paiements sécurisés via PayPal et banques',
+                suggestionTitle: '💡 Suggestions des utilisateurs',
+                addSuggestionTitle: '✍️ Ajoutez votre suggestion',
+                submitSuggestionBtn: 'Envoyer la suggestion',
+                suggestionsListTitle: '📋 Suggestions précédentes',
+                noSuggestions: 'Aucune suggestion pour le moment, soyez le premier à partager votre avis !',
+                suggestionAdded: '✅ Votre suggestion a été ajoutée avec succès !',
+                suggestionStatus: 'Statut',
+                suggestionDate: 'Date',
+                suggestionPending: 'En cours d\'examen',
+                suggestionApproved: 'Approuvé',
+                suggestionRejected: 'Rejeté',
+                socialSettings: 'Paramètres des médias sociaux',
+                socialEmail: 'Email',
+                socialTwitter: 'Twitter',
+                socialLinkedin: 'LinkedIn',
+                socialGithub: 'GitHub',
+                socialYoutube: 'YouTube',
+                socialInstagram: 'Instagram',
+                socialFacebook: 'Facebook',
+                socialTiktok: 'TikTok',
+                socialWhatsapp: 'WhatsApp',
+                saveSocial: 'Enregistrer les médias sociaux',
+                socialSaved: '✅ Médias sociaux enregistrés avec succès',
+                aiTitle: 'Assistant IA Million Squares'
             }
-            // ... (autres langues)
         };
         
         // ============================================
@@ -1725,7 +2258,8 @@
                 socialGithub: 'socialGithub', socialYoutube: 'socialYoutube',
                 socialInstagram: 'socialInstagram', socialFacebook: 'socialFacebook',
                 socialTiktok: 'socialTiktok', socialWhatsapp: 'socialWhatsapp',
-                saveSocial: 'saveSocial', socialSaved: 'socialSaved'
+                saveSocial: 'saveSocial', socialSaved: 'socialSaved',
+                aiTitle: 'aiTitle'
             };
             
             for (const [key, id] of Object.entries(elements)) {
@@ -1911,19 +2445,16 @@
                 const scrollWidth = container.scrollWidth - container.clientWidth;
                 const currentScroll = container.scrollLeft;
                 
-                // إذا وصلنا إلى النهاية، ننتقل للصفحة التالية
                 if (currentScroll >= scrollWidth - 10) {
                     const totalPages = Math.ceil(allSquares.length / squaresPerPage);
                     if (currentSquarePage < totalPages - 1) {
                         currentSquarePage++;
                         renderSquaresGrid();
                     } else {
-                        // العودة للصفحة الأولى
                         currentSquarePage = 0;
                         renderSquaresGrid();
                     }
                 } else {
-                    // التمرير التدريجي
                     container.scrollLeft += 2;
                 }
             }, 50);
@@ -1937,7 +2468,7 @@
         }
         
         // ============================================
-        // دوال عرض المربعات - محسنة
+        // دوال عرض المربعات
         // ============================================
         function renderSquaresGrid() {
             const grid = document.getElementById('squaresGrid');
@@ -2016,7 +2547,6 @@
                     }
                 });
                 
-                // إيقاف التمرير التلقائي عند التفاعل
                 container.addEventListener('mouseenter', stopAutoScroll);
                 container.addEventListener('mouseleave', () => {
                     setTimeout(startAutoScroll, 2000);
@@ -2461,7 +2991,7 @@
         }
         
         // ============================================
-        // لوحة التحكم - محسنة مع وسائل التواصل
+        // لوحة التحكم
         // ============================================
         function adminLogin(event) {
             event.preventDefault();
@@ -2638,9 +3168,7 @@
                     </div>
                     <div class="mt-4 glass-effect p-4 rounded-xl">
                         <h4 class="font-bold mb-3">${getTranslation('preview', 'معاينة الأيقونات')}</h4>
-                        <div class="social-icons" id="socialPreview">
-                            <!-- معاينة الأيقونات -->
-                        </div>
+                        <div class="social-icons" id="socialPreview"></div>
                     </div>
                 `,
                 admins: `
@@ -2684,7 +3212,6 @@
             content.innerHTML = sections[section] || sections.dashboard;
             renderPaymentSettings();
             
-            // تحديث معاينة الأيقونات في قسم التواصل
             if (section === 'social') {
                 renderSocialPreview();
             }
@@ -2930,20 +3457,12 @@
             renderAll();
             
             console.log('🏆 مليون مربع - المنصة البصرية التفاعلية');
+            console.log('✅ تم التحقق من Pinterest: a1e0fd10cdf3cabb0847b5c5226d9382');
             console.log(`📦 تم تحميل ${allSquares.length} مربع`);
             console.log(`🌍 دعم ${LANGUAGES.length} لغة`);
+            console.log('🤖 مساعد الذكاء الاصطناعي مفعل');
             console.log('✨ جميع الميزات مفعلة مع حفظ البيانات في LocalStorage');
             console.log('🔐 دخول المسؤول: admin / admin123');
-            console.log('📩 إمكانية التواصل مع المشتركين عبر زر التواصل');
-            console.log('💡 نظام الاقتراحات مفعل');
-            console.log('🌐 وسائل التواصل الاجتماعي مفعلة');
-            
-            console.log('📊 إحصائيات المنصة:');
-            console.log(`   - المربعات المتاحة: ${allSquares.filter(s => s.status === 'available').length}`);
-            console.log(`   - المربعات المباعة: ${allSquares.filter(s => s.status === 'sold').length}`);
-            console.log(`   - المشتركين: ${subscribers.length}`);
-            console.log(`   - الإيرادات: $${allSquares.reduce((sum, s) => sum + s.price, 0)}`);
-            console.log(`   - الاقتراحات: ${suggestions.length}`);
         });
     </script>
 </body>
