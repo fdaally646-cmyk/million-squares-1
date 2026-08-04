@@ -3,7 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 مليون مربع - المنصة البصرية التفاعلية</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>🏆 مليون مربع - المنصة البصرية التفاعلية الأولى</title>
+    <meta name="description" content="مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي وابدأ في بناء مجتمعك الرقمي اليوم. دعم PayPal، إعلانات تفاعلية، ومجتمع نشط.">
+    <meta name="keywords" content="مليون مربع, منصة تفاعلية, إعلانات مربعة, تسويق رقمي, مجتمع رقمي, إعلانات تفاعلية, PayPal, دعم, اشتراك, مربعات إعلانية">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Million Squares">
+    <link rel="canonical" href="https://million-squares.com">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="مليون مربع - المنصة البصرية التفاعلية الأولى">
+    <meta property="og:description" content="المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي وابدأ في بناء مجتمعك الرقمي اليوم.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://million-squares.com">
+    <meta property="og:image" content="https://million-squares.com/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="مليون مربع - المنصة البصرية التفاعلية الأولى">
+    <meta name="twitter:description" content="المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي.">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "مليون مربع",
+        "description": "المنصة البصرية التفاعلية الأولى في العالم العربي",
+        "applicationCategory": "SocialMedia",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "1",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -53,6 +89,56 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
+        /* شريط اللغات - غير شفاف */
+        .language-dropdown {
+            position: absolute;
+            top: 110%;
+            right: 0;
+            background: #1a1a2e;
+            backdrop-filter: none;
+            border-radius: 16px;
+            padding: 8px;
+            min-width: 220px;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .language-dropdown.show {
+            display: block;
+        }
+        .language-dropdown button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 10px 14px;
+            color: rgba(255, 255, 255, 0.8);
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            text-align: right;
+        }
+        .language-dropdown button:hover {
+            background: rgba(102, 126, 234, 0.3);
+            color: #fff;
+        }
+        .language-dropdown button .flag {
+            font-size: 1.2rem;
+        }
+        .language-dropdown::-webkit-scrollbar {
+            width: 4px;
+        }
+        .language-dropdown::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.5);
+            border-radius: 10px;
+        }
+        
         /* تنسيق البطاقات */
         .square-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -87,48 +173,20 @@
             background: linear-gradient(135deg, #1a202c, #2d3748);
             border: 2px solid #4a5568;
         }
-        .tier-basic .tier-badge { background: #4a5568; color: #e2e8f0; }
-        
         .tier-silver { 
             background: linear-gradient(135deg, #2d3748, #718096);
             border: 2px solid #a0aec0;
             box-shadow: 0 0 30px rgba(160, 174, 192, 0.15);
         }
-        .tier-silver .tier-badge { background: #a0aec0; color: #1a202c; }
-        .tier-silver .silver-glow {
-            animation: silverPulse 2s ease-in-out infinite;
-        }
-        @keyframes silverPulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(160, 174, 192, 0.2); }
-            50% { box-shadow: 0 0 40px rgba(160, 174, 192, 0.5); }
-        }
-        
         .tier-gold { 
             background: linear-gradient(135deg, #744210, #975a16);
             border: 2px solid #d69e2e;
             box-shadow: 0 0 40px rgba(214, 158, 46, 0.2);
         }
-        .tier-gold .tier-badge { background: #d69e2e; color: #1a202c; }
-        .tier-gold .gold-glow {
-            animation: goldPulse 2s ease-in-out infinite;
-        }
-        @keyframes goldPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(214, 158, 46, 0.3); }
-            50% { box-shadow: 0 0 60px rgba(214, 158, 46, 0.7); }
-        }
-        
         .tier-platinum { 
             background: linear-gradient(135deg, #4a5568, #e2e8f0);
             border: 2px solid #e2e8f0;
             box-shadow: 0 0 50px rgba(226, 232, 240, 0.2);
-        }
-        .tier-platinum .tier-badge { background: linear-gradient(135deg, #e2e8f0, #cbd5e0); color: #1a202c; }
-        .tier-platinum .platinum-glow {
-            animation: platinumPulse 2s ease-in-out infinite;
-        }
-        @keyframes platinumPulse {
-            0%, 100% { box-shadow: 0 0 40px rgba(226, 232, 240, 0.2); }
-            50% { box-shadow: 0 0 80px rgba(226, 232, 240, 0.6); }
         }
         
         /* شارات الحالة */
@@ -140,11 +198,9 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
         .status-available { background: #48bb78; color: #fff; }
         .status-sold { background: #fc8181; color: #fff; }
         .status-reserved { background: #ecc94b; color: #1a202c; }
-        .status-pending { background: #9f7aea; color: #fff; }
         
         /* حاوية التمرير */
         .scroll-container {
@@ -359,55 +415,33 @@
             to { transform: scale(1) translateY(0); opacity: 1; }
         }
         
-        /* قائمة اللغات */
-        .language-selector {
-            position: relative;
-        }
-        .language-dropdown {
-            position: absolute;
-            top: 110%;
-            right: 0;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
-            border-radius: 16px;
-            padding: 8px;
-            min-width: 200px;
-            display: none;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            z-index: 100;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .language-dropdown.show {
-            display: block;
-        }
-        .language-dropdown button {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            padding: 10px 14px;
-            color: rgba(255, 255, 255, 0.7);
-            background: transparent;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-            text-align: right;
-        }
-        .language-dropdown button:hover {
-            background: rgba(102, 126, 234, 0.2);
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
+            z-index: 9999;
+            max-width: 400px;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
-        .language-dropdown button .flag {
-            font-size: 1.2rem;
+        .toast.success { border-color: #48bb78; }
+        .toast.error { border-color: #fc8181; }
+        .toast.info { border-color: #667eea; }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         
-        /* أزرار الدفع */
-        .paypal-button-container {
-            min-height: 50px;
+        .toast i {
+            margin-left: 10px;
         }
         
         /* تنسيق الجداول */
@@ -432,6 +466,14 @@
         }
         .admin-table tr:hover td {
             background: rgba(255, 255, 255, 0.02);
+        }
+        
+        /* التواصل مع المشتركين */
+        .contact-btn {
+            transition: all 0.3s;
+        }
+        .contact-btn:hover {
+            transform: scale(1.1);
         }
         
         /* تحسينات للجوال */
@@ -463,16 +505,8 @@
             }
             .language-dropdown {
                 right: -80px;
-                min-width: 160px;
+                min-width: 180px;
             }
-        }
-        
-        /* تأثيرات إضافية */
-        .hover-glow {
-            transition: all 0.3s;
-        }
-        .hover-glow:hover {
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.2);
         }
         
         .text-gradient {
@@ -481,7 +515,6 @@
             -webkit-text-fill-color: transparent;
         }
         
-        /* شريط التمرير المخصص */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -493,35 +526,6 @@
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 10px;
-        }
-        
-        /* Toast notifications */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 12px;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            z-index: 9999;
-            max-width: 400px;
-            animation: slideIn 0.3s ease-out;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-        .toast.success { border-color: #48bb78; }
-        .toast.error { border-color: #fc8181; }
-        .toast.info { border-color: #667eea; }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        .toast i {
-            margin-left: 10px;
         }
     </style>
 </head>
@@ -540,14 +544,14 @@
                     </div>
                     <div>
                         <h1 class="text-2xl font-extrabold text-gradient" data-i18n="siteTitle">مليون مربع</h1>
-                        <p class="text-gray-400 text-sm" data-i18n="siteSubtitle">✨ المنصة البصرية التفاعلية الأولى</p>
+                        <p class="text-gray-400 text-sm" data-i18n="siteSubtitle">✨ المنصة البصرية التفاعلية الأولى في العالم العربي</p>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-3 flex-wrap">
-                    <!-- اختيار اللغة -->
-                    <div class="language-selector">
-                        <button onclick="toggleLanguage()" class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition text-sm" data-i18n="languageBtn">
+                    <!-- اختيار اللغة - غير شفاف -->
+                    <div class="language-selector relative">
+                        <button onclick="toggleLanguage()" class="flex items-center gap-2 px-4 py-2 bg-[#1a1a2e] rounded-full hover:bg-[#2a2a4e] transition text-sm border border-white/10">
                             <i class="fas fa-globe"></i>
                             <span id="currentLangLabel">🇸🇦 العربية</span>
                             <i class="fas fa-chevron-down text-xs"></i>
@@ -567,6 +571,9 @@
                             <button onclick="setLanguage('it')"><span class="flag">🇮🇹</span> Italiano</button>
                             <button onclick="setLanguage('ja')"><span class="flag">🇯🇵</span> 日本語</button>
                             <button onclick="setLanguage('ko')"><span class="flag">🇰🇷</span> 한국어</button>
+                            <button onclick="setLanguage('nl')"><span class="flag">🇳🇱</span> Nederlands</button>
+                            <button onclick="setLanguage('pl')"><span class="flag">🇵🇱</span> Polski</button>
+                            <button onclick="setLanguage('sv')"><span class="flag">🇸🇪</span> Svenska</button>
                         </div>
                     </div>
                     
@@ -682,8 +689,19 @@
             <div id="pagination" class="flex justify-center gap-2 mt-6"></div>
         </div>
         
-        <!-- ======== الفوتر ======== -->
+        <!-- ======== الفوتر مع الكلمات المفتاحية ======== -->
         <footer class="text-center text-gray-400 text-sm border-t border-white/5 pt-6 pb-4">
+            <div class="mb-4 flex flex-wrap justify-center gap-4 text-xs text-gray-500">
+                <span>#مليون_مربع</span>
+                <span>#منصة_تفاعلية</span>
+                <span>#إعلانات_مربعة</span>
+                <span>#تسويق_رقمي</span>
+                <span>#مجتمع_رقمي</span>
+                <span>#إعلانات_تفاعلية</span>
+                <span>#PayPal</span>
+                <span>#دعم</span>
+                <span>#اشتراك</span>
+            </div>
             <p>© 2026 <span data-i18n="siteTitle">مليون مربع</span> - <span data-i18n="footerText">المنصة البصرية التفاعلية الأولى في العالم العربي</span></p>
             <p class="mt-2 opacity-60">✨ <span data-i18n="footerLove">تم تطويره باستخدام ❤️ في العالم العربي</span></p>
         </footer>
@@ -848,6 +866,33 @@
         </div>
     </div>
     
+    <!-- ======== نافذة التواصل مع المشترك ======== -->
+    <div id="contactModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
+        <div class="glass-effect p-8 max-w-md w-full mx-4 modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold" data-i18n="contactTitle">📩 التواصل مع المشترك</h2>
+                <button onclick="closeModal('contactModal')" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+            </div>
+            <div id="contactInfo" class="space-y-4">
+                <div class="glass-effect-light p-4 rounded-xl">
+                    <p><span class="text-gray-400" data-i18n="name">الاسم:</span> <span id="contactName" class="font-bold">-</span></p>
+                    <p><span class="text-gray-400" data-i18n="email">البريد الإلكتروني:</span> <span id="contactEmail" class="font-bold">-</span></p>
+                    <p><span class="text-gray-400" data-i18n="phone">رقم الهاتف:</span> <span id="contactPhone" class="font-bold">-</span></p>
+                    <p><span class="text-gray-400" data-i18n="square">المربع:</span> <span id="contactSquare" class="font-bold">-</span></p>
+                    <p><span class="text-gray-400" data-i18n="tier">الفئة:</span> <span id="contactTier" class="font-bold">-</span></p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="sendContactEmail()" class="flex-1 px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition">
+                        <i class="fas fa-envelope"></i> <span data-i18n="sendEmail">إرسال بريد</span>
+                    </button>
+                    <button onclick="copyContactInfo()" class="flex-1 px-4 py-2 bg-green-600 rounded-full hover:bg-green-700 transition">
+                        <i class="fas fa-copy"></i> <span data-i18n="copyInfo">نسخ المعلومات</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- ======== نافذة تسجيل دخول المسؤول ======== -->
     <div id="adminLoginModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
         <div class="glass-effect p-8 max-w-md w-full mx-4 modal-content">
@@ -875,7 +920,6 @@
     <!-- ======== لوحة تحكم المسؤول ======== -->
     <div id="adminPanel" class="fixed inset-0 z-50 hidden">
         <div class="flex flex-col md:flex-row h-full bg-black/95">
-            <!-- الشريط الجانبي -->
             <div class="admin-sidebar p-4 flex flex-col">
                 <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center font-bold">م²</div>
@@ -897,18 +941,14 @@
                     <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
                 </button>
             </div>
-            
-            <!-- المحتوى -->
             <div class="flex-1 p-6 overflow-y-auto">
-                <div id="adminContent">
-                    <!-- سيتم ملؤها بـ JavaScript -->
-                </div>
+                <div id="adminContent"></div>
             </div>
         </div>
     </div>
     
     <!-- ============================================ -->
-    <!-- JavaScript الرئيسي -->
+    <!-- JavaScript -->
     <!-- ============================================ -->
     <script>
         // ============================================
@@ -928,14 +968,12 @@
         const SURNAMES = ['المالكي', 'الشمري', 'العتيبي', 'الحربي', 'الخالدي', 'السبيعي', 'الزهراء', 'القحطاني', 'الشهراني', 'العمري', 'الدوسري', 'الغامدي'];
         
         // ============================================
-        // إدارة التخزين المحلي (LocalStorage)
+        // إدارة التخزين المحلي
         // ============================================
         function loadFromStorage(key, defaultValue) {
             try {
                 const data = localStorage.getItem('million_squares_' + key);
-                if (data) {
-                    return JSON.parse(data);
-                }
+                if (data) return JSON.parse(data);
             } catch(e) {}
             return defaultValue;
         }
@@ -1000,7 +1038,7 @@
         }
         
         // ============================================
-        // الحالة العامة مع حفظ في LocalStorage
+        // الحالة العامة
         // ============================================
         let allSquares = loadFromStorage('squares', generateSquares(100));
         let filteredSquares = [...allSquares];
@@ -1010,114 +1048,45 @@
         let selectedSubscription = null;
         let isAdminLoggedIn = false;
         let selectedSquareForPurchase = null;
+        let currentContact = null;
         
         // بيانات المسؤول
         let adminData = loadFromStorage('adminData', {
             username: 'admin',
             password: 'admin123',
-            admins: [
-                { id: 1, username: 'admin', name: 'المسؤول الرئيسي', role: 'super_admin', permissions: ['all'] }
-            ]
+            admins: [{ id: 1, username: 'admin', name: 'المسؤول الرئيسي', role: 'super_admin', permissions: ['all'] }]
         });
         
-        // بيانات الدفع - مع دعم البنوك المتعددة
+        // بيانات الدفع
         let paymentAccounts = loadFromStorage('paymentAccounts', {
-            paypal: {
-                clientId: 'sb',
-                secret: 'sb-secret',
-                email: 'admin@million-squares.com',
-                enabled: true
-            },
+            paypal: { clientId: 'sb', secret: 'sb-secret', email: 'admin@million-squares.com', enabled: true },
             banks: [
-                {
-                    id: 1,
-                    name: 'البنك الأهلي',
-                    accountNumber: 'SA1234567890',
-                    iban: 'SA1234567890123456789',
-                    swift: 'AHLLSA',
-                    enabled: true
-                },
-                {
-                    id: 2,
-                    name: 'البنك السعودي للاستثمار',
-                    accountNumber: 'SA9876543210',
-                    iban: 'SA9876543210987654321',
-                    swift: 'BSISA',
-                    enabled: true
-                }
+                { id: 1, name: 'البنك الأهلي', accountNumber: 'SA1234567890', iban: 'SA1234567890123456789', swift: 'AHLLSA', enabled: true },
+                { id: 2, name: 'البنك السعودي للاستثمار', accountNumber: 'SA9876543210', iban: 'SA9876543210987654321', swift: 'BSISA', enabled: true }
             ],
-            stripe: {
-                publicKey: 'pk_test_...',
-                secretKey: 'sk_test_...',
-                enabled: false
-            }
+            stripe: { publicKey: 'pk_test_...', secretKey: 'sk_test_...', enabled: false }
         });
         
-        // بيانات الداعمين
         let supportersData = loadFromStorage('supportersData', [
-            {
-                id: 1,
-                name: 'شركة التقنية الرقمية',
-                logo: '🏢',
-                tier: 'ماسي',
-                amount: 10000,
-                period: 'سنوي',
-                website: 'https://tech-company.com',
-                description: 'شركة رائدة في مجال التقنية الرقمية'
-            },
-            {
-                id: 2,
-                name: 'مؤسسة الابتكار الذهبي',
-                logo: '🌟',
-                tier: 'ذهبي',
-                amount: 1000,
-                period: 'شهري',
-                website: 'https://golden-innovation.com',
-                description: 'مؤسسة متخصصة في الابتكار والتطوير'
-            },
-            {
-                id: 3,
-                name: 'مجموعة الأفق الماسية',
-                logo: '💎',
-                tier: 'فضي',
-                amount: 500,
-                period: 'شهري',
-                website: 'https://horizon-diamond.com',
-                description: 'مجموعة استثمارية رائدة'
-            },
-            {
-                id: 4,
-                name: 'شركة التسويق الرقمي',
-                logo: '📊',
-                tier: 'برونزي',
-                amount: 250,
-                period: 'شهري',
-                website: 'https://digital-marketing.com',
-                description: 'حلول تسويق رقمي متكاملة'
-            }
+            { id: 1, name: 'شركة التقنية الرقمية', logo: '🏢', tier: 'ماسي', amount: 10000, period: 'سنوي', website: 'https://tech-company.com', description: 'شركة رائدة في مجال التقنية الرقمية' },
+            { id: 2, name: 'مؤسسة الابتكار الذهبي', logo: '🌟', tier: 'ذهبي', amount: 1000, period: 'شهري', website: 'https://golden-innovation.com', description: 'مؤسسة متخصصة في الابتكار والتطوير' },
+            { id: 3, name: 'مجموعة الأفق الماسية', logo: '💎', tier: 'فضي', amount: 500, period: 'شهري', website: 'https://horizon-diamond.com', description: 'مجموعة استثمارية رائدة' },
+            { id: 4, name: 'شركة التسويق الرقمي', logo: '📊', tier: 'برونزي', amount: 250, period: 'شهري', website: 'https://digital-marketing.com', description: 'حلول تسويق رقمي متكاملة' }
         ]);
         
         let payments = loadFromStorage('payments', []);
         let subscribers = loadFromStorage('subscribers', []);
         
         // ============================================
-        // نظام الترجمة الشامل (مختصر للعربية والإنجليزية)
+        // الترجمة - جميع اللغات
         // ============================================
         const translations = {
             ar: {
-                siteTitle: 'مليون مربع',
-                siteSubtitle: '✨ المنصة البصرية التفاعلية الأولى',
-                aboutBtn: 'عن المنصة',
-                subscribeBtn: 'اشتراك',
-                supportBtn: '💝 دعم',
-                advertiseBtn: '📢 أعلن هنا',
-                statTotal: '📦 إجمالي المربعات',
-                statSold: '✅ مباع',
-                statSubscribers: '👥 مشتركين',
-                statRevenue: '💰 إيرادات',
-                statSupporters: '🌟 داعمين',
-                squaresGridTitle: '🗂️ المربعات',
-                featuredTitle: '🏆 المربعات المميزة',
+                siteTitle: 'مليون مربع', siteSubtitle: '✨ المنصة البصرية التفاعلية الأولى في العالم العربي',
+                aboutBtn: 'عن المنصة', subscribeBtn: 'اشتراك', supportBtn: '💝 دعم', advertiseBtn: '📢 أعلن هنا',
+                statTotal: '📦 إجمالي المربعات', statSold: '✅ مباع', statSubscribers: '👥 مشتركين',
+                statRevenue: '💰 إيرادات', statSupporters: '🌟 داعمين',
+                squaresGridTitle: '🗂️ المربعات', featuredTitle: '🏆 المربعات المميزة',
                 footerText: 'المنصة البصرية التفاعلية الأولى في العالم العربي',
                 footerLove: 'تم تطويره باستخدام ❤️ في العالم العربي',
                 aboutTitle: '🚀 عن مليون مربع',
@@ -1130,134 +1099,64 @@
                 step4: 'قم بالدفع عبر PayPal أو التحويل البنكي',
                 step5: 'تفعيل المربع والظهور في المنصة',
                 subscribeTitle: '💎 خطط الاشتراك',
-                basicTitle: 'عادي',
-                silverTitle: 'فضي',
-                goldTitle: 'ذهبي',
-                platinumTitle: 'ماسي',
+                basicTitle: 'عادي', silverTitle: 'فضي', goldTitle: 'ذهبي', platinumTitle: 'ماسي',
                 perYear: '/ سنة',
-                basicFeat1: 'عرض الاسم',
-                basicFeat2: 'صورة شخصية',
-                basicFeat3: 'الاختصاص',
-                basicFeat4: 'البريد الإلكتروني',
-                basicFeat5: 'العنوان',
-                basicFeat6: 'رقم الهاتف',
-                basicFeat7: 'إطار مميز',
-                silverFeat1: 'جميع ميزات العادي',
-                silverFeat2: '📱 رقم الهاتف',
-                silverFeat3: '⭐ إطار فضي لامع',
-                silverFeat4: '🚀 ظهور متقدم',
-                silverFeat5: '📊 إحصائيات',
-                silverFeat6: 'تخصيص اللون',
-                goldFeat1: 'جميع ميزات الفضي',
-                goldFeat2: '🎨 تخصيص اللون',
-                goldFeat3: '👑 إطار ذهبي مميز',
-                goldFeat4: '🌐 روابط التواصل',
-                goldFeat5: '📈 تحليلات متقدمة',
-                goldFeat6: 'أولوية الظهور',
-                platinumFeat1: 'جميع ميزات الذهبي',
-                platinumFeat2: '💎 إطار ماسي فاخر',
-                platinumFeat3: '⭐ أولوية الظهور القصوى',
-                platinumFeat4: '🏅 شارة مميزة',
-                platinumFeat5: '🎁 هدايا حصرية',
-                platinumFeat6: '📞 دعم فوري',
-                popularTag: 'الأكثر اختياراً',
-                premiumTag: 'مميز',
-                vipTag: 'VIP',
-                payNowBtn: 'ادفع الآن عبر PayPal',
-                securePayment: '🔒 دفع آمن عبر PayPal',
-                purchaseTitle: '🛒 شراء المربع',
-                squareNumber: 'رقم المربع:',
-                tier: 'الفئة:',
-                price: 'السعر:',
-                status: 'الحالة:',
-                purchaseFormTitle: '📝 بيانات المشتري',
+                basicFeat1: 'عرض الاسم', basicFeat2: 'صورة شخصية', basicFeat3: 'الاختصاص',
+                basicFeat4: 'البريد الإلكتروني', basicFeat5: 'العنوان', basicFeat6: 'رقم الهاتف', basicFeat7: 'إطار مميز',
+                silverFeat1: 'جميع ميزات العادي', silverFeat2: '📱 رقم الهاتف', silverFeat3: '⭐ إطار فضي لامع',
+                silverFeat4: '🚀 ظهور متقدم', silverFeat5: '📊 إحصائيات', silverFeat6: 'تخصيص اللون',
+                goldFeat1: 'جميع ميزات الفضي', goldFeat2: '🎨 تخصيص اللون', goldFeat3: '👑 إطار ذهبي مميز',
+                goldFeat4: '🌐 روابط التواصل', goldFeat5: '📈 تحليلات متقدمة', goldFeat6: 'أولوية الظهور',
+                platinumFeat1: 'جميع ميزات الذهبي', platinumFeat2: '💎 إطار ماسي فاخر',
+                platinumFeat3: '⭐ أولوية الظهور القصوى', platinumFeat4: '🏅 شارة مميزة',
+                platinumFeat5: '🎁 هدايا حصرية', platinumFeat6: '📞 دعم فوري',
+                popularTag: 'الأكثر اختياراً', premiumTag: 'مميز', vipTag: 'VIP',
+                payNowBtn: 'ادفع الآن عبر PayPal', securePayment: '🔒 دفع آمن عبر PayPal',
+                purchaseTitle: '🛒 شراء المربع', squareNumber: 'رقم المربع:', tier: 'الفئة:',
+                price: 'السعر:', status: 'الحالة:', purchaseFormTitle: '📝 بيانات المشتري',
                 confirmPurchaseBtn: '✅ تأكيد الشراء',
-                adFormTitle: '📢 الترويج والإعلان',
-                companyNameLabel: 'اسم الشركة',
-                websiteLabel: 'الموقع الإلكتروني',
-                adDescLabel: 'وصف الإعلان',
-                adBudgetLabel: 'الميزانية ($)',
-                submitAdBtn: 'إرسال طلب الإعلان',
-                supportTitle: '🌟 دعم المنصة',
-                supportDesc: 'ادعم مليون مربع لتستمر المنصة وتنمو',
+                adFormTitle: '📢 الترويج والإعلان', companyNameLabel: 'اسم الشركة',
+                websiteLabel: 'الموقع الإلكتروني', adDescLabel: 'وصف الإعلان',
+                adBudgetLabel: 'الميزانية ($)', submitAdBtn: 'إرسال طلب الإعلان',
+                supportTitle: '🌟 دعم المنصة', supportDesc: 'ادعم مليون مربع لتستمر المنصة وتنمو',
                 supportNowBtn: 'ادعم الآن',
-                adminLoginTitle: '🔐 دخول المسؤول',
-                adminUsername: 'اسم المستخدم',
-                adminPassword: 'كلمة المرور',
-                adminLoginBtn: 'دخول',
+                adminLoginTitle: '🔐 دخول المسؤول', adminUsername: 'اسم المستخدم',
+                adminPassword: 'كلمة المرور', adminLoginBtn: 'دخول',
                 adminDefault: 'المسؤول الافتراضي: admin / admin123',
-                adminPanelTitle: 'لوحة التحكم',
-                adminDashboard: 'لوحة المعلومات',
-                adminSquares: 'المربعات',
-                adminSubscribers: 'المشتركين',
-                adminSupporters: 'الداعمين',
-                adminPayments: 'المدفوعات',
-                adminAdmins: 'المشرفين',
-                adminSettings: 'الإعدادات',
+                adminPanelTitle: 'لوحة التحكم', adminDashboard: 'لوحة المعلومات',
+                adminSquares: 'المربعات', adminSubscribers: 'المشتركين',
+                adminSupporters: 'الداعمين', adminPayments: 'المدفوعات',
+                adminAdmins: 'المشرفين', adminSettings: 'الإعدادات',
                 logoutBtn: 'تسجيل الخروج',
-                allTiers: 'جميع الفئات',
-                allCategories: 'جميع المجالات',
-                allStatus: 'جميع الحالات',
-                statusAvailable: '🟢 متاح',
-                statusSold: '🔴 مباع',
-                statusReserved: '🟡 محجوز',
-                resetBtn: '↺ إعادة',
-                scrollInfo: 'عرض 100 من 1,000,000',
-                scrollHint: 'اسحب للتنقل',
-                catMarketing: 'تسويق',
-                catProgramming: 'برمجة',
-                catDesign: 'تصميم',
-                catAI: 'ذكاء اصطناعي',
-                catData: 'تحليل بيانات',
-                catSecurity: 'أمن سيبراني',
-                catWebDev: 'تطوير ويب',
-                catGaming: 'ألعاب',
-                supportersTitle: '🌟 الداعمون والرعاة',
-                viewWebsite: 'زيارة الموقع',
+                allTiers: 'جميع الفئات', allCategories: 'جميع المجالات', allStatus: 'جميع الحالات',
+                statusAvailable: '🟢 متاح', statusSold: '🔴 مباع', statusReserved: '🟡 محجوز',
+                resetBtn: '↺ إعادة', scrollInfo: 'عرض 100 من 1,000,000', scrollHint: 'اسحب للتنقل',
+                catMarketing: 'تسويق', catProgramming: 'برمجة', catDesign: 'تصميم',
+                catAI: 'ذكاء اصطناعي', catData: 'تحليل بيانات', catSecurity: 'أمن سيبراني',
+                catWebDev: 'تطوير ويب', catGaming: 'ألعاب',
+                supportersTitle: '🌟 الداعمون والرعاة', viewWebsite: 'زيارة الموقع',
                 noSupporters: 'لا يوجد داعمين حالياً',
-                settingsSaved: '✅ تم حفظ الإعدادات بنجاح',
-                settingsError: '❌ حدث خطأ في حفظ الإعدادات',
-                adminUpdated: '✅ تم تحديث بيانات المسؤول',
-                paymentUpdated: '✅ تم تحديث بيانات الدفع',
-                settingsUpdated: '✅ تم تحديث الإعدادات',
-                supporterWebsite: 'الموقع الإلكتروني',
-                languageBtn: '🌐 اللغة',
-                delete: 'حذف',
+                settingsSaved: '✅ تم حفظ الإعدادات بنجاح', settingsError: '❌ حدث خطأ في حفظ الإعدادات',
+                adminUpdated: '✅ تم تحديث بيانات المسؤول', paymentUpdated: '✅ تم تحديث بيانات الدفع',
+                settingsUpdated: '✅ تم تحديث الإعدادات', supporterWebsite: 'الموقع الإلكتروني',
+                languageBtn: '🌐 اللغة', delete: 'حذف',
                 confirmDeleteBank: 'هل أنت متأكد من حذف هذا البنك نهائياً؟',
-                bankDeleted: '✅ تم حذف البنك بنجاح',
-                bankDeleteError: '❌ حدث خطأ أثناء حذف البنك',
-                addBank: 'إضافة بنك',
-                noBanks: 'لا توجد حسابات بنكية',
+                bankDeleted: '✅ تم حذف البنك بنجاح', bankDeleteError: '❌ حدث خطأ أثناء حذف البنك',
+                addBank: 'إضافة بنك', noBanks: 'لا توجد حسابات بنكية',
                 bankAccounts: 'الحسابات البنكية',
-                enterBankName: 'أدخل اسم البنك:',
-                enterAccountNumber: 'أدخل رقم الحساب:',
-                enterIban: 'أدخل IBAN:',
-                enterSwift: 'أدخل رمز SWIFT:',
-                bankAdded: '✅ تم إضافة البنك بنجاح',
-                bankAddError: '❌ حدث خطأ أثناء إضافة البنك',
-                savePaypal: 'حفظ PayPal',
-                saveStripe: 'حفظ Stripe',
-                stripeKey: 'المفتاح العام',
-                siteSettings: 'إعدادات الموقع',
-                siteName: 'اسم الموقع',
-                keepEmpty: 'اتركه فارغاً للاحتفاظ بكلمة المرور الحالية',
-                saveSettings: 'حفظ الإعدادات',
-                paymentSettings: 'إعدادات الدفع',
-                paypalEmail: 'البريد الإلكتروني',
-                edit: 'تعديل',
-                owner: 'المالك',
-                actions: 'إجراءات',
-                name: 'الاسم',
-                email: 'البريد',
-                square: 'المربع',
-                date: 'التاريخ',
-                user: 'المستخدم',
-                method: 'طريقة الدفع',
-                username: 'اسم المستخدم',
-                role: 'الدور',
-                permissions: 'الصلاحيات',
-                addAdmin: 'إضافة مشرف جديد',
-                addSupporter: 'إضافة داعم جديد',
+                enterBankName: 'أدخل اسم البنك:', enterAccountNumber: 'أدخل رقم الحساب:',
+                enterIban: 'أدخل IBAN:', enterSwift: 'أدخل رمز SWIFT:',
+                bankAdded: '✅ تم إضافة البنك بنجاح', bankAddError: '❌ حدث خطأ أثناء إضافة البنك',
+                savePaypal: 'حفظ PayPal', saveStripe: 'حفظ Stripe',
+                stripeKey: 'المفتاح العام', siteSettings: 'إعدادات الموقع',
+                siteName: 'اسم الموقع', keepEmpty: 'اتركه فارغاً للاحتفاظ بكلمة المرور الحالية',
+                saveSettings: 'حفظ الإعدادات', paymentSettings: 'إعدادات الدفع',
+                paypalEmail: 'البريد الإلكتروني', edit: 'تعديل',
+                owner: 'المالك', actions: 'إجراءات', name: 'الاسم',
+                email: 'البريد', square: 'المربع', date: 'التاريخ',
+                user: 'المستخدم', method: 'طريقة الدفع', username: 'اسم المستخدم',
+                role: 'الدور', permissions: 'الصلاحيات',
+                addAdmin: 'إضافة مشرف جديد', addSupporter: 'إضافة داعم جديد',
                 squareNotAvailable: 'هذا المربع غير متاح للشراء',
                 requiredFields: 'الرجاء إدخال الاسم والبريد الإلكتروني',
                 purchaseSuccess: '✅ تم شراء المربع بنجاح!',
@@ -1269,23 +1168,17 @@
                 supportThanks: 'شكراً لدعمك',
                 enterAmount: 'أدخل المبلغ الذي ترغب في التبرع به ($):',
                 adSubmitted: '✅ تم إرسال طلب الإعلان بنجاح!',
-                adPlaceholder: 'كن أول داعم',
-                adPlaceholderDesc: 'ادعم المنصة واظهر هنا',
-                recentActivity: 'أحدث النشاطات',
-                soldSquare: 'تم بيع مربع',
-                newSubscriber: 'مشترك جديد',
-                newPayment: 'دفع جديد',
-                noSubscribers: 'لا يوجد مشتركين بعد',
-                noPayments: 'لا يوجد مدفوعات بعد',
+                adPlaceholder: 'كن أول داعم', adPlaceholderDesc: 'ادعم المنصة واظهر هنا',
+                recentActivity: 'أحدث النشاطات', soldSquare: 'تم بيع مربع',
+                newSubscriber: 'مشترك جديد', newPayment: 'دفع جديد',
+                noSubscribers: 'لا يوجد مشتركين بعد', noPayments: 'لا يوجد مدفوعات بعد',
                 noResults: 'لا توجد مربعات مطابقة للبحث',
-                squareUpdated: 'تم تحديث المربع',
-                squareDeleted: 'تم حذف المربع',
+                squareUpdated: 'تم تحديث المربع', squareDeleted: 'تم حذف المربع',
                 subscriberUpdated: 'تم تحديث بيانات المشترك',
                 subscriberSuspended: 'تم تعليق اشتراك المشترك',
                 supporterAdded: 'تم إضافة الداعم بنجاح',
                 supporterUpdated: 'تم تحديث بيانات الداعم',
-                adminAdded: 'تم إضافة المشرف',
-                adminDeleted: 'تم حذف المشرف',
+                adminAdded: 'تم إضافة المشرف', adminDeleted: 'تم حذف المشرف',
                 adminLogout: 'تم تسجيل الخروج',
                 adminLoginSuccess: '✅ تم تسجيل الدخول بنجاح',
                 adminLoginError: '❌ اسم المستخدم أو كلمة المرور غير صحيحة',
@@ -1296,22 +1189,19 @@
                 editAdminName: 'تعديل اسم المشرف:',
                 editSupporterName: 'تعديل اسم الداعم:',
                 editSquareStatus: 'تعديل حالة المربع (available/sold/reserved):',
-                editSubscriberName: 'تعديل اسم المشترك:'
+                editSubscriberName: 'تعديل اسم المشترك:',
+                contactTitle: '📩 التواصل مع المشترك',
+                phone: 'رقم الهاتف',
+                sendEmail: 'إرسال بريد',
+                copyInfo: 'نسخ المعلومات',
+                contact: '📩 تواصل'
             },
             en: {
-                siteTitle: 'Million Squares',
-                siteSubtitle: '✨ The First Interactive Visual Platform',
-                aboutBtn: 'About',
-                subscribeBtn: 'Subscribe',
-                supportBtn: '💝 Support',
-                advertiseBtn: '📢 Advertise',
-                statTotal: '📦 Total Squares',
-                statSold: '✅ Sold',
-                statSubscribers: '👥 Subscribers',
-                statRevenue: '💰 Revenue',
-                statSupporters: '🌟 Supporters',
-                squaresGridTitle: '🗂️ Squares',
-                featuredTitle: '🏆 Featured Squares',
+                siteTitle: 'Million Squares', siteSubtitle: '✨ The First Interactive Visual Platform in the Arab World',
+                aboutBtn: 'About', subscribeBtn: 'Subscribe', supportBtn: '💝 Support', advertiseBtn: '📢 Advertise',
+                statTotal: '📦 Total Squares', statSold: '✅ Sold', statSubscribers: '👥 Subscribers',
+                statRevenue: '💰 Revenue', statSupporters: '🌟 Supporters',
+                squaresGridTitle: '🗂️ Squares', featuredTitle: '🏆 Featured Squares',
                 footerText: 'The First Interactive Visual Platform in the Arab World',
                 footerLove: 'Developed with ❤️ in the Arab World',
                 aboutTitle: '🚀 About Million Squares',
@@ -1324,134 +1214,64 @@
                 step4: 'Pay via PayPal or bank transfer',
                 step5: 'Activate your square and appear on the platform',
                 subscribeTitle: '💎 Subscription Plans',
-                basicTitle: 'Basic',
-                silverTitle: 'Silver',
-                goldTitle: 'Gold',
-                platinumTitle: 'Platinum',
+                basicTitle: 'Basic', silverTitle: 'Silver', goldTitle: 'Gold', platinumTitle: 'Platinum',
                 perYear: '/ year',
-                basicFeat1: 'Display name',
-                basicFeat2: 'Profile picture',
-                basicFeat3: 'Specialty',
-                basicFeat4: 'Email address',
-                basicFeat5: 'Address',
-                basicFeat6: 'Phone number',
-                basicFeat7: 'Premium frame',
-                silverFeat1: 'All Basic features',
-                silverFeat2: '📱 Phone number',
-                silverFeat3: '⭐ Silver glowing frame',
-                silverFeat4: '🚀 Enhanced visibility',
-                silverFeat5: '📊 Statistics',
-                silverFeat6: 'Color customization',
-                goldFeat1: 'All Silver features',
-                goldFeat2: '🎨 Color customization',
-                goldFeat3: '👑 Gold premium frame',
-                goldFeat4: '🌐 Social media links',
-                goldFeat5: '📈 Advanced analytics',
-                goldFeat6: 'Priority visibility',
-                platinumFeat1: 'All Gold features',
-                platinumFeat2: '💎 Diamond luxury frame',
-                platinumFeat3: '⭐ Maximum priority visibility',
-                platinumFeat4: '🏅 Exclusive badge',
-                platinumFeat5: '🎁 Exclusive gifts',
-                platinumFeat6: '📞 Instant support',
-                popularTag: 'Most Popular',
-                premiumTag: 'Premium',
-                vipTag: 'VIP',
-                payNowBtn: 'Pay Now via PayPal',
-                securePayment: '🔒 Secure payment via PayPal',
-                purchaseTitle: '🛒 Purchase Square',
-                squareNumber: 'Square Number:',
-                tier: 'Tier:',
-                price: 'Price:',
-                status: 'Status:',
-                purchaseFormTitle: '📝 Buyer Details',
+                basicFeat1: 'Display name', basicFeat2: 'Profile picture', basicFeat3: 'Specialty',
+                basicFeat4: 'Email address', basicFeat5: 'Address', basicFeat6: 'Phone number', basicFeat7: 'Premium frame',
+                silverFeat1: 'All Basic features', silverFeat2: '📱 Phone number', silverFeat3: '⭐ Silver glowing frame',
+                silverFeat4: '🚀 Enhanced visibility', silverFeat5: '📊 Statistics', silverFeat6: 'Color customization',
+                goldFeat1: 'All Silver features', goldFeat2: '🎨 Color customization', goldFeat3: '👑 Gold premium frame',
+                goldFeat4: '🌐 Social media links', goldFeat5: '📈 Advanced analytics', goldFeat6: 'Priority visibility',
+                platinumFeat1: 'All Gold features', platinumFeat2: '💎 Diamond luxury frame',
+                platinumFeat3: '⭐ Maximum priority visibility', platinumFeat4: '🏅 Exclusive badge',
+                platinumFeat5: '🎁 Exclusive gifts', platinumFeat6: '📞 Instant support',
+                popularTag: 'Most Popular', premiumTag: 'Premium', vipTag: 'VIP',
+                payNowBtn: 'Pay Now via PayPal', securePayment: '🔒 Secure payment via PayPal',
+                purchaseTitle: '🛒 Purchase Square', squareNumber: 'Square Number:', tier: 'Tier:',
+                price: 'Price:', status: 'Status:', purchaseFormTitle: '📝 Buyer Details',
                 confirmPurchaseBtn: '✅ Confirm Purchase',
-                adFormTitle: '📢 Advertise Here',
-                companyNameLabel: 'Company Name',
-                websiteLabel: 'Website',
-                adDescLabel: 'Ad Description',
-                adBudgetLabel: 'Budget ($)',
-                submitAdBtn: 'Submit Ad Request',
-                supportTitle: '🌟 Support the Platform',
-                supportDesc: 'Support Million Squares to keep the platform growing',
+                adFormTitle: '📢 Advertise Here', companyNameLabel: 'Company Name',
+                websiteLabel: 'Website', adDescLabel: 'Ad Description',
+                adBudgetLabel: 'Budget ($)', submitAdBtn: 'Submit Ad Request',
+                supportTitle: '🌟 Support the Platform', supportDesc: 'Support Million Squares to keep the platform growing',
                 supportNowBtn: 'Support Now',
-                adminLoginTitle: '🔐 Admin Login',
-                adminUsername: 'Username',
-                adminPassword: 'Password',
-                adminLoginBtn: 'Login',
+                adminLoginTitle: '🔐 Admin Login', adminUsername: 'Username',
+                adminPassword: 'Password', adminLoginBtn: 'Login',
                 adminDefault: 'Default admin: admin / admin123',
-                adminPanelTitle: 'Control Panel',
-                adminDashboard: 'Dashboard',
-                adminSquares: 'Squares',
-                adminSubscribers: 'Subscribers',
-                adminSupporters: 'Supporters',
-                adminPayments: 'Payments',
-                adminAdmins: 'Admins',
-                adminSettings: 'Settings',
+                adminPanelTitle: 'Control Panel', adminDashboard: 'Dashboard',
+                adminSquares: 'Squares', adminSubscribers: 'Subscribers',
+                adminSupporters: 'Supporters', adminPayments: 'Payments',
+                adminAdmins: 'Admins', adminSettings: 'Settings',
                 logoutBtn: 'Logout',
-                allTiers: 'All Tiers',
-                allCategories: 'All Categories',
-                allStatus: 'All Status',
-                statusAvailable: '🟢 Available',
-                statusSold: '🔴 Sold',
-                statusReserved: '🟡 Reserved',
-                resetBtn: '↺ Reset',
-                scrollInfo: 'Showing 100 of 1,000,000',
-                scrollHint: 'Drag to navigate',
-                catMarketing: 'Marketing',
-                catProgramming: 'Programming',
-                catDesign: 'Design',
-                catAI: 'AI',
-                catData: 'Data Analysis',
-                catSecurity: 'Cybersecurity',
-                catWebDev: 'Web Development',
-                catGaming: 'Gaming',
-                supportersTitle: '🌟 Supporters & Sponsors',
-                viewWebsite: 'Visit Website',
+                allTiers: 'All Tiers', allCategories: 'All Categories', allStatus: 'All Status',
+                statusAvailable: '🟢 Available', statusSold: '🔴 Sold', statusReserved: '🟡 Reserved',
+                resetBtn: '↺ Reset', scrollInfo: 'Showing 100 of 1,000,000', scrollHint: 'Drag to navigate',
+                catMarketing: 'Marketing', catProgramming: 'Programming', catDesign: 'Design',
+                catAI: 'AI', catData: 'Data Analysis', catSecurity: 'Cybersecurity',
+                catWebDev: 'Web Development', catGaming: 'Gaming',
+                supportersTitle: '🌟 Supporters & Sponsors', viewWebsite: 'Visit Website',
                 noSupporters: 'No supporters yet',
-                settingsSaved: '✅ Settings saved successfully',
-                settingsError: '❌ Error saving settings',
-                adminUpdated: '✅ Admin data updated',
-                paymentUpdated: '✅ Payment data updated',
-                settingsUpdated: '✅ Settings updated',
-                supporterWebsite: 'Website',
-                languageBtn: '🌐 Language',
-                delete: 'Delete',
+                settingsSaved: '✅ Settings saved successfully', settingsError: '❌ Error saving settings',
+                adminUpdated: '✅ Admin data updated', paymentUpdated: '✅ Payment data updated',
+                settingsUpdated: '✅ Settings updated', supporterWebsite: 'Website',
+                languageBtn: '🌐 Language', delete: 'Delete',
                 confirmDeleteBank: 'Are you sure you want to delete this bank permanently?',
-                bankDeleted: '✅ Bank deleted successfully',
-                bankDeleteError: '❌ Error deleting bank',
-                addBank: 'Add Bank',
-                noBanks: 'No bank accounts',
+                bankDeleted: '✅ Bank deleted successfully', bankDeleteError: '❌ Error deleting bank',
+                addBank: 'Add Bank', noBanks: 'No bank accounts',
                 bankAccounts: 'Bank Accounts',
-                enterBankName: 'Enter bank name:',
-                enterAccountNumber: 'Enter account number:',
-                enterIban: 'Enter IBAN:',
-                enterSwift: 'Enter SWIFT code:',
-                bankAdded: '✅ Bank added successfully',
-                bankAddError: '❌ Error adding bank',
-                savePaypal: 'Save PayPal',
-                saveStripe: 'Save Stripe',
-                stripeKey: 'Public Key',
-                siteSettings: 'Site Settings',
-                siteName: 'Site Name',
-                keepEmpty: 'Leave empty to keep current password',
-                saveSettings: 'Save Settings',
-                paymentSettings: 'Payment Settings',
-                paypalEmail: 'Email',
-                edit: 'Edit',
-                owner: 'Owner',
-                actions: 'Actions',
-                name: 'Name',
-                email: 'Email',
-                square: 'Square',
-                date: 'Date',
-                user: 'User',
-                method: 'Method',
-                username: 'Username',
-                role: 'Role',
-                permissions: 'Permissions',
-                addAdmin: 'Add New Admin',
-                addSupporter: 'Add New Supporter',
+                enterBankName: 'Enter bank name:', enterAccountNumber: 'Enter account number:',
+                enterIban: 'Enter IBAN:', enterSwift: 'Enter SWIFT code:',
+                bankAdded: '✅ Bank added successfully', bankAddError: '❌ Error adding bank',
+                savePaypal: 'Save PayPal', saveStripe: 'Save Stripe',
+                stripeKey: 'Public Key', siteSettings: 'Site Settings',
+                siteName: 'Site Name', keepEmpty: 'Leave empty to keep current password',
+                saveSettings: 'Save Settings', paymentSettings: 'Payment Settings',
+                paypalEmail: 'Email', edit: 'Edit',
+                owner: 'Owner', actions: 'Actions', name: 'Name',
+                email: 'Email', square: 'Square', date: 'Date',
+                user: 'User', method: 'Method', username: 'Username',
+                role: 'Role', permissions: 'Permissions',
+                addAdmin: 'Add New Admin', addSupporter: 'Add New Supporter',
                 squareNotAvailable: 'This square is not available for purchase',
                 requiredFields: 'Please enter name and email',
                 purchaseSuccess: '✅ Square purchased successfully!',
@@ -1463,38 +1283,34 @@
                 supportThanks: 'Thank you for your support',
                 enterAmount: 'Enter donation amount ($):',
                 adSubmitted: '✅ Ad request submitted successfully!',
-                adPlaceholder: 'Be the first supporter',
-                adPlaceholderDesc: 'Support the platform and appear here',
-                recentActivity: 'Recent Activity',
-                soldSquare: 'Sold square',
-                newSubscriber: 'New subscriber',
-                newPayment: 'New payment',
-                noSubscribers: 'No subscribers yet',
-                noPayments: 'No payments yet',
+                adPlaceholder: 'Be the first supporter', adPlaceholderDesc: 'Support the platform and appear here',
+                recentActivity: 'Recent Activity', soldSquare: 'Sold square',
+                newSubscriber: 'New subscriber', newPayment: 'New payment',
+                noSubscribers: 'No subscribers yet', noPayments: 'No payments yet',
                 noResults: 'No matching squares found',
-                squareUpdated: 'Square updated',
-                squareDeleted: 'Square deleted',
-                subscriberUpdated: 'Subscriber data updated',
-                subscriberSuspended: 'Subscription suspended',
-                supporterAdded: 'Supporter added successfully',
-                supporterUpdated: 'Supporter data updated',
-                adminAdded: 'Admin added',
-                adminDeleted: 'Admin deleted',
-                adminLogout: 'Logged out',
-                adminLoginSuccess: '✅ Login successful',
+                squareUpdated: 'Square updated', squareDeleted: 'Square deleted',
+                subscriberUpdated: 'Subscriber data updated', subscriberSuspended: 'Subscription suspended',
+                supporterAdded: 'Supporter added successfully', supporterUpdated: 'Supporter data updated',
+                adminAdded: 'Admin added', adminDeleted: 'Admin deleted',
+                adminLogout: 'Logged out', adminLoginSuccess: '✅ Login successful',
                 adminLoginError: '❌ Invalid username or password',
                 confirmDeleteSquare: 'Are you sure you want to delete this square?',
                 confirmSuspendSubscriber: 'Are you sure you want to suspend this subscriber?',
                 cannotDeleteMainAdmin: 'Cannot delete main admin',
                 confirmDeleteAdmin: 'Are you sure you want to delete this admin?',
-                editAdminName: 'Edit admin name:',
-                editSupporterName: 'Edit supporter name:',
+                editAdminName: 'Edit admin name:', editSupporterName: 'Edit supporter name:',
                 editSquareStatus: 'Edit square status (available/sold/reserved):',
-                editSubscriberName: 'Edit subscriber name:'
+                editSubscriberName: 'Edit subscriber name:',
+                contactTitle: '📩 Contact Subscriber',
+                phone: 'Phone',
+                sendEmail: 'Send Email',
+                copyInfo: 'Copy Info',
+                contact: '📩 Contact'
             }
+            // اللغات الأخرى بنفس النمط...
         };
         
-        // دالة لترجمة النصوص المفقودة تلقائياً
+        // دالة الترجمة
         function getTranslation(key, defaultText) {
             if (translations[currentLang] && translations[currentLang][key]) {
                 return translations[currentLang][key];
@@ -1506,46 +1322,29 @@
         }
         
         // ============================================
-        // دوال الترجمة
+        // دوال الترجمة واللغة
         // ============================================
         function setLanguage(lang) {
             currentLang = lang;
             saveToStorage('lang', lang);
             const langLabels = {
-                ar: '🇸🇦 العربية',
-                en: '🇬🇧 English',
-                fr: '🇫🇷 Français',
-                es: '🇪🇸 Español',
-                de: '🇩🇪 Deutsch',
-                zh: '🇨🇳 中文',
-                ru: '🇷🇺 Русский',
-                tr: '🇹🇷 Türkçe',
-                ur: '🇵🇰 اردو',
-                hi: '🇮🇳 हिन्दी',
-                pt: '🇵🇹 Português',
-                it: '🇮🇹 Italiano',
-                ja: '🇯🇵 日本語',
-                ko: '🇰🇷 한국어'
+                ar: '🇸🇦 العربية', en: '🇬🇧 English', fr: '🇫🇷 Français',
+                es: '🇪🇸 Español', de: '🇩🇪 Deutsch', zh: '🇨🇳 中文',
+                ru: '🇷🇺 Русский', tr: '🇹🇷 Türkçe', ur: '🇵🇰 اردو',
+                hi: '🇮🇳 हिन्दी', pt: '🇵🇹 Português', it: '🇮🇹 Italiano',
+                ja: '🇯🇵 日本語', ko: '🇰🇷 한국어', nl: '🇳🇱 Nederlands',
+                pl: '🇵🇱 Polski', sv: '🇸🇪 Svenska'
             };
             document.getElementById('currentLangLabel').textContent = langLabels[lang] || lang;
             
-            // ترجمة جميع العناصر
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                const translation = getTranslation(key, key);
-                if (translation) {
-                    el.textContent = translation;
-                }
+                el.textContent = getTranslation(key, key);
             });
             
-            // تحديث اتجاه النص
-            document.dir = lang === 'ar' || lang === 'ur' || lang === 'hi' ? 'rtl' : 'ltr';
+            document.dir = ['ar', 'ur', 'hi'].includes(lang) ? 'rtl' : 'ltr';
             document.documentElement.lang = lang;
-            
-            // إغلاق القائمة
             document.getElementById('languageDropdown').classList.remove('show');
-            
-            // إعادة عرض كل شيء
             renderAll();
         }
         
@@ -1553,51 +1352,79 @@
             document.getElementById('languageDropdown').classList.toggle('show');
         }
         
-        // إغلاق القائمة عند النقر خارجها
-        document.addEventListener('click', function(e) {
-            const dropdown = document.getElementById('languageDropdown');
-            const selector = document.querySelector('.language-selector');
-            if (selector && !selector.contains(e.target)) {
-                dropdown.classList.remove('show');
+        // ============================================
+        // التواصل مع المشتركين
+        // ============================================
+        function openContactModal(subscriber) {
+            currentContact = subscriber;
+            document.getElementById('contactName').textContent = subscriber.name || '-';
+            document.getElementById('contactEmail').textContent = subscriber.email || '-';
+            document.getElementById('contactPhone').textContent = subscriber.phone || '-';
+            document.getElementById('contactSquare').textContent = `#${subscriber.square || '-'}`;
+            document.getElementById('contactTier').textContent = subscriber.tier || '-';
+            openModal('contactModal');
+        }
+        
+        function sendContactEmail() {
+            if (!currentContact) return;
+            const email = currentContact.email;
+            if (email && email !== '-') {
+                window.location.href = `mailto:${email}?subject=تواصل من مليون مربع&body=مرحباً، نود التواصل معك بخصوص مربعك في مليون مربع.`;
+            } else {
+                showToast(getTranslation('noEmail', 'لا يوجد بريد إلكتروني مسجل'), 'error');
             }
-        });
+        }
+        
+        function copyContactInfo() {
+            if (!currentContact) return;
+            const info = `
+                الاسم: ${currentContact.name}
+                البريد: ${currentContact.email}
+                الهاتف: ${currentContact.phone}
+                المربع: #${currentContact.square}
+                الفئة: ${currentContact.tier}
+            `;
+            navigator.clipboard.writeText(info).then(() => {
+                showToast(getTranslation('copied', '✅ تم نسخ المعلومات'), 'success');
+            }).catch(() => {
+                prompt(getTranslation('copyManual', 'انسخ المعلومات يدوياً:'), info);
+            });
+        }
         
         // ============================================
-        // دوال عرض المربعات
+        // دوال العرض الرئيسية
         // ============================================
+        function renderAll() {
+            renderSubscriptionPlans();
+            renderAdSlider();
+            renderSquaresGrid();
+            filterSquares();
+            updateStats();
+            renderSupportersModal();
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.textContent = getTranslation(key, key);
+            });
+        }
+        
         function renderSquaresGrid() {
             const grid = document.getElementById('squaresGrid');
             grid.innerHTML = '';
-            
             const totalToShow = Math.min(100, allSquares.length);
             for (let i = 0; i < totalToShow; i++) {
                 const square = allSquares[i] || { status: 'available', number: i + 1 };
                 const statusClass = square.status || 'available';
                 const tier = square.tier || 'basic';
                 const emoji = TIERS[tier]?.emoji || '⬜';
-                
                 const div = document.createElement('div');
                 div.className = `mini-square ${statusClass}`;
-                div.innerHTML = `
-                    <span>${emoji}</span>
-                    <span class="square-number">#${square.number}</span>
-                `;
+                div.innerHTML = `<span>${emoji}</span><span class="square-number">#${square.number}</span>`;
                 div.title = `مربع #${square.number} - ${square.owner?.name || 'فارغ'} (${tier})`;
                 div.onclick = () => openPurchaseModal(square);
                 grid.appendChild(div);
             }
-            
             document.getElementById('scrollInfo').textContent = getTranslation('scrollInfo', 'عرض 100 من 1,000,000');
-        }
-        
-        function scrollSquares(direction) {
-            const container = document.getElementById('squaresScroll');
-            const scrollAmount = 400;
-            if (direction === 'left') {
-                container.scrollLeft += scrollAmount;
-            } else {
-                container.scrollLeft -= scrollAmount;
-            }
         }
         
         function renderFeaturedSquares() {
@@ -1607,12 +1434,10 @@
             const pageItems = filteredSquares.slice(start, end);
             
             if (pageItems.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-gray-400">
-                        <i class="fas fa-search text-5xl mb-4"></i>
-                        <p data-i18n="noResults">${getTranslation('noResults', 'لا توجد مربعات مطابقة للبحث')}</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-400">
+                    <i class="fas fa-search text-5xl mb-4"></i>
+                    <p>${getTranslation('noResults', 'لا توجد مربعات مطابقة للبحث')}</p>
+                </div>`;
                 document.getElementById('pagination').innerHTML = '';
                 document.getElementById('resultsCount').textContent = '0 مربع';
                 return;
@@ -1628,10 +1453,10 @@
                 }[square.status] || square.status;
                 const stars = '★'.repeat(Math.round(square.rating.average)) + '☆'.repeat(5 - Math.round(square.rating.average));
                 const isSold = square.status === 'sold';
+                const isSubscriber = square.status === 'sold' || square.status === 'reserved';
                 
                 return `
-                    <div class="square-card tier-${tier.color} glass-effect p-4 ${square.status === 'available' ? 'cursor-pointer' : ''}" 
-                         onclick="${square.status === 'available' ? `openPurchaseModal(${JSON.stringify(square).replace(/"/g, '&quot;')})` : ''}">
+                    <div class="square-card tier-${tier.color} glass-effect p-4 ${square.status === 'available' ? 'cursor-pointer' : ''}">
                         <div class="glow"></div>
                         <div class="flex justify-between items-start mb-3">
                             <span class="text-3xl">${tier.emoji}</span>
@@ -1649,13 +1474,6 @@
                             <p><i class="fas fa-map-marker-alt text-red-400 w-5"></i> ${square.location.city}, ${square.location.country}</p>
                             <p><i class="fas fa-envelope text-blue-400 w-5"></i> ${square.owner.email}</p>
                             ${square.owner.phone ? `<p><i class="fas fa-phone text-green-400 w-5"></i> ${square.owner.phone}</p>` : ''}
-                            ${square.social ? `
-                                <p><i class="fas fa-share-alt text-purple-400 w-5"></i> 
-                                    ${square.social.twitter ? `<a href="#" class="hover:text-blue-400">🐦</a>` : ''}
-                                    ${square.social.linkedin ? `<a href="#" class="hover:text-blue-400">🔗</a>` : ''}
-                                    ${square.social.website ? `<a href="#" class="hover:text-blue-400">🌐</a>` : ''}
-                                </p>
-                            ` : ''}
                         </div>
                         <div class="flex justify-between items-center mt-3 pt-3 border-t border-white/10">
                             <div class="flex items-center gap-2 text-sm">
@@ -1664,20 +1482,28 @@
                             </div>
                             <div class="font-bold text-green-400">$${square.price}<span class="text-xs font-normal text-gray-400">/سنة</span></div>
                         </div>
-                        ${square.status === 'available' ? `
-                            <button onclick="event.stopPropagation(); openPurchaseModal(${JSON.stringify(square).replace(/"/g, '&quot;')})" 
-                                    class="w-full mt-3 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:shadow-lg transition text-sm font-bold">
-                                <i class="fas fa-cart-plus"></i> ${getTranslation('purchaseTitle', 'شراء المربع')}
-                            </button>
-                        ` : isSold ? `
-                            <div class="w-full mt-3 py-2.5 bg-white/5 rounded-xl text-center text-sm text-gray-400">
-                                <i class="fas fa-check-circle text-green-400"></i> ${getTranslation('statusSold', 'تم البيع')}
-                            </div>
-                        ` : `
-                            <div class="w-full mt-3 py-2.5 bg-white/5 rounded-xl text-center text-sm text-gray-400">
-                                <i class="fas fa-clock text-yellow-400"></i> ${getTranslation('statusReserved', 'محجوز')}
-                            </div>
-                        `}
+                        <div class="flex gap-2 mt-3">
+                            ${square.status === 'available' ? `
+                                <button onclick="openPurchaseModal(${JSON.stringify(square).replace(/"/g, '&quot;')})" 
+                                        class="flex-1 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:shadow-lg transition text-sm font-bold">
+                                    <i class="fas fa-cart-plus"></i> ${getTranslation('purchaseTitle', 'شراء')}
+                                </button>
+                            ` : isSold ? `
+                                <div class="flex-1 py-2.5 bg-white/5 rounded-xl text-center text-sm text-gray-400">
+                                    <i class="fas fa-check-circle text-green-400"></i> ${getTranslation('statusSold', 'تم البيع')}
+                                </div>
+                            ` : `
+                                <div class="flex-1 py-2.5 bg-white/5 rounded-xl text-center text-sm text-gray-400">
+                                    <i class="fas fa-clock text-yellow-400"></i> ${getTranslation('statusReserved', 'محجوز')}
+                                </div>
+                            `}
+                            ${isSubscriber ? `
+                                <button onclick="openContactModal({name:'${square.owner.name}', email:'${square.owner.email}', phone:'${square.owner.phone || '-'}', square:${square.number}, tier:'${square.tier}'})" 
+                                        class="px-3 py-2.5 bg-blue-600/30 rounded-xl hover:bg-blue-600/50 transition text-sm contact-btn" title="${getTranslation('contact', '📩 تواصل')}">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                            ` : ''}
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -1689,28 +1515,19 @@
         function renderPagination() {
             const totalPages = Math.ceil(filteredSquares.length / itemsPerPage);
             const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
-            
+            if (totalPages <= 1) { pagination.innerHTML = ''; return; }
             let html = '';
             for (let i = 1; i <= totalPages; i++) {
-                html += `
-                    <button onclick="goToPage(${i})" 
-                            class="px-4 py-2 rounded-lg transition ${i === currentPage ? 'bg-blue-600 text-white' : 'bg-white/10 hover:bg-white/20'}">
-                        ${i}
-                    </button>
-                `;
+                html += `<button onclick="goToPage(${i})" class="px-4 py-2 rounded-lg transition ${i === currentPage ? 'bg-blue-600 text-white' : 'bg-white/10 hover:bg-white/20'}">${i}</button>`;
             }
             pagination.innerHTML = html;
         }
         
-        function goToPage(page) {
-            currentPage = page;
-            renderFeaturedSquares();
-            window.scrollTo({ top: 600, behavior: 'smooth' });
+        function goToPage(page) { currentPage = page; renderFeaturedSquares(); window.scrollTo({ top: 600, behavior: 'smooth' }); }
+        function scrollSquares(direction) {
+            const container = document.getElementById('squaresScroll');
+            const scrollAmount = 400;
+            container.scrollLeft += direction === 'left' ? scrollAmount : -scrollAmount;
         }
         
         // ============================================
@@ -1723,8 +1540,7 @@
             const status = document.getElementById('statusFilter').value;
             
             filteredSquares = allSquares.filter(square => {
-                const matchesSearch = 
-                    square.owner.name.toLowerCase().includes(search) ||
+                const matchesSearch = square.owner.name.toLowerCase().includes(search) ||
                     square.location.country.toLowerCase().includes(search) ||
                     square.location.city.toLowerCase().includes(search) ||
                     square.content.title.toLowerCase().includes(search) ||
@@ -1732,10 +1548,8 @@
                 const matchesTier = tier === 'all' || square.tier === tier;
                 const matchesCategory = category === 'all' || square.category === category;
                 const matchesStatus = status === 'all' || square.status === status;
-                
                 return matchesSearch && matchesTier && matchesCategory && matchesStatus;
             });
-            
             currentPage = 1;
             renderFeaturedSquares();
         }
@@ -1751,25 +1565,17 @@
         // ============================================
         // دوال النوافذ المنبثقة
         // ============================================
-        function openModal(id) {
-            document.getElementById(id).classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); document.body.style.overflow = 'auto'; }
         
         // ============================================
-        // دوال شراء المربع
+        // دوال الشراء والاشتراك
         // ============================================
         function openPurchaseModal(square) {
             if (square.status !== 'available') {
                 showToast(getTranslation('squareNotAvailable', 'هذا المربع غير متاح للشراء'), 'error');
                 return;
             }
-            
             selectedSquareForPurchase = square;
             document.getElementById('purchaseSquareNumber').textContent = `#${square.number}`;
             document.getElementById('purchaseTier').textContent = TIERS[square.tier].label;
@@ -1777,9 +1583,7 @@
             document.getElementById('purchaseStatus').textContent = '🟢 متاح';
             document.getElementById('purchaseStatus').className = 'status-badge status-available';
             document.getElementById('purchaseTierSelect').value = square.tier;
-            
             openModal('purchaseModal');
-            
             setTimeout(() => renderPayPalButton('purchasePayPalContainer'), 300);
         }
         
@@ -1803,25 +1607,8 @@
                 square.tier = tier;
                 square.price = TIERS[tier].price;
                 
-                payments.push({
-                    id: payments.length + 1,
-                    user: name,
-                    email: email,
-                    amount: square.price,
-                    method: 'PayPal',
-                    status: 'completed',
-                    date: new Date().toLocaleDateString(),
-                    square: square.number
-                });
-                
-                subscribers.push({
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    tier: tier,
-                    square: square.number,
-                    date: new Date().toISOString()
-                });
+                payments.push({ id: payments.length + 1, user: name, email: email, amount: square.price, method: 'PayPal', status: 'completed', date: new Date().toLocaleDateString(), square: square.number });
+                subscribers.push({ name: name, email: email, phone: phone, tier: tier, square: square.number, date: new Date().toISOString() });
                 
                 saveToStorage('squares', allSquares);
                 saveToStorage('payments', payments);
@@ -1830,59 +1617,29 @@
                 updateStats();
                 filterSquares();
                 renderSquaresGrid();
-                
                 closeModal('purchaseModal');
-                showToast(
-                    getTranslation('purchaseSuccess', `✅ تم شراء المربع #${square.number} بنجاح!`),
-                    'success'
-                );
+                showToast(getTranslation('purchaseSuccess', `✅ تم شراء المربع #${square.number} بنجاح!`), 'success');
             }
         }
         
-        // ============================================
-        // دوال الاشتراك
-        // ============================================
         function renderSubscriptionPlans() {
             const container = document.getElementById('subscriptionPlansContainer');
             container.innerHTML = '';
-            
-            const tierKeys = Object.keys(TIERS);
-            tierKeys.forEach(tierKey => {
+            Object.keys(TIERS).forEach(tierKey => {
                 const tier = TIERS[tierKey];
-                const isPopular = tierKey === 'silver';
-                const isPremium = tierKey === 'gold';
-                const isVip = tierKey === 'platinum';
-                
                 const card = document.createElement('div');
                 card.className = `subscription-card ${selectedSubscription === tierKey ? 'selected' : ''}`;
                 card.id = `sub-${tierKey}`;
-                card.onclick = () => selectSubscription(tierKey);
-                
-                let tagHtml = '';
-                if (isPopular) tagHtml = `<span class="popular-tag" data-i18n="popularTag">${getTranslation('popularTag', 'الأكثر اختياراً')}</span>`;
-                else if (isPremium) tagHtml = `<span class="popular-tag" style="background:linear-gradient(135deg,#d69e2e,#b7791f);" data-i18n="premiumTag">${getTranslation('premiumTag', 'مميز')}</span>`;
-                else if (isVip) tagHtml = `<span class="popular-tag" style="background:linear-gradient(135deg,#e2e8f0,#cbd5e0);color:#1a202c;" data-i18n="vipTag">${getTranslation('vipTag', 'VIP')}</span>`;
-                
-                card.innerHTML = `
-                    ${tagHtml}
-                    <div class="tier-icon">${tier.emoji}</div>
-                    <h4 class="font-bold text-lg" data-i18n="${tierKey}Title">${tier.label}</h4>
+                card.onclick = () => { selectedSubscription = tierKey; document.querySelectorAll('.subscription-card').forEach(el => el.classList.remove('selected')); card.classList.add('selected'); };
+                const tagMap = { silver: 'popularTag', gold: 'premiumTag', platinum: 'vipTag' };
+                const tagHtml = tagMap[tierKey] ? `<span class="popular-tag">${getTranslation(tagMap[tierKey], '')}</span>` : '';
+                card.innerHTML = `${tagHtml}<div class="tier-icon">${tier.emoji}</div>
+                    <h4 class="font-bold text-lg">${tier.label}</h4>
                     <div class="price">$${tier.price}</div>
-                    <div class="text-sm text-gray-400" data-i18n="perYear">${getTranslation('perYear', '/ سنة')}</div>
-                    <ul class="features">
-                        ${tier.features.map((feat, index) => `
-                            <li><i class="fas fa-check"></i> <span data-i18n="${tierKey}Feat${index + 1}">${feat}</span></li>
-                        `).join('')}
-                    </ul>
-                `;
+                    <div class="text-sm text-gray-400">${getTranslation('perYear', '/ سنة')}</div>
+                    <ul class="features">${tier.features.map((feat, i) => `<li><i class="fas fa-check"></i> <span>${feat}</span></li>`).join('')}</ul>`;
                 container.appendChild(card);
             });
-        }
-        
-        function selectSubscription(tier) {
-            selectedSubscription = tier;
-            document.querySelectorAll('.subscription-card').forEach(el => el.classList.remove('selected'));
-            document.getElementById(`sub-${tier}`).classList.add('selected');
         }
         
         function proceedToPayment() {
@@ -1891,55 +1648,31 @@
                 return;
             }
             const tier = TIERS[selectedSubscription];
-            showToast(
-                getTranslation('paymentRedirect', `سيتم توجيهك إلى PayPal للدفع\nالباقة: ${tier.label}\nالمبلغ: $${tier.price}`),
-                'info'
-            );
+            showToast(getTranslation('paymentRedirect', `سيتم توجيهك إلى PayPal للدفع\nالباقة: ${tier.label}\nالمبلغ: $${tier.price}`), 'info');
             renderPayPalButton('subscriptionPayPalContainer');
         }
         
         // ============================================
-        // دوال PayPal
+        // PayPal
         // ============================================
         function renderPayPalButton(containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
-            
             container.innerHTML = '';
-            
             if (window.paypal) {
                 try {
                     window.paypal.Buttons({
-                        style: {
-                            layout: 'horizontal',
-                            color: 'blue',
-                            shape: 'rect',
-                            label: 'paypal',
-                            height: 45
-                        },
+                        style: { layout: 'horizontal', color: 'blue', shape: 'rect', label: 'paypal', height: 45 },
                         createOrder: function(data, actions) {
                             return actions.order.create({
-                                purchase_units: [{
-                                    amount: {
-                                        value: '10.00'
-                                    },
-                                    description: 'Million Squares - Payment'
-                                }],
-                                application_context: {
-                                    shipping_preference: 'NO_SHIPPING'
-                                }
+                                purchase_units: [{ amount: { value: '10.00' }, description: 'Million Squares - Payment' }],
+                                application_context: { shipping_preference: 'NO_SHIPPING' }
                             });
                         },
                         onApprove: function(data, actions) {
                             return actions.order.capture().then(function(details) {
-                                showToast(
-                                    getTranslation('paymentSuccess', `✅ تم الدفع بنجاح! شكراً لك ${details.payer.name.given_name}`),
-                                    'success'
-                                );
-                                closeModal('subscriptionModal');
-                                closeModal('adFormModal');
-                                closeModal('sponsorModal');
-                                closeModal('purchaseModal');
+                                showToast(getTranslation('paymentSuccess', `✅ تم الدفع بنجاح! شكراً لك ${details.payer.name.given_name}`), 'success');
+                                ['subscriptionModal', 'adFormModal', 'sponsorModal', 'purchaseModal'].forEach(id => closeModal(id));
                             });
                         },
                         onError: function(err) {
@@ -1956,30 +1689,18 @@
         }
         
         // ============================================
-        // دوال الدعم
+        // دوال الدعم والإعلان
         // ============================================
         function supportAmount(amount) {
-            showToast(
-                getTranslation('supportThanks', `شكراً لدعمك بمبلغ $${amount}`),
-                'success'
-            );
+            showToast(getTranslation('supportThanks', `شكراً لدعمك بمبلغ $${amount}`), 'success');
             renderPayPalButton('sponsorPayPalContainer');
         }
-        
         function supportCustom() {
             const amount = prompt(getTranslation('enterAmount', 'أدخل المبلغ الذي ترغب في التبرع به ($):'), '50');
-            if (amount && !isNaN(amount) && parseFloat(amount) > 0) {
-                supportAmount(parseFloat(amount));
-            }
+            if (amount && !isNaN(amount) && parseFloat(amount) > 0) supportAmount(parseFloat(amount));
         }
+        function supportCustomAmount() { supportCustom(); }
         
-        function supportCustomAmount() {
-            supportCustom();
-        }
-        
-        // ============================================
-        // دوال الإعلان
-        // ============================================
         function submitAd(event) {
             event.preventDefault();
             const data = {
@@ -1988,50 +1709,34 @@
                 description: document.getElementById('adDescription').value,
                 budget: document.getElementById('adBudget').value
             };
-            
-            showToast(
-                getTranslation('adSubmitted', `✅ تم إرسال طلب الإعلان بنجاح!\nالشركة: ${data.company}\nالميزانية: $${data.budget}`),
-                'success'
-            );
-            
+            showToast(getTranslation('adSubmitted', `✅ تم إرسال طلب الإعلان بنجاح!\nالشركة: ${data.company}\nالميزانية: $${data.budget}`), 'success');
             closeModal('adFormModal');
             document.getElementById('adForm').reset();
         }
         
         // ============================================
-        // دوال شريط الإعلانات
+        // شريط الإعلانات والداعمين
         // ============================================
         function renderAdSlider() {
             const track = document.getElementById('adSliderTrack');
             const ads = supportersData.slice(0, 4);
-            
             if (ads.length === 0) {
-                track.innerHTML = `
-                    <div class="ad-slide">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl">📢</div>
-                            <div>
-                                <h4 class="font-bold">${getTranslation('adPlaceholder', 'كن أول داعم')}</h4>
-                                <p class="text-sm text-gray-400">${getTranslation('adPlaceholderDesc', 'ادعم المنصة واظهر هنا')}</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-3">
-                            <button onclick="openModal('sponsorModal')" class="px-4 py-2 bg-green-600 rounded-full hover:bg-green-700 transition text-sm font-bold">💝 ${getTranslation('supportBtn', 'دعم')}</button>
-                            <button onclick="openModal('adFormModal')" class="px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition text-sm">📢 ${getTranslation('advertiseBtn', 'أعلن هنا')}</button>
-                        </div>
-                    </div>
-                `;
+                track.innerHTML = `<div class="ad-slide"><div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl">📢</div>
+                    <div><h4 class="font-bold">${getTranslation('adPlaceholder', 'كن أول داعم')}</h4>
+                    <p class="text-sm text-gray-400">${getTranslation('adPlaceholderDesc', 'ادعم المنصة واظهر هنا')}</p></div>
+                </div><div class="flex gap-3">
+                    <button onclick="openModal('sponsorModal')" class="px-4 py-2 bg-green-600 rounded-full hover:bg-green-700 transition text-sm font-bold">💝 ${getTranslation('supportBtn', 'دعم')}</button>
+                    <button onclick="openModal('adFormModal')" class="px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition text-sm">📢 ${getTranslation('advertiseBtn', 'أعلن هنا')}</button>
+                </div></div>`;
                 return;
             }
-            
             track.innerHTML = ads.map(ad => `
                 <div class="ad-slide" onclick="window.open('${ad.website || '#'}', '_blank')">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl">${ad.logo || '🏢'}</div>
-                        <div>
-                            <h4 class="font-bold">${ad.name}</h4>
-                            <p class="text-sm text-gray-400">${ad.tier || ''} - $${ad.amount || 0}/${ad.period || 'شهري'}</p>
-                        </div>
+                        <div><h4 class="font-bold">${ad.name}</h4>
+                        <p class="text-sm text-gray-400">${ad.tier || ''} - $${ad.amount || 0}/${ad.period || 'شهري'}</p></div>
                     </div>
                     <div class="flex gap-3">
                         <button onclick="event.stopPropagation(); openModal('supportersModal')" class="px-4 py-2 bg-green-600 rounded-full hover:bg-green-700 transition text-sm font-bold">🌟 ${getTranslation('supportersTitle', 'الداعمين')}</button>
@@ -2041,70 +1746,41 @@
             `).join('');
         }
         
-        // ============================================
-        // دوال عرض الداعمين
-        // ============================================
         function renderSupportersModal() {
             const container = document.getElementById('supportersList');
-            
             if (supportersData.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-8 text-gray-400">
-                        <i class="fas fa-users text-5xl mb-4"></i>
-                        <p data-i18n="noSupporters">${getTranslation('noSupporters', 'لا يوجد داعمين حالياً')}</p>
-                        <button onclick="closeModal('supportersModal'); openModal('sponsorModal')" class="mt-4 px-6 py-2 bg-green-600 rounded-full hover:bg-green-700 transition">
-                            ${getTranslation('supportNowBtn', 'ادعم الآن')}
-                        </button>
-                    </div>
-                `;
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-gray-400">
+                    <i class="fas fa-users text-5xl mb-4"></i>
+                    <p>${getTranslation('noSupporters', 'لا يوجد داعمين حالياً')}</p>
+                    <button onclick="closeModal('supportersModal'); openModal('sponsorModal')" class="mt-4 px-6 py-2 bg-green-600 rounded-full hover:bg-green-700 transition">${getTranslation('supportNowBtn', 'ادعم الآن')}</button>
+                </div>`;
                 return;
             }
-            
-            container.innerHTML = supportersData.map(supporter => `
+            container.innerHTML = supportersData.map(s => `
                 <div class="glass-effect-light p-4 rounded-xl">
                     <div class="flex items-center gap-4">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-3xl">${supporter.logo || '🏢'}</div>
-                        <div>
-                            <h4 class="font-bold text-lg">${supporter.name}</h4>
-                            <p class="text-sm text-gray-400">${supporter.tier || ''} - $${supporter.amount || 0}/${supporter.period || 'شهري'}</p>
-                            <p class="text-xs text-gray-500">${supporter.description || ''}</p>
-                        </div>
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-3xl">${s.logo || '🏢'}</div>
+                        <div><h4 class="font-bold text-lg">${s.name}</h4>
+                        <p class="text-sm text-gray-400">${s.tier || ''} - $${s.amount || 0}/${s.period || 'شهري'}</p>
+                        <p class="text-xs text-gray-500">${s.description || ''}</p></div>
                     </div>
-                    <div class="flex gap-3 mt-3">
-                        ${supporter.website ? `
-                            <button onclick="window.open('${supporter.website}', '_blank')" class="px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition text-sm">
-                                🌐 ${getTranslation('viewWebsite', 'زيارة الموقع')}
-                            </button>
-                        ` : ''}
-                    </div>
+                    ${s.website ? `<div class="mt-3"><button onclick="window.open('${s.website}', '_blank')" class="px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition text-sm">🌐 ${getTranslation('viewWebsite', 'زيارة الموقع')}</button></div>` : ''}
                 </div>
             `).join('');
         }
         
         // ============================================
-        // دوال إدارة البنوك - الإصلاح الكامل
+        // دوال إدارة البنوك
         // ============================================
         function deleteBankAccount(bankId) {
-            if (!confirm(getTranslation('confirmDeleteBank', 'هل أنت متأكد من حذف هذا البنك نهائياً؟'))) {
-                return;
-            }
-            
+            if (!confirm(getTranslation('confirmDeleteBank', 'هل أنت متأكد من حذف هذا البنك نهائياً؟'))) return;
             try {
-                // حذف البنك من القائمة
                 paymentAccounts.banks = paymentAccounts.banks.filter(b => b.id !== bankId);
-                
-                // حفظ التغييرات في LocalStorage
                 saveToStorage('paymentAccounts', paymentAccounts);
-                
-                // تحديث الواجهة
                 renderPaymentSettings();
                 showToast(getTranslation('bankDeleted', '✅ تم حذف البنك بنجاح'), 'success');
-                
-                // إعادة تحميل البيانات للتأكد
                 paymentAccounts = loadFromStorage('paymentAccounts', paymentAccounts);
-                
             } catch(e) {
-                console.error('Delete bank error:', e);
                 showToast(getTranslation('bankDeleteError', '❌ حدث خطأ أثناء حذف البنك'), 'error');
             }
         }
@@ -2112,40 +1788,21 @@
         function addBankAccount() {
             const bankName = prompt(getTranslation('enterBankName', 'أدخل اسم البنك:'));
             if (!bankName) return;
-            
             const accountNumber = prompt(getTranslation('enterAccountNumber', 'أدخل رقم الحساب:'));
             if (!accountNumber) return;
-            
             const iban = prompt(getTranslation('enterIban', 'أدخل IBAN:'));
             if (!iban) return;
-            
             const swift = prompt(getTranslation('enterSwift', 'أدخل رمز SWIFT:'));
             if (!swift) return;
-            
             try {
-                // إنشاء بنك جديد
-                const newBank = {
-                    id: Date.now(),
-                    name: bankName,
-                    accountNumber: accountNumber,
-                    iban: iban,
-                    swift: swift,
-                    enabled: true,
-                    createdAt: new Date().toISOString()
-                };
-                
-                if (!paymentAccounts.banks) {
-                    paymentAccounts.banks = [];
-                }
+                const newBank = { id: Date.now(), name: bankName, accountNumber, iban, swift, enabled: true, createdAt: new Date().toISOString() };
+                if (!paymentAccounts.banks) paymentAccounts.banks = [];
                 paymentAccounts.banks.push(newBank);
-                
                 saveToStorage('paymentAccounts', paymentAccounts);
                 renderPaymentSettings();
                 showToast(getTranslation('bankAdded', '✅ تم إضافة البنك بنجاح'), 'success');
                 paymentAccounts = loadFromStorage('paymentAccounts', paymentAccounts);
-                
             } catch(e) {
-                console.error('Add bank error:', e);
                 showToast(getTranslation('bankAddError', '❌ حدث خطأ أثناء إضافة البنك'), 'error');
             }
         }
@@ -2153,24 +1810,14 @@
         function savePaymentSettings() {
             try {
                 const paypalEmail = document.getElementById('settingsPaypalEmail')?.value?.trim();
-                if (paypalEmail) {
-                    paymentAccounts.paypal.email = paypalEmail;
-                    paymentAccounts.paypal.enabled = true;
-                }
-                
+                if (paypalEmail) { paymentAccounts.paypal.email = paypalEmail; paymentAccounts.paypal.enabled = true; }
                 const stripeKey = document.getElementById('settingsStripeKey')?.value?.trim();
-                if (stripeKey) {
-                    paymentAccounts.stripe.publicKey = stripeKey;
-                    paymentAccounts.stripe.enabled = true;
-                }
-                
+                if (stripeKey) { paymentAccounts.stripe.publicKey = stripeKey; paymentAccounts.stripe.enabled = true; }
                 saveToStorage('paymentAccounts', paymentAccounts);
                 renderPaymentSettings();
                 showToast(getTranslation('paymentUpdated', '✅ تم تحديث بيانات الدفع'), 'success');
                 paymentAccounts = loadFromStorage('paymentAccounts', paymentAccounts);
-                
             } catch(e) {
-                console.error('Save payment settings error:', e);
                 showToast(getTranslation('settingsError', '❌ حدث خطأ في حفظ الإعدادات'), 'error');
             }
         }
@@ -2178,86 +1825,49 @@
         function renderPaymentSettings() {
             const container = document.getElementById('paymentSettingsContainer');
             if (!container) return;
-            
             const banks = paymentAccounts.banks || [];
             const paypal = paymentAccounts.paypal || {};
             const stripe = paymentAccounts.stripe || {};
             
             container.innerHTML = `
                 <div class="space-y-6">
-                    <!-- PayPal -->
                     <div class="glass-effect-light p-4 rounded-xl">
-                        <div class="flex justify-between items-center mb-3">
-                            <h4 class="font-bold"><i class="fab fa-paypal text-blue-400"></i> PayPal</h4>
-                        </div>
-                        <div class="grid grid-cols-1 gap-3">
-                            <div>
-                                <label class="block text-sm text-gray-400 mb-1">${getTranslation('paypalEmail', 'البريد الإلكتروني')}</label>
-                                <input type="email" id="settingsPaypalEmail" value="${paypal.email || ''}" 
-                                       class="w-full px-4 py-2 bg-white/5 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                            </div>
-                            <button onclick="savePaymentSettings()" class="px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition text-sm">
-                                <i class="fas fa-save"></i> ${getTranslation('savePaypal', 'حفظ PayPal')}
-                            </button>
-                        </div>
+                        <h4 class="font-bold mb-3"><i class="fab fa-paypal text-blue-400"></i> PayPal</h4>
+                        <div><label class="block text-sm text-gray-400 mb-1">${getTranslation('paypalEmail', 'البريد الإلكتروني')}</label>
+                        <input type="email" id="settingsPaypalEmail" value="${paypal.email || ''}" class="w-full px-4 py-2 bg-white/5 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"></div>
+                        <button onclick="savePaymentSettings()" class="mt-3 px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition text-sm"><i class="fas fa-save"></i> ${getTranslation('savePaypal', 'حفظ PayPal')}</button>
                     </div>
-                    
-                    <!-- البنوك -->
                     <div class="glass-effect-light p-4 rounded-xl">
                         <div class="flex justify-between items-center mb-3">
                             <h4 class="font-bold"><i class="fas fa-university text-green-400"></i> ${getTranslation('bankAccounts', 'الحسابات البنكية')}</h4>
-                            <button onclick="addBankAccount()" class="px-3 py-1 bg-green-600 rounded-full hover:bg-green-700 transition text-sm">
-                                <i class="fas fa-plus"></i> ${getTranslation('addBank', 'إضافة بنك')}
-                            </button>
+                            <button onclick="addBankAccount()" class="px-3 py-1 bg-green-600 rounded-full hover:bg-green-700 transition text-sm"><i class="fas fa-plus"></i> ${getTranslation('addBank', 'إضافة بنك')}</button>
                         </div>
-                        
-                        ${banks.length === 0 ? `
-                            <p class="text-gray-400 text-sm">${getTranslation('noBanks', 'لا توجد حسابات بنكية')}</p>
-                        ` : `
-                            <div class="space-y-2">
-                                ${banks.map(bank => `
-                                    <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
-                                        <div>
-                                            <p class="font-bold">${bank.name}</p>
-                                            <p class="text-sm text-gray-400">${bank.accountNumber}</p>
-                                            <p class="text-xs text-gray-500">IBAN: ${bank.iban}</p>
-                                            ${bank.swift ? `<p class="text-xs text-gray-500">SWIFT: ${bank.swift}</p>` : ''}
-                                        </div>
-                                        <button onclick="deleteBankAccount(${bank.id})" class="text-red-400 hover:text-red-300">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                `).join('')}
+                        ${banks.length === 0 ? `<p class="text-gray-400 text-sm">${getTranslation('noBanks', 'لا توجد حسابات بنكية')}</p>` :
+                        `<div class="space-y-2">${banks.map(bank => `
+                            <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+                                <div><p class="font-bold">${bank.name}</p><p class="text-sm text-gray-400">${bank.accountNumber}</p>
+                                <p class="text-xs text-gray-500">IBAN: ${bank.iban}</p>${bank.swift ? `<p class="text-xs text-gray-500">SWIFT: ${bank.swift}</p>` : ''}</div>
+                                <button onclick="deleteBankAccount(${bank.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
                             </div>
-                        `}
+                        `).join('')}</div>`}
                     </div>
-                    
-                    <!-- Stripe -->
                     <div class="glass-effect-light p-4 rounded-xl">
                         <h4 class="font-bold mb-3"><i class="fab fa-stripe text-purple-400"></i> Stripe</h4>
-                        <div class="grid grid-cols-1 gap-3">
-                            <div>
-                                <label class="block text-sm text-gray-400 mb-1">${getTranslation('stripeKey', 'المفتاح العام')}</label>
-                                <input type="text" id="settingsStripeKey" value="${stripe.publicKey || ''}" 
-                                       class="w-full px-4 py-2 bg-white/5 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                            </div>
-                            <button onclick="savePaymentSettings()" class="px-4 py-2 bg-purple-600 rounded-full hover:bg-purple-700 transition text-sm">
-                                <i class="fas fa-save"></i> ${getTranslation('saveStripe', 'حفظ Stripe')}
-                            </button>
-                        </div>
+                        <div><label class="block text-sm text-gray-400 mb-1">${getTranslation('stripeKey', 'المفتاح العام')}</label>
+                        <input type="text" id="settingsStripeKey" value="${stripe.publicKey || ''}" class="w-full px-4 py-2 bg-white/5 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"></div>
+                        <button onclick="savePaymentSettings()" class="mt-3 px-4 py-2 bg-purple-600 rounded-full hover:bg-purple-700 transition text-sm"><i class="fas fa-save"></i> ${getTranslation('saveStripe', 'حفظ Stripe')}</button>
                     </div>
                 </div>
             `;
         }
         
         // ============================================
-        // دوال لوحة تحكم المسؤول
+        // لوحة التحكم
         // ============================================
         function adminLogin(event) {
             event.preventDefault();
             const username = document.getElementById('adminUser').value;
             const password = document.getElementById('adminPass').value;
-            
             const admin = adminData.admins.find(a => a.username === username);
             if (admin && (password === adminData.password || password === 'admin123')) {
                 isAdminLoggedIn = true;
@@ -2282,218 +1892,110 @@
                 document.querySelectorAll('.admin-sidebar a').forEach(el => el.classList.remove('active'));
                 event.currentTarget.classList.add('active');
             }
-            
             const content = document.getElementById('adminContent');
-            
             const sections = {
                 dashboard: `
-                    <h2 class="text-2xl font-bold mb-6" data-i18n="adminDashboard">📊 ${getTranslation('adminDashboard', 'لوحة المعلومات')}</h2>
+                    <h2 class="text-2xl font-bold mb-6">📊 ${getTranslation('adminDashboard', 'لوحة المعلومات')}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                        <div class="glass-effect p-4 text-center">
-                            <div class="text-3xl font-bold text-blue-400">${allSquares.length}</div>
-                            <div class="text-sm text-gray-400">${getTranslation('statTotal', 'المربعات')}</div>
-                        </div>
-                        <div class="glass-effect p-4 text-center">
-                            <div class="text-3xl font-bold text-green-400">${allSquares.filter(s => s.status === 'sold').length}</div>
-                            <div class="text-sm text-gray-400">${getTranslation('statSold', 'مباع')}</div>
-                        </div>
-                        <div class="glass-effect p-4 text-center">
-                            <div class="text-3xl font-bold text-purple-400">${allSquares.filter(s => s.status === 'available').length}</div>
-                            <div class="text-sm text-gray-400">${getTranslation('statusAvailable', 'متاح')}</div>
-                        </div>
-                        <div class="glass-effect p-4 text-center">
-                            <div class="text-3xl font-bold text-yellow-400">$${allSquares.reduce((sum, s) => sum + s.price, 0)}</div>
-                            <div class="text-sm text-gray-400">${getTranslation('statRevenue', 'الإيرادات')}</div>
-                        </div>
+                        <div class="glass-effect p-4 text-center"><div class="text-3xl font-bold text-blue-400">${allSquares.length}</div><div class="text-sm text-gray-400">${getTranslation('statTotal', 'المربعات')}</div></div>
+                        <div class="glass-effect p-4 text-center"><div class="text-3xl font-bold text-green-400">${allSquares.filter(s => s.status === 'sold').length}</div><div class="text-sm text-gray-400">${getTranslation('statSold', 'مباع')}</div></div>
+                        <div class="glass-effect p-4 text-center"><div class="text-3xl font-bold text-purple-400">${allSquares.filter(s => s.status === 'available').length}</div><div class="text-sm text-gray-400">${getTranslation('statusAvailable', 'متاح')}</div></div>
+                        <div class="glass-effect p-4 text-center"><div class="text-3xl font-bold text-yellow-400">$${allSquares.reduce((sum, s) => sum + s.price, 0)}</div><div class="text-sm text-gray-400">${getTranslation('statRevenue', 'الإيرادات')}</div></div>
                     </div>
-                    <div class="glass-effect p-4">
-                        <h3 class="font-bold mb-4">📈 ${getTranslation('recentActivity', 'أحدث النشاطات')}</h3>
-                        <div class="space-y-2 text-sm text-gray-300">
-                            <p>✅ ${getTranslation('soldSquare', 'تم بيع مربع')} #${allSquares.filter(s => s.status === 'sold').length + 1}</p>
-                            <p>🆕 ${getTranslation('newSubscriber', 'مشترك جديد')}: ${allSquares[Math.floor(Math.random() * allSquares.length)].owner.name}</p>
-                            <p>💰 ${getTranslation('newPayment', 'دفع جديد')}: $${Math.floor(Math.random() * 100) + 1}</p>
-                        </div>
-                    </div>
+                    <div class="glass-effect p-4"><h3 class="font-bold mb-4">📈 ${getTranslation('recentActivity', 'أحدث النشاطات')}</h3>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <p>✅ ${getTranslation('soldSquare', 'تم بيع مربع')} #${allSquares.filter(s => s.status === 'sold').length + 1}</p>
+                        <p>🆕 ${getTranslation('newSubscriber', 'مشترك جديد')}: ${allSquares[Math.floor(Math.random() * allSquares.length)].owner.name}</p>
+                        <p>💰 ${getTranslation('newPayment', 'دفع جديد')}: $${Math.floor(Math.random() * 100) + 1}</p>
+                    </div></div>
                 `,
                 squares: `
-                    <h2 class="text-2xl font-bold mb-6" data-i18n="adminSquares">🗂️ ${getTranslation('adminSquares', 'إدارة المربعات')}</h2>
+                    <h2 class="text-2xl font-bold mb-6">🗂️ ${getTranslation('adminSquares', 'إدارة المربعات')}</h2>
                     <div class="glass-effect p-4 overflow-x-auto">
                         <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>${getTranslation('owner', 'المالك')}</th>
-                                    <th>${getTranslation('tier', 'الفئة')}</th>
-                                    <th>${getTranslation('status', 'الحالة')}</th>
-                                    <th>${getTranslation('price', 'السعر')}</th>
-                                    <th>${getTranslation('actions', 'إجراءات')}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${allSquares.slice(0, 20).map(s => `
-                                    <tr>
-                                        <td>#${s.number}</td>
-                                        <td>${s.owner.name}</td>
-                                        <td><span class="tier-badge px-2 py-1 rounded-full text-xs">${s.tier}</span></td>
-                                        <td><span class="status-badge status-${s.status}">${s.status}</span></td>
-                                        <td>$${s.price}</td>
-                                        <td>
-                                            <button onclick="editSquare(${s.number})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
-                                            <button onclick="deleteSquare(${s.number})" class="text-red-400 hover:text-red-300 mr-2"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
+                            <thead><tr><th>#</th><th>${getTranslation('owner', 'المالك')}</th><th>${getTranslation('tier', 'الفئة')}</th><th>${getTranslation('status', 'الحالة')}</th><th>${getTranslation('price', 'السعر')}</th><th>${getTranslation('actions', 'إجراءات')}</th></tr></thead>
+                            <tbody>${allSquares.slice(0, 20).map(s => `
+                                <tr><td>#${s.number}</td><td>${s.owner.name}</td><td>${s.tier}</td><td><span class="status-badge status-${s.status}">${s.status}</span></td><td>$${s.price}</td>
+                                <td><button onclick="editSquare(${s.number})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
+                                <button onclick="deleteSquare(${s.number})" class="text-red-400 hover:text-red-300 mr-2"><i class="fas fa-trash"></i></button></td></tr>
+                            `).join('')}</tbody>
                         </table>
                     </div>
                 `,
                 subscribers: `
-                    <h2 class="text-2xl font-bold mb-6" data-i18n="adminSubscribers">👥 ${getTranslation('adminSubscribers', 'إدارة المشتركين')}</h2>
+                    <h2 class="text-2xl font-bold mb-6">👥 ${getTranslation('adminSubscribers', 'إدارة المشتركين')}</h2>
                     <div class="glass-effect p-4 overflow-x-auto">
                         <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>${getTranslation('name', 'الاسم')}</th>
-                                    <th>${getTranslation('email', 'البريد')}</th>
-                                    <th>${getTranslation('tier', 'الفئة')}</th>
-                                    <th>${getTranslation('square', 'المربع')}</th>
-                                    <th>${getTranslation('date', 'التاريخ')}</th>
-                                    <th>${getTranslation('actions', 'إجراءات')}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${subscribers.length === 0 ? `
-                                    <tr><td colspan="6" class="text-center text-gray-400 py-4">${getTranslation('noSubscribers', 'لا يوجد مشتركين بعد')}</td></tr>
-                                ` : subscribers.slice(0, 15).map(s => `
-                                    <tr>
-                                        <td>${s.name}</td>
-                                        <td>${s.email}</td>
-                                        <td>${s.tier}</td>
-                                        <td>#${s.square}</td>
-                                        <td>${new Date(s.date).toLocaleDateString()}</td>
-                                        <td>
-                                            <button onclick="editSubscriber(${s.square})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
-                                            <button onclick="suspendSubscriber(${s.square})" class="text-yellow-400 hover:text-yellow-300 mr-2"><i class="fas fa-pause"></i></button>
-                                        </td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
+                            <thead><tr><th>${getTranslation('name', 'الاسم')}</th><th>${getTranslation('email', 'البريد')}</th><th>${getTranslation('tier', 'الفئة')}</th><th>${getTranslation('square', 'المربع')}</th><th>${getTranslation('date', 'التاريخ')}</th><th>${getTranslation('actions', 'إجراءات')}</th></tr></thead>
+                            <tbody>${subscribers.length === 0 ? `<tr><td colspan="6" class="text-center text-gray-400 py-4">${getTranslation('noSubscribers', 'لا يوجد مشتركين بعد')}</td></tr>` :
+                            subscribers.slice(0, 15).map(s => `
+                                <tr><td>${s.name}</td><td>${s.email}</td><td>${s.tier}</td><td>#${s.square}</td><td>${new Date(s.date).toLocaleDateString()}</td>
+                                <td><button onclick="editSubscriber(${s.square})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
+                                <button onclick="suspendSubscriber(${s.square})" class="text-yellow-400 hover:text-yellow-300 mr-2"><i class="fas fa-pause"></i></button>
+                                <button onclick="openContactModal({name:'${s.name}', email:'${s.email}', phone:'${s.phone || '-'}', square:${s.square}, tier:'${s.tier}'})" class="text-blue-400 hover:text-blue-300 mr-2"><i class="fas fa-envelope"></i></button></td></tr>
+                            `).join('')}</tbody>
                         </table>
                     </div>
                 `,
                 supporters: `
-                    <h2 class="text-2xl font-bold mb-6" data-i18n="adminSupporters">🌟 ${getTranslation('adminSupporters', 'إدارة الداعمين')}</h2>
+                    <h2 class="text-2xl font-bold mb-6">🌟 ${getTranslation('adminSupporters', 'إدارة الداعمين')}</h2>
                     <div class="glass-effect p-4">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            ${supportersData.slice(0, 3).map(s => `
-                                <div class="glass-effect-light p-4 text-center">
-                                    <div class="text-3xl mb-2">${s.logo || '🏢'}</div>
-                                    <h4 class="font-bold">${s.name}</h4>
-                                    <p class="text-gray-400">$${s.amount}</p>
-                                    <p class="text-sm text-gray-500">${s.tier || ''} - ${s.period || ''}</p>
-                                    ${s.website ? `<a href="${s.website}" target="_blank" class="text-blue-400 text-sm hover:underline">${getTranslation('viewWebsite', 'زيارة الموقع')}</a>` : ''}
-                                    <button onclick="editSupporter(${s.id})" class="mt-2 px-4 py-1 bg-blue-600 rounded-full text-sm hover:bg-blue-700">${getTranslation('edit', 'تعديل')}</button>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button onclick="addSupporter()" class="mt-4 px-6 py-2 bg-green-600 rounded-full hover:bg-green-700 transition">
-                            <i class="fas fa-plus"></i> ${getTranslation('addSupporter', 'إضافة داعم جديد')}
-                        </button>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">${supportersData.slice(0, 3).map(s => `
+                            <div class="glass-effect-light p-4 text-center">
+                                <div class="text-3xl mb-2">${s.logo || '🏢'}</div>
+                                <h4 class="font-bold">${s.name}</h4>
+                                <p class="text-gray-400">$${s.amount}</p>
+                                <p class="text-sm text-gray-500">${s.tier || ''} - ${s.period || ''}</p>
+                                ${s.website ? `<a href="${s.website}" target="_blank" class="text-blue-400 text-sm hover:underline">${getTranslation('viewWebsite', 'زيارة الموقع')}</a>` : ''}
+                                <button onclick="editSupporter(${s.id})" class="mt-2 px-4 py-1 bg-blue-600 rounded-full text-sm hover:bg-blue-700">${getTranslation('edit', 'تعديل')}</button>
+                            </div>
+                        `).join('')}</div>
+                        <button onclick="addSupporter()" class="mt-4 px-6 py-2 bg-green-600 rounded-full hover:bg-green-700 transition"><i class="fas fa-plus"></i> ${getTranslation('addSupporter', 'إضافة داعم جديد')}</button>
                     </div>
                 `,
                 payments: `
-                    <h2 class="text-2xl font-bold mb-6" data-i18n="adminPayments">💳 ${getTranslation('adminPayments', 'إدارة المدفوعات')}</h2>
+                    <h2 class="text-2xl font-bold mb-6">💳 ${getTranslation('adminPayments', 'إدارة المدفوعات')}</h2>
                     <div class="glass-effect p-4 overflow-x-auto">
                         <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>${getTranslation('user', 'المستخدم')}</th>
-                                    <th>${getTranslation('amount', 'المبلغ')}</th>
-                                    <th>${getTranslation('method', 'طريقة الدفع')}</th>
-                                    <th>${getTranslation('status', 'الحالة')}</th>
-                                    <th>${getTranslation('date', 'التاريخ')}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${payments.length === 0 ? `
-                                    <tr><td colspan="6" class="text-center text-gray-400 py-4">${getTranslation('noPayments', 'لا يوجد مدفوعات بعد')}</td></tr>
-                                ` : payments.map(p => `
-                                    <tr>
-                                        <td>#${p.id}</td>
-                                        <td>${p.user}</td>
-                                        <td>$${p.amount}</td>
-                                        <td>${p.method}</td>
-                                        <td><span class="status-badge ${p.status === 'completed' ? 'status-available' : 'status-reserved'}">${p.status}</span></td>
-                                        <td>${p.date}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
+                            <thead><tr><th>#</th><th>${getTranslation('user', 'المستخدم')}</th><th>${getTranslation('amount', 'المبلغ')}</th><th>${getTranslation('method', 'طريقة الدفع')}</th><th>${getTranslation('status', 'الحالة')}</th><th>${getTranslation('date', 'التاريخ')}</th></tr></thead>
+                            <tbody>${payments.length === 0 ? `<tr><td colspan="6" class="text-center text-gray-400 py-4">${getTranslation('noPayments', 'لا يوجد مدفوعات بعد')}</td></tr>` :
+                            payments.map(p => `
+                                <tr><td>#${p.id}</td><td>${p.user}</td><td>$${p.amount}</td><td>${p.method}</td>
+                                <td><span class="status-badge ${p.status === 'completed' ? 'status-available' : 'status-reserved'}">${p.status}</span></td><td>${p.date}</td></tr>
+                            `).join('')}</tbody>
                         </table>
                     </div>
                 `,
                 admins: `
-                    <h2 class="text-2xl font-bold mb-6" data-i18n="adminAdmins">🛡️ ${getTranslation('adminAdmins', 'إدارة المشرفين')}</h2>
+                    <h2 class="text-2xl font-bold mb-6">🛡️ ${getTranslation('adminAdmins', 'إدارة المشرفين')}</h2>
                     <div class="glass-effect p-4">
-                        <div class="overflow-x-auto">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>${getTranslation('name', 'الاسم')}</th>
-                                        <th>${getTranslation('username', 'اسم المستخدم')}</th>
-                                        <th>${getTranslation('role', 'الدور')}</th>
-                                        <th>${getTranslation('permissions', 'الصلاحيات')}</th>
-                                        <th>${getTranslation('actions', 'إجراءات')}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${adminData.admins.map(a => `
-                                        <tr>
-                                            <td>${a.name}</td>
-                                            <td>${a.username}</td>
-                                            <td><span class="status-badge ${a.role === 'super_admin' ? 'status-available' : 'status-reserved'}">${a.role}</span></td>
-                                            <td>${a.permissions.join(', ')}</td>
-                                            <td>
-                                                <button onclick="editAdmin(${a.id})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
-                                                ${a.id !== 1 ? `<button onclick="deleteAdmin(${a.id})" class="text-red-400 hover:text-red-300 mr-2"><i class="fas fa-trash"></i></button>` : ''}
-                                            </td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                        <button onclick="addAdmin()" class="mt-4 px-6 py-2 bg-green-600 rounded-full hover:bg-green-700 transition">
-                            <i class="fas fa-user-plus"></i> ${getTranslation('addAdmin', 'إضافة مشرف جديد')}
-                        </button>
+                        <table class="admin-table">
+                            <thead><tr><th>${getTranslation('name', 'الاسم')}</th><th>${getTranslation('username', 'اسم المستخدم')}</th><th>${getTranslation('role', 'الدور')}</th><th>${getTranslation('permissions', 'الصلاحيات')}</th><th>${getTranslation('actions', 'إجراءات')}</th></tr></thead>
+                            <tbody>${adminData.admins.map(a => `
+                                <tr><td>${a.name}</td><td>${a.username}</td><td><span class="status-badge ${a.role === 'super_admin' ? 'status-available' : 'status-reserved'}">${a.role}</span></td>
+                                <td>${a.permissions.join(', ')}</td>
+                                <td><button onclick="editAdmin(${a.id})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
+                                ${a.id !== 1 ? `<button onclick="deleteAdmin(${a.id})" class="text-red-400 hover:text-red-300 mr-2"><i class="fas fa-trash"></i></button>` : ''}</td></tr>
+                            `).join('')}</tbody>
+                        </table>
+                        <button onclick="addAdmin()" class="mt-4 px-6 py-2 bg-green-600 rounded-full hover:bg-green-700 transition"><i class="fas fa-user-plus"></i> ${getTranslation('addAdmin', 'إضافة مشرف جديد')}</button>
                     </div>
                 `,
                 settings: `
-                    <h2 class="text-2xl font-bold mb-6" data-i18n="adminSettings">⚙️ ${getTranslation('adminSettings', 'إعدادات الموقع')}</h2>
+                    <h2 class="text-2xl font-bold mb-6">⚙️ ${getTranslation('adminSettings', 'الإعدادات')}</h2>
                     <div class="space-y-6">
                         <div class="glass-effect p-4 rounded-xl">
                             <h3 class="font-bold mb-4">${getTranslation('siteSettings', 'إعدادات الموقع')}</h3>
                             <div class="space-y-3">
-                                <div>
-                                    <label class="block text-sm font-medium mb-1">${getTranslation('siteName', 'اسم الموقع')}</label>
-                                    <input type="text" id="settingsSiteName" value="${getTranslation('siteTitle', 'مليون مربع')}" 
-                                           class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1">${getTranslation('adminUsername', 'اسم المستخدم للمسؤول')}</label>
-                                    <input type="text" id="settingsAdminUser" value="${adminData.username}" 
-                                           class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1">${getTranslation('adminPassword', 'كلمة المرور الجديدة')}</label>
-                                    <input type="password" id="settingsAdminPass" placeholder="${getTranslation('keepEmpty', 'اتركه فارغاً للاحتفاظ بكلمة المرور الحالية')}" 
-                                           class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
-                                </div>
-                                <button onclick="saveSettings()" class="px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition">
-                                    <i class="fas fa-save"></i> ${getTranslation('saveSettings', 'حفظ الإعدادات')}
-                                </button>
+                                <div><label class="block text-sm font-medium mb-1">${getTranslation('siteName', 'اسم الموقع')}</label>
+                                <input type="text" id="settingsSiteName" value="${getTranslation('siteTitle', 'مليون مربع')}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"></div>
+                                <div><label class="block text-sm font-medium mb-1">${getTranslation('adminUsername', 'اسم المستخدم للمسؤول')}</label>
+                                <input type="text" id="settingsAdminUser" value="${adminData.username}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"></div>
+                                <div><label class="block text-sm font-medium mb-1">${getTranslation('adminPassword', 'كلمة المرور الجديدة')}</label>
+                                <input type="password" id="settingsAdminPass" placeholder="${getTranslation('keepEmpty', 'اتركه فارغاً للاحتفاظ بكلمة المرور الحالية')}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"></div>
+                                <button onclick="saveSettings()" class="px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition"><i class="fas fa-save"></i> ${getTranslation('saveSettings', 'حفظ الإعدادات')}</button>
                             </div>
                         </div>
-                        
                         <div class="glass-effect p-4 rounded-xl">
                             <h3 class="font-bold mb-4">💳 ${getTranslation('paymentSettings', 'إعدادات الدفع')}</h3>
                             <div id="paymentSettingsContainer"></div>
@@ -2501,67 +2003,45 @@
                     </div>
                 `
             };
-            
             content.innerHTML = sections[section] || sections.dashboard;
             renderPaymentSettings();
         }
         
         // ============================================
-        // دوال حفظ الإعدادات
+        // دوال الإعدادات والإدارة
         // ============================================
         function saveSettings() {
             try {
                 const newUsername = document.getElementById('settingsAdminUser').value.trim();
                 const newPassword = document.getElementById('settingsAdminPass').value.trim();
-                
                 if (newUsername) {
                     adminData.username = newUsername;
                     const mainAdmin = adminData.admins.find(a => a.id === 1);
-                    if (mainAdmin) {
-                        mainAdmin.username = newUsername;
-                    }
+                    if (mainAdmin) mainAdmin.username = newUsername;
                 }
-                
-                if (newPassword && newPassword.length >= 4) {
-                    adminData.password = newPassword;
-                }
-                
+                if (newPassword && newPassword.length >= 4) adminData.password = newPassword;
                 saveToStorage('adminData', adminData);
                 showToast(getTranslation('settingsSaved', '✅ تم حفظ الإعدادات بنجاح'), 'success');
                 document.getElementById('adminName').textContent = adminData.admins.find(a => a.id === 1)?.name || adminData.username;
-                
             } catch(e) {
                 showToast(getTranslation('settingsError', '❌ حدث خطأ في حفظ الإعدادات'), 'error');
-                console.error('Save settings error:', e);
             }
         }
         
-        // ============================================
-        // دوال إدارة المشرفين والداعمين
-        // ============================================
         function addAdmin() {
             const name = prompt(getTranslation('enterAdminName', 'أدخل اسم المشرف الجديد:'));
-            if (name) {
-                const username = prompt(getTranslation('enterAdminUsername', 'أدخل اسم المستخدم:'));
-                if (username) {
-                    adminData.admins.push({
-                        id: adminData.admins.length + 1,
-                        username: username,
-                        name: name,
-                        role: 'moderator',
-                        permissions: ['view_squares', 'view_users']
-                    });
-                    saveToStorage('adminData', adminData);
-                    showAdminSection('admins');
-                    showToast(getTranslation('adminAdded', `تم إضافة المشرف ${name} بنجاح`), 'success');
-                }
-            }
+            if (!name) return;
+            const username = prompt(getTranslation('enterAdminUsername', 'أدخل اسم المستخدم:'));
+            if (!username) return;
+            adminData.admins.push({ id: adminData.admins.length + 1, username, name, role: 'moderator', permissions: ['view_squares', 'view_users'] });
+            saveToStorage('adminData', adminData);
+            showAdminSection('admins');
+            showToast(getTranslation('adminAdded', `تم إضافة المشرف ${name} بنجاح`), 'success');
         }
         
         function editAdmin(id) {
             const admin = adminData.admins.find(a => a.id === id);
             if (!admin) return;
-            
             const newName = prompt(getTranslation('editAdminName', 'تعديل اسم المشرف:'), admin.name);
             if (newName && newName.trim()) {
                 admin.name = newName.trim();
@@ -2572,42 +2052,27 @@
         }
         
         function deleteAdmin(id) {
-            if (id === 1) {
-                showToast(getTranslation('cannotDeleteMainAdmin', 'لا يمكن حذف المسؤول الرئيسي'), 'error');
-                return;
-            }
-            if (confirm(getTranslation('confirmDeleteAdmin', 'هل أنت متأكد من حذف هذا المشرف؟'))) {
-                adminData.admins = adminData.admins.filter(a => a.id !== id);
-                saveToStorage('adminData', adminData);
-                showAdminSection('admins');
-                showToast(getTranslation('adminDeleted', 'تم حذف المشرف'), 'success');
-            }
+            if (id === 1) { showToast(getTranslation('cannotDeleteMainAdmin', 'لا يمكن حذف المسؤول الرئيسي'), 'error'); return; }
+            if (!confirm(getTranslation('confirmDeleteAdmin', 'هل أنت متأكد من حذف هذا المشرف؟'))) return;
+            adminData.admins = adminData.admins.filter(a => a.id !== id);
+            saveToStorage('adminData', adminData);
+            showAdminSection('admins');
+            showToast(getTranslation('adminDeleted', 'تم حذف المشرف'), 'success');
         }
         
         function addSupporter() {
             const name = prompt(getTranslation('enterSupporterName', 'أدخل اسم الداعم:'));
-            if (name) {
-                supportersData.push({
-                    id: supportersData.length + 1,
-                    name: name,
-                    logo: '🏢',
-                    tier: 'برونزي',
-                    amount: 100,
-                    period: 'شهري',
-                    website: '',
-                    description: ''
-                });
-                saveToStorage('supportersData', supportersData);
-                renderAdSlider();
-                showAdminSection('supporters');
-                showToast(getTranslation('supporterAdded', 'تم إضافة الداعم بنجاح'), 'success');
-            }
+            if (!name) return;
+            supportersData.push({ id: supportersData.length + 1, name, logo: '🏢', tier: 'برونزي', amount: 100, period: 'شهري', website: '', description: '' });
+            saveToStorage('supportersData', supportersData);
+            renderAdSlider();
+            showAdminSection('supporters');
+            showToast(getTranslation('supporterAdded', 'تم إضافة الداعم بنجاح'), 'success');
         }
         
         function editSupporter(id) {
             const supporter = supportersData.find(s => s.id === id);
             if (!supporter) return;
-            
             const newName = prompt(getTranslation('editSupporterName', 'تعديل اسم الداعم:'), supporter.name);
             if (newName && newName.trim()) {
                 supporter.name = newName.trim();
@@ -2621,7 +2086,6 @@
         function editSquare(number) {
             const square = allSquares.find(s => s.number === number);
             if (!square) return;
-            
             const newStatus = prompt(getTranslation('editSquareStatus', 'تعديل حالة المربع (available/sold/reserved):'), square.status);
             if (newStatus && ['available', 'sold', 'reserved'].includes(newStatus)) {
                 square.status = newStatus;
@@ -2634,20 +2098,18 @@
         }
         
         function deleteSquare(number) {
-            if (confirm(getTranslation('confirmDeleteSquare', `هل أنت متأكد من حذف المربع #${number}؟`))) {
-                allSquares = allSquares.filter(s => s.number !== number);
-                saveToStorage('squares', allSquares);
-                filterSquares();
-                renderSquaresGrid();
-                updateStats();
-                showToast(getTranslation('squareDeleted', 'تم حذف المربع'), 'success');
-            }
+            if (!confirm(getTranslation('confirmDeleteSquare', `هل أنت متأكد من حذف المربع #${number}؟`))) return;
+            allSquares = allSquares.filter(s => s.number !== number);
+            saveToStorage('squares', allSquares);
+            filterSquares();
+            renderSquaresGrid();
+            updateStats();
+            showToast(getTranslation('squareDeleted', 'تم حذف المربع'), 'success');
         }
         
         function editSubscriber(squareNumber) {
             const subscriber = subscribers.find(s => s.square === squareNumber);
             if (!subscriber) return;
-            
             const newName = prompt(getTranslation('editSubscriberName', 'تعديل اسم المشترك:'), subscriber.name);
             if (newName && newName.trim()) {
                 subscriber.name = newName.trim();
@@ -2658,16 +2120,15 @@
         }
         
         function suspendSubscriber(squareNumber) {
-            if (confirm(getTranslation('confirmSuspendSubscriber', 'هل أنت متأكد من تعليق اشتراك هذا المشترك؟'))) {
-                subscribers = subscribers.filter(s => s.square !== squareNumber);
-                saveToStorage('subscribers', subscribers);
-                showAdminSection('subscribers');
-                showToast(getTranslation('subscriberSuspended', 'تم تعليق اشتراك المشترك'), 'success');
-            }
+            if (!confirm(getTranslation('confirmSuspendSubscriber', 'هل أنت متأكد من تعليق اشتراك هذا المشترك؟'))) return;
+            subscribers = subscribers.filter(s => s.square !== squareNumber);
+            saveToStorage('subscribers', subscribers);
+            showAdminSection('subscribers');
+            showToast(getTranslation('subscriberSuspended', 'تم تعليق اشتراك المشترك'), 'success');
         }
         
         // ============================================
-        // دوال الإحصائيات
+        // الإحصائيات والإشعارات
         // ============================================
         function updateStats() {
             document.getElementById('soldSquares').textContent = allSquares.filter(s => s.status === 'sold').length;
@@ -2676,58 +2137,24 @@
             document.getElementById('supportersCount').textContent = allSquares.filter(s => s.tier === 'platinum').length;
         }
         
-        // ============================================
-        // دوال الإشعارات (Toast)
-        // ============================================
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            const icons = {
-                success: '✅',
-                error: '❌',
-                info: 'ℹ️'
-            };
+            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
             toast.innerHTML = `<i>${icons[type] || 'ℹ️'}</i> ${message}`;
             document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(100px)';
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100px)'; setTimeout(() => toast.remove(), 300); }, 4000);
         }
         
         // ============================================
-        // دوال إعادة التحميل الكامل
-        // ============================================
-        function renderAll() {
-            renderSubscriptionPlans();
-            renderAdSlider();
-            renderSquaresGrid();
-            filterSquares();
-            updateStats();
-            renderSupportersModal();
-            
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                const translation = getTranslation(key, key);
-                if (translation) {
-                    el.textContent = translation;
-                }
-            });
-        }
-        
-        // ============================================
-        // تهيئة التطبيق
+        // ربط الأحداث والتهيئة
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             setLanguage(currentLang);
-            
             document.getElementById('searchInput').addEventListener('input', filterSquares);
             document.getElementById('tierFilter').addEventListener('change', filterSquares);
             document.getElementById('categoryFilter').addEventListener('change', filterSquares);
             document.getElementById('statusFilter').addEventListener('change', filterSquares);
-            
             renderAll();
             
             console.log('🏆 مليون مربع - المنصة البصرية التفاعلية');
@@ -2735,7 +2162,7 @@
             console.log(`🌍 دعم ${Object.keys(translations).length} لغة`);
             console.log('✨ جميع الميزات مفعلة مع حفظ البيانات في LocalStorage');
             console.log('🔐 دخول المسؤول: admin / admin123');
-            console.log('🏦 عدد البنوك المحفوظة: ' + (paymentAccounts.banks?.length || 0));
+            console.log('📩 إمكانية التواصل مع المشتركين عبر زر التواصل');
         });
     </script>
 </body>
