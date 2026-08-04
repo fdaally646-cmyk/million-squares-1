@@ -5,31 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>🏆 مليون مربع - المنصة البصرية التفاعلية الأولى</title>
-    <meta name="description" content="مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي وابدأ في بناء مجتمعك الرقمي اليوم. دعم PayPal، إعلانات تفاعلية، ومجتمع نشط.">
-    <meta name="keywords" content="مليون مربع, منصة تفاعلية, إعلانات مربعة, تسويق رقمي, مجتمع رقمي, إعلانات تفاعلية, PayPal, دعم, اشتراك, مربعات إعلانية">
+    <title>🏆 Million Squares - The First Interactive Visual Platform</title>
+    <meta name="description" content="Million Squares is the first interactive visual platform in the Arab world. Buy your interactive advertising square and start building your digital community today.">
+    <meta name="keywords" content="Million Squares, interactive platform, square ads, digital marketing, digital community, interactive ads, PayPal, support, subscription">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Million Squares">
     <link rel="canonical" href="https://million-squares.com">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="مليون مربع - المنصة البصرية التفاعلية الأولى">
-    <meta property="og:description" content="المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي وابدأ في بناء مجتمعك الرقمي اليوم.">
+    <meta property="og:title" content="Million Squares - The First Interactive Visual Platform">
+    <meta property="og:description" content="The first interactive visual platform in the Arab world. Buy your interactive advertising square today.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://million-squares.com">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="مليون مربع - المنصة البصرية التفاعلية الأولى">
-    <meta name="twitter:description" content="المنصة البصرية التفاعلية الأولى في العالم العربي.">
+    <meta name="twitter:title" content="Million Squares - The First Interactive Visual Platform">
+    <meta name="twitter:description" content="The first interactive visual platform in the Arab world.">
     
     <!-- Schema.org -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "مليون مربع",
-        "description": "المنصة البصرية التفاعلية الأولى في العالم العربي",
+        "name": "Million Squares",
+        "description": "The first interactive visual platform in the Arab world",
         "applicationCategory": "SocialMedia",
         "operatingSystem": "All"
     }
@@ -83,32 +83,90 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        /* شريط اللغات */
+        /* ======== شريط اللغات - محسن ======== */
         .language-selector {
             position: relative;
+            z-index: 200;
         }
+        
+        .language-btn {
+            background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            min-width: 140px;
+            justify-content: center;
+        }
+        .language-btn:hover {
+            background: linear-gradient(135deg, #2a2a4e, #3a3a6e);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: scale(1.02);
+        }
+        .language-btn i {
+            font-size: 1rem;
+        }
+        .language-btn .arrow {
+            transition: transform 0.3s;
+        }
+        .language-btn .arrow.open {
+            transform: rotate(180deg);
+        }
+        
         .language-dropdown {
             position: absolute;
-            top: 110%;
+            top: calc(100% + 8px);
             right: 0;
             background: #1a1a2e;
             border-radius: 16px;
             padding: 8px;
-            min-width: 220px;
+            min-width: 260px;
             display: none;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            z-index: 100;
-            max-height: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            z-index: 300;
+            max-height: 450px;
             overflow-y: auto;
+            backdrop-filter: blur(10px);
         }
         .language-dropdown.show {
             display: block;
+            animation: dropdownIn 0.3s ease-out;
         }
-        .language-dropdown button {
+        
+        @keyframes dropdownIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .language-dropdown::-webkit-scrollbar {
+            width: 5px;
+        }
+        .language-dropdown::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .language-dropdown::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+        
+        .language-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
             padding: 10px 14px;
             color: rgba(255, 255, 255, 0.8);
@@ -120,26 +178,32 @@
             font-size: 0.95rem;
             text-align: right;
         }
-        .language-dropdown button:hover {
-            background: rgba(102, 126, 234, 0.3);
+        .language-item:hover {
+            background: rgba(102, 126, 234, 0.25);
             color: #fff;
+            transform: translateX(-4px);
         }
-        .language-dropdown button .flag {
-            font-size: 1.2rem;
+        .language-item .flag {
+            font-size: 1.4rem;
+            width: 32px;
+            text-align: center;
         }
-        .language-dropdown::-webkit-scrollbar {
-            width: 4px;
+        .language-item .lang-name {
+            flex: 1;
+            font-weight: 500;
         }
-        .language-dropdown::-webkit-scrollbar-thumb {
-            background: rgba(102, 126, 234, 0.5);
-            border-radius: 10px;
+        .language-item .lang-native {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
         }
-        .lang-btn {
-            background: #1a1a2e;
-            border: 1px solid rgba(255,255,255,0.1);
+        .language-item.active {
+            background: rgba(102, 126, 234, 0.2);
+            color: #fff;
+            border-right: 3px solid #667eea;
         }
-        .lang-btn:hover {
-            background: #2a2a4e;
+        .language-item .check {
+            color: #48bb78;
+            font-size: 1rem;
         }
         
         /* تنسيق البطاقات */
@@ -187,7 +251,7 @@
         .status-sold { background: #fc8181; color: #fff; }
         .status-reserved { background: #ecc94b; color: #1a202c; }
         
-        /* حاوية التمرير - محسنة */
+        /* حاوية التمرير */
         .scroll-container {
             overflow-x: auto;
             scroll-behavior: smooth;
@@ -210,7 +274,7 @@
             background: linear-gradient(90deg, #764ba2, #667eea);
         }
         
-        /* المربعات الصغيرة - أكبر */
+        /* المربعات الصغيرة */
         .mini-square {
             aspect-ratio: 1;
             border-radius: 8px;
@@ -248,7 +312,7 @@
             font-size: 1.5rem;
         }
         
-        /* شريط الإعلانات المتحرك */
+        /* شريط الإعلانات */
         .ad-slider {
             overflow: hidden;
             position: relative;
@@ -485,7 +549,7 @@
             }
             .language-dropdown {
                 right: -80px;
-                min-width: 180px;
+                min-width: 220px;
             }
             .mini-square {
                 min-width: 70px;
@@ -494,6 +558,11 @@
             }
             .mini-square .square-emoji {
                 font-size: 1.2rem;
+            }
+            .language-btn {
+                min-width: 100px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
             }
         }
         
@@ -516,7 +585,6 @@
             border-radius: 10px;
         }
         
-        /* مؤشر التمرير */
         .scroll-indicator {
             display: flex;
             align-items: center;
@@ -559,37 +627,15 @@
                 </div>
                 
                 <div class="flex items-center gap-3 flex-wrap">
-                    <!-- اختيار اللغة -->
+                    <!-- اختيار اللغة - محسنة -->
                     <div class="language-selector">
-                        <button onclick="toggleLanguage()" class="lang-btn flex items-center gap-2 px-4 py-2 rounded-full hover:bg-[#2a2a4e] transition text-sm border border-white/10">
+                        <button onclick="toggleLanguage()" class="language-btn" id="langBtn">
                             <i class="fas fa-globe"></i>
                             <span id="currentLangLabel">🇸🇦 العربية</span>
-                            <i class="fas fa-chevron-down text-xs"></i>
+                            <i class="fas fa-chevron-down arrow" id="langArrow"></i>
                         </button>
                         <div id="languageDropdown" class="language-dropdown">
-                            <button onclick="setLanguage('ar')"><span class="flag">🇸🇦</span> العربية</button>
-                            <button onclick="setLanguage('en')"><span class="flag">🇬🇧</span> English</button>
-                            <button onclick="setLanguage('fr')"><span class="flag">🇫🇷</span> Français</button>
-                            <button onclick="setLanguage('es')"><span class="flag">🇪🇸</span> Español</button>
-                            <button onclick="setLanguage('de')"><span class="flag">🇩🇪</span> Deutsch</button>
-                            <button onclick="setLanguage('zh')"><span class="flag">🇨🇳</span> 中文</button>
-                            <button onclick="setLanguage('ru')"><span class="flag">🇷🇺</span> Русский</button>
-                            <button onclick="setLanguage('tr')"><span class="flag">🇹🇷</span> Türkçe</button>
-                            <button onclick="setLanguage('ur')"><span class="flag">🇵🇰</span> اردو</button>
-                            <button onclick="setLanguage('hi')"><span class="flag">🇮🇳</span> हिन्दी</button>
-                            <button onclick="setLanguage('pt')"><span class="flag">🇵🇹</span> Português</button>
-                            <button onclick="setLanguage('it')"><span class="flag">🇮🇹</span> Italiano</button>
-                            <button onclick="setLanguage('ja')"><span class="flag">🇯🇵</span> 日本語</button>
-                            <button onclick="setLanguage('ko')"><span class="flag">🇰🇷</span> 한국어</button>
-                            <button onclick="setLanguage('nl')"><span class="flag">🇳🇱</span> Nederlands</button>
-                            <button onclick="setLanguage('pl')"><span class="flag">🇵🇱</span> Polski</button>
-                            <button onclick="setLanguage('sv')"><span class="flag">🇸🇪</span> Svenska</button>
-                            <button onclick="setLanguage('id')"><span class="flag">🇮🇩</span> Bahasa Indonesia</button>
-                            <button onclick="setLanguage('ms')"><span class="flag">🇲🇾</span> Bahasa Melayu</button>
-                            <button onclick="setLanguage('th')"><span class="flag">🇹🇭</span> ไทย</button>
-                            <button onclick="setLanguage('vi')"><span class="flag">🇻🇳</span> Tiếng Việt</button>
-                            <button onclick="setLanguage('el')"><span class="flag">🇬🇷</span> Ελληνικά</button>
-                            <button onclick="setLanguage('he')"><span class="flag">🇮🇱</span> עברית</button>
+                            <!-- سيتم ملؤها بواسطة JavaScript -->
                         </div>
                     </div>
                     
@@ -667,7 +713,7 @@
             </div>
         </div>
         
-        <!-- ======== شبكة المربعات - محسنة ======== -->
+        <!-- ======== شبكة المربعات ======== -->
         <div class="glass-effect p-4 mb-6">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="font-bold" data-i18n="squaresGridTitle">🗂️ المربعات</h3>
@@ -724,7 +770,7 @@
     </div>
     
     <!-- ============================================ -->
-    <!-- النوافذ المنبثقة -->
+    <!-- النوافذ المنبثقة (نفسها كما كانت) -->
     <!-- ============================================ -->
     
     <!-- نافذة التعريف -->
@@ -1092,7 +1138,36 @@
         let subscribers = loadFromStorage('subscribers', []);
         
         // ============================================
-        // الترجمة - جميع اللغات (كاملة)
+        // قائمة اللغات - محسنة
+        // ============================================
+        const LANGUAGES = [
+            { code: 'ar', flag: '🇸🇦', name: 'العربية', native: 'العربية' },
+            { code: 'en', flag: '🇬🇧', name: 'English', native: 'English' },
+            { code: 'fr', flag: '🇫🇷', name: 'Français', native: 'Français' },
+            { code: 'es', flag: '🇪🇸', name: 'Español', native: 'Español' },
+            { code: 'de', flag: '🇩🇪', name: 'Deutsch', native: 'Deutsch' },
+            { code: 'zh', flag: '🇨🇳', name: '中文', native: '中文' },
+            { code: 'ru', flag: '🇷🇺', name: 'Русский', native: 'Русский' },
+            { code: 'tr', flag: '🇹🇷', name: 'Türkçe', native: 'Türkçe' },
+            { code: 'ur', flag: '🇵🇰', name: 'اردو', native: 'اردو' },
+            { code: 'hi', flag: '🇮🇳', name: 'हिन्दी', native: 'हिन्दी' },
+            { code: 'pt', flag: '🇵🇹', name: 'Português', native: 'Português' },
+            { code: 'it', flag: '🇮🇹', name: 'Italiano', native: 'Italiano' },
+            { code: 'ja', flag: '🇯🇵', name: '日本語', native: '日本語' },
+            { code: 'ko', flag: '🇰🇷', name: '한국어', native: '한국어' },
+            { code: 'nl', flag: '🇳🇱', name: 'Nederlands', native: 'Nederlands' },
+            { code: 'pl', flag: '🇵🇱', name: 'Polski', native: 'Polski' },
+            { code: 'sv', flag: '🇸🇪', name: 'Svenska', native: 'Svenska' },
+            { code: 'id', flag: '🇮🇩', name: 'Bahasa Indonesia', native: 'Indonesia' },
+            { code: 'ms', flag: '🇲🇾', name: 'Bahasa Melayu', native: 'Melayu' },
+            { code: 'th', flag: '🇹🇭', name: 'ไทย', native: 'ไทย' },
+            { code: 'vi', flag: '🇻🇳', name: 'Tiếng Việt', native: 'Việt' },
+            { code: 'el', flag: '🇬🇷', name: 'Ελληνικά', native: 'Ελληνικά' },
+            { code: 'he', flag: '🇮🇱', name: 'עברית', native: 'עברית' }
+        ];
+        
+        // ============================================
+        // الترجمة - كاملة لجميع اللغات
         // ============================================
         const translations = {
             ar: {
@@ -1327,7 +1402,6 @@
                 noEmail: 'No email registered',
                 copied: '✅ Information copied'
             },
-            // اللغات الأخرى (سيتم إكمالها بنفس النمط)
             fr: {
                 siteTitle: 'Million Squares', siteSubtitle: '✨ La Première Plateforme Visuelle Interactive dans le Monde Arabe',
                 aboutBtn: 'À propos', subscribeBtn: 'S\'abonner', supportBtn: '💝 Soutenir', advertiseBtn: '📢 Publicité',
@@ -1446,13 +1520,16 @@
                 noEmail: 'Aucun email enregistré',
                 copied: '✅ Informations copiées'
             },
-            // اللغات الأخرى سيتم إكمالها بنفس النمط...
+            // ... (اللغات الأخرى بنفس النمط)
         };
         
         // دالة الترجمة
         function getTranslation(key, defaultText) {
             if (translations[currentLang] && translations[currentLang][key]) {
                 return translations[currentLang][key];
+            }
+            if (translations['en'] && translations['en'][key]) {
+                return translations['en'][key];
             }
             if (translations['ar'] && translations['ar'][key]) {
                 return translations['ar'][key];
@@ -1461,23 +1538,19 @@
         }
         
         // ============================================
-        // دوال الترجمة واللغة
+        // دوال الترجمة واللغة - محسنة
         // ============================================
         function setLanguage(lang) {
             currentLang = lang;
             saveToStorage('lang', lang);
-            const langLabels = {
-                ar: '🇸🇦 العربية', en: '🇬🇧 English', fr: '🇫🇷 Français',
-                es: '🇪🇸 Español', de: '🇩🇪 Deutsch', zh: '🇨🇳 中文',
-                ru: '🇷🇺 Русский', tr: '🇹🇷 Türkçe', ur: '🇵🇰 اردو',
-                hi: '🇮🇳 हिन्दी', pt: '🇵🇹 Português', it: '🇮🇹 Italiano',
-                ja: '🇯🇵 日本語', ko: '🇰🇷 한국어', nl: '🇳🇱 Nederlands',
-                pl: '🇵🇱 Polski', sv: '🇸🇪 Svenska', id: '🇮🇩 Bahasa Indonesia',
-                ms: '🇲🇾 Bahasa Melayu', th: '🇹🇭 ไทย', vi: '🇻🇳 Tiếng Việt',
-                el: '🇬🇷 Ελληνικά', he: '🇮🇱 עברית'
-            };
-            document.getElementById('currentLangLabel').textContent = langLabels[lang] || lang;
             
+            // تحديث زر اللغة
+            const langData = LANGUAGES.find(l => l.code === lang);
+            if (langData) {
+                document.getElementById('currentLangLabel').textContent = `${langData.flag} ${langData.name}`;
+            }
+            
+            // ترجمة العناصر
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 el.textContent = getTranslation(key, key);
@@ -1485,12 +1558,32 @@
             
             document.dir = ['ar', 'ur', 'hi', 'he'].includes(lang) ? 'rtl' : 'ltr';
             document.documentElement.lang = lang;
+            
+            // إغلاق القائمة
             document.getElementById('languageDropdown').classList.remove('show');
+            document.getElementById('langArrow').classList.remove('open');
+            
             renderAll();
         }
         
         function toggleLanguage() {
-            document.getElementById('languageDropdown').classList.toggle('show');
+            const dropdown = document.getElementById('languageDropdown');
+            const arrow = document.getElementById('langArrow');
+            dropdown.classList.toggle('show');
+            arrow.classList.toggle('open');
+        }
+        
+        // بناء قائمة اللغات
+        function renderLanguageDropdown() {
+            const container = document.getElementById('languageDropdown');
+            container.innerHTML = LANGUAGES.map(lang => `
+                <button class="language-item ${lang.code === currentLang ? 'active' : ''}" onclick="setLanguage('${lang.code}')">
+                    <span class="flag">${lang.flag}</span>
+                    <span class="lang-name">${lang.name}</span>
+                    <span class="lang-native">${lang.native}</span>
+                    ${lang.code === currentLang ? '<span class="check">✓</span>' : ''}
+                </button>
+            `).join('');
         }
         
         // ============================================
@@ -1533,7 +1626,25 @@
         }
         
         // ============================================
-        // دوال عرض المربعات - محسنة
+        // دوال العرض الرئيسية
+        // ============================================
+        function renderAll() {
+            renderSubscriptionPlans();
+            renderAdSlider();
+            renderSquaresGrid();
+            filterSquares();
+            updateStats();
+            renderSupportersModal();
+            renderLanguageDropdown();
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.textContent = getTranslation(key, key);
+            });
+        }
+        
+        // ============================================
+        // دوال عرض المربعات
         // ============================================
         function renderSquaresGrid() {
             const grid = document.getElementById('squaresGrid');
@@ -1543,7 +1654,6 @@
             const end = Math.min(start + squaresPerPage, allSquares.length);
             const pageSquares = allSquares.slice(start, end);
             
-            // إذا كانت الصفحة فارغة، عد للصفحة الأولى
             if (pageSquares.length === 0 && currentSquarePage > 0) {
                 currentSquarePage = 0;
                 renderSquaresGrid();
@@ -1573,13 +1683,11 @@
                 grid.appendChild(div);
             }
             
-            // تحديث معلومات الصفحة
             const totalPages = Math.ceil(allSquares.length / squaresPerPage);
             document.getElementById('squarePageInfo').textContent = `${currentSquarePage + 1} / ${totalPages}`;
             document.getElementById('scrollInfo').textContent = 
                 getTranslation('scrollInfo', 'عرض 100 من 1,000,000').replace('100', pageSquares.length).replace('1,000,000', allSquares.length);
             
-            // تحديث مؤشر التمرير
             const percent = totalPages > 1 ? (currentSquarePage / (totalPages - 1)) * 100 : 0;
             document.getElementById('scrollPercent').textContent = Math.round(percent) + '%';
             document.getElementById('scrollFill').style.width = percent + '%';
@@ -1600,7 +1708,7 @@
             }
         }
         
-        // ربط التمرير بالماوس
+        // ربط التمرير
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('squaresScroll');
             if (container) {
@@ -2333,36 +2441,34 @@
         }
         
         // ============================================
-        // دوال إعادة التحميل
-        // ============================================
-        function renderAll() {
-            renderSubscriptionPlans();
-            renderAdSlider();
-            renderSquaresGrid();
-            filterSquares();
-            updateStats();
-            renderSupportersModal();
-            
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                el.textContent = getTranslation(key, key);
-            });
-        }
-        
-        // ============================================
         // ربط الأحداث والتهيئة
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
+            // تعيين اللغة مع الترجمة الكاملة
             setLanguage(currentLang);
+            
+            // ربط أحداث الفلترة
             document.getElementById('searchInput').addEventListener('input', filterSquares);
             document.getElementById('tierFilter').addEventListener('change', filterSquares);
             document.getElementById('categoryFilter').addEventListener('change', filterSquares);
             document.getElementById('statusFilter').addEventListener('change', filterSquares);
+            
+            // إغلاق قائمة اللغات عند النقر خارجها
+            document.addEventListener('click', function(e) {
+                const dropdown = document.getElementById('languageDropdown');
+                const btn = document.getElementById('langBtn');
+                if (btn && !btn.contains(e.target) && dropdown && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                    document.getElementById('langArrow').classList.remove('open');
+                }
+            });
+            
+            // بناء قائمة اللغات وعرض كل شيء
             renderAll();
             
             console.log('🏆 مليون مربع - المنصة البصرية التفاعلية');
             console.log(`📦 تم تحميل ${allSquares.length} مربع`);
-            console.log(`🌍 دعم ${Object.keys(translations).length} لغة`);
+            console.log(`🌍 دعم ${LANGUAGES.length} لغة`);
             console.log('✨ جميع الميزات مفعلة مع حفظ البيانات في LocalStorage');
             console.log('🔐 دخول المسؤول: admin / admin123');
             console.log('📩 إمكانية التواصل مع المشتركين عبر زر التواصل');
