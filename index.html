@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ======== Pinterest Verification ======== -->
+    <!-- ======== Pinterest Verification & Rich Pins ======== -->
     <meta name="p:domain_verify" content="a1e0fd10cdf3cabb0847b5c5226d9382"/>
+    <meta name="pinterest-rich-pin" content="true"/>
+    <meta name="pinterest" content="nopin" />
     
     <!-- ======== SEO Meta Tags ======== -->
     <title>🏆 Million Squares - The First Interactive Visual Platform</title>
@@ -15,21 +17,27 @@
     <meta name="author" content="Million Squares">
     <link rel="canonical" href="https://million-squares.com">
     
-    <!-- ======== Open Graph ======== -->
+    <!-- ======== Open Graph for Pinterest ======== -->
     <meta property="og:title" content="Million Squares - The First Interactive Visual Platform">
     <meta property="og:description" content="The first interactive visual platform in the Arab world. Buy your interactive advertising square today.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://million-squares.com">
     <meta property="og:image" content="https://million-squares.com/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Million Squares">
+    <meta property="og:locale" content="ar_AR">
+    
+    <!-- ======== Pinterest Specific Tags ======== -->
+    <meta property="pinterest:domain_verify" content="a1e0fd10cdf3cabb0847b5c5226d9382"/>
+    <meta name="pinterest-rich-pin" content="true"/>
+    <meta name="pinterest:description" content="Million Squares - The First Interactive Visual Platform in the Arab World">
     
     <!-- ======== Twitter Card ======== -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Million Squares - The First Interactive Visual Platform">
     <meta name="twitter:description" content="The first interactive visual platform in the Arab world.">
     <meta name="twitter:image" content="https://million-squares.com/twitter-image.jpg">
-    
-    <!-- ======== Pinterest Specific ======== -->
-    <meta name="pinterest-rich-pin" content="true"/>
     
     <!-- ======== Schema.org ======== -->
     <script type="application/ld+json">
@@ -47,6 +55,9 @@
         }
     }
     </script>
+    
+    <!-- ======== Pinterest Save Button (JavaScript) ======== -->
+    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
     
     <!-- ======== Tailwind CSS ======== -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -315,6 +326,32 @@
             background: rgba(102, 126, 234, 0.2);
             color: #fff;
             border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        /* ======== Pinterest Save Button ======== */
+        .pinterest-save-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #bd081c;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .pinterest-save-btn:hover {
+            background: #a00717;
+            transform: scale(1.05);
+        }
+        
+        .pinterest-save-btn i {
+            font-size: 1.1rem;
         }
         
         /* باقي الأنماط */
@@ -833,6 +870,47 @@
             margin-top: 16px;
         }
         
+        /* ======== زر Pinterest ======== */
+        .pinterest-btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 8px 0;
+        }
+        
+        .pinterest-btn-container a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .pinterest-btn-container a:hover {
+            transform: scale(1.05);
+        }
+        
+        .pinterest-btn-container .pinterest-save {
+            background: #bd081c;
+        }
+        
+        .pinterest-btn-container .pinterest-save:hover {
+            background: #a00717;
+        }
+        
+        .pinterest-btn-container .pinterest-follow {
+            background: #000;
+        }
+        
+        .pinterest-btn-container .pinterest-follow:hover {
+            background: #222;
+        }
+        
         @media (max-width: 768px) {
             .admin-sidebar { width: 100%; min-height: auto; max-height: 60vh; overflow-y: auto; }
             .admin-sidebar a { padding: 10px 14px; font-size: 0.9rem; }
@@ -929,6 +1007,22 @@
                 </div>
             </div>
         </header>
+        
+        <!-- ======== زر Pinterest ======== -->
+        <div class="pinterest-btn-container mb-4">
+            <a href="https://www.pinterest.com/pin/create/button/?url=https://million-squares.com&media=https://million-squares.com/og-image.jpg&description=Million%20Squares%20-%20The%20First%20Interactive%20Visual%20Platform" 
+               target="_blank" 
+               class="pinterest-save"
+               data-pin-do="buttonPin"
+               data-pin-custom="true">
+                <i class="fab fa-pinterest"></i> حفظ على Pinterest
+            </a>
+            <a href="https://www.pinterest.com/millionsquares/" 
+               target="_blank" 
+               class="pinterest-follow">
+                <i class="fab fa-pinterest"></i> متابعة
+            </a>
+        </div>
         
         <!-- ======== شريط المميزات ======== -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -1090,6 +1184,22 @@
                 <span>#اشتراك</span>
             </div>
             
+            <!-- Pinterest Save Button في الفوتر -->
+            <div class="pinterest-btn-container mb-4">
+                <a href="https://www.pinterest.com/pin/create/button/?url=https://million-squares.com&media=https://million-squares.com/og-image.jpg&description=Million%20Squares%20-%20The%20First%20Interactive%20Visual%20Platform" 
+                   target="_blank" 
+                   class="pinterest-save"
+                   data-pin-do="buttonPin"
+                   data-pin-custom="true">
+                    <i class="fab fa-pinterest"></i> حفظ على Pinterest
+                </a>
+                <a href="https://www.pinterest.com/millionsquares/" 
+                   target="_blank" 
+                   class="pinterest-follow">
+                    <i class="fab fa-pinterest"></i> متابعة
+                </a>
+            </div>
+            
             <div class="footer-social">
                 <div class="social-icons" id="socialIconsContainer"></div>
             </div>
@@ -1100,7 +1210,7 @@
     </div>
     
     <!-- ============================================ -->
-    <!-- النوافذ المنبثقة (اختصاراً) -->
+    <!-- النوافذ المنبثقة (مختصرة) -->
     <!-- ============================================ -->
     
     <!-- نافذة التعريف -->
@@ -1375,15 +1485,6 @@
         // مساعد الذكاء الاصطناعي
         // ============================================
         let isChatOpen = false;
-        let chatMessages = [];
-        
-        // الردود الذكية
-        const aiResponses = {
-            'شراء مربع': 'يمكنك شراء مربع باتباع الخطوات التالية:\n1. اختر المربع المناسب من الشبكة\n2. اضغط على المربع لفتح نافذة الشراء\n3. اختر باقة الاشتراك المناسبة\n4. املأ بياناتك الشخصية\n5. قم بالدفع عبر PayPal\n\nهل تريد المساعدة في أي خطوة؟',
-            'خطط الاشتراك': 'لدينا 4 خطط اشتراك:\n💎 عادي: $1/سنة - اسم، صورة، اختصاص، بريد، عنوان\n⭐ فضي: $5/سنة - جميع ميزات العادي + رقم هاتف + إطار فضي\n👑 ذهبي: $10/سنة - جميع ميزات الفضي + تخصيص اللون + إطار ذهبي + روابط التواصل\n💠 ماسي: $100/سنة - جميع ميزات الذهبي + إطار ماسي + أولوية الظهور + شارة مميزة',
-            'الدعم': 'يمكنك التواصل مع فريق الدعم عبر:\n📧 البريد الإلكتروني: support@million-squares.com\n📱 واتساب: +966 500000000\n🌐 من خلال صفحة التواصل في الموقع\n\nنحن هنا لمساعدتك!',
-            'المميزات': 'مميزات منصة مليون مربع:\n🚀 أول منصة بصرية تفاعلية في العالم العربي\n💎 مليون مربع إعلاني للاختيار\n🌍 دعم 24 لغة عالمية\n🔒 مدفوعات آمنة عبر PayPal\n📊 تحليلات متقدمة للمربعات\n🤝 مجتمع نشط وداعم\n✨ إطارات مميزة لكل فئة اشتراك'
-        };
         
         function toggleChat() {
             const window = document.getElementById('chatWindow');
@@ -1408,7 +1509,6 @@
             addMessage(text, 'user');
             input.value = '';
             
-            // البحث عن رد مناسب
             setTimeout(() => {
                 const response = getAIResponse(text);
                 addMessage(response, 'bot');
@@ -1429,47 +1529,32 @@
             const container = document.getElementById('chatMessages');
             const div = document.createElement('div');
             div.className = `message ${sender}`;
-            
-            // تحويل النص إلى HTML مع فواصل الأسطر
             const formattedText = text.replace(/\n/g, '<br>');
             div.innerHTML = `${formattedText}<span class="time">${new Date().toLocaleTimeString()}</span>`;
-            
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
-            
-            // حفظ الرسائل
-            chatMessages.push({ text, sender, time: new Date() });
         }
         
         function getAIResponse(text) {
             const lowerText = text.toLowerCase();
             
-            // البحث عن كلمات مفتاحية
-            if (lowerText.includes('شراء') || lowerText.includes('مربع') || lowerText.includes('اشتراك')) {
-                if (lowerText.includes('كيف') || lowerText.includes('طريقة') || lowerText.includes('خطوات')) {
-                    return aiResponses['شراء مربع'];
-                }
-                return aiResponses['خطط الاشتراك'];
+            if (lowerText.includes('شراء') || lowerText.includes('مربع')) {
+                return '🛒 يمكنك شراء مربع باتباع الخطوات التالية:\n1. اختر المربع من الشبكة\n2. اضغط على المربع لفتح الشراء\n3. اختر باقة الاشتراك\n4. املأ بياناتك\n5. ادفع عبر PayPal\n\nهل تحتاج مساعدة في أي خطوة؟';
             }
             
-            if (lowerText.includes('خطة') || lowerText.includes('باقة') || lowerText.includes('سعر') || lowerText.includes('دولار')) {
-                return aiResponses['خطط الاشتراك'];
+            if (lowerText.includes('خطة') || lowerText.includes('باقة') || lowerText.includes('سعر')) {
+                return '💎 لدينا 4 خطط اشتراك:\n💎 عادي: $1/سنة\n⭐ فضي: $5/سنة\n👑 ذهبي: $10/سنة\n💠 ماسي: $100/سنة\n\nكل خطة تأتي بميزات إضافية!';
             }
             
-            if (lowerText.includes('دعم') || lowerText.includes('تواصل') || lowerText.includes('مساعدة') || lowerText.includes('اتصال')) {
-                return aiResponses['الدعم'];
+            if (lowerText.includes('دعم') || lowerText.includes('تواصل')) {
+                return '📞 يمكنك التواصل معنا عبر:\n📧 البريد: support@million-squares.com\n📱 واتساب: +966 500000000\n🌐 من صفحة التواصل في الموقع';
             }
             
-            if (lowerText.includes('مميزات') || lowerText.includes('فوائد') || lowerText.includes('ميزة') || lowerText.includes('ماذا')) {
-                return aiResponses['المميزات'];
+            if (lowerText.includes('مميزات') || lowerText.includes('ميزة')) {
+                return '✨ مميزات مليون مربع:\n🚀 أول منصة بصرية تفاعلية\n💎 مليون مربع إعلاني\n🌍 دعم 24 لغة\n🔒 مدفوعات آمنة\n📊 تحليلات متقدمة\n🤝 مجتمع نشط';
             }
             
-            if (lowerText.includes('مرحبا') || lowerText.includes('السلام') || lowerText.includes('اهلا') || lowerText.includes('hello')) {
-                return '👋 أهلاً بك! كيف يمكنني مساعدتك اليوم؟\nيمكنني مساعدتك في:\n- شراء مربع\n- خطط الاشتراك\n- التواصل مع الدعم\n- التعرف على المميزات';
-            }
-            
-            // رد عام
-            return '📝 شكراً لسؤالك! أنا هنا لمساعدتك.\nيمكنني تقديم معلومات عن:\n🛒 شراء المربعات\n💎 خطط الاشتراك\n📞 الدعم والمساعدة\n✨ مميزات المنصة\n\nما الذي تود معرفته؟';
+            return '👋 كيف يمكنني مساعدتك؟\nيمكنني الإجابة عن:\n🛒 الشراء\n💎 الاشتراكات\n📞 الدعم\n✨ المميزات';
         }
         
         // ============================================
@@ -1963,165 +2048,6 @@
                 saveSocial: 'Save Social Media',
                 socialSaved: '✅ Social media saved successfully',
                 aiTitle: 'Million Squares AI Assistant'
-            },
-            fr: {
-                siteTitle: 'Million Squares', siteSubtitle: '✨ La Première Plateforme Visuelle Interactive dans le Monde Arabe',
-                aboutBtn: 'À propos', subscribeBtn: 'S\'abonner', supportBtn: '💝 Soutenir', advertiseBtn: '📢 Publicité',
-                suggestionBtn: '💡 Suggestion',
-                statTotal: '📦 Total des carrés', statSold: '✅ Vendus', statSubscribers: '👥 Abonnés',
-                statRevenue: '💰 Revenus', statSupporters: '🌟 Supporters',
-                squaresGridTitle: '🗂️ Carrés', featuredTitle: '🏆 Carrés en vedette',
-                footerText: 'La Première Plateforme Visuelle Interactive dans le Monde Arabe',
-                footerLove: 'Développé avec ❤️ dans le Monde Arabe',
-                aboutTitle: '🚀 À propos de Million Squares',
-                aboutDesc1: 'Million Squares est la première plateforme visuelle interactive dans le monde arabe, offrant des carrés publicitaires interactifs permettant aux marques et aux individus de se connecter visuellement avec leur public cible.',
-                aboutDesc2: 'Grâce aux publicités carrées, vous pouvez construire une communauté numérique active, renforcer le marketing numérique et accroître la notoriété de la marque.',
-                howItWorksTitle: '📋 Comment ça marche',
-                step1: 'Choisissez votre carré dans la grille',
-                step2: 'Sélectionnez votre plan d\'abonnement',
-                step3: 'Remplissez vos informations',
-                step4: 'Payez via PayPal ou virement bancaire',
-                step5: 'Activez votre carré et apparaissez sur la plateforme',
-                subscribeTitle: '💎 Plans d\'abonnement',
-                basicTitle: 'Basique', silverTitle: 'Argent', goldTitle: 'Or', platinumTitle: 'Platine',
-                perYear: '/ an',
-                basicFeat1: 'Afficher le nom', basicFeat2: 'Photo de profil', basicFeat3: 'Spécialité',
-                basicFeat4: 'Adresse email', basicFeat5: 'Adresse', basicFeat6: 'Numéro de téléphone', basicFeat7: 'Cadre premium',
-                silverFeat1: 'Toutes les fonctionnalités Basique', silverFeat2: '📱 Numéro de téléphone', silverFeat3: '⭐ Cadre argenté brillant',
-                silverFeat4: '🚀 Visibilité améliorée', silverFeat5: '📊 Statistiques', silverFeat6: 'Personnalisation des couleurs',
-                goldFeat1: 'Toutes les fonctionnalités Argent', goldFeat2: '🎨 Personnalisation des couleurs', goldFeat3: '👑 Cadre en or premium',
-                goldFeat4: '🌐 Liens vers les réseaux sociaux', goldFeat5: '📈 Analyses avancées', goldFeat6: 'Visibilité prioritaire',
-                platinumFeat1: 'Toutes les fonctionnalités Or', platinumFeat2: '💎 Cadre en diamant de luxe',
-                platinumFeat3: '⭐ Visibilité prioritaire maximale', platinumFeat4: '🏅 Badge exclusif',
-                platinumFeat5: '🎁 Cadeaux exclusifs', platinumFeat6: '📞 Support instantané',
-                popularTag: 'Le plus populaire', premiumTag: 'Premium', vipTag: 'VIP',
-                payNowBtn: 'Payer maintenant via PayPal', securePayment: '🔒 Paiement sécurisé via PayPal',
-                purchaseTitle: '🛒 Acheter un carré', squareNumber: 'Numéro du carré:', tier: 'Catégorie:',
-                price: 'Prix:', status: 'Statut:', purchaseFormTitle: '📝 Coordonnées de l\'acheteur',
-                confirmPurchaseBtn: '✅ Confirmer l\'achat',
-                adFormTitle: '📢 Faire de la publicité', companyNameLabel: 'Nom de l\'entreprise',
-                websiteLabel: 'Site web', adDescLabel: 'Description de l\'annonce',
-                adBudgetLabel: 'Budget ($)', submitAdBtn: 'Envoyer la demande',
-                supportTitle: '🌟 Soutenir la plateforme', supportDesc: 'Soutenez Million Squares pour que la plateforme continue de grandir',
-                supportNowBtn: 'Soutenir maintenant',
-                adminLoginTitle: '🔐 Connexion administrateur', adminUsername: 'Nom d\'utilisateur',
-                adminPassword: 'Mot de passe', adminLoginBtn: 'Connexion',
-                adminDefault: 'Admin par défaut: admin / admin123',
-                adminPanelTitle: 'Panneau de contrôle', adminDashboard: 'Tableau de bord',
-                adminSquares: 'Carrés', adminSubscribers: 'Abonnés',
-                adminSupporters: 'Supporters', adminPayments: 'Paiements',
-                adminSuggestions: 'Suggestions', adminSocial: 'Médias sociaux',
-                adminAdmins: 'Administrateurs', adminSettings: 'Paramètres',
-                logoutBtn: 'Déconnexion',
-                allTiers: 'Toutes les catégories', allCategories: 'Tous les domaines', allStatus: 'Tous les statuts',
-                statusAvailable: '🟢 Disponible', statusSold: '🔴 Vendu', statusReserved: '🟡 Réservé',
-                resetBtn: '↺ Réinitialiser', scrollInfo: 'Affichage de 100 sur 1,000,000', scrollHint: 'Faites glisser pour naviguer',
-                catMarketing: 'Marketing', catProgramming: 'Programmation', catDesign: 'Design',
-                catAI: 'IA', catData: 'Analyse de données', catSecurity: 'Cybersécurité',
-                catWebDev: 'Développement web', catGaming: 'Jeux',
-                supportersTitle: '🌟 Supporters & Sponsors', viewWebsite: 'Visiter le site',
-                noSupporters: 'Aucun supporter pour le moment',
-                settingsSaved: '✅ Paramètres enregistrés avec succès', settingsError: '❌ Erreur lors de l\'enregistrement',
-                adminUpdated: '✅ Données administrateur mises à jour', paymentUpdated: '✅ Données de paiement mises à jour',
-                settingsUpdated: '✅ Paramètres mis à jour', supporterWebsite: 'Site web',
-                languageBtn: '🌐 Langue', delete: 'Supprimer',
-                confirmDeleteBank: 'Êtes-vous sûr de vouloir supprimer cette banque définitivement ?',
-                bankDeleted: '✅ Banque supprimée avec succès', bankDeleteError: '❌ Erreur lors de la suppression',
-                addBank: 'Ajouter une banque', noBanks: 'Aucun compte bancaire',
-                bankAccounts: 'Comptes bancaires',
-                enterBankName: 'Entrez le nom de la banque:', enterAccountNumber: 'Entrez le numéro de compte:',
-                enterIban: 'Entrez l\'IBAN:', enterSwift: 'Entrez le code SWIFT:',
-                bankAdded: '✅ Banque ajoutée avec succès', bankAddError: '❌ Erreur lors de l\'ajout',
-                savePaypal: 'Enregistrer PayPal', saveStripe: 'Enregistrer Stripe',
-                stripeKey: 'Clé publique', siteSettings: 'Paramètres du site',
-                siteName: 'Nom du site', keepEmpty: 'Laissez vide pour conserver le mot de passe actuel',
-                saveSettings: 'Enregistrer les paramètres', paymentSettings: 'Paramètres de paiement',
-                paypalEmail: 'Email', edit: 'Modifier',
-                owner: 'Propriétaire', actions: 'Actions', name: 'Nom',
-                email: 'Email', square: 'Carré', date: 'Date',
-                user: 'Utilisateur', method: 'Méthode', username: 'Nom d\'utilisateur',
-                role: 'Rôle', permissions: 'Permissions',
-                addAdmin: 'Ajouter un administrateur', addSupporter: 'Ajouter un supporter',
-                squareNotAvailable: 'Ce carré n\'est pas disponible à l\'achat',
-                requiredFields: 'Veuillez entrer le nom et l\'email',
-                purchaseSuccess: '✅ Carré acheté avec succès !',
-                selectPlan: 'Veuillez d\'abord sélectionner un plan d\'abonnement',
-                paymentRedirect: 'Vous serez redirigé vers PayPal',
-                paymentSuccess: '✅ Paiement réussi !',
-                paymentError: '⚠️ Erreur de paiement, veuillez réessayer',
-                loadingPayPal: 'Chargement de PayPal...',
-                supportThanks: 'Merci pour votre soutien',
-                enterAmount: 'Entrez le montant du don ($):',
-                adSubmitted: '✅ Demande de publicité soumise avec succès !',
-                adPlaceholder: 'Soyez le premier supporter', adPlaceholderDesc: 'Soutenez la plateforme et apparaissez ici',
-                recentActivity: 'Activité récente', soldSquare: 'Carré vendu',
-                newSubscriber: 'Nouvel abonné', newPayment: 'Nouveau paiement',
-                noSubscribers: 'Aucun abonné pour le moment', noPayments: 'Aucun paiement pour le moment',
-                noResults: 'Aucun carré correspondant trouvé',
-                squareUpdated: 'Carré mis à jour', squareDeleted: 'Carré supprimé',
-                subscriberUpdated: 'Données de l\'abonné mises à jour',
-                subscriberSuspended: 'Abonnement suspendu',
-                supporterAdded: 'Supporter ajouté avec succès',
-                supporterUpdated: 'Données du supporter mises à jour',
-                adminAdded: 'Administrateur ajouté', adminDeleted: 'Administrateur supprimé',
-                adminLogout: 'Déconnecté',
-                adminLoginSuccess: '✅ Connexion réussie',
-                adminLoginError: '❌ Nom d\'utilisateur ou mot de passe incorrect',
-                confirmDeleteSquare: 'Êtes-vous sûr de vouloir supprimer ce carré ?',
-                confirmSuspendSubscriber: 'Êtes-vous sûr de vouloir suspendre cet abonné ?',
-                cannotDeleteMainAdmin: 'Impossible de supprimer l\'administrateur principal',
-                confirmDeleteAdmin: 'Êtes-vous sûr de vouloir supprimer cet administrateur ?',
-                editAdminName: 'Modifier le nom de l\'administrateur:',
-                editSupporterName: 'Modifier le nom du supporter:',
-                editSquareStatus: 'Modifier le statut du carré (available/sold/reserved):',
-                editSubscriberName: 'Modifier le nom de l\'abonné:',
-                contactTitle: '📩 Contacter l\'abonné',
-                phone: 'Téléphone',
-                sendEmail: 'Envoyer un email',
-                copyInfo: 'Copier les informations',
-                contact: '📩 Contacter',
-                languageSelect: 'Choisir la langue',
-                noEmail: 'Aucun email enregistré',
-                copied: '✅ Informations copiées',
-                testimonialsTitle: '🌟 Ce que disent nos abonnés',
-                testimonial1: '"Une plateforme géniale qui m\'a aidé à construire ma marque professionnellement"',
-                testimonial1Author: '- Ahmed Al-Malki',
-                testimonial2: '"Le meilleur investissement que j\'ai fait cette année, les carrés sont attrayants et efficaces"',
-                testimonial2Author: '- Sarah Al-Khaldi',
-                testimonial3: '"Une communauté active et solidaire, je recommande à tous de s\'inscrire"',
-                testimonial3Author: '- Mohammed Al-Omari',
-                feature1Title: 'Plateforme interactive',
-                feature1Desc: 'La première plateforme visuelle interactive dans le monde arabe',
-                feature2Title: 'Carrés premium',
-                feature2Desc: 'Choisissez parmi un million de carrés publicitaires',
-                feature3Title: 'Portée mondiale',
-                feature3Desc: 'Atteignez un public mondial avec 24 langues',
-                feature4Title: 'Paiement sécurisé',
-                feature4Desc: 'Paiements sécurisés via PayPal et banques',
-                suggestionTitle: '💡 Suggestions des utilisateurs',
-                addSuggestionTitle: '✍️ Ajoutez votre suggestion',
-                submitSuggestionBtn: 'Envoyer la suggestion',
-                suggestionsListTitle: '📋 Suggestions précédentes',
-                noSuggestions: 'Aucune suggestion pour le moment, soyez le premier à partager votre avis !',
-                suggestionAdded: '✅ Votre suggestion a été ajoutée avec succès !',
-                suggestionStatus: 'Statut',
-                suggestionDate: 'Date',
-                suggestionPending: 'En cours d\'examen',
-                suggestionApproved: 'Approuvé',
-                suggestionRejected: 'Rejeté',
-                socialSettings: 'Paramètres des médias sociaux',
-                socialEmail: 'Email',
-                socialTwitter: 'Twitter',
-                socialLinkedin: 'LinkedIn',
-                socialGithub: 'GitHub',
-                socialYoutube: 'YouTube',
-                socialInstagram: 'Instagram',
-                socialFacebook: 'Facebook',
-                socialTiktok: 'TikTok',
-                socialWhatsapp: 'WhatsApp',
-                saveSocial: 'Enregistrer les médias sociaux',
-                socialSaved: '✅ Médias sociaux enregistrés avec succès',
-                aiTitle: 'Assistant IA Million Squares'
             }
         };
         
@@ -2311,7 +2237,7 @@
             if (!currentContact) return;
             const email = currentContact.email;
             if (email && email !== '-') {
-                window.location.href = `mailto:${email}?subject=${encodeURIComponent(getTranslation('contactSubject', 'تواصل من مليون مربع'))}&body=${encodeURIComponent(getTranslation('contactBody', 'مرحباً، نود التواصل معك بخصوص مربعك في مليون مربع.'))}`;
+                window.location.href = `mailto:${email}?subject=${encodeURIComponent('تواصل من مليون مربع')}&body=${encodeURIComponent('مرحباً، نود التواصل معك بخصوص مربعك في مليون مربع.')}`;
             } else {
                 showToast(getTranslation('noEmail', 'لا يوجد بريد إلكتروني مسجل'), 'error');
             }
@@ -2329,7 +2255,7 @@
             navigator.clipboard.writeText(info).then(() => {
                 showToast(getTranslation('copied', '✅ تم نسخ المعلومات'), 'success');
             }).catch(() => {
-                prompt(getTranslation('copyManual', 'انسخ المعلومات يدوياً:'), info);
+                prompt('انسخ المعلومات يدوياً:', info);
             });
         }
         
@@ -2342,7 +2268,7 @@
             const text = document.getElementById('suggestionText').value.trim();
             
             if (!text) {
-                showToast(getTranslation('suggestionRequired', 'الرجاء كتابة الاقتراح'), 'error');
+                showToast('الرجاء كتابة الاقتراح', 'error');
                 return;
             }
             
@@ -3458,6 +3384,7 @@
             
             console.log('🏆 مليون مربع - المنصة البصرية التفاعلية');
             console.log('✅ تم التحقق من Pinterest: a1e0fd10cdf3cabb0847b5c5226d9382');
+            console.log('📌 Pinterest Rich Pins مفعل');
             console.log(`📦 تم تحميل ${allSquares.length} مربع`);
             console.log(`🌍 دعم ${LANGUAGES.length} لغة`);
             console.log('🤖 مساعد الذكاء الاصطناعي مفعل');
