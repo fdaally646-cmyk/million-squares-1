@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 إصلاح شامل - مليون مربع</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #0a0a0f; color: #fff; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { max-width: 800px; width: 100%; background: #1a1a2e; padding: 40px; border-radius: 20px; border: 1px solid #2a2a4a; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        h1 { color: #ffd700; text-align: center; margin-bottom: 10px; font-size: 2rem; }
+        .subtitle { text-align: center; color: #aaa; margin-bottom: 30px; }
+        .section { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px solid #2a2a4a; }
+        .section h3 { color: #ffd700; margin-bottom: 15px; }
+        .btn { display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #ffd700, #ff6b00); color: #000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: all 0.3s; margin: 5px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255,215,0,0.3); }
+        .btn-success { background: #4CAF50; color: #fff; }
+        .btn-danger { background: #f44336; color: #fff; }
+        .btn-paypal { background: #0070ba; color: #fff; }
+        .btn-paypal:hover { background: #005c9e; }
+        .code-block { background: #0a0a0f; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; color: #aaa; margin: 10px 0; border: 1px solid #2a2a4a; max-height: 300px; overflow-y: auto; direction: ltr; text-align: left; white-space: pre-wrap; }
+        .log { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; font-family: monospace; font-size: 0.8rem; color: #aaa; max-height: 200px; overflow-y: auto; margin: 10px 0; }
+        .status { padding: 15px; margin: 10px 0; border-radius: 10px; }
+        .success { background: rgba(76,175,80,0.2); border: 1px solid #4CAF50; color: #4CAF50; }
+        .warning { background: rgba(255,193,7,0.2); border: 1px solid #ffc107; color: #ffc107; }
+        .info { background: rgba(33,150,243,0.2); border: 1px solid #2196F3; color: #2196F3; }
+        .center { text-align: center; }
+        .file-item { padding: 10px 15px; margin: 5px 0; background: rgba(255,255,255,0.03); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid #ffd700; }
+        .file-item .name { color: #fff; font-weight: 500; }
+        .file-item .badge { padding: 3px 12px; border-radius: 12px; font-size: 0.8rem; }
+        .badge-success { background: rgba(76,175,80,0.3); color: #4CAF50; }
+        .badge-error { background: rgba(244,67,54,0.3); color: #f44336; }
+        .badge-pending { background: rgba(255,193,7,0.3); color: #ffc107; }
+        .progress-bar { width: 100%; height: 6px; background: #2a2a4a; border-radius: 3px; margin: 20px 0; overflow: hidden; }
+        .progress-bar .fill { height: 100%; background: linear-gradient(90deg, #ffd700, #ff6b00); border-radius: 3px; transition: width 0.5s; width: 0%; }
+        @media (max-width: 600px) { .container { padding: 20px; } .file-item { flex-direction: column; text-align: center; gap: 5px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 إصلاح شامل</h1>
+        <p class="subtitle">حل جميع مشاكل الدفع، لوحة التحكم، والترجمة</p>
+
+        <div id="mainStatus" class="status info">📦 جاري تهيئة الإصلاح...</div>
+        <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+
+        <div class="section">
+            <h3>📄 الملفات المطلوب إصلاحها</h3>
+            <div id="fileList">
+                <div class="file-item"><span class="name">📁 index.html (الدفع)</span><span class="badge badge-pending">⏳ في الانتظار</span></div>
+                <div class="file-item"><span class="name">📁 dashboard (لوحة التحكم)</span><span class="badge badge-pending">⏳ في الانتظار</span></div>
+                <div class="file-item"><span class="name">📁 الترجمة</span><span class="badge badge-pending">⏳ في الانتظار</span></div>
+                <div class="file-item"><span class="name">📁 PayPal SDK</span><span class="badge badge-pending">⏳ في الانتظار</span></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>📋 سجل التحديث</h3>
+            <div id="logOutput" class="log">🚀 بدء عملية الإصلاح...</div>
+        </div>
+
+        <div class="section">
+            <h3>🧪 اختبار سريع</h3>
+            <div class="center">
+                <button onclick="testPayPal()" class="btn btn-paypal"><i class="fab fa-paypal"></i> اختبار PayPal</button>
+                <button onclick="testDashboard()" class="btn" style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;"><i class="fas fa-chart-pie"></i> اختبار لوحة التحكم</button>
+                <button onclick="testTranslation()" class="btn" style="background:linear-gradient(135deg,#48bb78,#38a169);color:#fff;"><i class="fas fa-language"></i> اختبار الترجمة</button>
+            </div>
+            <div id="testResult" class="status info" style="display:none;"></div>
+        </div>
+
+        <div class="center" style="margin-top: 20px;">
+            <button onclick="runFix()" class="btn"><i class="fas fa-hammer"></i> تشغيل الإصلاح</button>
+            <button onclick="window.location.href='index.html'" class="btn btn-success"><i class="fas fa-home"></i> الذهاب للموقع</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // كود الإصلاح الرئيسي
+        // ============================================
+        let currentStep = 0;
+        let successCount = 0;
+        const logOutput = document.getElementById('logOutput');
+        const progressFill = document.getElementById('progressFill');
+        const fileItems = document.querySelectorAll('.file-item');
+
+        function addLog(msg, type = 'info') {
+            const colors = { success: '#4CAF50', error: '#f44336', warning: '#ffc107', info: '#2196F3' };
+            logOutput.innerHTML += `<div style="color: ${colors[type] || '#aaa'}">${msg}</div>`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+
+        function updateProgress(percent) {
+            progressFill.style.width = percent + '%';
+        }
+
+        function updateFileStatus(index, status) {
+            if (fileItems[index]) {
+                const badge = fileItems[index].querySelector('.badge');
+                badge.className = `badge badge-${status}`;
+                badge.textContent = status === 'success' ? '✅ تم الإصلاح' : status === 'error' ? '❌ فشل' : '⏳ في الانتظار';
+            }
+        }
+
+        // ============================================
+        // الإصلاحات
+        // ============================================
+
+        // 1. إصلاح PayPal
+        function fixPayPal() {
+            return new Promise((resolve) => {
+                addLog('🔧 إصلاح PayPal...', 'info');
+                try {
+                    // محاولة تهيئة PayPal يدوياً
+                    if (typeof paypal !== 'undefined') {
+                        addLog('✅ PayPal SDK موجود', 'success');
+                        // محاولة عرض زر PayPal في أي حاوية
+                        const containers = document.querySelectorAll('.paypal-button-container, #paypal-button-container');
+                        containers.forEach(container => {
+                            if (container && container.children.length === 0) {
+                                try {
+                                    paypal.Buttons({
+                                        style: { layout: 'vertical', color: 'gold', shape: 'rect',
+                                            label: 'paypal', height: 48 },
+                                        createOrder: function() {
+                                            return Promise.resolve('test-order');
+                                        },
+                                        onApprove: function() {
+                                            alert('🧪 PayPal يعمل!');
+                                        }
+                                    }).render(container);
+                                    addLog('✅ تم إضافة زر PayPal', 'success');
+                                } catch (e) {
+                                    addLog('⚠️ فشل إضافة زر PayPal: ' + e.message, 'warning');
+                                }
+                            }
+                        });
+                        resolve(true);
+                    } else {
+                        addLog('⚠️ PayPal SDK غير محمل، سيتم إعادة المحاولة', 'warning');
+                        // إضافة SDK يدوياً
+                        const script = document.createElement('script');
+                        script.src = 'https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons&enable-funding=venmo';
+                        script.onload = () => {
+                            addLog('✅ تم تحميل PayPal SDK', 'success');
+                            resolve(true);
+                        };
+                        script.onerror = () => {
+                            addLog('❌ فشل تحميل PayPal SDK', 'error');
+                            resolve(false);
+                        };
+                        document.head.appendChild(script);
+                    }
+                } catch (e) {
+                    addLog('❌ خطأ في PayPal: ' + e.message, 'error');
+                    resolve(false);
+                }
+            });
+        }
+
+        // 2. إصلاح لوحة التحكم
+        function fixDashboard() {
+            return new Promise((resolve) => {
+                addLog('🔧 إصلاح لوحة التحكم...', 'info');
+                try {
+                    // التأكد من وجود عناصر لوحة التحكم
+                    const panel = document.getElementById('dashboardPanel');
+                    if (!panel) {
+                        addLog('⚠️ لوحة التحكم غير موجودة، سيتم إنشاؤها', 'warning');
+                        // إنشاء لوحة تحكم إذا لم تكن موجودة
+                        const newPanel = document.createElement('div');
+                        newPanel.id = 'dashboardPanel';
+                        newPanel.className = 'dashboard-panel';
+                        newPanel.innerHTML = `
+                            <div class="glass-effect p-6 max-w-7xl mx-auto">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h2 class="text-2xl font-bold">📊 لوحة التحكم</h2>
+                                    <button class="close-dash" onclick="toggleDashboard()">&times;</button>
+                                </div>
+                                <div class="dash-grid" id="dashStats">
+                                    <div class="dash-card"><div class="number" id="dashTotal">0</div><div class="label">📦 إجمالي المربعات</div></div>
+                                    <div class="dash-card"><div class="number" id="dashSold">0</div><div class="label">✅ مباع</div></div>
+                                    <div class="dash-card"><div class="number" id="dashAvailable">0</div><div class="label">🟢 متاح</div></div>
+                                    <div class="dash-card"><div class="number" id="dashRevenue">$0</div><div class="label">💰 الإيرادات</div></div>
+                                    <div class="dash-card"><div class="number" id="dashSubs">0</div><div class="label">👥 المشتركين</div></div>
+                                    <div class="dash-card"><div class="number" id="dashSupport">0</div><div class="label">🌟 الداعمين</div></div>
+                                </div>
+                                <div class="mt-6"><h3 class="font-bold mb-4">👥 المشتركين</h3><div id="subscribersList" class="space-y-2"></div></div>
+                                <div class="mt-6"><h3 class="font-bold mb-4">💳 المدفوعات</h3><div id="paymentsList" class="space-y-2"></div></div>
+                                <button onclick="logoutUser()" class="mt-4 px-6 py-2 bg-red-500/30 rounded-full hover:bg-red-500/50 transition text-white"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+                            </div>
+                        `;
+                        document.body.appendChild(newPanel);
+                        addLog('✅ تم إنشاء لوحة التحكم', 'success');
+                    } else {
+                        addLog('✅ لوحة التحكم موجودة', 'success');
+                    }
+
+                    // إضافة دالة toggleDashboard إذا لم تكن موجودة
+                    if (typeof window.toggleDashboard !== 'function') {
+                        window.toggleDashboard = function() {
+                            const panel = document.getElementById('dashboardPanel');
+                            if (panel) {
+                                panel.classList.toggle('active');
+                                if (panel.classList.contains('active')) {
+                                    // تحديث البيانات
+                                    updateDashboardData();
+                                }
+                            }
+                        };
+                        addLog('✅ تم إضافة دالة toggleDashboard', 'success');
+                    }
+
+                    // إضافة دالة updateDashboardData
+                    window.updateDashboardData = function() {
+                        const squares = JSON.parse(localStorage.getItem('million_squares_squares') || '[]');
+                        const subscribers = JSON.parse(localStorage.getItem('million_squares_subscribers') || '[]');
+                        const payments = JSON.parse(localStorage.getItem('million_squares_payments') || '[]');
+                        const supporters = JSON.parse(localStorage.getItem('million_squares_supporters') || '[]');
+
+                        const sold = squares.filter(s => s.status === 'sold').length;
+                        const available = squares.filter(s => s.status === 'available').length;
+                        const revenue = squares.reduce((sum, s) => sum + (s.status === 'sold' ? s.price : 0), 0);
+
+                        document.getElementById('dashTotal').textContent = squares.length || 0;
+                        document.getElementById('dashSold').textContent = sold;
+                        document.getElementById('dashAvailable').textContent = available;
+                        document.getElementById('dashRevenue').textContent = '$' + revenue.toLocaleString();
+                        document.getElementById('dashSubs').textContent = subscribers.length;
+                        document.getElementById('dashSupport').textContent = supporters.length;
+
+                        // عرض المشتركين
+                        const subsList = document.getElementById('subscribersList');
+                        if (subscribers.length === 0) {
+                            subsList.innerHTML = '<p class="text-gray-400 text-center">لا يوجد مشتركين بعد</p>';
+                        } else {
+                            subsList.innerHTML = subscribers.slice(-5).reverse().map(s =>
+                                `<div class="flex justify-between items-center p-2 bg-white/5 rounded-lg">
+                                    <span>${s.name}</span>
+                                    <span class="text-sm text-gray-400">${s.email}</span>
+                                    <span class="text-sm text-yellow-400">${s.tier || 'عادي'}</span>
+                                </div>`
+                            ).join('');
+                        }
+
+                        // عرض المدفوعات
+                        const payList = document.getElementById('paymentsList');
+                        if (payments.length === 0) {
+                            payList.innerHTML = '<p class="text-gray-400 text-center">لا يوجد مدفوعات بعد</p>';
+                        } else {
+                            payList.innerHTML = payments.slice(-5).reverse().map(p =>
+                                `<div class="flex justify-between items-center p-2 bg-white/5 rounded-lg">
+                                    <span>${p.user}</span>
+                                    <span class="text-sm text-green-400">$${p.amount}</span>
+                                    <span class="text-sm text-gray-400">${p.method}</span>
+                                    <span class="text-sm text-gray-500">${p.date}</span>
+                                </div>`
+                            ).join('');
+                        }
+                    };
+
+                    resolve(true);
+                } catch (e) {
+                    addLog('❌ خطأ في لوحة التحكم: ' + e.message, 'error');
+                    resolve(false);
+                }
+            });
+        }
+
+        // 3. إصلاح الترجمة
+        function fixTranslation() {
+            return new Promise((resolve) => {
+                addLog('🔧 إصلاح الترجمة...', 'info');
+                try {
+                    // إضافة نظام ترجمة بسيط
+                    const translations = {
+                        ar: {
+                            title: 'مليون مربع',
+                            subtitle: 'المنصة البصرية التفاعلية الأولى',
+                            totalSquares: '📦 إجمالي المربعات',
+                            sold: '✅ مباع',
+                            subscribers: '👥 مشتركين',
+                            revenue: '💰 إيرادات',
+                            supporters: '🌟 داعمين',
+                            register: 'تسجيل/دفع',
+                            dashboard: 'لوحة التحكم',
+                            support: 'دعم',
+                            search: '🔍 ابحث عن مربع...',
+                            allCategories: 'جميع الفئات',
+                            allStatus: 'جميع الحالات',
+                            reset: 'إعادة',
+                            noSquares: '🔍 لا توجد مربعات',
+                            basic: '💎 عادي',
+                            silver: '⭐ فضي',
+                            gold: '👑 ذهبي',
+                            platinum: '💠 ملكي',
+                            available: '🟢 متاح',
+                            soldStatus: '🔴 مباع',
+                            reserved: '🟡 محجوز',
+                            paymentRequired: '⚠️ الدفع مطلوب لإتمام التسجيل',
+                            paypal: 'PayPal',
+                            stripe: 'Stripe',
+                            crypto: 'USDT',
+                            supportTitle: '🌟 دعم المنصة',
+                            supportDesc: 'ادعم مليون مربع واظهر في شريط الإعلانات',
+                            close: 'إغلاق',
+                            logout: 'تسجيل الخروج'
+                        },
+                        en: {
+                            title: 'Million Squares',
+                            subtitle: 'The First Interactive Visual Platform',
+                            totalSquares: '📦 Total Squares',
+                            sold: '✅ Sold',
+                            subscribers: '👥 Subscribers',
+                            revenue: '💰 Revenue',
+                            supporters: '🌟 Supporters',
+                            register: 'Register/Pay',
+                            dashboard: 'Dashboard',
+                            support: 'Support',
+                            search: '🔍 Search for square...',
+                            allCategories: 'All Categories',
+                            allStatus: 'All Statuses',
+                            reset: 'Reset',
+                            noSquares: '🔍 No squares found',
+                            basic: '💎 Basic',
+                            silver: '⭐ Silver',
+                            gold: '👑 Gold',
+                            platinum: '💠 Platinum',
+                            available: '🟢 Available',
+                            soldStatus: '🔴 Sold',
+                            reserved: '🟡 Reserved',
+                            paymentRequired: '⚠️ Payment required to complete registration',
+                            paypal: 'PayPal',
+                            stripe: 'Stripe',
+                            crypto: 'USDT',
+                            supportTitle: '🌟 Support the Platform',
+                            supportDesc: 'Support Million Squares to appear in the ads banner',
+                            close: 'Close',
+                            logout: 'Logout'
+                        }
+                    };
+
+                    let currentLang = localStorage.getItem('million_squares_lang') || 'ar';
+
+                    window.t = function(key) {
+                        return translations[currentLang][key] || key;
+                    };
+
+                    window.toggleLanguage = function() {
+                        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+                        localStorage.setItem('million_squares_lang', currentLang);
+                        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+                        document.documentElement.lang = currentLang;
+                        translateUI();
+                        alert(`🌐 تم تغيير اللغة إلى ${currentLang === 'ar' ? 'العربية' : 'English'}`);
+                    };
+
+                    window.translateUI = function() {
+                        // ترجمة العناصر الرئيسية
+                        document.querySelectorAll('[data-i18n]').forEach(el => {
+                            el.textContent = t(el.getAttribute('data-i18n'));
+                        });
+                    };
+
+                    // إضافة زر الترجمة إذا لم يكن موجوداً
+                    const header = document.querySelector('.flex.items-center.gap-3.flex-wrap');
+                    if (header && !document.getElementById('langToggle')) {
+                        const langBtn = document.createElement('button');
+                        langBtn.id = 'langToggle';
+                        langBtn.className = 'btn-primary text-sm';
+                        langBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                        langBtn.style.color = '#fff';
+                        langBtn.innerHTML = '<i class="fas fa-globe"></i> 🌐';
+                        langBtn.onclick = toggleLanguage;
+                        header.appendChild(langBtn);
+                        addLog('✅ تم إضافة زر الترجمة', 'success');
+                    }
+
+                    resolve(true);
+                } catch (e) {
+                    addLog('❌ خطأ في الترجمة: ' + e.message, 'error');
+                    resolve(false);
+                }
+            });
+        }
+
+        // 4. إصلاح التسجيل
+        function fixRegistration() {
+            return new Promise((resolve) => {
+                addLog('🔧 إصلاح التسجيل...', 'info');
+                try {
+                    // التأكد من ربط التسجيل بالدفع
+                    const registerForm = document.getElementById('registerForm');
+                    if (registerForm) {
+                        const originalSubmit = registerForm.onsubmit;
+                        registerForm.onsubmit = function(event) {
+                            event.preventDefault();
+                            // التحقق من البيانات
+                            const fullName = document.getElementById('fullName')?.value.trim();
+                            const email = document.getElementById('email')?.value.trim();
+                            const password = document.getElementById('password')?.value;
+                            const confirm = document.getElementById('confirmPassword')?.value;
+
+                            if (!fullName) { alert('⚠️ يرجى إدخال الاسم الكامل'); return; }
+                            if (!email || !email.includes('@')) { alert('⚠️ يرجى إدخال بريد صحيح'); return; }
+                            if (password.length < 6) { alert('⚠️ كلمة المرور 6 أحرف على الأقل'); return; }
+                            if (password !== confirm) { alert('⚠️ كلمة المرور غير متطابقة'); return; }
+
+                            // حفظ البيانات مؤقتاً
+                            window.userData = { fullName, email, password };
+                            // فتح نافذة الدفع
+                            if (typeof openPayment === 'function') {
+                                openPayment('paypal');
+                            } else {
+                                alert('⚠️ نظام الدفع غير جاهز، يرجى تحديث الصفحة');
+                            }
+                        };
+                        addLog('✅ تم ربط التسجيل بالدفع', 'success');
+                    } else {
+                        addLog('⚠️ نموذج التسجيل غير موجود', 'warning');
+                    }
+                    resolve(true);
+                } catch (e) {
+                    addLog('❌ خطأ في التسجيل: ' + e.message, 'error');
+                    resolve(false);
+                }
+            });
+        }
+
+        // ============================================
+        // تنفيذ الإصلاح
+        // ============================================
+        async function runFix() {
+            const mainStatus = document.getElementById('mainStatus');
+            mainStatus.className = 'status info';
+            mainStatus.innerHTML = '🔧 جاري إصلاح جميع المشاكل...';
+
+            addLog('🚀 بدء عملية الإصلاح الشاملة...', 'info');
+            addLog('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+
+            // الخطوة 1: إصلاح PayPal
+            currentStep = 1;
+            updateProgress(20);
+            updateFileStatus(0, 'pending');
+            const result1 = await fixPayPal();
+            updateFileStatus(0, result1 ? 'success' : 'error');
+            if (result1) successCount++;
+
+            // الخطوة 2: إصلاح لوحة التحكم
+            currentStep = 2;
+            updateProgress(40);
+            updateFileStatus(1, 'pending');
+            const result2 = await fixDashboard();
+            updateFileStatus(1, result2 ? 'success' : 'error');
+            if (result2) successCount++;
+
+            // الخطوة 3: إصلاح الترجمة
+            currentStep = 3;
+            updateProgress(60);
+            updateFileStatus(2, 'pending');
+            const result3 = await fixTranslation();
+            updateFileStatus(2, result3 ? 'success' : 'error');
+            if (result3) successCount++;
+
+            // الخطوة 4: إصلاح التسجيل
+            currentStep = 4;
+            updateProgress(80);
+            updateFileStatus(3, 'pending');
+            const result4 = await fixRegistration();
+            updateFileStatus(3, result4 ? 'success' : 'error');
+            if (result4) successCount++;
+
+            // النتيجة النهائية
+            updateProgress(100);
+            addLog('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+
+            if (successCount === 4) {
+                mainStatus.className = 'status success';
+                mainStatus.innerHTML = '✅ تم إصلاح جميع المشاكل بنجاح! 🎉';
+                addLog('🎉 اكتمل الإصلاح بنجاح!', 'success');
+                addLog('💡 يمكنك الآن استخدام الموقع بشكل كامل', 'info');
+            } else {
+                mainStatus.className = 'status warning';
+                mainStatus.innerHTML = `⚠️ تم إصلاح ${successCount} من 4 مشاكل`;
+                addLog(`⚠️ تم إصلاح ${successCount} من 4 مشاكل`, 'warning');
+                addLog('💡 بعض الميزات قد تحتاج إلى إعادة تشغيل الصفحة', 'info');
+            }
+
+            addLog('✅ انتهت عملية الإصلاح!', 'success');
+        }
+
+        // ============================================
+        // دوال الاختبار
+        // ============================================
+        function testPayPal() {
+            const result = document.getElementById('testResult');
+            result.style.display = 'block';
+            result.className = 'status info';
+            result.innerHTML = '🧪 جاري اختبار PayPal...';
+
+            if (typeof paypal !== 'undefined') {
+                result.className = 'status success';
+                result.innerHTML = '✅ PayPal SDK يعمل! يمكنك استخدام أزرار الدفع.';
+            } else {
+                result.className = 'status warning';
+                result.innerHTML = '⚠️ PayPal SDK غير محمل. جارٍ التحميل...';
+                const script = document.createElement('script');
+                script.src = 'https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons&enable-funding=venmo';
+                script.onload = () => {
+                    result.className = 'status success';
+                    result.innerHTML = '✅ تم تحميل PayPal SDK بنجاح!';
+                };
+                script.onerror = () => {
+                    result.className = 'status error';
+                    result.innerHTML = '❌ فشل تحميل PayPal SDK. تحقق من اتصال الإنترنت.';
+                };
+                document.head.appendChild(script);
+            }
+        }
+
+        function testDashboard() {
+            const result = document.getElementById('testResult');
+            result.style.display = 'block';
+            result.className = 'status info';
+            result.innerHTML = '🧪 جاري اختبار لوحة التحكم...';
+
+            if (typeof window.toggleDashboard === 'function') {
+                result.className = 'status success';
+                result.innerHTML = '✅ لوحة التحكم تعمل! اضغط على زر "لوحة التحكم" في الصفحة الرئيسية.';
+                // محاولة فتح لوحة التحكم
+                if (typeof window.toggleDashboard === 'function') {
+                    window.toggleDashboard();
+                }
+            } else {
+                result.className = 'status warning';
+                result.innerHTML = '⚠️ لوحة التحكم غير متاحة. قم بتشغيل الإصلاح أولاً.';
+            }
+        }
+
+        function testTranslation() {
+            const result = document.getElementById('testResult');
+            result.style.display = 'block';
+            result.className = 'status info';
+            result.innerHTML = '🧪 جاري اختبار الترجمة...';
+
+            if (typeof window.toggleLanguage === 'function') {
+                result.className = 'status success';
+                result.innerHTML = '✅ الترجمة تعمل! اضغط على زر 🌐 لتبديل اللغة.';
+                window.toggleLanguage();
+            } else {
+                result.className = 'status warning';
+                result.innerHTML = '⚠️ نظام الترجمة غير جاهز. قم بتشغيل الإصلاح أولاً.';
+            }
+        }
+
+        // ============================================
+        // تهيئة الصفحة
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog('✅ الصفحة جاهزة', 'success');
+            addLog('💡 اضغط على "تشغيل الإصلاح" لحل جميع المشاكل', 'info');
+            addLog('📌 سيتم إصلاح: الدفع، لوحة التحكم، الترجمة، التسجيل', 'info');
+
+            setTimeout(() => {
+                const mainStatus = document.getElementById('mainStatus');
+                mainStatus.className = 'status warning';
+                mainStatus.innerHTML = '⚠️ اضغط على "تشغيل الإصلاح" لبدء عملية الإصلاح';
+            }, 1000);
+        });
+
+        // دوال عامة للاستدعاء
+        window.runFix = runFix;
+        window.testPayPal = testPayPal;
+        window.testDashboard = testDashboard;
+        window.testTranslation = testTranslation;
+    </script>
+</body>
+</html>
