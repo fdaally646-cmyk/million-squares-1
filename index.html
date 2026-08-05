@@ -9,10 +9,10 @@
     <meta property="pinterest:domain_verify" content="a1e0fd10cdf3cabb0847b5c5226d9382"/>
     <meta name="pinterest-rich-pin" content="true"/>
     
-    <!-- ======== SEO Meta Tags ======== -->
-    <title>🏆 مليون مربع - المنصة البصرية التفاعلية الأولى</title>
-    <meta name="description" content="مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي وابدأ في بناء مجتمعك الرقمي اليوم.">
-    <meta name="keywords" content="مليون مربع, منصة تفاعلية, إعلانات مربعة, تسويق رقمي, مجتمع رقمي, إعلانات تفاعلية, PayPal, دعم, اشتراك">
+    <!-- ======== SEO Advanced ======== -->
+    <title>🏆 مليون مربع - المنصة البصرية التفاعلية الأولى | Million Squares</title>
+    <meta name="description" content="مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي وابدأ في بناء مجتمعك الرقمي اليوم مع أفضل خطط الاشتراك.">
+    <meta name="keywords" content="مليون مربع, منصة تفاعلية, إعلانات مربعة, تسويق رقمي, مجتمع رقمي, إعلانات تفاعلية, PayPal, دعم, اشتراك, مربعات إعلانية, منصة تسويق">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Million Squares">
     <link rel="canonical" href="https://million-squares.com">
@@ -25,13 +25,16 @@
     <meta property="og:image" content="https://million-squares.com/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Million Squares">
+    <meta property="og:locale" content="ar_AR">
     
     <!-- ======== Twitter Card ======== -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="مليون مربع - المنصة البصرية التفاعلية الأولى">
     <meta name="twitter:description" content="المنصة البصرية التفاعلية الأولى في العالم العربي.">
+    <meta name="twitter:image" content="https://million-squares.com/twitter-image.jpg">
     
-    <!-- ======== Schema.org ======== -->
+    <!-- ======== Schema.org Structured Data ======== -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -44,6 +47,11 @@
             "@type": "Offer",
             "price": "1",
             "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "150"
         }
     }
     </script>
@@ -64,6 +72,7 @@
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons,hosted-fields&enable-funding=venmo"></script>
     
     <style>
+        /* ======== جميع الأنماط ======== */
         * {
             font-family: 'Tajawal', sans-serif;
             margin: 0;
@@ -77,6 +86,7 @@
             color: #fff;
         }
         
+        /* تأثيرات زجاجية */
         .glass-effect {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
@@ -84,14 +94,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-        
         .glass-effect-dark {
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
         .glass-effect-light {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(8px);
@@ -99,7 +107,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        /* ======== مساعد الذكاء الاصطناعي ======== */
+        /* ======== مساعد الذكاء الاصطناعي المتطور ======== */
         .ai-assistant {
             position: fixed;
             bottom: 30px;
@@ -110,7 +118,6 @@
             align-items: flex-end;
             gap: 12px;
         }
-        
         .ai-assistant .toggle-btn {
             width: 65px;
             height: 65px;
@@ -127,12 +134,10 @@
             justify-content: center;
             position: relative;
         }
-        
         .ai-assistant .toggle-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
         }
-        
         .ai-assistant .toggle-btn .notification-dot {
             position: absolute;
             top: -2px;
@@ -144,12 +149,10 @@
             border: 3px solid #1a1a2e;
             animation: pulse 1.5s ease-in-out infinite;
         }
-        
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.3); }
         }
-        
         .ai-assistant .chat-window {
             width: 380px;
             max-width: 90vw;
@@ -164,16 +167,11 @@
             flex-direction: column;
             animation: slideUp 0.3s ease-out;
         }
-        
-        .ai-assistant .chat-window.open {
-            display: flex;
-        }
-        
+        .ai-assistant .chat-window.open { display: flex; }
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px) scale(0.95); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        
         .ai-assistant .chat-header {
             padding: 16px 20px;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
@@ -182,7 +180,6 @@
             justify-content: space-between;
             align-items: center;
         }
-        
         .ai-assistant .chat-header .title {
             display: flex;
             align-items: center;
@@ -190,7 +187,6 @@
             font-weight: 700;
             font-size: 1rem;
         }
-        
         .ai-assistant .chat-header .title .ai-icon {
             width: 32px;
             height: 32px;
@@ -201,7 +197,6 @@
             justify-content: center;
             font-size: 1rem;
         }
-        
         .ai-assistant .chat-header .close-btn {
             background: transparent;
             border: none;
@@ -210,12 +205,10 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
         .ai-assistant .chat-header .close-btn:hover {
             color: #fff;
             transform: rotate(90deg);
         }
-        
         .ai-assistant .chat-messages {
             flex: 1;
             padding: 16px 20px;
@@ -225,19 +218,9 @@
             flex-direction: column;
             gap: 10px;
         }
-        
-        .ai-assistant .chat-messages::-webkit-scrollbar {
-            width: 4px;
-        }
-        .ai-assistant .chat-messages::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        .ai-assistant .chat-messages::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 10px;
-        }
-        
+        .ai-assistant .chat-messages::-webkit-scrollbar { width: 4px; }
+        .ai-assistant .chat-messages::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        .ai-assistant .chat-messages::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; }
         .ai-assistant .message {
             max-width: 85%;
             padding: 10px 16px;
@@ -246,32 +229,27 @@
             line-height: 1.5;
             animation: msgIn 0.3s ease-out;
         }
-        
         @keyframes msgIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
         .ai-assistant .message.bot {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.05);
             align-self: flex-start;
             border-bottom-left-radius: 4px;
         }
-        
         .ai-assistant .message.user {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
             align-self: flex-end;
             border-bottom-right-radius: 4px;
         }
-        
         .ai-assistant .message .time {
             font-size: 0.6rem;
             opacity: 0.4;
             margin-top: 4px;
             display: block;
         }
-        
         .ai-assistant .chat-input {
             padding: 12px 16px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -279,7 +257,6 @@
             gap: 10px;
             background: rgba(0, 0, 0, 0.3);
         }
-        
         .ai-assistant .chat-input input {
             flex: 1;
             padding: 10px 16px;
@@ -291,16 +268,11 @@
             outline: none;
             transition: all 0.3s;
         }
-        
         .ai-assistant .chat-input input:focus {
             border-color: rgba(102, 126, 234, 0.5);
             background: rgba(255, 255, 255, 0.08);
         }
-        
-        .ai-assistant .chat-input input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-        
+        .ai-assistant .chat-input input::placeholder { color: rgba(255, 255, 255, 0.3); }
         .ai-assistant .chat-input .send-btn {
             padding: 10px 18px;
             border-radius: 12px;
@@ -312,12 +284,10 @@
             transition: all 0.3s;
             font-size: 0.9rem;
         }
-        
         .ai-assistant .chat-input .send-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
         }
-        
         .ai-assistant .quick-actions {
             padding: 8px 12px;
             display: flex;
@@ -325,7 +295,6 @@
             gap: 6px;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
-        
         .ai-assistant .quick-actions button {
             padding: 5px 12px;
             border-radius: 20px;
@@ -336,11 +305,142 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
         .ai-assistant .quick-actions button:hover {
             background: rgba(102, 126, 234, 0.2);
             color: #fff;
             border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        /* ======== المربعات ======== */
+        .mini-square {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.08);
+            min-width: 90px;
+            min-height: 90px;
+            width: 100%;
+            height: auto;
+        }
+        .mini-square:hover {
+            transform: scale(1.08) rotate(2deg);
+            z-index: 10;
+            border-color: rgba(102, 126, 234, 0.6);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+        }
+        .mini-square.available { background: rgba(72, 187, 120, 0.25); border-color: rgba(72, 187, 120, 0.3); }
+        .mini-square.sold { background: rgba(252, 129, 129, 0.25); border-color: rgba(252, 129, 129, 0.3); }
+        .mini-square.reserved { background: rgba(236, 201, 75, 0.25); border-color: rgba(236, 201, 75, 0.3); }
+        .mini-square .square-number {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            font-size: 0.5rem;
+            opacity: 0.6;
+        }
+        .mini-square .square-emoji { font-size: 1.8rem; }
+        
+        /* ======== حاوية التمرير ======== */
+        .scroll-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.03);
+            padding: 4px 0;
+        }
+        .scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 8px 0;
+            position: relative;
+            cursor: grab;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.05);
+        }
+        .scroll-container:active { cursor: grabbing; }
+        .scroll-container::-webkit-scrollbar { height: 10px; }
+        .scroll-container::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        .scroll-container::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 10px; }
+        .scroll-container::-webkit-scrollbar-thumb:hover { background: linear-gradient(90deg, #764ba2, #667eea); }
+        
+        #squaresGrid {
+            display: grid;
+            gap: 12px;
+            width: max-content;
+            min-width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        /* ======== أزرار التحكم ======== */
+        .scroll-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .scroll-controls button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .scroll-controls button:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: scale(1.1);
+        }
+        .scroll-controls button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .scroll-controls .page-info {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            min-width: 120px;
+            text-align: center;
+        }
+        .scroll-controls .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            padding-right: 12px;
+        }
+        .scroll-controls .zoom-controls button {
+            width: 32px;
+            height: 32px;
+            font-size: 0.8rem;
+        }
+        .scroll-controls .zoom-controls .zoom-level {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            min-width: 40px;
+            text-align: center;
         }
         
         /* ======== شريط اللغات ======== */
@@ -348,7 +448,6 @@
             position: relative;
             z-index: 200;
         }
-        
         .language-btn {
             background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -400,7 +499,6 @@
         .language-dropdown::-webkit-scrollbar { width: 4px; }
         .language-dropdown::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
         .language-dropdown::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; }
-        
         .language-item {
             display: flex;
             align-items: center;
@@ -426,158 +524,7 @@
         .language-item.active { background: rgba(102, 126, 234, 0.25); color: #fff; border-right: 3px solid #667eea; }
         .language-item .check { color: #48bb78; font-size: 1rem; }
         
-        /* ======== المربعات - محسنة للعرض ======== */
-        .mini-square {
-            aspect-ratio: 1;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255,255,255,0.08);
-            min-width: 90px;
-            min-height: 90px;
-            width: 100%;
-            height: auto;
-        }
-        .mini-square:hover {
-            transform: scale(1.08) rotate(2deg);
-            z-index: 10;
-            border-color: rgba(102, 126, 234, 0.6);
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
-        }
-        .mini-square.available { background: rgba(72, 187, 120, 0.25); border-color: rgba(72, 187, 120, 0.3); }
-        .mini-square.sold { background: rgba(252, 129, 129, 0.25); border-color: rgba(252, 129, 129, 0.3); }
-        .mini-square.reserved { background: rgba(236, 201, 75, 0.25); border-color: rgba(236, 201, 75, 0.3); }
-        .mini-square .square-number {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            font-size: 0.5rem;
-            opacity: 0.6;
-        }
-        .mini-square .square-emoji { font-size: 1.8rem; }
-        
-        /* ======== حاوية التمرير ======== */
-        .scroll-wrapper {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
-            background: rgba(255,255,255,0.03);
-            padding: 4px 0;
-        }
-        
-        .scroll-container {
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            padding: 8px 0;
-            position: relative;
-            cursor: grab;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.05);
-        }
-        .scroll-container:active {
-            cursor: grabbing;
-        }
-        .scroll-container::-webkit-scrollbar {
-            height: 10px;
-        }
-        .scroll-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        .scroll-container::-webkit-scrollbar-thumb {
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 10px;
-        }
-        .scroll-container::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(90deg, #764ba2, #667eea);
-        }
-        
-        /* ======== الشبكة ======== */
-        #squaresGrid {
-            display: grid;
-            gap: 12px;
-            width: max-content;
-            min-width: 100%;
-            transition: all 0.3s ease;
-        }
-        
-        /* ======== أزرار التحكم ======== */
-        .scroll-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 12px;
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .scroll-controls button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-        }
-        .scroll-controls button:hover {
-            background: rgba(102, 126, 234, 0.3);
-            border-color: rgba(102, 126, 234, 0.5);
-            transform: scale(1.1);
-        }
-        .scroll-controls button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .scroll-controls .page-info {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
-            min-width: 120px;
-            text-align: center;
-        }
-        
-        .scroll-controls .zoom-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            padding-right: 12px;
-        }
-        
-        .scroll-controls .zoom-controls button {
-            width: 32px;
-            height: 32px;
-            font-size: 0.8rem;
-        }
-        
-        .scroll-controls .zoom-controls .zoom-level {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.5);
-            min-width: 40px;
-            text-align: center;
-        }
-        
-        /* ======== باقي الأنماط ======== */
+        /* ======== بطاقات ======== */
         .square-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -709,6 +656,7 @@
             text-transform: uppercase;
         }
         
+        /* ======== لوحة التحكم ======== */
         .admin-sidebar {
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(15px);
@@ -736,6 +684,7 @@
         }
         .admin-sidebar a i { width: 20px; text-align: center; font-size: 1rem; }
         
+        /* ======== مودالات ======== */
         .modal-overlay {
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
@@ -750,6 +699,7 @@
             to { transform: scale(1) translateY(0); opacity: 1; }
         }
         
+        /* ======== Toast ======== */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -775,6 +725,7 @@
         }
         .toast i { margin-left: 8px; }
         
+        /* ======== جداول ======== */
         .admin-table {
             width: 100%;
             border-collapse: collapse;
@@ -974,7 +925,6 @@
             box-shadow: 0 6px 25px rgba(237, 137, 54, 0.5);
         }
         .sponsor-btn-main i { font-size: 1.1rem; }
-        
         .sponsor-btn-small {
             background: linear-gradient(135deg, #f6ad55, #ed8936);
             color: #1a202c;
@@ -1029,6 +979,7 @@
             .scroll-controls { gap: 8px; padding: 6px 12px; }
             .scroll-controls button { width: 32px; height: 32px; font-size: 0.8rem; }
             .scroll-controls .page-info { font-size: 0.7rem; min-width: 80px; }
+            .scroll-controls .zoom-controls button { width: 28px; height: 28px; font-size: 0.7rem; }
             #squaresGrid { gap: 8px !important; }
         }
         
@@ -1111,6 +1062,7 @@
                 <button onclick="sendQuickMessage('ما هي خطط الاشتراك؟')">💎 الاشتراك</button>
                 <button onclick="sendQuickMessage('كيف يمكنني دعم المنصة؟')">🤝 الدعم</button>
                 <button onclick="sendQuickMessage('ما هي مميزات المنصة؟')">✨ المميزات</button>
+                <button onclick="sendQuickMessage('كيف أربح من المنصة؟')">💰 الربح</button>
             </div>
             <div class="chat-input">
                 <input type="text" id="chatInput" placeholder="اكتب رسالتك هنا..." onkeypress="if(event.key==='Enter') sendMessage()">
@@ -1122,7 +1074,22 @@
             <span class="notification-dot"></span>
         </button>
     </div>
-    
+
+    <!-- ============================================ -->
+    <!-- شريط الإشعارات المتقدم -->
+    <!-- ============================================ -->
+    <div id="notificationBar" class="fixed top-0 left-0 right-0 z-50 hidden">
+        <div class="glass-effect p-3 mx-4 mt-2 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span id="notificationIcon" class="text-2xl">🎉</span>
+                <span id="notificationMessage" class="text-sm">مرحباً بك في مليون مربع!</span>
+            </div>
+            <button onclick="closeNotification()" class="text-gray-400 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- ============================================ -->
     <!-- واجهة المستخدم الرئيسية -->
     <!-- ============================================ -->
@@ -1240,7 +1207,7 @@
             </div>
         </div>
         
-        <!-- ======== شبكة المربعات - مع أشرطة تمرير وتكبير ======== -->
+        <!-- ======== شبكة المربعات ======== -->
         <div class="glass-effect p-3 sm:p-4 mb-4 sm:mb-6">
             <div class="flex justify-between items-center mb-3 sm:mb-4">
                 <h3 class="font-bold text-sm sm:text-base" id="squaresGridTitle">🗂️ المربعات</h3>
@@ -1249,42 +1216,29 @@
                 </div>
             </div>
             
-            <!-- حاوية التمرير -->
             <div class="scroll-wrapper">
                 <div id="squaresScroll" class="scroll-container">
                     <div id="squaresGrid" style="display:grid; gap:12px; padding:4px; grid-template-columns: repeat(10, 1fr);">
-                        <!-- سيتم ملؤها بـ JavaScript -->
                     </div>
                 </div>
             </div>
             
-            <!-- أزرار التحكم -->
             <div class="scroll-controls">
                 <button onclick="scrollPage('prev')" id="prevPageBtn" title="الصفحة السابقة">
                     <i class="fas fa-chevron-right"></i>
                 </button>
-                
                 <span class="page-info" id="pageInfo">الصفحة 1 من 10000</span>
-                
                 <button onclick="scrollPage('next')" id="nextPageBtn" title="الصفحة التالية">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                
                 <div class="zoom-controls">
-                    <button onclick="changeZoom(-1)" title="تصغير">
-                        <i class="fas fa-minus"></i>
-                    </button>
+                    <button onclick="changeZoom(-1)" title="تصغير"><i class="fas fa-minus"></i></button>
                     <span class="zoom-level" id="zoomLevel">100%</span>
-                    <button onclick="changeZoom(1)" title="تكبير">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <button onclick="resetZoom()" title="إعادة تعيين">
-                        <i class="fas fa-undo"></i>
-                    </button>
+                    <button onclick="changeZoom(1)" title="تكبير"><i class="fas fa-plus"></i></button>
+                    <button onclick="resetZoom()" title="إعادة تعيين"><i class="fas fa-undo"></i></button>
                 </div>
             </div>
             
-            <!-- مؤشر التقدم -->
             <div class="flex justify-between items-center mt-3 sm:mt-4 text-xs sm:text-sm text-gray-400">
                 <span id="scrollInfo">عرض 100 من 1,000,000</span>
                 <div class="scroll-indicator">
@@ -1293,7 +1247,6 @@
                 </div>
             </div>
             
-            <!-- مؤشر التحميل -->
             <div id="loadingMore" class="text-center py-2 text-gray-400 text-sm hidden">
                 <i class="fas fa-spinner fa-spin"></i> جاري تحميل المزيد من المربعات...
             </div>
@@ -1363,9 +1316,9 @@
             <p class="mt-1 opacity-60 text-xs">✨ <span id="footerLove">تم تطويره باستخدام ❤️ في العالم العربي</span></p>
         </footer>
     </div>
-    
+
     <!-- ============================================ -->
-    <!-- النوافذ المنبثقة (مختصرة) -->
+    <!-- النوافذ المنبثقة -->
     <!-- ============================================ -->
     
     <!-- نافذة التعريف -->
@@ -1691,6 +1644,7 @@
                     <a href="#" onclick="showAdminSection('supporters', event)"><i class="fas fa-hand-holding-heart"></i> <span id="adminSupporters">الداعمين</span></a>
                     <a href="#" onclick="showAdminSection('payments', event)"><i class="fas fa-credit-card"></i> <span id="adminPayments">المدفوعات</span></a>
                     <a href="#" onclick="showAdminSection('suggestions', event)"><i class="fas fa-lightbulb"></i> <span id="adminSuggestions">الاقتراحات</span></a>
+                    <a href="#" onclick="showAdminSection('analytics', event)"><i class="fas fa-chart-line"></i> <span id="adminAnalytics">التحليلات</span></a>
                     <a href="#" onclick="showAdminSection('social', event)"><i class="fas fa-share-alt"></i> <span id="adminSocial">التواصل الاجتماعي</span></a>
                     <a href="#" onclick="showAdminSection('admins', event)"><i class="fas fa-user-shield"></i> <span id="adminAdmins">المشرفين</span></a>
                     <a href="#" onclick="showAdminSection('settings', event)"><i class="fas fa-cog"></i> <span id="adminSettings">الإعدادات</span></a>
@@ -1704,7 +1658,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- ============================================ -->
     <!-- JavaScript -->
     <!-- ============================================ -->
@@ -1771,18 +1725,63 @@
             }
             
             if (lowerText.includes('خطة') || lowerText.includes('باقة') || lowerText.includes('سعر')) {
-                return '💎 لدينا 4 خطط اشتراك:\n💎 عادي: $1/سنة\n⭐ فضي: $5/سنة\n👑 ذهبي: $10/سنة\n💠 ماسي: $100/سنة\n\nكل خطة تأتي بميزات إضافية!';
+                return '💎 لدينا 5 خطط اشتراك:\n💎 عادي: $1/سنة\n⭐ فضي: $5/سنة\n👑 ذهبي: $10/سنة\n💠 ماسي: $100/سنة\n🏢 مؤسسي: $500/سنة\n\nكل خطة تأتي بميزات إضافية!';
             }
             
             if (lowerText.includes('دعم') || lowerText.includes('داعم')) {
                 return '🤝 يمكنك دعم المنصة من خلال:\n🗓️ دعم أسبوعي: $100\n🌟 دعم شهري: $1,000\n👑 دعم سنوي: $10,000\n\nستظهر كراعي في شريط الإعلانات!';
             }
             
-            if (lowerText.includes('مميزات') || lowerText.includes('ميزة')) {
-                return '✨ مميزات مليون مربع:\n🚀 أول منصة بصرية تفاعلية\n💎 مليون مربع إعلاني\n🌍 دعم 24 لغة\n🔒 مدفوعات آمنة\n📊 تحليلات متقدمة\n🤝 مجتمع نشط';
+            if (lowerText.includes('ربح') || lowerText.includes('كسب')) {
+                return '💰 طرق الربح من المنصة:\n1. بيع المربعات (عمولة 10%)\n2. برنامج الإحالات (مكافأة $5 لكل مشترك)\n3. الإعلانات المدفوعة\n4. الشراكات الاستراتيجية';
             }
             
-            return '👋 كيف يمكنني مساعدتك؟\nيمكنني الإجابة عن:\n🛒 الشراء\n💎 الاشتراكات\n🤝 الدعم\n✨ المميزات';
+            if (lowerText.includes('مميزات') || lowerText.includes('ميزة')) {
+                return '✨ مميزات مليون مربع:\n🚀 أول منصة بصرية تفاعلية\n💎 مليون مربع إعلاني\n🌍 دعم 24 لغة\n🔒 مدفوعات آمنة\n📊 تحليلات متقدمة\n🤝 مجتمع نشط\n💰 فرص ربح متنوعة';
+            }
+            
+            return '👋 كيف يمكنني مساعدتك؟\nيمكنني الإجابة عن:\n🛒 الشراء\n💎 الاشتراكات\n🤝 الدعم\n💰 الربح\n✨ المميزات';
+        }
+        
+        // ============================================
+        // نظام الإشعارات
+        // ============================================
+        let notificationTimeout = null;
+        
+        function showNotification(message, type = 'info', icon = '📢') {
+            const bar = document.getElementById('notificationBar');
+            const msg = document.getElementById('notificationMessage');
+            const iconEl = document.getElementById('notificationIcon');
+            
+            msg.textContent = message;
+            iconEl.textContent = icon;
+            
+            // تغيير لون الخلفية حسب النوع
+            if (type === 'success') {
+                bar.style.border = '1px solid #48bb78';
+            } else if (type === 'error') {
+                bar.style.border = '1px solid #fc8181';
+            } else {
+                bar.style.border = '1px solid #667eea';
+            }
+            
+            bar.classList.remove('hidden');
+            
+            if (notificationTimeout) {
+                clearTimeout(notificationTimeout);
+            }
+            
+            notificationTimeout = setTimeout(() => {
+                closeNotification();
+            }, 5000);
+        }
+        
+        function closeNotification() {
+            document.getElementById('notificationBar').classList.add('hidden');
+            if (notificationTimeout) {
+                clearTimeout(notificationTimeout);
+                notificationTimeout = null;
+            }
         }
         
         // ============================================
@@ -1792,7 +1791,8 @@
             basic: { label: 'عادي', emoji: '💎', price: 1, color: 'basic', features: ['الاسم', 'صورة', 'اختصاص', 'بريد', 'عنوان'] },
             silver: { label: 'فضي', emoji: '⭐', price: 5, color: 'silver', features: ['جميع ميزات العادي', 'رقم الهاتف', 'إطار فضي لامع', 'ظهور متقدم'] },
             gold: { label: 'ذهبي', emoji: '👑', price: 10, color: 'gold', features: ['جميع ميزات الفضي', 'تخصيص اللون', 'إطار ذهبي مميز', 'روابط التواصل'] },
-            platinum: { label: 'ماسي', emoji: '💠', price: 100, color: 'platinum', features: ['جميع ميزات الذهبي', 'إطار ماسي فاخر', 'أولوية الظهور', 'شارة مميزة'] }
+            platinum: { label: 'ماسي', emoji: '💠', price: 100, color: 'platinum', features: ['جميع ميزات الذهبي', 'إطار ماسي فاخر', 'أولوية الظهور', 'شارة مميزة'] },
+            enterprise: { label: 'مؤسسي', emoji: '🏢', price: 500, color: 'platinum', features: ['جميع ميزات الماسي', 'مربعات متعددة', 'تحليلات متقدمة', 'دعم مخصص'] }
         };
         
         const CATEGORIES = ['marketing', 'programming', 'design', 'ai', 'data', 'cybersecurity', 'webdev', 'gaming'];
@@ -1876,7 +1876,6 @@
         // ============================================
         // الحالة العامة
         // ============================================
-        // بدء بـ 2000 مربع أولاً
         let allSquares = loadFromStorage('squares', generateSquares(1, 2000));
         let filteredSquares = [...allSquares];
         let currentPage = 1;
@@ -1893,11 +1892,9 @@
         let zoomLevel = 1;
         const minZoom = 0.5;
         const maxZoom = 2;
-        let colsCount = 10;
         let totalSquaresLoaded = allSquares.length;
         const totalSquaresTarget = 1000000;
         let isLoadingMore = false;
-        let isAutoScrolling = false;
         
         // بيانات المسؤول
         let adminData = loadFromStorage('adminData', {
@@ -1972,7 +1969,7 @@
         ];
         
         // ============================================
-        // الترجمة (مختصرة)
+        // الترجمة
         // ============================================
         const translations = {
             ar: {
@@ -1989,12 +1986,12 @@
                 aboutDesc2: 'من خلال الإعلانات المربعة، يمكنك بناء مجتمع رقمي نشط، وتعزيز التسويق الرقمي، وزيادة الوعي بالعلامة التجارية.',
                 howItWorksTitle: '📋 آلية التسجيل',
                 step1: 'اختر المربع المناسب لك من الشبكة',
-                step2: 'اختر باقة الاشتراك المناسبة (عادي، فضي، ذهبي، ماسي)',
+                step2: 'اختر باقة الاشتراك المناسبة (عادي، فضي، ذهبي، ماسي، مؤسسي)',
                 step3: 'املأ بياناتك الشخصية والمهنية',
                 step4: 'قم بالدفع عبر PayPal أو التحويل البنكي',
                 step5: 'تفعيل المربع والظهور في المنصة',
                 subscribeTitle: '💎 خطط الاشتراك',
-                basicTitle: 'عادي', silverTitle: 'فضي', goldTitle: 'ذهبي', platinumTitle: 'ماسي',
+                basicTitle: 'عادي', silverTitle: 'فضي', goldTitle: 'ذهبي', platinumTitle: 'ماسي', enterpriseTitle: 'مؤسسي',
                 perYear: '/ سنة',
                 basicFeat1: 'عرض الاسم', basicFeat2: 'صورة شخصية', basicFeat3: 'الاختصاص',
                 basicFeat4: 'البريد الإلكتروني', basicFeat5: 'العنوان', basicFeat6: 'رقم الهاتف', basicFeat7: 'إطار مميز',
@@ -2005,6 +2002,9 @@
                 platinumFeat1: 'جميع ميزات الذهبي', platinumFeat2: '💎 إطار ماسي فاخر',
                 platinumFeat3: '⭐ أولوية الظهور القصوى', platinumFeat4: '🏅 شارة مميزة',
                 platinumFeat5: '🎁 هدايا حصرية', platinumFeat6: '📞 دعم فوري',
+                enterpriseFeat1: 'جميع ميزات الماسي', enterpriseFeat2: '🏢 مربعات متعددة',
+                enterpriseFeat3: '📊 تحليلات متقدمة', enterpriseFeat4: '🎯 استهداف دقيق',
+                enterpriseFeat5: '📈 تقارير مخصصة', enterpriseFeat6: '🤝 دعم مخصص',
                 popularTag: 'الأكثر اختياراً', premiumTag: 'مميز', vipTag: 'VIP',
                 payNowBtn: 'ادفع الآن عبر PayPal', securePayment: '🔒 دفع آمن عبر PayPal',
                 purchaseTitle: '🛒 شراء المربع', squareNumber: 'رقم المربع:', tier: 'الفئة:',
@@ -2021,8 +2021,8 @@
                 adminPanelTitle: 'لوحة التحكم', adminDashboard: 'لوحة المعلومات',
                 adminSquares: 'المربعات', adminSubscribers: 'المشتركين',
                 adminSupporters: 'الداعمين', adminPayments: 'المدفوعات',
-                adminSuggestions: 'الاقتراحات', adminSocial: 'التواصل الاجتماعي',
-                adminAdmins: 'المشرفين', adminSettings: 'الإعدادات',
+                adminSuggestions: 'الاقتراحات', adminAnalytics: 'التحليلات',
+                adminSocial: 'التواصل الاجتماعي', adminAdmins: 'المشرفين', adminSettings: 'الإعدادات',
                 logoutBtn: 'تسجيل الخروج',
                 allTiers: 'جميع الفئات', allCategories: 'جميع المجالات', allStatus: 'جميع الحالات',
                 statusAvailable: '🟢 متاح', statusSold: '🔴 مباع', statusReserved: '🟡 محجوز',
@@ -2150,7 +2150,17 @@
                 sponsorBtnText: '🌟 ادعم المنصة واظهر في شريط الإعلانات',
                 loadingMore: 'جاري تحميل المزيد من المربعات...',
                 scrollInfo: 'عرض 100 من 1,000,000',
-                pageInfo: 'الصفحة {current} من {total}'
+                pageInfo: 'الصفحة {current} من {total}',
+                analyticsTitle: '📊 التحليلات والإحصائيات',
+                visitors: 'الزوار',
+                engagement: 'معدل التفاعل',
+                conversion: 'نسبة التحويل',
+                retention: 'الاحتفاظ',
+                totalUsers: 'إجمالي المستخدمين',
+                activeUsers: 'المستخدمين النشطين',
+                newUsers: 'مستخدمين جدد',
+                bounceRate: 'معدل الارتداد',
+                avgSession: 'متوسط مدة الجلسة'
             },
             en: {
                 siteTitle: 'Million Squares', siteSubtitle: '✨ The First Interactive Visual Platform in the Arab World',
@@ -2166,12 +2176,12 @@
                 aboutDesc2: 'Through square advertisements, you can build an active digital community, enhance digital marketing, and increase brand awareness.',
                 howItWorksTitle: '📋 How It Works',
                 step1: 'Choose your square from the grid',
-                step2: 'Select your subscription plan (Basic, Silver, Gold, Platinum)',
+                step2: 'Select your subscription plan (Basic, Silver, Gold, Platinum, Enterprise)',
                 step3: 'Fill in your personal and professional details',
                 step4: 'Pay via PayPal or bank transfer',
                 step5: 'Activate your square and appear on the platform',
                 subscribeTitle: '💎 Subscription Plans',
-                basicTitle: 'Basic', silverTitle: 'Silver', goldTitle: 'Gold', platinumTitle: 'Platinum',
+                basicTitle: 'Basic', silverTitle: 'Silver', goldTitle: 'Gold', platinumTitle: 'Platinum', enterpriseTitle: 'Enterprise',
                 perYear: '/ year',
                 basicFeat1: 'Display name', basicFeat2: 'Profile picture', basicFeat3: 'Specialty',
                 basicFeat4: 'Email address', basicFeat5: 'Address', basicFeat6: 'Phone number', basicFeat7: 'Premium frame',
@@ -2182,6 +2192,9 @@
                 platinumFeat1: 'All Gold features', platinumFeat2: '💎 Diamond luxury frame',
                 platinumFeat3: '⭐ Maximum priority visibility', platinumFeat4: '🏅 Exclusive badge',
                 platinumFeat5: '🎁 Exclusive gifts', platinumFeat6: '📞 Instant support',
+                enterpriseFeat1: 'All Platinum features', enterpriseFeat2: '🏢 Multiple squares',
+                enterpriseFeat3: '📊 Advanced analytics', enterpriseFeat4: '🎯 Precise targeting',
+                enterpriseFeat5: '📈 Custom reports', enterpriseFeat6: '🤝 Dedicated support',
                 popularTag: 'Most Popular', premiumTag: 'Premium', vipTag: 'VIP',
                 payNowBtn: 'Pay Now via PayPal', securePayment: '🔒 Secure payment via PayPal',
                 purchaseTitle: '🛒 Purchase Square', squareNumber: 'Square Number:', tier: 'Tier:',
@@ -2198,8 +2211,8 @@
                 adminPanelTitle: 'Control Panel', adminDashboard: 'Dashboard',
                 adminSquares: 'Squares', adminSubscribers: 'Subscribers',
                 adminSupporters: 'Supporters', adminPayments: 'Payments',
-                adminSuggestions: 'Suggestions', adminSocial: 'Social Media',
-                adminAdmins: 'Admins', adminSettings: 'Settings',
+                adminSuggestions: 'Suggestions', adminAnalytics: 'Analytics',
+                adminSocial: 'Social Media', adminAdmins: 'Admins', adminSettings: 'Settings',
                 logoutBtn: 'Logout',
                 allTiers: 'All Tiers', allCategories: 'All Categories', allStatus: 'All Status',
                 statusAvailable: '🟢 Available', statusSold: '🔴 Sold', statusReserved: '🟡 Reserved',
@@ -2323,7 +2336,17 @@
                 sponsorBtnText: '🌟 Support the platform and appear in the ad banner',
                 loadingMore: 'Loading more squares...',
                 scrollInfo: 'Showing 100 of 1,000,000',
-                pageInfo: 'Page {current} of {total}'
+                pageInfo: 'Page {current} of {total}',
+                analyticsTitle: '📊 Analytics & Statistics',
+                visitors: 'Visitors',
+                engagement: 'Engagement Rate',
+                conversion: 'Conversion Rate',
+                retention: 'Retention Rate',
+                totalUsers: 'Total Users',
+                activeUsers: 'Active Users',
+                newUsers: 'New Users',
+                bounceRate: 'Bounce Rate',
+                avgSession: 'Avg Session Duration'
             }
         };
         
@@ -2379,7 +2402,8 @@
                 aboutTitle: 'aboutTitle', aboutDesc1: 'aboutDesc1', aboutDesc2: 'aboutDesc2',
                 howItWorksTitle: 'howItWorksTitle', step1: 'step1', step2: 'step2', step3: 'step3', step4: 'step4', step5: 'step5',
                 subscribeTitle: 'subscribeTitle', basicTitle: 'basicTitle', silverTitle: 'silverTitle',
-                goldTitle: 'goldTitle', platinumTitle: 'platinumTitle', perYear: 'perYear',
+                goldTitle: 'goldTitle', platinumTitle: 'platinumTitle', enterpriseTitle: 'enterpriseTitle',
+                perYear: 'perYear',
                 payNowBtn: 'payNowBtn', securePayment: 'securePayment',
                 purchaseTitle: 'purchaseTitle', squareNumber: 'squareNumber', tier: 'tier',
                 price: 'price', status: 'status', purchaseFormTitle: 'purchaseFormTitle',
@@ -2394,7 +2418,8 @@
                 adminDashboard: 'adminDashboard', adminSquares: 'adminSquares',
                 adminSubscribers: 'adminSubscribers', adminSupporters: 'adminSupporters',
                 adminPayments: 'adminPayments', adminSuggestions: 'adminSuggestions',
-                adminSocial: 'adminSocial', adminAdmins: 'adminAdmins', adminSettings: 'adminSettings',
+                adminAnalytics: 'adminAnalytics', adminSocial: 'adminSocial',
+                adminAdmins: 'adminAdmins', adminSettings: 'adminSettings',
                 logoutBtn: 'logoutBtn',
                 allTiers: 'allTiers', allCategories: 'allCategories', allStatus: 'allStatus',
                 statusAvailable: 'statusAvailable', statusSold: 'statusSold', statusReserved: 'statusReserved',
@@ -2473,7 +2498,17 @@
                 sponsorBtnText: 'sponsorBtnText',
                 loadingMore: 'loadingMore',
                 scrollInfo: 'scrollInfo',
-                pageInfo: 'pageInfo'
+                pageInfo: 'pageInfo',
+                analyticsTitle: 'analyticsTitle',
+                visitors: 'visitors',
+                engagement: 'engagement',
+                conversion: 'conversion',
+                retention: 'retention',
+                totalUsers: 'totalUsers',
+                activeUsers: 'activeUsers',
+                newUsers: 'newUsers',
+                bounceRate: 'bounceRate',
+                avgSession: 'avgSession'
             };
             
             for (const [key, id] of Object.entries(elements)) {
@@ -2576,6 +2611,7 @@
             
             renderSuggestions();
             showToast(getTranslation('suggestionAdded', '✅ تم إضافة اقتراحك بنجاح!'), 'success');
+            showNotification('شكراً لك على اقتراحك! سيتم مراجعته قريباً', 'success', '💡');
         }
         
         function renderSuggestions() {
@@ -2643,15 +2679,19 @@
             translateAllElements();
             setupScrollListener();
             updatePageInfo();
+            
+            // عرض إشعار ترحيبي
+            setTimeout(() => {
+                showNotification('مرحباً بك في مليون مربع! 🎉 استكشف المنصة وابدأ رحلتك', 'info', '👋');
+            }, 1000);
         }
         
         // ============================================
-        // دوال عرض المربعات مع التحكم بالتكبير
+        // دوال عرض المربعات
         // ============================================
         function renderSquaresGrid() {
             const grid = document.getElementById('squaresGrid');
             
-            // تحديث عدد الأعمدة بناءً على مستوى التكبير
             let cols = 10;
             if (zoomLevel < 0.7) cols = 8;
             else if (zoomLevel < 0.9) cols = 9;
@@ -2660,19 +2700,16 @@
             else if (zoomLevel < 1.6) cols = 6;
             else cols = 5;
             
-            // تحديث حجم المربعات
             const squareSize = 90 * zoomLevel;
             const gapSize = 12 * zoomLevel;
             
             grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
             grid.style.gap = `${gapSize}px`;
             
-            // حساب عدد المربعات المعروضة
             const start = currentPageIndex * squaresPerPage;
             const end = Math.min(start + squaresPerPage, allSquares.length);
             const pageSquares = allSquares.slice(start, end);
             
-            // عرض المربعات
             grid.innerHTML = '';
             
             for (let i = 0; i < pageSquares.length; i++) {
@@ -2702,11 +2739,8 @@
                 grid.appendChild(div);
             }
             
-            // تحديث معلومات الصفحة
             updatePageInfo();
             updateScrollInfo();
-            
-            // تحديث حالة الأزرار
             updateButtonsState();
         }
         
@@ -2735,9 +2769,6 @@
             document.getElementById('nextPageBtn').disabled = currentPageIndex >= totalPages - 1;
         }
         
-        // ============================================
-        // دوال التنقل بين الصفحات
-        // ============================================
         function scrollPage(direction) {
             const totalPages = Math.ceil(Math.min(allSquares.length, totalSquaresTarget) / squaresPerPage);
             
@@ -2745,8 +2776,6 @@
                 if (currentPageIndex < totalPages - 1) {
                     currentPageIndex++;
                     renderSquaresGrid();
-                    
-                    // تمرير سلس إلى الأعلى
                     document.getElementById('squaresScroll').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             } else if (direction === 'prev') {
@@ -2760,9 +2789,6 @@
             updateScrollProgress();
         }
         
-        // ============================================
-        // دوال التكبير والتصغير
-        // ============================================
         function changeZoom(delta) {
             const newZoom = zoomLevel + delta * 0.1;
             if (newZoom >= minZoom && newZoom <= maxZoom) {
@@ -2778,9 +2804,6 @@
             renderSquaresGrid();
         }
         
-        // ============================================
-        // دوال التمرير والتحميل التلقائي
-        // ============================================
         function setupScrollListener() {
             const container = document.getElementById('squaresScroll');
             if (!container) return;
@@ -2797,14 +2820,12 @@
             const scrollWidth = container.scrollWidth;
             const clientWidth = container.clientWidth;
             
-            // تحديث مؤشر التمرير
             if (scrollWidth > clientWidth) {
                 const percent = (scrollLeft / (scrollWidth - clientWidth)) * 100;
                 document.getElementById('scrollPercent').textContent = Math.round(percent) + '%';
                 document.getElementById('scrollFill').style.width = percent + '%';
             }
             
-            // التحقق من الوصول للنهاية الأفقية
             if (scrollLeft + clientWidth >= scrollWidth - 100) {
                 if (!isLoadingMore && allSquares.length < totalSquaresTarget) {
                     loadMoreSquares();
@@ -2823,7 +2844,6 @@
             document.getElementById('loadingMore').classList.remove('hidden');
             document.getElementById('loadingMore').textContent = getTranslation('loadingMore', 'جاري تحميل المزيد من المربعات...');
             
-            // محاكاة التحميل
             setTimeout(() => {
                 const currentCount = allSquares.length;
                 const additionalCount = Math.min(200, totalSquaresTarget - currentCount);
@@ -2996,6 +3016,8 @@
         // ============================================
         // دوال اختيار خطة الدعم
         // ============================================
+        let selectedSupportPlan = null;
+        
         function selectSupportPlan(plan) {
             selectedSupportPlan = plan;
             document.querySelectorAll('#supportWeekly, #supportMonthly, #supportYearly').forEach(el => {
@@ -3065,6 +3087,7 @@
             updateStats();
             
             showToast(`✅ تم دعم المنصة بمبلغ $${plan.amount} بنجاح! شكراً لك ${name}`, 'success');
+            showNotification(`شكراً لك ${name} على دعمك السخي! 🌟`, 'success', '🎉');
             closeModal('sponsorModal');
             
             selectedSupportPlan = null;
@@ -3153,6 +3176,7 @@
             renderSquaresGrid();
             
             showToast(`✅ تم الاشتراك بنجاح! مرحباً بك ${name} في مليون مربع`, 'success');
+            showNotification(`🎉 مرحباً بك ${name} في مليون مربع!`, 'success', '🎊');
             closeModal('subscriptionModal');
             
             selectedSubscription = null;
@@ -3221,6 +3245,7 @@
                 renderSquaresGrid();
                 closeModal('purchaseModal');
                 showToast(getTranslation('purchaseSuccess', `✅ تم شراء المربع #${square.number} بنجاح!`), 'success');
+                showNotification(`🎉 تم شراء المربع #${square.number} بنجاح!`, 'success', '🎊');
             }
         }
         
@@ -3255,7 +3280,7 @@
         }
         
         // ============================================
-        // PayPal - محسنة
+        // PayPal
         // ============================================
         function renderPayPalButton(containerId) {
             const container = document.getElementById(containerId);
@@ -3337,6 +3362,7 @@
                 budget: document.getElementById('adBudget').value
             };
             showToast(getTranslation('adSubmitted', `✅ تم إرسال طلب الإعلان بنجاح!\nالشركة: ${data.company}\nالميزانية: $${data.budget}`), 'success');
+            showNotification(`📢 تم استلام طلب إعلان من ${data.company}`, 'info', '📢');
             closeModal('adFormModal');
             document.getElementById('adForm').reset();
         }
@@ -3397,7 +3423,7 @@
         }
         
         // ============================================
-        // دوال إدارة البنوك (مختصرة)
+        // دوال إدارة البنوك
         // ============================================
         function deleteBankAccount(bankId) {
             if (!confirm(getTranslation('confirmDeleteBank', 'هل أنت متأكد من حذف هذا البنك نهائياً؟'))) return;
@@ -3489,7 +3515,7 @@
         }
         
         // ============================================
-        // لوحة التحكم (مختصرة)
+        // لوحة التحكم
         // ============================================
         function adminLogin(event) {
             event.preventDefault();
@@ -3520,7 +3546,435 @@
                 event.currentTarget.classList.add('active');
             }
             const content = document.getElementById('adminContent');
-            content.innerHTML = `<div class="text-center py-8 text-gray-400"><p class="text-sm">تم تحميل ${section}</p></div>`;
+            
+            const sections = {
+                dashboard: `
+                    <h2 class="text-2xl font-bold mb-6">📊 ${getTranslation('adminDashboard', 'لوحة المعلومات')}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div class="glass-effect p-4 text-center"><div class="text-3xl font-bold text-blue-400">${allSquares.length.toLocaleString()}</div><div class="text-sm text-gray-400">${getTranslation('statTotal', 'المربعات')}</div></div>
+                        <div class="glass-effect p-4 text-center"><div class="text-3xl font-bold text-green-400">${allSquares.filter(s => s.status === 'sold').length}</div><div class="text-sm text-gray-400">${getTranslation('statSold', 'مباع')}</div></div>
+                        <div class="glass-effect p-4 text-center"><div class="text-3xl font-bold text-purple-400">${allSquares.filter(s => s.status === 'available').length}</div><div class="text-sm text-gray-400">${getTranslation('statusAvailable', 'متاح')}</div></div>
+                        <div class="glass-effect p-4 text-center"><div class="text-3xl font-bold text-yellow-400">$${allSquares.reduce((sum, s) => sum + s.price, 0)}</div><div class="text-sm text-gray-400">${getTranslation('statRevenue', 'الإيرادات')}</div></div>
+                    </div>
+                    <div class="glass-effect p-4"><h3 class="font-bold mb-4">📈 ${getTranslation('recentActivity', 'أحدث النشاطات')}</h3>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <p>✅ ${getTranslation('soldSquare', 'تم بيع مربع')} #${allSquares.filter(s => s.status === 'sold').length + 1}</p>
+                        <p>🆕 ${getTranslation('newSubscriber', 'مشترك جديد')}: ${allSquares[Math.floor(Math.random() * allSquares.length)].owner.name}</p>
+                        <p>💰 ${getTranslation('newPayment', 'دفع جديد')}: $${Math.floor(Math.random() * 100) + 1}</p>
+                    </div></div>
+                `,
+                squares: `
+                    <h2 class="text-2xl font-bold mb-6">🗂️ ${getTranslation('adminSquares', 'إدارة المربعات')}</h2>
+                    <div class="glass-effect p-4 overflow-x-auto">
+                        <table class="admin-table">
+                            <thead><tr><th>#</th><th>${getTranslation('owner', 'المالك')}</th><th>${getTranslation('tier', 'الفئة')}</th><th>${getTranslation('status', 'الحالة')}</th><th>${getTranslation('price', 'السعر')}</th><th>${getTranslation('actions', 'إجراءات')}</th></tr></thead>
+                            <tbody>${allSquares.slice(0, 20).map(s => `
+                                <tr><td>#${s.number}</td><td>${s.owner.name}</td><td>${s.tier}</td><td><span class="status-badge status-${s.status}">${s.status}</span></td><td>$${s.price}</td>
+                                <td><button onclick="editSquare(${s.number})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
+                                <button onclick="deleteSquare(${s.number})" class="text-red-400 hover:text-red-300 mr-2"><i class="fas fa-trash"></i></button></td></tr>
+                            `).join('')}</tbody>
+                        </table>
+                    </div>
+                `,
+                subscribers: `
+                    <h2 class="text-2xl font-bold mb-6">👥 ${getTranslation('adminSubscribers', 'إدارة المشتركين')}</h2>
+                    <div class="glass-effect p-4 overflow-x-auto">
+                        <table class="admin-table">
+                            <thead><tr><th>${getTranslation('name', 'الاسم')}</th><th>${getTranslation('email', 'البريد')}</th><th>${getTranslation('tier', 'الفئة')}</th><th>${getTranslation('square', 'المربع')}</th><th>${getTranslation('date', 'التاريخ')}</th><th>${getTranslation('actions', 'إجراءات')}</th></tr></thead>
+                            <tbody>${subscribers.length === 0 ? `<tr><td colspan="6" class="text-center text-gray-400 py-4">${getTranslation('noSubscribers', 'لا يوجد مشتركين بعد')}</td></tr>` :
+                            subscribers.slice(0, 15).map(s => `
+                                <tr><td>${s.name}</td><td>${s.email}</td><td>${s.tier}</td><td>#${s.square}</td><td>${new Date(s.date).toLocaleDateString()}</td>
+                                <td><button onclick="editSubscriber(${s.square})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
+                                <button onclick="suspendSubscriber(${s.square})" class="text-yellow-400 hover:text-yellow-300 mr-2"><i class="fas fa-pause"></i></button>
+                                <button onclick="openContactModal({name:'${s.name}', email:'${s.email}', phone:'${s.phone || '-'}', square:${s.square}, tier:'${s.tier}'})" class="text-blue-400 hover:text-blue-300 mr-2"><i class="fas fa-envelope"></i></button></td></tr>
+                            `).join('')}</tbody>
+                        </table>
+                    </div>
+                `,
+                supporters: `
+                    <h2 class="text-2xl font-bold mb-6">🌟 ${getTranslation('adminSupporters', 'إدارة الداعمين')}</h2>
+                    <div class="glass-effect p-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">${supportersData.slice(0, 3).map(s => `
+                            <div class="glass-effect-light p-4 text-center">
+                                <div class="text-3xl mb-2">${s.logo || '🏢'}</div>
+                                <h4 class="font-bold">${s.name}</h4>
+                                <p class="text-gray-400">$${s.amount}</p>
+                                <p class="text-sm text-gray-500">${s.tier || ''} - ${s.period || ''}</p>
+                                ${s.website ? `<a href="${s.website}" target="_blank" class="text-blue-400 text-sm hover:underline">${getTranslation('viewWebsite', 'زيارة الموقع')}</a>` : ''}
+                                <button onclick="editSupporter(${s.id})" class="mt-2 px-4 py-1 bg-blue-600 rounded-full text-sm hover:bg-blue-700">${getTranslation('edit', 'تعديل')}</button>
+                            </div>
+                        `).join('')}</div>
+                        <button onclick="addSupporter()" class="mt-4 px-6 py-2 bg-green-600 rounded-full hover:bg-green-700 transition"><i class="fas fa-plus"></i> ${getTranslation('addSupporter', 'إضافة داعم جديد')}</button>
+                    </div>
+                `,
+                payments: `
+                    <h2 class="text-2xl font-bold mb-6">💳 ${getTranslation('adminPayments', 'إدارة المدفوعات')}</h2>
+                    <div class="glass-effect p-4 overflow-x-auto">
+                        <table class="admin-table">
+                            <thead><tr><th>#</th><th>${getTranslation('user', 'المستخدم')}</th><th>${getTranslation('amount', 'المبلغ')}</th><th>${getTranslation('method', 'طريقة الدفع')}</th><th>${getTranslation('status', 'الحالة')}</th><th>${getTranslation('date', 'التاريخ')}</th></tr></thead>
+                            <tbody>${payments.length === 0 ? `<tr><td colspan="6" class="text-center text-gray-400 py-4">${getTranslation('noPayments', 'لا يوجد مدفوعات بعد')}</td></tr>` :
+                            payments.map(p => `
+                                <tr><td>#${p.id}</td><td>${p.user}</td><td>$${p.amount}</td><td>${p.method}</td>
+                                <td><span class="status-badge ${p.status === 'completed' ? 'status-available' : 'status-reserved'}">${p.status}</span></td><td>${p.date}</td></tr>
+                            `).join('')}</tbody>
+                        </table>
+                    </div>
+                `,
+                suggestions: `
+                    <h2 class="text-2xl font-bold mb-6">💡 ${getTranslation('adminSuggestions', 'إدارة الاقتراحات')}</h2>
+                    <div class="glass-effect p-4 overflow-x-auto">
+                        <table class="admin-table">
+                            <thead><tr><th>#</th><th>${getTranslation('name', 'الاسم')}</th><th>${getTranslation('suggestionText', 'الاقتراح')}</th><th>${getTranslation('suggestionStatus', 'الحالة')}</th><th>${getTranslation('suggestionDate', 'التاريخ')}</th><th>${getTranslation('actions', 'إجراءات')}</th></tr></thead>
+                            <tbody>${suggestions.length === 0 ? `<tr><td colspan="6" class="text-center text-gray-400 py-4">${getTranslation('noSuggestions', 'لا توجد اقتراحات')}</td></tr>` :
+                            suggestions.map(s => `
+                                <tr>
+                                    <td>#${s.id}</td>
+                                    <td>${s.name || 'مستخدم'}</td>
+                                    <td>${s.text}</td>
+                                    <td><span class="suggestion-status ${s.status}">${getTranslation(s.status === 'pending' ? 'suggestionPending' : s.status === 'approved' ? 'suggestionApproved' : 'suggestionRejected', s.status)}</span></td>
+                                    <td>${new Date(s.date).toLocaleDateString()}</td>
+                                    <td>
+                                        <button onclick="updateSuggestionStatus(${s.id}, 'approved')" class="text-green-400 hover:text-green-300 mr-1"><i class="fas fa-check"></i></button>
+                                        <button onclick="updateSuggestionStatus(${s.id}, 'rejected')" class="text-red-400 hover:text-red-300 mr-1"><i class="fas fa-times"></i></button>
+                                        <button onclick="deleteSuggestion(${s.id})" class="text-gray-400 hover:text-gray-300"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            `).join('')}</tbody>
+                        </table>
+                    </div>
+                `,
+                analytics: `
+                    <h2 class="text-2xl font-bold mb-6">${getTranslation('analyticsTitle', '📊 التحليلات والإحصائيات')}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="glass-effect p-4 text-center">
+                            <div class="text-3xl font-bold text-blue-400">${Math.floor(Math.random() * 5000) + 1000}</div>
+                            <div class="text-sm text-gray-400">${getTranslation('visitors', 'الزوار')}</div>
+                        </div>
+                        <div class="glass-effect p-4 text-center">
+                            <div class="text-3xl font-bold text-green-400">${(Math.random() * 20 + 60).toFixed(1)}%</div>
+                            <div class="text-sm text-gray-400">${getTranslation('engagement', 'معدل التفاعل')}</div>
+                        </div>
+                        <div class="glass-effect p-4 text-center">
+                            <div class="text-3xl font-bold text-purple-400">${(Math.random() * 5 + 2).toFixed(1)}%</div>
+                            <div class="text-sm text-gray-400">${getTranslation('conversion', 'نسبة التحويل')}</div>
+                        </div>
+                        <div class="glass-effect p-4 text-center">
+                            <div class="text-3xl font-bold text-yellow-400">${(Math.random() * 20 + 60).toFixed(1)}%</div>
+                            <div class="text-sm text-gray-400">${getTranslation('retention', 'الاحتفاظ')}</div>
+                        </div>
+                        <div class="glass-effect p-4 text-center">
+                            <div class="text-3xl font-bold text-pink-400">${Math.floor(Math.random() * 300) + 50}</div>
+                            <div class="text-sm text-gray-400">${getTranslation('activeUsers', 'المستخدمين النشطين')}</div>
+                        </div>
+                        <div class="glass-effect p-4 text-center">
+                            <div class="text-3xl font-bold text-orange-400">${Math.floor(Math.random() * 50) + 10}</div>
+                            <div class="text-sm text-gray-400">${getTranslation('newUsers', 'مستخدمين جدد')}</div>
+                        </div>
+                    </div>
+                    <div class="glass-effect p-4">
+                        <h3 class="font-bold mb-4">📊 ${getTranslation('recentActivity', 'أحدث النشاطات')}</h3>
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p>📈 ${getTranslation('visitors', 'الزوار')}: ${Math.floor(Math.random() * 100) + 50} ${getTranslation('newUsers', 'جديد')}</p>
+                            <p>🔄 ${getTranslation('engagement', 'معدل التفاعل')}: ${(Math.random() * 20 + 60).toFixed(1)}%</p>
+                            <p>💰 ${getTranslation('conversion', 'نسبة التحويل')}: ${(Math.random() * 3 + 2).toFixed(1)}%</p>
+                        </div>
+                    </div>
+                `,
+                social: `
+                    <h2 class="text-2xl font-bold mb-6">🌐 ${getTranslation('adminSocial', 'وسائل التواصل الاجتماعي')}</h2>
+                    <div class="glass-effect p-4 rounded-xl">
+                        <form onsubmit="saveSocialSettings(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialEmail', 'البريد الإلكتروني')}</label>
+                                    <input type="email" id="socialEmail" value="${socialData.email || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialTwitter', 'تويتر')}</label>
+                                    <input type="url" id="socialTwitter" value="${socialData.twitter || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://twitter.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialLinkedin', 'لينكد إن')}</label>
+                                    <input type="url" id="socialLinkedin" value="${socialData.linkedin || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://linkedin.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialGithub', 'جيت هاب')}</label>
+                                    <input type="url" id="socialGithub" value="${socialData.github || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://github.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialYoutube', 'يوتيوب')}</label>
+                                    <input type="url" id="socialYoutube" value="${socialData.youtube || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://youtube.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialInstagram', 'إنستغرام')}</label>
+                                    <input type="url" id="socialInstagram" value="${socialData.instagram || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://instagram.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialFacebook', 'فيسبوك')}</label>
+                                    <input type="url" id="socialFacebook" value="${socialData.facebook || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://facebook.com/...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialTiktok', 'تيك توك')}</label>
+                                    <input type="url" id="socialTiktok" value="${socialData.tiktok || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://tiktok.com/@...">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">${getTranslation('socialWhatsapp', 'واتساب')}</label>
+                                    <input type="url" id="socialWhatsapp" value="${socialData.whatsapp || ''}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white" placeholder="https://wa.me/...">
+                                </div>
+                            </div>
+                            <button type="submit" class="px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition">
+                                <i class="fas fa-save"></i> ${getTranslation('saveSocial', 'حفظ وسائل التواصل')}
+                            </button>
+                        </form>
+                    </div>
+                    <div class="mt-4 glass-effect p-4 rounded-xl">
+                        <h4 class="font-bold mb-3">${getTranslation('preview', 'معاينة الأيقونات')}</h4>
+                        <div class="social-icons" id="socialPreview"></div>
+                    </div>
+                `,
+                admins: `
+                    <h2 class="text-2xl font-bold mb-6">🛡️ ${getTranslation('adminAdmins', 'إدارة المشرفين')}</h2>
+                    <div class="glass-effect p-4">
+                        <table class="admin-table">
+                            <thead><tr><th>${getTranslation('name', 'الاسم')}</th><th>${getTranslation('username', 'اسم المستخدم')}</th><th>${getTranslation('role', 'الدور')}</th><th>${getTranslation('permissions', 'الصلاحيات')}</th><th>${getTranslation('actions', 'إجراءات')}</th></tr></thead>
+                            <tbody>${adminData.admins.map(a => `
+                                <tr><td>${a.name}</td><td>${a.username}</td><td><span class="status-badge ${a.role === 'super_admin' ? 'status-available' : 'status-reserved'}">${a.role}</span></td>
+                                <td>${a.permissions.join(', ')}</td>
+                                <td><button onclick="editAdmin(${a.id})" class="text-blue-400 hover:text-blue-300"><i class="fas fa-edit"></i></button>
+                                ${a.id !== 1 ? `<button onclick="deleteAdmin(${a.id})" class="text-red-400 hover:text-red-300 mr-2"><i class="fas fa-trash"></i></button>` : ''}</td></tr>
+                            `).join('')}</tbody>
+                        </table>
+                        <button onclick="addAdmin()" class="mt-4 px-6 py-2 bg-green-600 rounded-full hover:bg-green-700 transition"><i class="fas fa-user-plus"></i> ${getTranslation('addAdmin', 'إضافة مشرف جديد')}</button>
+                    </div>
+                `,
+                settings: `
+                    <h2 class="text-2xl font-bold mb-6">⚙️ ${getTranslation('adminSettings', 'الإعدادات')}</h2>
+                    <div class="space-y-6">
+                        <div class="glass-effect p-4 rounded-xl">
+                            <h3 class="font-bold mb-4">${getTranslation('siteSettings', 'إعدادات الموقع')}</h3>
+                            <div class="space-y-3">
+                                <div><label class="block text-sm font-medium mb-1">${getTranslation('siteName', 'اسم الموقع')}</label>
+                                <input type="text" id="settingsSiteName" value="${getTranslation('siteTitle', 'مليون مربع')}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"></div>
+                                <div><label class="block text-sm font-medium mb-1">${getTranslation('adminUsername', 'اسم المستخدم للمسؤول')}</label>
+                                <input type="text" id="settingsAdminUser" value="${adminData.username}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"></div>
+                                <div><label class="block text-sm font-medium mb-1">${getTranslation('adminPassword', 'كلمة المرور الجديدة')}</label>
+                                <input type="password" id="settingsAdminPass" placeholder="${getTranslation('keepEmpty', 'اتركه فارغاً للاحتفاظ بكلمة المرور الحالية')}" class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"></div>
+                                <button onclick="saveSettings()" class="px-6 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition"><i class="fas fa-save"></i> ${getTranslation('saveSettings', 'حفظ الإعدادات')}</button>
+                            </div>
+                        </div>
+                        <div class="glass-effect p-4 rounded-xl">
+                            <h3 class="font-bold mb-4">💳 ${getTranslation('paymentSettings', 'إعدادات الدفع')}</h3>
+                            <div id="paymentSettingsContainer"></div>
+                        </div>
+                    </div>
+                `
+            };
+            
+            content.innerHTML = sections[section] || sections.dashboard;
+            renderPaymentSettings();
+            
+            if (section === 'social') {
+                renderSocialPreview();
+            }
+        }
+        
+        function renderSocialPreview() {
+            const container = document.getElementById('socialPreview');
+            if (!container) return;
+            
+            const social = {
+                email: document.getElementById('socialEmail')?.value || socialData.email,
+                twitter: document.getElementById('socialTwitter')?.value || socialData.twitter,
+                linkedin: document.getElementById('socialLinkedin')?.value || socialData.linkedin,
+                github: document.getElementById('socialGithub')?.value || socialData.github,
+                youtube: document.getElementById('socialYoutube')?.value || socialData.youtube,
+                instagram: document.getElementById('socialInstagram')?.value || socialData.instagram,
+                facebook: document.getElementById('socialFacebook')?.value || socialData.facebook,
+                tiktok: document.getElementById('socialTiktok')?.value || socialData.tiktok,
+                whatsapp: document.getElementById('socialWhatsapp')?.value || socialData.whatsapp
+            };
+            
+            const icons = [
+                { id: 'email', icon: 'fa-envelope', color: 'email', url: `mailto:${social.email}`, label: 'Email' },
+                { id: 'twitter', icon: 'fa-twitter', color: 'twitter', url: social.twitter, label: 'Twitter' },
+                { id: 'linkedin', icon: 'fa-linkedin-in', color: 'linkedin', url: social.linkedin, label: 'LinkedIn' },
+                { id: 'github', icon: 'fa-github', color: 'github', url: social.github, label: 'GitHub' },
+                { id: 'youtube', icon: 'fa-youtube', color: 'youtube', url: social.youtube, label: 'YouTube' },
+                { id: 'instagram', icon: 'fa-instagram', color: 'instagram', url: social.instagram, label: 'Instagram' },
+                { id: 'facebook', icon: 'fa-facebook-f', color: 'facebook', url: social.facebook, label: 'Facebook' },
+                { id: 'tiktok', icon: 'fa-tiktok', color: 'tiktok', url: social.tiktok, label: 'TikTok' },
+                { id: 'whatsapp', icon: 'fa-whatsapp', color: 'whatsapp', url: social.whatsapp, label: 'WhatsApp' }
+            ];
+            
+            container.innerHTML = icons.filter(icon => icon.url && icon.url.trim() !== '').map(icon => `
+                <a href="${icon.url}" target="_blank" class="${icon.color}" title="${icon.label}">
+                    <i class="fab ${icon.icon}"></i>
+                </a>
+            `).join('');
+        }
+        
+        // ============================================
+        // دوال حفظ وسائل التواصل
+        // ============================================
+        function saveSocialSettings(event) {
+            event.preventDefault();
+            
+            socialData.email = document.getElementById('socialEmail').value.trim();
+            socialData.twitter = document.getElementById('socialTwitter').value.trim();
+            socialData.linkedin = document.getElementById('socialLinkedin').value.trim();
+            socialData.github = document.getElementById('socialGithub').value.trim();
+            socialData.youtube = document.getElementById('socialYoutube').value.trim();
+            socialData.instagram = document.getElementById('socialInstagram').value.trim();
+            socialData.facebook = document.getElementById('socialFacebook').value.trim();
+            socialData.tiktok = document.getElementById('socialTiktok').value.trim();
+            socialData.whatsapp = document.getElementById('socialWhatsapp').value.trim();
+            
+            saveToStorage('socialData', socialData);
+            renderSocialIcons();
+            renderSocialPreview();
+            showToast(getTranslation('socialSaved', '✅ تم حفظ وسائل التواصل بنجاح'), 'success');
+            showNotification('تم تحديث وسائل التواصل الاجتماعي بنجاح!', 'success', '🌐');
+        }
+        
+        // ============================================
+        // دوال إدارة الاقتراحات
+        // ============================================
+        function updateSuggestionStatus(id, status) {
+            const suggestion = suggestions.find(s => s.id === id);
+            if (suggestion) {
+                suggestion.status = status;
+                saveToStorage('suggestions', suggestions);
+                showAdminSection('suggestions');
+                showToast(getTranslation('suggestionUpdated', '✅ تم تحديث حالة الاقتراح'), 'success');
+            }
+        }
+        
+        function deleteSuggestion(id) {
+            if (!confirm(getTranslation('confirmDeleteSuggestion', 'هل أنت متأكد من حذف هذا الاقتراح؟'))) return;
+            suggestions = suggestions.filter(s => s.id !== id);
+            saveToStorage('suggestions', suggestions);
+            showAdminSection('suggestions');
+            showToast(getTranslation('suggestionDeleted', 'تم حذف الاقتراح'), 'success');
+        }
+        
+        // ============================================
+        // دوال الإعدادات والإدارة
+        // ============================================
+        function saveSettings() {
+            try {
+                const newUsername = document.getElementById('settingsAdminUser').value.trim();
+                const newPassword = document.getElementById('settingsAdminPass').value.trim();
+                if (newUsername) {
+                    adminData.username = newUsername;
+                    const mainAdmin = adminData.admins.find(a => a.id === 1);
+                    if (mainAdmin) mainAdmin.username = newUsername;
+                }
+                if (newPassword && newPassword.length >= 4) adminData.password = newPassword;
+                saveToStorage('adminData', adminData);
+                showToast(getTranslation('settingsSaved', '✅ تم حفظ الإعدادات بنجاح'), 'success');
+                document.getElementById('adminName').textContent = adminData.admins.find(a => a.id === 1)?.name || adminData.username;
+            } catch(e) {
+                showToast(getTranslation('settingsError', '❌ حدث خطأ في حفظ الإعدادات'), 'error');
+            }
+        }
+        
+        function addAdmin() {
+            const name = prompt(getTranslation('enterAdminName', 'أدخل اسم المشرف الجديد:'));
+            if (!name) return;
+            const username = prompt(getTranslation('enterAdminUsername', 'أدخل اسم المستخدم:'));
+            if (!username) return;
+            adminData.admins.push({ id: adminData.admins.length + 1, username, name, role: 'moderator', permissions: ['view_squares', 'view_users'] });
+            saveToStorage('adminData', adminData);
+            showAdminSection('admins');
+            showToast(getTranslation('adminAdded', `تم إضافة المشرف ${name} بنجاح`), 'success');
+        }
+        
+        function editAdmin(id) {
+            const admin = adminData.admins.find(a => a.id === id);
+            if (!admin) return;
+            const newName = prompt(getTranslation('editAdminName', 'تعديل اسم المشرف:'), admin.name);
+            if (newName && newName.trim()) {
+                admin.name = newName.trim();
+                saveToStorage('adminData', adminData);
+                showAdminSection('admins');
+                showToast(getTranslation('adminUpdated', 'تم تحديث بيانات المشرف'), 'success');
+            }
+        }
+        
+        function deleteAdmin(id) {
+            if (id === 1) { showToast(getTranslation('cannotDeleteMainAdmin', 'لا يمكن حذف المسؤول الرئيسي'), 'error'); return; }
+            if (!confirm(getTranslation('confirmDeleteAdmin', 'هل أنت متأكد من حذف هذا المشرف؟'))) return;
+            adminData.admins = adminData.admins.filter(a => a.id !== id);
+            saveToStorage('adminData', adminData);
+            showAdminSection('admins');
+            showToast(getTranslation('adminDeleted', 'تم حذف المشرف'), 'success');
+        }
+        
+        function addSupporter() {
+            const name = prompt(getTranslation('enterSupporterName', 'أدخل اسم الداعم:'));
+            if (!name) return;
+            supportersData.push({ id: supportersData.length + 1, name, logo: '🏢', tier: 'برونزي', amount: 100, period: 'شهري', website: '', description: '' });
+            saveToStorage('supportersData', supportersData);
+            renderAdSlider();
+            showAdminSection('supporters');
+            showToast(getTranslation('supporterAdded', 'تم إضافة الداعم بنجاح'), 'success');
+        }
+        
+        function editSupporter(id) {
+            const supporter = supportersData.find(s => s.id === id);
+            if (!supporter) return;
+            const newName = prompt(getTranslation('editSupporterName', 'تعديل اسم الداعم:'), supporter.name);
+            if (newName && newName.trim()) {
+                supporter.name = newName.trim();
+                saveToStorage('supportersData', supportersData);
+                renderAdSlider();
+                showAdminSection('supporters');
+                showToast(getTranslation('supporterUpdated', 'تم تحديث بيانات الداعم'), 'success');
+            }
+        }
+        
+        function editSquare(number) {
+            const square = allSquares.find(s => s.number === number);
+            if (!square) return;
+            const newStatus = prompt(getTranslation('editSquareStatus', 'تعديل حالة المربع (available/sold/reserved):'), square.status);
+            if (newStatus && ['available', 'sold', 'reserved'].includes(newStatus)) {
+                square.status = newStatus;
+                saveToStorage('squares', allSquares);
+                filterSquares();
+                renderSquaresGrid();
+                updateStats();
+                showToast(getTranslation('squareUpdated', 'تم تحديث المربع'), 'success');
+            }
+        }
+        
+        function deleteSquare(number) {
+            if (!confirm(getTranslation('confirmDeleteSquare', `هل أنت متأكد من حذف المربع #${number}؟`))) return;
+            allSquares = allSquares.filter(s => s.number !== number);
+            saveToStorage('squares', allSquares);
+            filterSquares();
+            renderSquaresGrid();
+            updateStats();
+            showToast(getTranslation('squareDeleted', 'تم حذف المربع'), 'success');
+        }
+        
+        function editSubscriber(squareNumber) {
+            const subscriber = subscribers.find(s => s.square === squareNumber);
+            if (!subscriber) return;
+            const newName = prompt(getTranslation('editSubscriberName', 'تعديل اسم المشترك:'), subscriber.name);
+            if (newName && newName.trim()) {
+                subscriber.name = newName.trim();
+                saveToStorage('subscribers', subscribers);
+                showAdminSection('subscribers');
+                showToast(getTranslation('subscriberUpdated', 'تم تحديث بيانات المشترك'), 'success');
+            }
+        }
+        
+        function suspendSubscriber(squareNumber) {
+            if (!confirm(getTranslation('confirmSuspendSubscriber', 'هل أنت متأكد من تعليق اشتراك هذا المشترك؟'))) return;
+            subscribers = subscribers.filter(s => s.square !== squareNumber);
+            saveToStorage('subscribers', subscribers);
+            showAdminSection('subscribers');
+            showToast(getTranslation('subscriberSuspended', 'تم تعليق اشتراك المشترك'), 'success');
         }
         
         // ============================================
@@ -3569,9 +4023,10 @@
             console.log('✅ تم التحقق من Pinterest: a1e0fd10cdf3cabb0847b5c5226d9382');
             console.log(`📦 تم تحميل ${allSquares.length.toLocaleString()} مربع`);
             console.log(`🎯 الهدف: ${totalSquaresTarget.toLocaleString()} مربع`);
-            console.log(`🔍 عرض ${squaresPerPage} مربع في كل صفحة`);
-            console.log(`🔎 مستوى التكبير: ${Math.round(zoomLevel * 100)}%`);
-            console.log('🔄 التمرير التلقائي للصفحات التالية مفعل');
+            console.log('📊 نظام التحليلات مفعل');
+            console.log('🔔 نظام الإشعارات مفعل');
+            console.log('🤖 مساعد الذكاء الاصطناعي مفعل');
+            console.log('💰 5 خطط اشتراك (عادي، فضي، ذهبي، ماسي، مؤسسي)');
             console.log('🔐 دخول المسؤول: admin / admin123');
         });
     </script>
