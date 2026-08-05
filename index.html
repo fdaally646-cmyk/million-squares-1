@@ -484,7 +484,7 @@
     <div id="toast" class="toast"><span id="toastMsg"></span></div>
 
     <!-- ============================================ -->
-    <!-- JavaScript المتكامل -->
+    <!-- JavaScript المتكامل والموثوق -->
     <!-- ============================================ -->
     <script>
         // ============================================
@@ -683,7 +683,7 @@
         }
 
         // ============================================
-        // دوال الدفع الإلزامي
+        // دوال الدفع الإلزامي - حل نهائي
         // ============================================
         function openPayment(method) {
             if (!userData.fullName) {
@@ -964,6 +964,138 @@
         }
 
         // ============================================
+        // الترجمة
+        // ============================================
+        const translations = {
+            ar: {
+                title: 'مليون مربع',
+                subtitle: 'المنصة البصرية التفاعلية الأولى',
+                totalSquares: '📦 إجمالي المربعات',
+                sold: '✅ مباع',
+                subscribers: '👥 مشتركين',
+                revenue: '💰 إيرادات',
+                supporters: '🌟 داعمين',
+                register: 'تسجيل/دفع',
+                dashboard: 'لوحة التحكم',
+                support: 'دعم',
+                search: '🔍 ابحث عن مربع...',
+                categories: 'جميع الفئات',
+                statuses: 'جميع الحالات',
+                reset: 'إعادة',
+                noSquares: '🔍 لا توجد مربعات',
+                allCategories: 'جميع الفئات',
+                basic: '💎 عادي',
+                silver: '⭐ فضي',
+                gold: '👑 ذهبي',
+                platinum: '💠 ملكي',
+                allStatus: 'جميع الحالات',
+                available: '🟢 متاح',
+                soldStatus: '🔴 مباع',
+                reserved: '🟡 محجوز',
+                paymentRequired: '⚠️ الدفع مطلوب لإتمام التسجيل',
+                paypal: 'PayPal',
+                stripe: 'Stripe',
+                crypto: 'USDT',
+                supportTitle: '🌟 دعم المنصة',
+                supportDesc: 'ادعم مليون مربع واظهر في شريط الإعلانات',
+                close: 'إغلاق'
+            },
+            en: {
+                title: 'Million Squares',
+                subtitle: 'The First Interactive Visual Platform',
+                totalSquares: '📦 Total Squares',
+                sold: '✅ Sold',
+                subscribers: '👥 Subscribers',
+                revenue: '💰 Revenue',
+                supporters: '🌟 Supporters',
+                register: 'Register/Pay',
+                dashboard: 'Dashboard',
+                support: 'Support',
+                search: '🔍 Search for square...',
+                categories: 'All Categories',
+                statuses: 'All Statuses',
+                reset: 'Reset',
+                noSquares: '🔍 No squares found',
+                allCategories: 'All Categories',
+                basic: '💎 Basic',
+                silver: '⭐ Silver',
+                gold: '👑 Gold',
+                platinum: '💠 Platinum',
+                allStatus: 'All Statuses',
+                available: '🟢 Available',
+                soldStatus: '🔴 Sold',
+                reserved: '🟡 Reserved',
+                paymentRequired: '⚠️ Payment required to complete registration',
+                paypal: 'PayPal',
+                stripe: 'Stripe',
+                crypto: 'USDT',
+                supportTitle: '🌟 Support the Platform',
+                supportDesc: 'Support Million Squares to appear in the ads banner',
+                close: 'Close'
+            }
+        };
+
+        let currentLang = 'ar';
+
+        function t(key) {
+            return translations[currentLang][key] || key;
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = currentLang;
+            translateUI();
+            showToast(`🌐 تم تغيير اللغة إلى ${currentLang === 'ar' ? 'العربية' : 'English'}`, 'info');
+        }
+
+        function translateUI() {
+            document.querySelector('h1').textContent = t('title');
+            document.querySelector('.text-gray-400.text-sm').textContent = '✨ ' + t('subtitle');
+            document.querySelector('.glass-effect.p-4.text-center:nth-child(1) .text-sm.text-gray-400').textContent = t(
+            'totalSquares');
+            document.querySelector('.glass-effect.p-4.text-center:nth-child(2) .text-sm.text-gray-400').textContent = t(
+            'sold');
+            document.querySelector('.glass-effect.p-4.text-center:nth-child(3) .text-sm.text-gray-400').textContent = t(
+            'subscribers');
+            document.querySelector('.glass-effect.p-4.text-center:nth-child(4) .text-sm.text-gray-400').textContent = t(
+            'revenue');
+            document.querySelector('.glass-effect.p-4.text-center:nth-child(5) .text-sm.text-gray-400').textContent = t(
+            'supporters');
+            document.getElementById('authBtnText').textContent = t('register');
+            document.querySelector('.btn-primary.text-sm:nth-child(2)').textContent = t('dashboard');
+            document.querySelector('.btn-primary.text-sm:nth-child(3)').innerHTML = `<i class="fas fa-hand-holding-heart"></i> ${t('support')}`;
+            
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) searchInput.placeholder = t('search');
+            const tierSelect = document.getElementById('tierFilter');
+            if (tierSelect) {
+                tierSelect.options[0].text = t('allCategories');
+                tierSelect.options[1].text = t('basic');
+                tierSelect.options[2].text = t('silver');
+                tierSelect.options[3].text = t('gold');
+                tierSelect.options[4].text = t('platinum');
+            }
+            const statusSelect = document.getElementById('statusFilter');
+            if (statusSelect) {
+                statusSelect.options[0].text = t('allStatus');
+                statusSelect.options[1].text = t('available');
+                statusSelect.options[2].text = t('soldStatus');
+                statusSelect.options[3].text = t('reserved');
+            }
+            const resetBtn = document.querySelector('.bg-red-500\\/20');
+            if (resetBtn) resetBtn.innerHTML = `<i class="fas fa-undo"></i> ${t('reset')}`;
+            
+            document.querySelector('.text-yellow-400.text-sm.mb-4').textContent = t('paymentRequired');
+            document.querySelector('.pay-btn.paypal span').textContent = t('paypal');
+            document.querySelector('.pay-btn.stripe span').textContent = t('stripe');
+            document.querySelector('.pay-btn.crypto span').textContent = t('crypto');
+            document.querySelector('#supportPopup h3').textContent = t('supportTitle');
+            document.querySelector('#supportPopup .text-gray-400.text-sm.mb-4').textContent = t('supportDesc');
+            document.querySelector('.close-dash').textContent = t('close');
+        }
+
+        // ============================================
         // تهيئة الصفحة
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
@@ -975,29 +1107,42 @@
             if (searchDiv && !document.getElementById('searchInput')) {
                 searchDiv.innerHTML = `
                     <div class="flex flex-wrap gap-3">
-                        <div class="flex-1 min-w-[180px]"><input type="text" id="searchInput" placeholder="🔍 ابحث عن مربع..." class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" oninput="filterSquares()"></div>
+                        <div class="flex-1 min-w-[180px]"><input type="text" id="searchInput" placeholder="${t('search')}" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" oninput="filterSquares()"></div>
                         <select id="tierFilter" class="p-3 bg-white/5 border border-white/10 rounded-xl text-white" onchange="filterSquares()">
-                            <option value="all">جميع الفئات</option>
-                            <option value="basic">💎 عادي</option>
-                            <option value="silver">⭐ فضي</option>
-                            <option value="gold">👑 ذهبي</option>
-                            <option value="platinum">💠 ملكي</option>
+                            <option value="all">${t('allCategories')}</option>
+                            <option value="basic">${t('basic')}</option>
+                            <option value="silver">${t('silver')}</option>
+                            <option value="gold">${t('gold')}</option>
+                            <option value="platinum">${t('platinum')}</option>
                         </select>
                         <select id="statusFilter" class="p-3 bg-white/5 border border-white/10 rounded-xl text-white" onchange="filterSquares()">
-                            <option value="all">جميع الحالات</option>
-                            <option value="available">🟢 متاح</option>
-                            <option value="sold">🔴 مباع</option>
-                            <option value="reserved">🟡 محجوز</option>
+                            <option value="all">${t('allStatus')}</option>
+                            <option value="available">${t('available')}</option>
+                            <option value="sold">${t('soldStatus')}</option>
+                            <option value="reserved">${t('reserved')}</option>
                         </select>
-                        <button onclick="resetFilters()" class="p-3 bg-red-500/20 border border-red-500/30 rounded-xl hover:bg-red-500/30 transition text-white"><i class="fas fa-undo"></i> إعادة</button>
+                        <button onclick="resetFilters()" class="p-3 bg-red-500/20 border border-red-500/30 rounded-xl hover:bg-red-500/30 transition text-white"><i class="fas fa-undo"></i> ${t('reset')}</button>
                     </div>
                     <div id="pagination" class="flex justify-center gap-2 mt-4"></div>
                 `;
             }
             
-            console.log('🏆 مليون مربع - المنصة المتكاملة');
+            // إضافة زر تبديل اللغة
+            const header = document.querySelector('.flex.items-center.gap-3.flex-wrap');
+            if (header) {
+                const langBtn = document.createElement('button');
+                langBtn.className = 'btn-primary text-sm';
+                langBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                langBtn.style.color = '#fff';
+                langBtn.innerHTML = '<i class="fas fa-globe"></i> 🌐';
+                langBtn.onclick = toggleLanguage;
+                header.appendChild(langBtn);
+            }
+            
+            console.log('🏆 مليون مربع - المنصة المتكاملة مع الترجمة');
             console.log('✅ تم تحميل الموقع بنجاح');
             console.log('🔒 الدفع الإلزامي عبر PayPal مفعل');
+            console.log('🌐 دعم اللغة العربية والإنجليزية');
             console.log('👥 عدد المشتركين:', subscribers.length);
             console.log('💰 عدد المدفوعات:', payments.length);
         });
