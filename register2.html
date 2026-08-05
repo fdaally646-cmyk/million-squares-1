@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - مليون مربع</title>
+    <!-- Font Awesome من CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: #0a0a0f;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .box {
+            background: #1a1a2e;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 440px;
+            width: 100%;
+            border: 1px solid #2a2a4a;
+        }
+        .logo {
+            text-align: center;
+            font-size: 3rem;
+        }
+        h2 {
+            text-align: center;
+            color: #ffd700;
+            margin: 15px 0 25px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #2a2a4a;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ffd700, #ff6b00);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+        }
+        .divider {
+            text-align: center;
+            color: #555;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== أزرار الدفع ===== */
+        .pay-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .pay-btn:hover {
+            transform: scale(1.02);
+        }
+        .btn-paypal {
+            background: #0070ba;
+            color: #fff;
+        }
+        .btn-stripe {
+            background: #635bff;
+            color: #fff;
+        }
+        .btn-crypto {
+            background: #f7931a;
+            color: #fff;
+        }
+        .note {
+            text-align: center;
+            color: #666;
+            font-size: 0.75rem;
+            margin-top: 10px;
+        }
+        .note i {
+            color: #ffd700;
+        }
+        .auth-link {
+            text-align: center;
+            color: #aaa;
+            margin-top: 20px;
+        }
+        .auth-link a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+        
+        /* ===== نافذة منبثقة ===== */
+        .popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup.active {
+            display: flex;
+        }
+        .popup-box {
+            background: #1a1a2e;
+            padding: 35px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #2a2a4a;
+            text-align: center;
+            position: relative;
+        }
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+        }
+        .popup-close:hover {
+            color: #fff;
+        }
+        .popup h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        .popup .price {
+            font-size: 1.5rem;
+            color: #ffd700;
+        }
+        .popup .btn-confirm {
+            background: #4CAF50;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .popup .btn-confirm:hover {
+            background: #45a049;
+        }
+        .popup .btn-cancel {
+            background: transparent;
+            color: #aaa;
+            border: 1px solid #333;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        /* ===== إشعار ===== */
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a2e;
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: 1px solid #2a2a4a;
+            z-index: 99999;
+            display: none;
+            text-align: center;
+        }
+        .toast.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== نموذج التسجيل ===== -->
+    <div class="box">
+        <div class="logo">🎯</div>
+        <h2>إنشاء حساب</h2>
+
+        <form id="registerForm" onsubmit="return handleRegister(event)">
+            <div class="input-group">
+                <input type="text" id="fullName" placeholder="👤 الاسم الكامل" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="📧 البريد الإلكتروني" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="🔒 كلمة المرور" required minlength="6">
+            </div>
+            <div class="input-group">
+                <input type="password" id="confirmPassword" placeholder="✅ تأكيد كلمة المرور" required>
+            </div>
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-user-plus"></i> إنشاء حساب
+            </button>
+        </form>
+
+        <div class="divider">━━━━ أو ━━━━</div>
+
+        <!-- ===== أزرار الدفع ===== -->
+        <button class="pay-btn btn-paypal" onclick="openPayment('paypal')">
+            <i class="fab fa-paypal" style="font-size: 1.5rem;"></i> الدفع عبر PayPal
+        </button>
+        <button class="pay-btn btn-stripe" onclick="openPayment('stripe')">
+            <i class="fas fa-credit-card"></i> الدفع عبر Stripe
+        </button>
+        <button class="pay-btn btn-crypto" onclick="openPayment('crypto')">
+            <i class="fab fa-bitcoin"></i> الدفع بـ USDT
+        </button>
+
+        <p class="note">
+            <i class="fas fa-info-circle"></i> سيتم إنشاء حسابك فور إتمام الدفع
+        </p>
+
+        <div class="auth-link">
+            لديك حساب؟ <a href="login.html">تسجيل الدخول</a>
+        </div>
+    </div>
+
+    <!-- ===== نافذة الدفع ===== -->
+    <div id="paymentPopup" class="popup">
+        <div class="popup-box">
+            <button class="popup-close" onclick="closePayment()">&times;</button>
+            <h3 id="popupTitle">💳 الدفع عبر PayPal</h3>
+            <div style="font-size: 3rem; margin: 10px 0;" id="popupIcon">
+                <i class="fab fa-paypal" style="color:#0070ba;"></i>
+            </div>
+            <p>المبلغ: <span class="price">$5.00 USD</span></p>
+            <p style="color: #4CAF50; font-size: 0.9rem;">
+                <i class="fas fa-check-circle"></i> سيتم تفعيل حسابك بعد الدفع
+            </p>
+            <button class="btn-confirm" onclick="confirmPayment()">
+                <i class="fas fa-check"></i> تأكيد الدفع
+            </button>
+            <br>
+            <button class="btn-cancel" onclick="closePayment()">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- ===== إشعار ===== -->
+    <div id="toast" class="toast">
+        <span id="toastMsg"></span>
+    </div>
+
+    <!-- ===== JavaScript ===== -->
+    <script>
+        // ===== دوال الإشعارات =====
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            const m = document.getElementById('toastMsg');
+            m.textContent = msg;
+            t.className = 'toast show';
+            t.style.borderColor = type === 'success' ? '#4CAF50' : type === 'warning' ? '#ffd700' : '#f44336';
+            clearTimeout(window.timer);
+            window.timer = setTimeout(() => { t.className = 'toast'; }, 3000);
+        }
+
+        // ===== فتح نافذة الدفع =====
+        function openPayment(method) {
+            const email = document.getElementById('email').value.trim();
+            if (!email || !email.includes('@')) {
+                showToast('⚠️ يرجى إدخال بريد إلكتروني صحيح', 'warning');
+                return;
+            }
+            const pass = document.getElementById('password').value;
+            if (pass.length < 6) {
+                showToast('⚠️ كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'warning');
+                return;
+            }
+
+            const popup = document.getElementById('paymentPopup');
+            const title = document.getElementById('popupTitle');
+            const icon = document.getElementById('popupIcon');
+
+            const data = {
+                paypal: { title: '💳 الدفع عبر PayPal', icon: '<i class="fab fa-paypal" style="color:#0070ba;font-size:3rem;"></i>' },
+                stripe: { title: '💳 الدفع عبر Stripe', icon: '<i class="fas fa-credit-card" style="color:#635bff;font-size:3rem;"></i>' },
+                crypto: { title: '💳 الدفع بـ USDT', icon: '<i class="fab fa-bitcoin" style="color:#f7931a;font-size:3rem;"></i>' }
+            };
+
+            title.textContent = data[method].title;
+            icon.innerHTML = data[method].icon;
+
+            // حفظ الطريقة المختارة
+            window.selectedMethod = method;
+            popup.classList.add('active');
+        }
+
+        // ===== إغلاق نافذة الدفع =====
+        function closePayment() {
+            document.getElementById('paymentPopup').classList.remove('active');
+        }
+
+        // ===== تأكيد الدفع =====
+        function confirmPayment() {
+            const method = window.selectedMethod || 'paypal';
+            const names = { paypal: 'PayPal', stripe: 'Stripe', crypto: 'USDT' };
+            
+            closePayment();
+            showToast(`✅ تم الدفع بنجاح عبر ${names[method]}! 🎉`, 'success');
+            
+            setTimeout(() => {
+                showToast('🎉 تم إنشاء حسابك بنجاح!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1200);
+            }, 800);
+        }
+
+        // ===== معالج التسجيل =====
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const pass = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+
+            if (!name) { showToast('⚠️ أدخل الاسم الكامل', 'warning'); return; }
+            if (!email || !email.includes('@')) { showToast('⚠️ أدخل بريداً صحيحاً', 'warning'); return; }
+            if (pass.length < 6) { showToast('⚠️ كلمة المرور 6 أحرف على الأقل', 'warning'); return; }
+            if (pass !== confirm) { showToast('⚠️ كلمة المرور غير متطابقة', 'warning'); return; }
+
+            showToast('✅ جاري إنشاء الحساب...', 'info');
+            setTimeout(() => {
+                showToast('🎉 تم إنشاء الحساب!', 'success');
+                setTimeout(() => window.location.href = 'index.html', 1000);
+            }, 800);
+            return false;
+        }
+
+        console.log('✅ صفحة التسجيل الجديدة جاهزة!');
+        console.log('📌 الأزرار: PayPal, Stripe, USDT');
+    </script>
+</body>
+</html>
