@@ -426,26 +426,28 @@
         .language-item.active { background: rgba(102, 126, 234, 0.25); color: #fff; border-right: 3px solid #667eea; }
         .language-item .check { color: #48bb78; font-size: 1rem; }
         
-        /* ======== المربعات - محسنة للتمرير السلس ======== */
+        /* ======== المربعات - محسنة للعرض ======== */
         .mini-square {
             aspect-ratio: 1;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #fff;
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             border: 2px solid rgba(255,255,255,0.08);
-            min-width: 80px;
-            min-height: 80px;
+            min-width: 90px;
+            min-height: 90px;
+            width: 100%;
+            height: auto;
         }
         .mini-square:hover {
-            transform: scale(1.1) rotate(2deg);
+            transform: scale(1.08) rotate(2deg);
             z-index: 10;
             border-color: rgba(102, 126, 234, 0.6);
             box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
@@ -460,9 +462,17 @@
             font-size: 0.5rem;
             opacity: 0.6;
         }
-        .mini-square .square-emoji { font-size: 1.6rem; }
+        .mini-square .square-emoji { font-size: 1.8rem; }
         
-        /* ======== حاوية التمرير - محسنة للتمرير السلس ======== */
+        /* ======== حاوية التمرير ======== */
+        .scroll-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.03);
+            padding: 4px 0;
+        }
+        
         .scroll-container {
             overflow-x: auto;
             overflow-y: hidden;
@@ -492,12 +502,79 @@
             background: linear-gradient(90deg, #764ba2, #667eea);
         }
         
-        /* ======== الشبكة - عرض ديناميكي ======== */
+        /* ======== الشبكة ======== */
         #squaresGrid {
             display: grid;
-            gap: 10px;
+            gap: 12px;
             width: max-content;
             min-width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        /* ======== أزرار التحكم ======== */
+        .scroll-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .scroll-controls button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .scroll-controls button:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: scale(1.1);
+        }
+        .scroll-controls button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .scroll-controls .page-info {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .scroll-controls .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            padding-right: 12px;
+        }
+        
+        .scroll-controls .zoom-controls button {
+            width: 32px;
+            height: 32px;
+            font-size: 0.8rem;
+        }
+        
+        .scroll-controls .zoom-controls .zoom-level {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            min-width: 40px;
+            text-align: center;
         }
         
         /* ======== باقي الأنماط ======== */
@@ -941,8 +1018,6 @@
             .pinterest-btn-container a { font-size: 0.7rem; padding: 5px 12px; }
             .toast { max-width: 90vw; font-size: 0.8rem; padding: 12px 16px; }
             .scroll-indicator .bar { width: 50px; }
-            #squaresGrid { gap: 6px !important; }
-            .mini-square { min-width: 55px; min-height: 55px; }
             .subscription-card { padding: 16px 12px; }
             .subscription-card .tier-icon { font-size: 2rem; }
             .subscription-card .features li { font-size: 0.7rem; }
@@ -951,13 +1026,16 @@
             .square-card .w-14 { width: 40px !important; height: 40px !important; }
             .sponsor-btn-main { font-size: 0.8rem; padding: 6px 16px; }
             .sponsor-btn-small { font-size: 0.7rem; padding: 5px 12px; }
+            .scroll-controls { gap: 8px; padding: 6px 12px; }
+            .scroll-controls button { width: 32px; height: 32px; font-size: 0.8rem; }
+            .scroll-controls .page-info { font-size: 0.7rem; min-width: 80px; }
+            #squaresGrid { gap: 8px !important; }
         }
         
         @media (max-width: 480px) {
             .container { padding: 8px !important; }
             .grid-cols-2 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .grid-cols-5 { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-            #squaresGrid { gap: 4px !important; }
             .mini-square { min-width: 45px; min-height: 45px; font-size: 0.6rem; border-radius: 6px; }
             .mini-square .square-emoji { font-size: 1rem; }
             .mini-square .square-number { font-size: 0.4rem; }
@@ -997,6 +1075,11 @@
             .sponsor-btn-main { font-size: 0.7rem; padding: 5px 12px; }
             .sponsor-btn-main i { font-size: 0.8rem; }
             .sponsor-btn-small { font-size: 0.6rem; padding: 4px 10px; }
+            .scroll-controls { gap: 6px; padding: 4px 10px; }
+            .scroll-controls button { width: 28px; height: 28px; font-size: 0.7rem; }
+            .scroll-controls .page-info { font-size: 0.6rem; min-width: 60px; }
+            .scroll-controls .zoom-controls button { width: 26px; height: 26px; font-size: 0.65rem; }
+            #squaresGrid { gap: 6px !important; }
         }
         
         ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -1157,7 +1240,7 @@
             </div>
         </div>
         
-        <!-- ======== شبكة المربعات - تمرير سلس ومتتالي ======== -->
+        <!-- ======== شبكة المربعات - مع أشرطة تمرير وتكبير ======== -->
         <div class="glass-effect p-3 sm:p-4 mb-4 sm:mb-6">
             <div class="flex justify-between items-center mb-3 sm:mb-4">
                 <h3 class="font-bold text-sm sm:text-base" id="squaresGridTitle">🗂️ المربعات</h3>
@@ -1167,14 +1250,43 @@
             </div>
             
             <!-- حاوية التمرير -->
-            <div id="squaresScroll" class="scroll-container">
-                <div id="squaresGrid" style="display:flex; gap:10px; padding:4px;">
-                    <!-- سيتم ملؤها بـ JavaScript -->
+            <div class="scroll-wrapper">
+                <div id="squaresScroll" class="scroll-container">
+                    <div id="squaresGrid" style="display:grid; gap:12px; padding:4px; grid-template-columns: repeat(10, 1fr);">
+                        <!-- سيتم ملؤها بـ JavaScript -->
+                    </div>
                 </div>
             </div>
             
+            <!-- أزرار التحكم -->
+            <div class="scroll-controls">
+                <button onclick="scrollPage('prev')" id="prevPageBtn" title="الصفحة السابقة">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <span class="page-info" id="pageInfo">الصفحة 1 من 10000</span>
+                
+                <button onclick="scrollPage('next')" id="nextPageBtn" title="الصفحة التالية">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="zoom-controls">
+                    <button onclick="changeZoom(-1)" title="تصغير">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <span class="zoom-level" id="zoomLevel">100%</span>
+                    <button onclick="changeZoom(1)" title="تكبير">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button onclick="resetZoom()" title="إعادة تعيين">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- مؤشر التقدم -->
             <div class="flex justify-between items-center mt-3 sm:mt-4 text-xs sm:text-sm text-gray-400">
-                <span id="scrollInfo">جاري تحميل المربعات...</span>
+                <span id="scrollInfo">عرض 100 من 1,000,000</span>
                 <div class="scroll-indicator">
                     <span id="scrollPercent">0%</span>
                     <div class="bar"><div class="fill" id="scrollFill" style="width:0%"></div></div>
@@ -1707,7 +1819,7 @@
         }
         
         // ============================================
-        // توليد المربعات - ديناميكي
+        // توليد المربعات
         // ============================================
         function generateSquares(startNumber, count) {
             const squares = [];
@@ -1774,12 +1886,18 @@
         let isAdminLoggedIn = false;
         let selectedSquareForPurchase = null;
         let currentContact = null;
-        let currentSquarePage = 0;
-        const squaresPerPage = 200; // عرض 200 مربع في كل مرة
+        
+        // إعدادات العرض
+        let currentPageIndex = 0;
+        const squaresPerPage = 100;
+        let zoomLevel = 1;
+        const minZoom = 0.5;
+        const maxZoom = 2;
+        let colsCount = 10;
         let totalSquaresLoaded = allSquares.length;
         const totalSquaresTarget = 1000000;
         let isLoadingMore = false;
-        let lastLoadedIndex = totalSquaresLoaded;
+        let isAutoScrolling = false;
         
         // بيانات المسؤول
         let adminData = loadFromStorage('adminData', {
@@ -1908,7 +2026,7 @@
                 logoutBtn: 'تسجيل الخروج',
                 allTiers: 'جميع الفئات', allCategories: 'جميع المجالات', allStatus: 'جميع الحالات',
                 statusAvailable: '🟢 متاح', statusSold: '🔴 مباع', statusReserved: '🟡 محجوز',
-                resetBtn: '↺ إعادة', scrollInfo: 'عرض {displayed} من {total} مربع',
+                resetBtn: '↺ إعادة',
                 catMarketing: 'تسويق', catProgramming: 'برمجة', catDesign: 'تصميم',
                 catAI: 'ذكاء اصطناعي', catData: 'تحليل بيانات', catSecurity: 'أمن سيبراني',
                 catWebDev: 'تطوير ويب', catGaming: 'ألعاب',
@@ -2030,7 +2148,9 @@
                 supportYearly: '👑 دعم سنوي - $10,000',
                 supportSecure: '🔒 دفع آمن عبر PayPal',
                 sponsorBtnText: '🌟 ادعم المنصة واظهر في شريط الإعلانات',
-                loadingMore: 'جاري تحميل المزيد من المربعات...'
+                loadingMore: 'جاري تحميل المزيد من المربعات...',
+                scrollInfo: 'عرض 100 من 1,000,000',
+                pageInfo: 'الصفحة {current} من {total}'
             },
             en: {
                 siteTitle: 'Million Squares', siteSubtitle: '✨ The First Interactive Visual Platform in the Arab World',
@@ -2083,7 +2203,7 @@
                 logoutBtn: 'Logout',
                 allTiers: 'All Tiers', allCategories: 'All Categories', allStatus: 'All Status',
                 statusAvailable: '🟢 Available', statusSold: '🔴 Sold', statusReserved: '🟡 Reserved',
-                resetBtn: '↺ Reset', scrollInfo: 'Showing {displayed} of {total} squares',
+                resetBtn: '↺ Reset',
                 catMarketing: 'Marketing', catProgramming: 'Programming', catDesign: 'Design',
                 catAI: 'AI', catData: 'Data Analysis', catSecurity: 'Cybersecurity',
                 catWebDev: 'Web Development', catGaming: 'Gaming',
@@ -2201,7 +2321,9 @@
                 supportYearly: '👑 Yearly Support - $10,000',
                 supportSecure: '🔒 Secure payment via PayPal',
                 sponsorBtnText: '🌟 Support the platform and appear in the ad banner',
-                loadingMore: 'Loading more squares...'
+                loadingMore: 'Loading more squares...',
+                scrollInfo: 'Showing 100 of 1,000,000',
+                pageInfo: 'Page {current} of {total}'
             }
         };
         
@@ -2276,7 +2398,7 @@
                 logoutBtn: 'logoutBtn',
                 allTiers: 'allTiers', allCategories: 'allCategories', allStatus: 'allStatus',
                 statusAvailable: 'statusAvailable', statusSold: 'statusSold', statusReserved: 'statusReserved',
-                resetBtn: 'resetBtn', scrollInfo: 'scrollInfo',
+                resetBtn: 'resetBtn',
                 catMarketing: 'catMarketing', catProgramming: 'catProgramming', catDesign: 'catDesign',
                 catAI: 'catAI', catData: 'catData', catSecurity: 'catSecurity',
                 catWebDev: 'catWebDev', catGaming: 'catGaming',
@@ -2349,7 +2471,9 @@
                 supportWeekly: 'supportWeekly', supportMonthly: 'supportMonthly',
                 supportYearly: 'supportYearly', supportSecure: 'supportSecure',
                 sponsorBtnText: 'sponsorBtnText',
-                loadingMore: 'loadingMore'
+                loadingMore: 'loadingMore',
+                scrollInfo: 'scrollInfo',
+                pageInfo: 'pageInfo'
             };
             
             for (const [key, id] of Object.entries(elements)) {
@@ -2509,7 +2633,7 @@
         function renderAll() {
             renderSubscriptionPlans();
             renderAdSlider();
-            renderSquaresGrid(true);
+            renderSquaresGrid();
             filterSquares();
             updateStats();
             renderSupportersModal();
@@ -2517,17 +2641,150 @@
             renderSuggestions();
             renderSocialIcons();
             translateAllElements();
-            setupInfiniteScroll();
+            setupScrollListener();
+            updatePageInfo();
         }
         
         // ============================================
-        // دوال التمرير اللانهائي
+        // دوال عرض المربعات مع التحكم بالتكبير
         // ============================================
-        function setupInfiniteScroll() {
+        function renderSquaresGrid() {
+            const grid = document.getElementById('squaresGrid');
+            
+            // تحديث عدد الأعمدة بناءً على مستوى التكبير
+            let cols = 10;
+            if (zoomLevel < 0.7) cols = 8;
+            else if (zoomLevel < 0.9) cols = 9;
+            else if (zoomLevel < 1.1) cols = 10;
+            else if (zoomLevel < 1.3) cols = 8;
+            else if (zoomLevel < 1.6) cols = 6;
+            else cols = 5;
+            
+            // تحديث حجم المربعات
+            const squareSize = 90 * zoomLevel;
+            const gapSize = 12 * zoomLevel;
+            
+            grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            grid.style.gap = `${gapSize}px`;
+            
+            // حساب عدد المربعات المعروضة
+            const start = currentPageIndex * squaresPerPage;
+            const end = Math.min(start + squaresPerPage, allSquares.length);
+            const pageSquares = allSquares.slice(start, end);
+            
+            // عرض المربعات
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < pageSquares.length; i++) {
+                const square = pageSquares[i];
+                const statusClass = square.status || 'available';
+                const tier = square.tier || 'basic';
+                const emoji = TIERS[tier]?.emoji || '⬜';
+                
+                const div = document.createElement('div');
+                div.className = `mini-square ${statusClass}`;
+                div.style.minWidth = `${squareSize}px`;
+                div.style.minHeight = `${squareSize}px`;
+                div.style.fontSize = `${1.1 * zoomLevel}rem`;
+                
+                div.innerHTML = `
+                    <span class="square-emoji" style="font-size:${1.8 * zoomLevel}rem">${emoji}</span>
+                    <span class="square-number" style="font-size:${0.5 * zoomLevel}rem">#${square.number}</span>
+                `;
+                div.title = `مربع #${square.number} - ${square.owner?.name || 'فارغ'} (${tier})`;
+                div.onclick = () => {
+                    if (square.status === 'available') {
+                        openPurchaseModal(square);
+                    } else {
+                        showToast(getTranslation('squareNotAvailable', 'هذا المربع غير متاح'), 'info');
+                    }
+                };
+                grid.appendChild(div);
+            }
+            
+            // تحديث معلومات الصفحة
+            updatePageInfo();
+            updateScrollInfo();
+            
+            // تحديث حالة الأزرار
+            updateButtonsState();
+        }
+        
+        function updatePageInfo() {
+            const totalPages = Math.ceil(Math.min(allSquares.length, totalSquaresTarget) / squaresPerPage);
+            const currentPage = currentPageIndex + 1;
+            const pageInfo = getTranslation('pageInfo', 'الصفحة {current} من {total}')
+                .replace('{current}', currentPage)
+                .replace('{total}', totalPages);
+            document.getElementById('pageInfo').textContent = pageInfo;
+            document.getElementById('squarePageInfo').textContent = `${currentPage} / ${totalPages}`;
+        }
+        
+        function updateScrollInfo() {
+            const displayed = Math.min(allSquares.length, (currentPageIndex + 1) * squaresPerPage);
+            const total = totalSquaresTarget;
+            const scrollInfo = getTranslation('scrollInfo', 'عرض 100 من 1,000,000')
+                .replace('100', displayed)
+                .replace('1,000,000', total.toLocaleString());
+            document.getElementById('scrollInfo').textContent = scrollInfo;
+        }
+        
+        function updateButtonsState() {
+            const totalPages = Math.ceil(Math.min(allSquares.length, totalSquaresTarget) / squaresPerPage);
+            document.getElementById('prevPageBtn').disabled = currentPageIndex <= 0;
+            document.getElementById('nextPageBtn').disabled = currentPageIndex >= totalPages - 1;
+        }
+        
+        // ============================================
+        // دوال التنقل بين الصفحات
+        // ============================================
+        function scrollPage(direction) {
+            const totalPages = Math.ceil(Math.min(allSquares.length, totalSquaresTarget) / squaresPerPage);
+            
+            if (direction === 'next') {
+                if (currentPageIndex < totalPages - 1) {
+                    currentPageIndex++;
+                    renderSquaresGrid();
+                    
+                    // تمرير سلس إلى الأعلى
+                    document.getElementById('squaresScroll').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else if (direction === 'prev') {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    renderSquaresGrid();
+                    document.getElementById('squaresScroll').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            updateScrollProgress();
+        }
+        
+        // ============================================
+        // دوال التكبير والتصغير
+        // ============================================
+        function changeZoom(delta) {
+            const newZoom = zoomLevel + delta * 0.1;
+            if (newZoom >= minZoom && newZoom <= maxZoom) {
+                zoomLevel = Math.round(newZoom * 10) / 10;
+                document.getElementById('zoomLevel').textContent = `${Math.round(zoomLevel * 100)}%`;
+                renderSquaresGrid();
+            }
+        }
+        
+        function resetZoom() {
+            zoomLevel = 1;
+            document.getElementById('zoomLevel').textContent = '100%';
+            renderSquaresGrid();
+        }
+        
+        // ============================================
+        // دوال التمرير والتحميل التلقائي
+        // ============================================
+        function setupScrollListener() {
             const container = document.getElementById('squaresScroll');
             if (!container) return;
             
-            // إزالة المستمعين السابقين
             container.removeEventListener('scroll', handleScroll);
             container.addEventListener('scroll', handleScroll);
         }
@@ -2547,15 +2804,18 @@
                 document.getElementById('scrollFill').style.width = percent + '%';
             }
             
-            // التحقق من الوصول للنهاية
-            if (scrollLeft + clientWidth >= scrollWidth - 300) {
-                loadMoreSquares();
+            // التحقق من الوصول للنهاية الأفقية
+            if (scrollLeft + clientWidth >= scrollWidth - 100) {
+                if (!isLoadingMore && allSquares.length < totalSquaresTarget) {
+                    loadMoreSquares();
+                }
             }
         }
         
         function loadMoreSquares() {
             if (isLoadingMore) return;
             if (allSquares.length >= totalSquaresTarget) {
+                showToast('🎉 تم تحميل جميع المربعات!', 'success');
                 return;
             }
             
@@ -2563,7 +2823,7 @@
             document.getElementById('loadingMore').classList.remove('hidden');
             document.getElementById('loadingMore').textContent = getTranslation('loadingMore', 'جاري تحميل المزيد من المربعات...');
             
-            // محاكاة تحميل المزيد
+            // محاكاة التحميل
             setTimeout(() => {
                 const currentCount = allSquares.length;
                 const additionalCount = Math.min(200, totalSquaresTarget - currentCount);
@@ -2572,79 +2832,26 @@
                 allSquares = allSquares.concat(newSquares);
                 saveToStorage('squares', allSquares);
                 
-                // تحديث العرض
-                renderSquaresGrid(false);
+                renderSquaresGrid();
                 updateStats();
                 
                 document.getElementById('loadingMore').classList.add('hidden');
                 isLoadingMore = false;
                 
-                // عرض إشعار التقدم
                 const progress = Math.round((allSquares.length / totalSquaresTarget) * 100);
                 if (allSquares.length < totalSquaresTarget) {
                     showToast(`📦 ${allSquares.length.toLocaleString()} / ${totalSquaresTarget.toLocaleString()} مربع (${progress}%)`, 'info');
                 } else {
                     showToast('🎉 اكتمل تحميل مليون مربع!', 'success');
                 }
-            }, 300);
+            }, 500);
         }
         
-        // ============================================
-        // دوال عرض المربعات - محسنة
-        // ============================================
-        function renderSquaresGrid(initial = false) {
-            const grid = document.getElementById('squaresGrid');
-            
-            // تحديث عدد الأعمدة بناءً على عرض الشاشة
-            const containerWidth = document.getElementById('squaresScroll').clientWidth || window.innerWidth;
-            let cols = 10;
-            if (containerWidth < 480) cols = 5;
-            else if (containerWidth < 768) cols = 7;
-            else if (containerWidth < 1024) cols = 10;
-            else cols = 12;
-            
-            // تحديد عدد المربعات المعروضة
-            const squaresToShow = Math.min(allSquares.length, 200);
-            const visibleSquares = allSquares.slice(0, squaresToShow);
-            
-            // عرض المربعات
-            grid.innerHTML = '';
-            grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-            
-            for (let i = 0; i < visibleSquares.length; i++) {
-                const square = visibleSquares[i];
-                const statusClass = square.status || 'available';
-                const tier = square.tier || 'basic';
-                const emoji = TIERS[tier]?.emoji || '⬜';
-                
-                const div = document.createElement('div');
-                div.className = `mini-square ${statusClass}`;
-                div.style.minWidth = '80px';
-                div.style.minHeight = '80px';
-                div.innerHTML = `
-                    <span class="square-emoji">${emoji}</span>
-                    <span class="square-number">#${square.number}</span>
-                `;
-                div.title = `مربع #${square.number} - ${square.owner?.name || 'فارغ'} (${tier})`;
-                div.onclick = () => {
-                    if (square.status === 'available') {
-                        openPurchaseModal(square);
-                    } else {
-                        showToast(getTranslation('squareNotAvailable', 'هذا المربع غير متاح'), 'info');
-                    }
-                };
-                grid.appendChild(div);
-            }
-            
-            // تحديث معلومات الصفحة
-            const totalPages = Math.ceil(totalSquaresTarget / squaresPerPage);
-            document.getElementById('squarePageInfo').textContent = `${visibleSquares.length} / ${totalSquaresTarget.toLocaleString()}`;
-            
-            // تحديث معلومات التمرير
-            const scrollInfo = getTranslation('scrollInfo', 'عرض {displayed} من {total} مربع')
-                .replace('{displayed}', visibleSquares.length.toLocaleString())
-                .replace('{total}', totalSquaresTarget.toLocaleString());
-            document.getElementById('scrollInfo').textContent = scrollInfo;
+        function updateScrollProgress() {
+            const totalPages = Math.ceil(Math.min(allSquares.length, totalSquaresTarget) / squaresPerPage);
+            const progress = totalPages > 0 ? (currentPageIndex / (totalPages - 1)) * 100 : 0;
+            document.getElementById('scrollPercent').textContent = Math.round(progress) + '%';
+            document.getElementById('scrollFill').style.width = Math.min(progress, 100) + '%';
         }
         
         // ============================================
@@ -2943,7 +3150,7 @@
             
             updateStats();
             filterSquares();
-            renderSquaresGrid(false);
+            renderSquaresGrid();
             
             showToast(`✅ تم الاشتراك بنجاح! مرحباً بك ${name} في مليون مربع`, 'success');
             closeModal('subscriptionModal');
@@ -3011,7 +3218,7 @@
                 
                 updateStats();
                 filterSquares();
-                renderSquaresGrid(false);
+                renderSquaresGrid();
                 closeModal('purchaseModal');
                 showToast(getTranslation('purchaseSuccess', `✅ تم شراء المربع #${square.number} بنجاح!`), 'success');
             }
@@ -3362,7 +3569,9 @@
             console.log('✅ تم التحقق من Pinterest: a1e0fd10cdf3cabb0847b5c5226d9382');
             console.log(`📦 تم تحميل ${allSquares.length.toLocaleString()} مربع`);
             console.log(`🎯 الهدف: ${totalSquaresTarget.toLocaleString()} مربع`);
-            console.log('🔄 التمرير اللانهائي مفعل - تحميل 200 مربع كل مرة');
+            console.log(`🔍 عرض ${squaresPerPage} مربع في كل صفحة`);
+            console.log(`🔎 مستوى التكبير: ${Math.round(zoomLevel * 100)}%`);
+            console.log('🔄 التمرير التلقائي للصفحات التالية مفعل');
             console.log('🔐 دخول المسؤول: admin / admin123');
         });
     </script>
