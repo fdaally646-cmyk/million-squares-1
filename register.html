@@ -1,20 +1,25 @@
-<meta http-equiv="Content-Security-Policy" content="
-    default-src 'self' https:;
-    script-src 'unsafe-inline' 'unsafe-eval' https:;
-    style-src 'unsafe-inline' https:;
-    img-src 'self' data: https:;
-    font-src 'self' https: data:;
-    connect-src 'self' https:;
-">
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إنشاء حساب - مليون مربع</title>
+    
+    <!-- إصلاح سياسات الأمان -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' https:;
+        script-src 'unsafe-inline' 'unsafe-eval' https:;
+        style-src 'unsafe-inline' https:;
+        img-src 'self' data: https:;
+        font-src 'self' https: data:;
+        connect-src 'self' https:;
+    ">
+    
+    <!-- Font Awesome من CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        /* ===== أنماط الصفحة الأساسية ===== */
+        /* ===== أنماط الصفحة ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body {
             background: #0a0a0f;
@@ -279,7 +284,6 @@
         }
         .float-btn:hover { transform: scale(1.05); }
 
-        /* ===== تصميم متجاوب ===== */
         @media (max-width: 500px) {
             .container { padding: 25px; }
             .modal-box { padding: 25px; }
@@ -455,7 +459,6 @@
                 if (details) details.classList.remove('active');
             }
 
-            // سجل في Console للمساعدة في التتبع
             console.log('💳 فتح نافذة الدفع');
         }
 
@@ -596,13 +599,6 @@
             // عرض رسائل ترحيبية في Console
             console.log('%c🎯 مليون مربع - نظام الدفع في التسجيل', 'font-size: 18px; color: #ffd700;');
             console.log('%c📌 الأزرار المتاحة: PayPal, Stripe, USDT', 'font-size: 14px; color: #aaa;');
-
-            // إضافة مستمع لأزرار الدفع للتأكد من عملها
-            document.querySelectorAll('.paypal-btn, .stripe-btn, .crypto-btn, .modal-method-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    console.log(`🖱️ تم النقر على زر: ${this.textContent.trim()}`);
-                });
-            });
 
             // التأكد من وجود العناصر الأساسية
             const requiredElements = ['paymentModal', 'paymentDetails', 'toast'];
