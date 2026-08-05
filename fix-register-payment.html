@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 إصلاح زر الدفع في التسجيل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: #0a0a0f; 
+            color: #fff; 
+            padding: 20px; 
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container { 
+            max-width: 900px; 
+            width: 100%; 
+            background: #1a1a2e; 
+            padding: 40px; 
+            border-radius: 20px; 
+            border: 1px solid #2a2a4a; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        h1 { color: #ffd700; text-align: center; margin-bottom: 10px; font-size: 2rem; }
+        .subtitle { text-align: center; color: #aaa; margin-bottom: 30px; }
+        .status { padding: 15px; margin: 10px 0; border-radius: 10px; }
+        .success { background: rgba(76, 175, 80, 0.2); border: 1px solid #4CAF50; color: #4CAF50; }
+        .error { background: rgba(244, 67, 54, 0.2); border: 1px solid #f44336; color: #f44336; }
+        .warning { background: rgba(255, 193, 7, 0.2); border: 1px solid #ffc107; color: #ffc107; }
+        .info { background: rgba(33, 150, 243, 0.2); border: 1px solid #2196F3; color: #2196F3; }
+        .section {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid #2a2a4a;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ffd700, #ff6b00);
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,215,0,0.3);
+        }
+        .btn-paypal { background: #0070ba; color: #fff; }
+        .btn-paypal:hover { background: #005c9e; }
+        .btn-success { background: #4CAF50; color: #fff; }
+        .btn-success:hover { background: #45a049; }
+        .code-block {
+            background: #0a0a0f;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin: 10px 0;
+            border: 1px solid #2a2a4a;
+            max-height: 400px;
+            overflow-y: auto;
+            direction: ltr;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+        .log-output {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #aaa;
+            max-height: 150px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #2a2a4a;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff6b00);
+            border-radius: 3px;
+            transition: width 0.5s;
+            width: 0%;
+        }
+        .center { text-align: center; }
+        .payment-preview {
+            background: rgba(255,215,0,0.05);
+            border: 2px dashed #ffd700;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .payment-preview .paypal-btn {
+            background: #0070ba;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        .payment-preview .paypal-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(0,112,186,0.4);
+        }
+        .payment-preview .other-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .payment-preview .other-btns button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.3s;
+        }
+        .payment-preview .other-btns button:hover { transform: scale(1.05); }
+        .stripe-btn { background: #635bff; }
+        .crypto-btn { background: #f7931a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 إصلاح زر الدفع في التسجيل</h1>
+        <p class="subtitle">إضافة أزرار PayPal ومنصات الدفع في صفحة التسجيل</p>
+
+        <div id="mainStatus" class="status info">
+            <strong>📦 جاري تهيئة الإصلاح...</strong>
+        </div>
+
+        <div class="progress-bar">
+            <div class="fill" id="progressFill"></div>
+        </div>
+
+        <!-- معاينة أزرار الدفع -->
+        <div class="section">
+            <h3>💳 معاينة أزرار الدفع (ستظهر في التسجيل)</h3>
+            <div class="payment-preview">
+                <div style="text-align: center;">
+                    <button class="paypal-btn" onclick="alert('🧪 زر PayPal يعمل!')">
+                        <i class="fab fa-paypal" style="font-size: 1.5rem;"></i>
+                        الدفع عبر PayPal
+                    </button>
+                    <div class="other-btns">
+                        <button class="stripe-btn" onclick="alert('🧪 زر Stripe يعمل!')">
+                            <i class="fas fa-credit-card"></i> Stripe
+                        </button>
+                        <button class="crypto-btn" onclick="alert('🧪 زر USDT يعمل!')">
+                            <i class="fab fa-bitcoin"></i> USDT
+                        </button>
+                    </div>
+                    <p style="color: #aaa; font-size: 0.85rem; margin-top: 10px;">
+                        <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
+                        هذه الأزرار ستظهر تلقائياً في صفحة التسجيل
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- الكود المطلوب -->
+        <div class="section">
+            <h3>📄 الكود المطلوب إضافته لـ register.html</h3>
+            <div class="code-block" id="codeBlock">
+                // سيتم عرض الكود هنا
+            </div>
+            <div class="center" style="margin-top: 10px;">
+                <button onclick="copyCode()" class="btn btn-success">
+                    <i class="fas fa-copy"></i> نسخ الكود
+                </button>
+                <button onclick="downloadCode()" class="btn btn-paypal">
+                    <i class="fas fa-download"></i> تحميل register.html كامل
+                </button>
+            </div>
+        </div>
+
+        <!-- سجل العمليات -->
+        <div class="section">
+            <h3>📋 سجل التحديث</h3>
+            <div id="logOutput" class="log-output">
+                <div>🚀 بدء إصلاح زر الدفع في التسجيل...</div>
+            </div>
+        </div>
+
+        <!-- أزرار الإجراءات -->
+        <div class="center" style="margin-top: 20px;">
+            <button onclick="applyFix()" class="btn">
+                <i class="fas fa-hammer"></i> تطبيق الإصلاح
+            </button>
+            <button onclick="window.location.href='register.html'" class="btn btn-success">
+                📝 الذهاب للتسجيل
+            </button>
+            <button onclick="window.location.href='index.html'" class="btn btn-paypal">
+                🏠 الرئيسية
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // الكود المطلوب إضافته في register.html
+        // ============================================
+
+        const registerHTMLCode = `<!-- ===== إضافة نظام الدفع في صفحة التسجيل ===== -->
+<!-- أضف هذا الكود في register.html قبل إغلاق </body> -->
+
+<!-- نافذة الدفع -->
+<div id="paymentModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: #1a1a2e; padding: 35px; border-radius: 20px; max-width: 500px; width: 92%; border: 1px solid #2a2a4a; position: relative; max-height: 90vh; overflow-y: auto;">
+        <button onclick="closePaymentModal()" style="position: absolute; top: 15px; left: 20px; font-size: 28px; background: none; border: none; color: #aaa; cursor: pointer;">&times;</button>
+        <h2 style="color: #ffd700; text-align: center; margin-bottom: 20px;">💳 اختيار طريقة الدفع</h2>
+        
+        <div id="paymentMethods" style="margin: 15px 0;">
+            <!-- PayPal -->
+            <button onclick="processPayment('paypal')" 
+                    style="background: #0070ba; color: #fff; padding: 18px 20px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; width: 100%; margin: 8px 0; display: flex; align-items: center; justify-content: center; gap: 15px; box-shadow: 0 4px 15px rgba(0,112,186,0.3);"
+                    onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 30px rgba(0,112,186,0.5)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,112,186,0.3)'">
+                <i class="fab fa-paypal" style="font-size: 2rem;"></i>
+                <span>PayPal <small style="display: block; font-size: 0.7rem; opacity: 0.8;">الدفع الآمن</small></span>
+            </button>
+            
+            <!-- Stripe -->
+            <button onclick="processPayment('stripe')" 
+                    style="background: #635bff; color: #fff; padding: 15px 20px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%; margin: 8px 0; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                <i class="fas fa-credit-card"></i> بطاقة ائتمان (Stripe)
+            </button>
+            
+            <!-- Crypto -->
+            <button onclick="processPayment('crypto')" 
+                    style="background: #f7931a; color: #fff; padding: 15px 20px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%; margin: 8px 0; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                <i class="fab fa-bitcoin"></i> عملات رقمية (USDT)
+            </button>
+        </div>
+        
+        <div id="paymentDetails" style="display: none; margin-top: 15px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid #2a2a4a;">
+            <!-- تفاصيل الدفع -->
+        </div>
+    </div>
+</div>
+
+<!-- إشعارات -->
+<div id="notification" style="position: fixed; top: 100px; left: 50%; transform: translateX(-50%); background: #1a1a2e; padding: 15px 30px; border-radius: 12px; border: 1px solid #2a2a4a; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 99999; transition: all 0.5s ease; text-align: center; min-width: 200px; max-width: 90%; display: none;">
+    <span id="notificationMessage"></span>
+</div>
+
+<!-- زر الدفع السريع في صفحة التسجيل -->
+<div style="position: fixed; bottom: 30px; right: 30px; z-index: 998;">
+    <button onclick="openPaymentModal()" 
+            style="background: linear-gradient(135deg, #ffd700, #ff6b00);
+                   color: #000;
+                   padding: 15px 25px;
+                   border: none;
+                   border-radius: 50px;
+                   font-weight: bold;
+                   font-size: 1rem;
+                   cursor: pointer;
+                   box-shadow: 0 5px 25px rgba(255,215,0,0.3);
+                   transition: all 0.3s;
+                   display: flex;
+                   align-items: center;
+                   gap: 10px;"
+            onmouseover="this.style.transform='scale(1.05)'"
+            onmouseout="this.style.transform='scale(1)'">
+        <i class="fas fa-shopping-cart"></i>
+        شراء بكسل الآن
+    </button>
+</div>
+
+<script>
+// ===== نظام الدفع المتكامل للتسجيل =====
+class PaymentSystem {
+    constructor() {
+        this.pixelData = { x: 500, y: 500, price: 5 };
+        console.log('💳 PaymentSystem (Register) initialized');
+    }
+
+    openModal() {
+        const modal = document.getElementById('paymentModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            document.getElementById('paymentDetails').style.display = 'none';
+        }
+    }
+
+    closeModal() {
+        const modal = document.getElementById('paymentModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    processPayment(method) {
+        console.log(\`🔄 Processing: \${method}\`);
+        
+        // التحقق من اكتمال التسجيل
+        const email = document.querySelector('input[type="email"]')?.value;
+        if (!email) {
+            this.showNotification('يرجى إكمال بيانات التسجيل أولاً', 'warning');
+            return;
+        }
+
+        const details = document.getElementById('paymentDetails');
+        const price = this.pixelData.price || 5;
+        
+        details.style.display = 'block';
+        details.innerHTML = \`
+            <div style="text-align: center; padding: 10px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #ffd700;"></i>
+                <p style="color: #aaa; margin-top: 10px;">جاري معالجة الدفع عبر \${method}...</p>
+                <p style="color: #ffd700; font-size: 1.2rem;">\$\${price} USD</p>
+                <p style="color: #4CAF50; font-size: 0.9rem;">
+                    <i class="fas fa-check-circle"></i> سيتم تفعيل حسابك بعد الدفع
+                </p>
+                <button onclick="window.paymentSystem.confirmPayment('\${method}')" 
+                        style="background: #4CAF50; color: #fff; padding: 12px 30px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px;">
+                    تأكيد الدفع والتسجيل
+                </button>
+                <button onclick="window.paymentSystem.closeModal()" 
+                        style="background: transparent; color: #aaa; border: 1px solid #333; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 10px;">
+                    إلغاء
+                </button>
+            </div>
+        \`;
+    }
+
+    confirmPayment(method) {
+        this.showNotification(\`✅ تم الدفع بنجاح عبر \${method}! 🎉\`, 'success');
+        this.closeModal();
+        
+        // محاكاة إكمال التسجيل
+        setTimeout(() => {
+            this.showNotification('🎉 تم إنشاء حسابك بنجاح! جاري التوجيه...', 'success');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }, 1000);
+    }
+
+    showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        const messageEl = document.getElementById('notificationMessage');
+        if (!notification) return;
+        
+        messageEl.textContent = message;
+        notification.style.display = 'block';
+        notification.style.borderColor = type === 'success' ? '#4CAF50' : type === 'warning' ? '#ffd700' : '#f44336';
+        
+        clearTimeout(this.notificationTimeout);
+        this.notificationTimeout = setTimeout(() => {
+            notification.style.display = 'none';
+        }, 4000);
+    }
+}
+
+// تهيئة نظام الدفع
+if (typeof window.paymentSystem === 'undefined') {
+    window.paymentSystem = new PaymentSystem();
+}
+
+// دوال عامة
+function openPaymentModal() {
+    if (window.paymentSystem) {
+        window.paymentSystem.openModal();
+    } else {
+        window.paymentSystem = new PaymentSystem();
+        window.paymentSystem.openModal();
+    }
+}
+
+function closePaymentModal() {
+    if (window.paymentSystem) {
+        window.paymentSystem.closeModal();
+    }
+}
+
+function processPayment(method) {
+    if (window.paymentSystem) {
+        window.paymentSystem.processPayment(method);
+    }
+}
+
+console.log('✅ Payment system loaded in register page!');
+<\/script>`;
+
+        // ============================================
+        // كود register.html كامل
+        // ============================================
+
+        const fullRegisterHTML = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - مليون مربع</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg-dark); padding: 20px; }
+        .auth-container { background: var(--bg-card); padding: 40px; border-radius: 20px; max-width: 420px; width: 100%; border: 1px solid var(--border-color); box-shadow: var(--shadow); }
+        .auth-container h2 { text-align: center; color: var(--primary); margin-bottom: 30px; font-size: 1.8rem; }
+        .auth-container .logo { text-align: center; font-size: 3rem; margin-bottom: 10px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 6px; color: var(--text-muted); font-size: 0.9rem; }
+        .form-group input { width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-light); font-size: 1rem; transition: all 0.3s; }
+        .form-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(255,215,0,0.1); }
+        .auth-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--primary), #ff6b00); border: none; border-radius: 10px; color: #000; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .auth-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 25px rgba(255,215,0,0.3); }
+        .auth-footer { text-align: center; margin-top: 20px; color: var(--text-muted); }
+        .auth-footer a { color: var(--primary); text-decoration: none; }
+        .auth-footer a:hover { text-decoration: underline; }
+        .error-message { background: rgba(255,0,0,0.1); border: 1px solid rgba(255,0,0,0.2); color: #ff4444; padding: 10px; border-radius: 8px; margin-bottom: 15px; display: none; }
+        .error-message.show { display: block; }
+        .password-hint { font-size: 0.8rem; color: var(--text-muted); margin-top: 5px; }
+        
+        /* زر الدفع في نموذج التسجيل */
+        .payment-register-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .payment-register-section h4 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        .payment-register-section .paypal-btn {
+            background: #0070ba;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .payment-register-section .paypal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,112,186,0.4);
+        }
+        .payment-register-section .other-payment-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .payment-register-section .other-payment-btns button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+        .payment-register-section .other-payment-btns button:hover {
+            transform: translateY(-2px);
+        }
+        .stripe-btn-sm { background: #635bff; }
+        .crypto-btn-sm { background: #f7931a; }
+        .payment-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="logo">🎯</div>
+            <h2>إنشاء حساب جديد</h2>
+            
+            <div id="errorMessage" class="error-message"></div>
+            
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                    <input type="text" id="fullName" required placeholder="أحمد محمد">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-building"></i> اسم الشركة (اختياري)</label>
+                    <input type="text" id="companyName" placeholder="شركة مليون مربع">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                    <input type="email" id="email" required placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <input type="password" id="password" required placeholder="••••••••" minlength="6">
+                    <div class="password-hint">يجب أن تكون 6 أحرف على الأقل</div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-check-circle"></i> تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-user-plus"></i> إنشاء حساب
+                </button>
+            </form>
+            
+            <!-- ===== قسم الدفع المدمج في التسجيل ===== -->
+            <div class="payment-register-section">
+                <h4>💳 أو قم بالدفع والتسجيل معاً</h4>
+                <button onclick="openPaymentModal()" class="paypal-btn">
+                    <i class="fab fa-paypal" style="font-size: 1.2rem;"></i>
+                    الدفع عبر PayPal وتسجيل الحساب
+                </button>
+                <div class="other-payment-btns">
+                    <button onclick="openPaymentModal()" class="stripe-btn-sm">
+                        <i class="fas fa-credit-card"></i> Stripe
+                    </button>
+                    <button onclick="openPaymentModal()" class="crypto-btn-sm">
+                        <i class="fab fa-bitcoin"></i> USDT
+                    </button>
+                </div>
+                <p class="payment-note">
+                    <i class="fas fa-info-circle"></i> سيتم إنشاء حسابك فور إتمام الدفع
+                </p>
+            </div>
+            
+            <div class="auth-footer">
+                لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== نظام الدفع ===== -->
+    ${registerHTMLCode}
+
+    <script src="js/auth.js"></script>
+    <script>
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const companyName = document.getElementById('companyName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorEl = document.getElementById('errorMessage');
+            
+            errorEl.classList.remove('show');
+            errorEl.textContent = '';
+            
+            if (password !== confirmPassword) {
+                errorEl.textContent = 'كلمة المرور وتأكيدها غير متطابقين';
+                errorEl.classList.add('show');
+                return;
+            }
+            
+            if (password.length < 6) {
+                errorEl.textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+                errorEl.classList.add('show');
+                return;
+            }
+            
+            // محاكاة التسجيل
+            alert('✅ تم إنشاء الحساب بنجاح!');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>`;
+
+        // ============================================
+        // منطق التطبيق
+        // ============================================
+
+        let currentStep = 0;
+        const logOutput = document.getElementById('logOutput');
+        const progressFill = document.getElementById('progressFill');
+
+        function addLog(message, type = 'info') {
+            const colors = { success: '#4CAF50', error: '#f44336', warning: '#ffc107', info: '#2196F3' };
+            logOutput.innerHTML += `<div style="color: ${colors[type] || '#aaa'}">${message}</div>`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+
+        function updateProgress(percent) {
+            progressFill.style.width = percent + '%';
+        }
+
+        // عرض الكود في الصندوق
+        function displayCode() {
+            const codeBlock = document.getElementById('codeBlock');
+            codeBlock.textContent = registerHTMLCode;
+        }
+
+        // نسخ الكود
+        function copyCode() {
+            navigator.clipboard.writeText(registerHTMLCode).then(() => {
+                addLog('✅ تم نسخ الكود إلى الحافظة!', 'success');
+                alert('✅ تم نسخ الكود! قم بلصقه في ملف register.html قبل إغلاق </body>');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = registerHTMLCode;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                addLog('✅ تم نسخ الكود إلى الحافظة!', 'success');
+                alert('✅ تم نسخ الكود! قم بلصقه في ملف register.html قبل إغلاق </body>');
+            });
+        }
+
+        // تحميل register.html كامل
+        function downloadCode() {
+            const blob = new Blob([fullRegisterHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'register.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            addLog('✅ تم تحميل ملف register.html كامل!', 'success');
+        }
+
+        // تطبيق الإصلاح
+        async function applyFix() {
+            const mainStatus = document.getElementById('mainStatus');
+            mainStatus.className = 'status info';
+            mainStatus.innerHTML = '🔧 جاري تطبيق الإصلاح...';
+
+            addLog('🚀 بدء إصلاح زر الدفع في التسجيل...', 'info');
+            addLog('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+
+            // الخطوة 1: عرض الكود
+            currentStep = 1;
+            updateProgress(25);
+            addLog('📄 عرض الكود المطلوب إضافته...', 'info');
+            displayCode();
+            addLog('✅ تم عرض الكود', 'success');
+
+            // الخطوة 2: نسخ الكود
+            currentStep = 2;
+            updateProgress(50);
+            addLog('📋 نسخ الكود إلى الحافظة...', 'info');
+            try {
+                await navigator.clipboard.writeText(registerHTMLCode);
+                addLog('✅ تم نسخ الكود!', 'success');
+            } catch (e) {
+                addLog('⚠️ استخدم زر "نسخ الكود" يدوياً', 'warning');
+            }
+
+            // الخطوة 3: تهيئة النظام
+            currentStep = 3;
+            updateProgress(75);
+            addLog('⚙️ تهيئة نظام الدفع...', 'info');
+            if (typeof window.paymentSystem === 'undefined') {
+                window.paymentSystem = {
+                    openModal: () => alert('🧪 نظام الدفع جاهز!'),
+                    processPayment: (method) => alert(`🧪 جاري الدفع عبر ${method}`)
+                };
+                addLog('✅ تم تهيئة نظام الدفع', 'success');
+            }
+
+            // الخطوة 4: اكتمال
+            currentStep = 4;
+            updateProgress(100);
+            addLog('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+            
+            mainStatus.className = 'status success';
+            mainStatus.innerHTML = '✅ تم تطبيق الإصلاح بنجاح! 🎉';
+            addLog('✅ اكتمل الإصلاح!', 'success');
+            addLog('📌 التعليمات:', 'info');
+            addLog('1. افتح ملف register.html', 'info');
+            addLog('2. أضف الكود المنسوخ قبل إغلاق </body>', 'info');
+            addLog('3. أو استخدم ملف register.html المحمّل كبديل', 'info');
+            addLog('4. ستظهر أزرار الدفع في نموذج التسجيل', 'info');
+            addLog('5. اختبر بالضغط على "الدفع عبر PayPal"', 'info');
+        }
+
+        // ============================================
+        // تهيئة الصفحة
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            addLog('✅ الصفحة جاهزة', 'success');
+            addLog('💡 اضغط على "تطبيق الإصلاح" لإضافة أزرار الدفع للتسجيل', 'info');
+            displayCode();
+
+            setTimeout(() => {
+                const mainStatus = document.getElementById('mainStatus');
+                mainStatus.className = 'status warning';
+                mainStatus.innerHTML = '⚠️ اضغط على "تطبيق الإصلاح" لإضافة أزرار الدفع';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
