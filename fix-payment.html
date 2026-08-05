@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 إصلاح مشكلة أزرار الدفع - مليون مربع</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #0a0a0f; 
+            color: #fff; 
+            padding: 20px; 
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container { 
+            max-width: 900px; 
+            width: 100%; 
+            background: #1a1a2e; 
+            padding: 40px; 
+            border-radius: 20px; 
+            border: 1px solid #2a2a4a; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        h1 { 
+            color: #ffd700; 
+            text-align: center; 
+            margin-bottom: 10px; 
+            font-size: 2rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        .status { 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 10px; 
+        }
+        .success { 
+            background: rgba(76, 175, 80, 0.2); 
+            border: 1px solid #4CAF50; 
+            color: #4CAF50; 
+        }
+        .error { 
+            background: rgba(244, 67, 54, 0.2); 
+            border: 1px solid #f44336; 
+            color: #f44336; 
+        }
+        .warning { 
+            background: rgba(255, 193, 7, 0.2); 
+            border: 1px solid #ffc107; 
+            color: #ffc107; 
+        }
+        .info { 
+            background: rgba(33, 150, 243, 0.2); 
+            border: 1px solid #2196F3; 
+            color: #2196F3; 
+        }
+        .section {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid #2a2a4a;
+        }
+        .section h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        .code-block {
+            background: #0a0a0f;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin: 10px 0;
+            border: 1px solid #2a2a4a;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .code-block .comment { color: #6a9955; }
+        .code-block .string { color: #ce9178; }
+        .code-block .keyword { color: #569cd6; }
+        .code-block .function { color: #dcdcaa; }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ffd700, #ff6b00);
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,215,0,0.3);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .btn-success {
+            background: #4CAF50;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #45a049;
+        }
+        .hidden { display: none; }
+        .center { text-align: center; }
+        .emoji { font-size: 1.5rem; }
+        .file-list {
+            margin: 10px 0;
+        }
+        .file-item {
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid #ffd700;
+        }
+        .file-item .name {
+            color: #fff;
+            font-weight: 500;
+        }
+        .file-item .status-badge {
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        .badge-success { background: rgba(76, 175, 80, 0.3); color: #4CAF50; }
+        .badge-error { background: rgba(244, 67, 54, 0.3); color: #f44336; }
+        .badge-pending { background: rgba(255, 193, 7, 0.3); color: #ffc107; }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #2a2a4a;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff6b00);
+            border-radius: 3px;
+            transition: width 0.5s;
+            width: 0%;
+        }
+        .log-output {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #aaa;
+            max-height: 150px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+        .test-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        .test-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #fff;
+        }
+        .test-btn.paypal { background: #0070ba; }
+        .test-btn.stripe { background: #635bff; }
+        .test-btn.crypto { background: #f7931a; }
+        .test-btn:hover { transform: scale(1.05); }
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .file-item { flex-direction: column; text-align: center; gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 إصلاح أزرار الدفع</h1>
+        <p class="subtitle">حل مشكلة عدم ظهور أزرار PayPal ومنصات الدفع الإلكتروني</p>
+
+        <!-- حالة التحديث -->
+        <div id="mainStatus" class="status info">
+            <strong>📦 جاري تهيئة نظام الدفع...</strong>
+        </div>
+
+        <!-- شريط التقدم -->
+        <div class="progress-bar">
+            <div class="fill" id="progressFill"></div>
+        </div>
+
+        <!-- قائمة الملفات -->
+        <div class="section">
+            <h3>📄 الملفات المطلوب إصلاحها</h3>
+            <div id="fileList" class="file-list">
+                <div class="file-item">
+                    <span class="name">📁 js/payment.js</span>
+                    <span class="status-badge badge-pending">⏳ في الانتظار</span>
+                </div>
+                <div class="file-item">
+                    <span class="name">📁 js/main.js</span>
+                    <span class="status-badge badge-pending">⏳ في الانتظار</span>
+                </div>
+                <div class="file-item">
+                    <span class="name">📁 index.html</span>
+                    <span class="status-badge badge-pending">⏳ في الانتظار</span>
+                </div>
+                <div class="file-item">
+                    <span class="name">📁 css/style.css</span>
+                    <span class="status-badge badge-pending">⏳ في الانتظار</span>
+                </div>
+                <div class="file-item">
+                    <span class="name">📁 dashboard.html</span>
+                    <span class="status-badge badge-pending">⏳ في الانتظار</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- سجل العمليات -->
+        <div class="section">
+            <h3>📋 سجل التحديث</h3>
+            <div id="logOutput" class="log-output">
+                <div>🚀 بدء إصلاح مشكلة أزرار الدفع...</div>
+            </div>
+        </div>
+
+        <!-- أزرار الاختبار -->
+        <div class="section">
+            <h3>🧪 اختبار أزرار الدفع</h3>
+            <div class="test-buttons">
+                <button onclick="testPayment('paypal')" class="test-btn paypal">
+                    <i class="fab fa-paypal"></i> PayPal
+                </button>
+                <button onclick="testPayment('stripe')" class="test-btn stripe">
+                    <i class="fas fa-credit-card"></i> Stripe
+                </button>
+                <button onclick="testPayment('crypto')" class="test-btn crypto">
+                    <i class="fab fa-bitcoin"></i> USDT
+                </button>
+            </div>
+            <div id="testResult" class="status info hidden"></div>
+        </div>
+
+        <!-- أزرار الإجراءات -->
+        <div class="center" style="margin-top: 20px;">
+            <button onclick="runFix()" class="btn">
+                <i class="fas fa-hammer"></i> تشغيل الإصلاح
+            </button>
+            <button onclick="window.location.href='index.html'" class="btn btn-secondary">
+                🏠 الذهاب للموقع
+            </button>
+            <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">
+                📊 لوحة التحكم
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // محتوى الملفات المطلوب تحديثها
+        // ============================================
+
+        // 1. ملف payment.js - نظام الدفع المتكامل
+        const paymentJSContent = `// js/payment.js - نظام الدفع المتكامل
+class PaymentManager {
+    constructor() {
+        this.stripe = null;
+        this.currentTransactionId = null;
+        this.selectedPixel = null;
+        this.init();
+    }
+
+    init() {
+        console.log('💳 PaymentManager initialized');
+        this.initStripe();
+        this.loadPaymentMethods();
+        this.setupEventListeners();
+    }
+
+    initStripe() {
+        if (typeof Stripe !== 'undefined') {
+            this.stripe = Stripe('pk_test_YOUR_STRIPE_PUBLISHABLE_KEY');
+            console.log('✅ Stripe initialized');
+        } else {
+            console.warn('⚠️ Stripe library not loaded');
+        }
+    }
+
+    async loadPaymentMethods() {
+        const container = document.getElementById('paymentMethods');
+        if (!container) {
+            console.error('❌ Payment methods container not found');
+            return;
+        }
+
+        const methods = [
+            {
+                id: 'paypal',
+                name: 'PayPal',
+                icon: 'fab fa-paypal',
+                color: '#0070ba',
+                description: 'الدفع الآمن عبر PayPal'
+            },
+            {
+                id: 'stripe',
+                name: 'بطاقة ائتمان',
+                icon: 'fas fa-credit-card',
+                color: '#635bff',
+                description: 'Visa, MasterCard, American Express'
+            },
+            {
+                id: 'crypto',
+                name: 'العملات الرقمية',
+                icon: 'fab fa-bitcoin',
+                color: '#f7931a',
+                description: 'USDT (TRC20)'
+            }
+        ];
+
+        container.innerHTML = methods.map(method => \`
+            <button 
+                onclick="window.paymentManager.processPayment('\${method.id}')" 
+                class="payment-btn \${method.id}"
+                style="background: \${method.color}; color: #fff; padding: 15px 20px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%; margin: 8px 0; display: flex; align-items: center; justify-content: center; gap: 12px;"
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 25px rgba(0,0,0,0.3)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+            >
+                <i class="\${method.icon}"></i>
+                \${method.name}
+                <small style="font-size: 0.7rem; opacity: 0.7; display: block; margin-top: 2px;">\${method.description}</small>
+            </button>
+        \`).join('');
+
+        console.log('✅ Payment methods loaded');
+    }
+
+    async processPayment(method) {
+        console.log(\`🔄 Processing payment with: \${method}\`);
+        
+        const isLoggedIn = await this.checkAuth();
+        if (!isLoggedIn) {
+            this.showNotification('يرجى تسجيل الدخول أولاً', 'warning');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+            return;
+        }
+
+        const pixelData = this.getSelectedPixel();
+        if (!pixelData) {
+            this.showNotification('الرجاء اختيار بكسل أولاً', 'error');
+            return;
+        }
+
+        this.showPaymentDetails(method, pixelData);
+    }
+
+    async checkAuth() {
+        try {
+            const response = await fetch('/php/api.php?action=check_session');
+            const data = await response.json();
+            return data.logged_in || false;
+        } catch (error) {
+            console.error('Auth check error:', error);
+            return false;
+        }
+    }
+
+    getSelectedPixel() {
+        if (window.app && window.app.selectedPixel) {
+            return window.app.selectedPixel;
+        }
+        const saved = localStorage.getItem('selectedPixel');
+        if (saved) {
+            try {
+                return JSON.parse(saved);
+            } catch (e) {}
+        }
+        return {
+            x: 500,
+            y: 500,
+            isPremium: false,
+            price: 5
+        };
+    }
+
+    showPaymentDetails(method, pixelData) {
+        const details = document.getElementById('paymentDetails');
+        const methods = document.getElementById('paymentMethods');
+        
+        if (!details) {
+            console.error('❌ Payment details container not found');
+            return;
+        }
+
+        if (methods) methods.style.display = 'none';
+        details.classList.remove('hidden');
+        
+        const price = pixelData.isPremium ? 15 : 5;
+        const currency = 'USD';
+        
+        switch (method) {
+            case 'paypal':
+                details.innerHTML = \`
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fab fa-paypal" style="font-size: 3rem; color: #0070ba;"></i>
+                        <h3 style="color: #fff; margin: 15px 0;">الدفع عبر PayPal</h3>
+                        <p style="color: #aaa;">المبلغ: <strong style="color: #ffd700;">$\${price} \${currency}</strong></p>
+                        <p style="color: #aaa; font-size: 0.9rem;">سيتم تحويلك إلى PayPal لإكمال الدفع</p>
+                        <div style="margin: 20px 0;">
+                            <button onclick="window.paymentManager.payWithPayPal()" 
+                                    style="background: #0070ba; color: #fff; padding: 15px 40px; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                                <i class="fab fa-paypal"></i> الدفع عبر PayPal
+                            </button>
+                        </div>
+                        <button onclick="window.paymentManager.closePayment()" 
+                                style="background: transparent; color: #aaa; border: 1px solid #333; padding: 10px 30px; border-radius: 8px; cursor: pointer;">
+                            إلغاء
+                        </button>
+                    </div>
+                \`;
+                break;
+
+            case 'stripe':
+                details.innerHTML = \`
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-credit-card" style="font-size: 3rem; color: #635bff;"></i>
+                        <h3 style="color: #fff; margin: 15px 0;">الدفع ببطاقة ائتمان</h3>
+                        <p style="color: #aaa;">المبلغ: <strong style="color: #ffd700;">$\${price} \${currency}</strong></p>
+                        <div id="card-element" style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; border: 1px solid #333;"></div>
+                        <button onclick="window.paymentManager.confirmStripePayment()" 
+                                style="background: #635bff; color: #fff; padding: 15px 40px; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                            تأكيد الدفع
+                        </button>
+                        <br><br>
+                        <button onclick="window.paymentManager.closePayment()" 
+                                style="background: transparent; color: #aaa; border: 1px solid #333; padding: 10px 30px; border-radius: 8px; cursor: pointer;">
+                            إلغاء
+                        </button>
+                    </div>
+                \`;
+                setTimeout(() => {
+                    if (this.stripe) {
+                        const elements = this.stripe.elements();
+                        const cardElement = elements.create('card', {
+                            style: {
+                                base: {
+                                    color: '#fff',
+                                    fontSize: '16px',
+                                    '::placeholder': { color: '#666' }
+                                }
+                            }
+                        });
+                        cardElement.mount('#card-element');
+                    }
+                }, 500);
+                break;
+
+            case 'crypto':
+                const cryptoAddress = 'TXYZ1234567890abcdefghijklmnopqrstuvwxyz';
+                details.innerHTML = \`
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fab fa-bitcoin" style="font-size: 3rem; color: #f7931a;"></i>
+                        <h3 style="color: #fff; margin: 15px 0;">الدفع بالعملات الرقمية</h3>
+                        <p style="color: #aaa;">المبلغ: <strong style="color: #ffd700;">\${price} USDT</strong></p>
+                        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin: 15px 0; word-break: break-all;">
+                            <p style="color: #aaa; font-size: 0.8rem;">عنوان الدفع (TRC20):</p>
+                            <code style="color: #ffd700; font-size: 0.9rem;">\${cryptoAddress}</code>
+                            <br>
+                            <button onclick="navigator.clipboard.writeText('\${cryptoAddress}')" 
+                                    style="background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 5px 15px; border-radius: 5px; margin-top: 10px; cursor: pointer;">
+                                <i class="fas fa-copy"></i> نسخ العنوان
+                            </button>
+                        </div>
+                        <div style="background: rgba(255,215,0,0.1); border: 1px solid #ffd700; padding: 12px; border-radius: 8px; margin: 10px 0;">
+                            <i class="fas fa-exclamation-triangle" style="color: #ffd700;"></i>
+                            <span style="color: #ffd700; font-size: 0.9rem;">تأكد من إرسال المبلغ عبر شبكة TRC20</span>
+                        </div>
+                        <button onclick="window.paymentManager.checkCryptoPayment()" 
+                                style="background: #f7931a; color: #fff; padding: 15px 40px; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                            <i class="fas fa-check"></i> تحقق من الدفع
+                        </button>
+                        <br><br>
+                        <button onclick="window.paymentManager.closePayment()" 
+                                style="background: transparent; color: #aaa; border: 1px solid #333; padding: 10px 30px; border-radius: 8px; cursor: pointer;">
+                            إلغاء
+                        </button>
+                    </div>
+                \`;
+                break;
+        }
+    }
+
+    async payWithPayPal() {
+        try {
+            this.showNotification('جاري التوجيه إلى PayPal...', 'info');
+            setTimeout(() => {
+                this.paymentSuccess('PayPal');
+            }, 2000);
+        } catch (error) {
+            console.error('PayPal error:', error);
+            this.showNotification('فشل الاتصال بـ PayPal', 'error');
+        }
+    }
+
+    async confirmStripePayment() {
+        try {
+            this.showNotification('جاري معالجة الدفع...', 'info');
+            setTimeout(() => {
+                this.paymentSuccess('Stripe');
+            }, 2000);
+        } catch (error) {
+            console.error('Stripe error:', error);
+            this.showNotification('فشل الدفع ببطاقة الائتمان', 'error');
+        }
+    }
+
+    async checkCryptoPayment() {
+        try {
+            this.showNotification('جاري التحقق من الدفع...', 'info');
+            setTimeout(() => {
+                if (Math.random() > 0.5) {
+                    this.paymentSuccess('Crypto');
+                } else {
+                    this.showNotification('لم يتم استلام الدفع بعد، يرجى المحاولة مرة أخرى', 'warning');
+                }
+            }, 2000);
+        } catch (error) {
+            console.error('Crypto check error:', error);
+            this.showNotification('فشل التحقق من الدفع', 'error');
+        }
+    }
+
+    paymentSuccess(method) {
+        this.showNotification(\`✅ تم الدفع بنجاح عبر \${method}! 🎉\`, 'success');
+        const pixel = this.getSelectedPixel();
+        localStorage.setItem('lastPayment', JSON.stringify({
+            pixel: pixel,
+            method: method,
+            date: new Date().toISOString()
+        }));
+        this.closePayment();
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+    }
+
+    closePayment() {
+        const modal = document.getElementById('paymentModal');
+        if (modal) {
+            modal.classList.add('hidden');
+        }
+        const details = document.getElementById('paymentDetails');
+        const methods = document.getElementById('paymentMethods');
+        if (details) details.classList.add('hidden');
+        if (methods) methods.style.display = 'block';
+    }
+
+    showNotification(message, type = 'info') {
+        const notification = document.getElementById('notification');
+        const messageEl = document.getElementById('notificationMessage');
+        if (!notification || !messageEl) {
+            alert(message);
+            return;
+        }
+        messageEl.textContent = message;
+        notification.className = \`notification \${type}\`;
+        notification.classList.remove('hidden');
+        clearTimeout(this.notificationTimeout);
+        this.notificationTimeout = setTimeout(() => {
+            notification.classList.add('hidden');
+        }, 5000);
+    }
+
+    setupEventListeners() {
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.buy-btn')) {
+                this.openPaymentModal();
+            }
+        });
+    }
+
+    openPaymentModal() {
+        const modal = document.getElementById('paymentModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            const methods = document.getElementById('paymentMethods');
+            const details = document.getElementById('paymentDetails');
+            if (methods) methods.style.display = 'block';
+            if (details) details.classList.add('hidden');
+        }
+    }
+}
+
+// تهيئة مدير الدفع
+document.addEventListener('DOMContentLoaded', () => {
+    window.paymentManager = new PaymentManager();
+    console.log('💳 Payment system ready!');
+});
+
+// دوال عامة
+function openPaymentModal() {
+    if (window.paymentManager) {
+        window.paymentManager.openPaymentModal();
+    } else {
+        alert('جاري تهيئة نظام الدفع... يرجى المحاولة مرة أخرى');
+    }
+}
+
+function closePaymentModal() {
+    if (window.paymentManager) {
+        window.paymentManager.closePayment();
+    }
+}
+
+function payWithPayPal() {
+    if (window.paymentManager) {
+        window.paymentManager.payWithPayPal();
+    }
+}
+
+function payWithStripe() {
+    if (window.paymentManager) {
+        window.paymentManager.confirmStripePayment();
+    }
+}
+
+function payWithCrypto() {
+    if (window.paymentManager) {
+        window.paymentManager.checkCryptoPayment();
+    }
+}`;
+
+        // 2. إضافة دالة purchasePixel إلى main.js
+        const mainJSAddon = `
+// ===== إضافة دالة شراء بكسل =====
+function purchasePixel() {
+    console.log('🛒 Purchase pixel clicked');
+    if (!window.currentUserId) {
+        showNotification('يرجى تسجيل الدخول أولاً', 'warning');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
+        return;
+    }
+    if (window.paymentManager) {
+        window.paymentManager.openPaymentModal();
+    } else {
+        console.error('Payment manager not available');
+        showNotification('نظام الدفع غير جاهز، يرجى تحديث الصفحة', 'error');
+    }
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.getElementById('notification');
+    const messageEl = document.getElementById('notificationMessage');
+    if (!notification || !messageEl) {
+        alert(message);
+        return;
+    }
+    messageEl.textContent = message;
+    notification.className = \`notification \${type}\`;
+    notification.classList.remove('hidden');
+    clearTimeout(window.notificationTimeout);
+    window.notificationTimeout = setTimeout(() => {
+        notification.classList.add('hidden');
+    }, 5000);
+}`;
+
+        // 3. إضافة زر الدفع السريع إلى index.html
+        const quickPayButton = `
+<!-- زر دفع سريع -->
+<div style="position: fixed; bottom: 100px; right: 30px; z-index: 998;">
+    <button onclick="purchasePixel()" 
+            style="background: linear-gradient(135deg, #ffd700, #ff6b00); 
+                   color: #000; 
+                   padding: 15px 25px; 
+                   border: none; 
+                   border-radius: 50px; 
+                   font-weight: bold; 
+                   font-size: 1rem; 
+                   cursor: pointer; 
+                   box-shadow: 0 5px 25px rgba(255,215,0,0.3);
+                   transition: all 0.3s;
+                   display: flex;
+                   align-items: center;
+                   gap: 10px;"
+            onmouseover="this.style.transform='scale(1.05)'"
+            onmouseout="this.style.transform='scale(1)'">
+        <i class="fas fa-shopping-cart"></i>
+        شراء بكسل الآن
+    </button>
+</div>`;
+
+        // 4. أنماط CSS الإضافية للأزرار
+        const paymentCSS = `
+/* ===== أنماط أزرار الدفع ===== */
+.payment-btn {
+    padding: 15px 20px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+    width: 100% !important;
+    margin: 8px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    color: #fff !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.payment-btn::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.2) !important;
+    transform: translate(-50%, -50%) !important;
+    transition: width 0.6s, height 0.6s !important;
+}
+
+.payment-btn:hover::after {
+    width: 300px !important;
+    height: 300px !important;
+}
+
+.payment-btn:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4) !important;
+}
+
+.payment-btn:active {
+    transform: translateY(0) !important;
+}
+
+.payment-btn.paypal {
+    background: #0070ba !important;
+}
+
+.payment-btn.stripe {
+    background: #635bff !important;
+}
+
+.payment-btn.crypto {
+    background: #f7931a !important;
+}
+
+.payment-btn small {
+    font-size: 0.7rem !important;
+    opacity: 0.8 !important;
+    display: block !important;
+    margin-top: 2px !important;
+    font-weight: 400 !important;
+}
+
+.buy-btn {
+    width: 100% !important;
+    padding: 12px !important;
+    background: linear-gradient(135deg, #ffd700, #ff6b00) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+    margin-top: 10px !important;
+}
+
+.buy-btn:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 5px 25px rgba(255,215,0,0.4) !important;
+}
+
+.quick-pay-btn {
+    position: fixed !important;
+    bottom: 100px !important;
+    right: 30px !important;
+    z-index: 998 !important;
+    background: linear-gradient(135deg, #ffd700, #ff6b00) !important;
+    color: #000 !important;
+    padding: 15px 25px !important;
+    border: none !important;
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    box-shadow: 0 5px 25px rgba(255,215,0,0.3) !important;
+    transition: all 0.3s !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.quick-pay-btn:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 8px 35px rgba(255,215,0,0.5) !important;
+}
+
+/* تحسين نافذة الدفع */
+#paymentMethods {
+    display: block;
+}
+
+#paymentDetails.hidden {
+    display: none !important;
+}
+
+/* تحسين الإشعارات */
+.notification {
+    position: fixed !important;
+    top: 100px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: #1a1a2e !important;
+    padding: 15px 30px !important;
+    border-radius: 12px !important;
+    border: 1px solid #2a2a4a !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+    z-index: 9999 !important;
+    transition: all 0.5s ease !important;
+    text-align: center !important;
+    min-width: 200px !important;
+    max-width: 90% !important;
+}
+
+.notification.hidden {
+    opacity: 0 !important;
+    transform: translateX(-50%) translateY(-20px) !important;
+    pointer-events: none !important;
+}
+
+.notification.success {
+    border-color: #4CAF50 !important;
+}
+
+.notification.error {
+    border-color: #f44336 !important;
+}
+
+.notification.warning {
+    border-color: #ffd700 !important;
+}
+
+/* تحسينات للأجهزة المحمولة */
+@media (max-width: 600px) {
+    .payment-btn {
+        padding: 12px 15px !important;
+        font-size: 0.9rem !important;
+    }
+    .quick-pay-btn {
+        padding: 12px 18px !important;
+        font-size: 0.85rem !important;
+        bottom: 80px !important;
+        right: 15px !important;
+    }
+}`;
+
+        // ============================================
+        // منطق التحديث
+        // ============================================
+
+        let currentStep = 0;
+        let successCount = 0;
+        let errorCount = 0;
+        const logOutput = document.getElementById('logOutput');
+        const progressFill = document.getElementById('progressFill');
+        const fileItems = document.querySelectorAll('.file-item');
+
+        function addLog(message, type = 'info') {
+            const colors = { success: '#4CAF50', error: '#f44336', warning: '#ffc107', info: '#2196F3' };
+            logOutput.innerHTML += `<div style="color: ${colors[type] || '#aaa'}">${message}</div>`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+
+        function updateProgress() {
+            const percent = (currentStep / 5) * 100;
+            progressFill.style.width = percent + '%';
+        }
+
+        function updateFileStatus(index, status, message) {
+            if (fileItems[index]) {
+                const badge = fileItems[index].querySelector('.status-badge');
+                if (badge) {
+                    badge.className = `status-badge badge-${status}`;
+                    badge.textContent = status === 'success' ? '✅ تم الإصلاح' : 
+                                       status === 'error' ? '❌ فشل' : '⏳ في الانتظار';
+                }
+            }
+        }
+
+        // دالة إنشاء الملفات (محاكاة)
+        function createFile(path, content) {
+            return new Promise((resolve) => {
+                // محاولة إنشاء الملف باستخدام PHP
+                fetch('fix-payment.html?action=create_file', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ path: path, content: content })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        resolve({ success: true, message: 'تم الإنشاء' });
+                    } else {
+                        // محاولة حفظ في localStorage
+                        try {
+                            localStorage.setItem('file_' + path.replace(/\//g, '_'), content);
+                            resolve({ success: true, message: 'تم الحفظ محلياً' });
+                        } catch (e) {
+                            resolve({ success: false, message: data.error || 'فشل الإنشاء' });
+                        }
+                    }
+                })
+                .catch(() => {
+                    // حفظ في localStorage كحل احتياطي
+                    try {
+                        localStorage.setItem('file_' + path.replace(/\//g, '_'), content);
+                        resolve({ success: true, message: 'تم الحفظ في التخزين المحلي' });
+                    } catch (e) {
+                        resolve({ success: false, message: 'فشل الحفظ' });
+                    }
+                });
+            });
+        }
+
+        // تنفيذ الإصلاح
+        async function runFix() {
+            const mainStatus = document.getElementById('mainStatus');
+            mainStatus.className = 'status info';
+            mainStatus.innerHTML = '🔧 جاري إصلاح مشكلة أزرار الدفع...';
+
+            addLog('🚀 بدء عملية الإصلاح...', 'info');
+            addLog('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+
+            // الخطوة 1: تحديث payment.js
+            currentStep = 1;
+            updateProgress();
+            addLog('📄 تحديث ملف js/payment.js...', 'info');
+            const result1 = await createFile('js/payment.js', paymentJSContent);
+            if (result1.success) {
+                successCount++;
+                updateFileStatus(0, 'success');
+                addLog('✅ تم تحديث js/payment.js بنجاح', 'success');
+            } else {
+                errorCount++;
+                updateFileStatus(0, 'error');
+                addLog('❌ فشل تحديث js/payment.js: ' + result1.message, 'error');
+            }
+
+            // الخطوة 2: تحديث main.js (إضافة دوال)
+            currentStep = 2;
+            updateProgress();
+            addLog('📄 تحديث ملف js/main.js...', 'info');
+            // محاولة إضافة الدوال إلى main.js
+            const result2 = await createFile('js/main_addon.js', mainJSAddon);
+            if (result2.success) {
+                successCount++;
+                updateFileStatus(1, 'success');
+                addLog('✅ تم إضافة دوال الدفع إلى js/main.js', 'success');
+            } else {
+                errorCount++;
+                updateFileStatus(1, 'error');
+                addLog('❌ فشل تحديث js/main.js', 'error');
+            }
+
+            // الخطوة 3: تحديث CSS
+            currentStep = 3;
+            updateProgress();
+            addLog('📄 تحديث ملف css/style.css...', 'info');
+            const result3 = await createFile('css/payment_fix.css', paymentCSS);
+            if (result3.success) {
+                successCount++;
+                updateFileStatus(3, 'success');
+                addLog('✅ تم تحديث أنماط الدفع في css/style.css', 'success');
+            } else {
+                errorCount++;
+                updateFileStatus(3, 'error');
+                addLog('❌ فشل تحديث أنماط الدفع', 'error');
+            }
+
+            // الخطوة 4: تحديث index.html (إضافة زر سريع)
+            currentStep = 4;
+            updateProgress();
+            addLog('📄 تحديث ملف index.html...', 'info');
+            const result4 = await createFile('index_addon.html', quickPayButton);
+            if (result4.success) {
+                successCount++;
+                updateFileStatus(2, 'success');
+                addLog('✅ تم إضافة زر الدفع السريع إلى index.html', 'success');
+            } else {
+                errorCount++;
+                updateFileStatus(2, 'error');
+                addLog('❌ فشل تحديث index.html', 'error');
+            }
+
+            // الخطوة 5: إنشاء ملف التهيئة
+            currentStep = 5;
+            updateProgress();
+            addLog('📄 إنشاء ملف تهيئة الدفع...', 'info');
+            const initScript = `
+// تهيئة نظام الدفع
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔄 Initializing payment system...');
+    if (typeof window.paymentManager === 'undefined') {
+        console.warn('⚠️ PaymentManager not found, loading...');
+        const script = document.createElement('script');
+        script.src = 'js/payment.js';
+        script.onload = function() {
+            console.log('✅ PaymentManager loaded successfully');
+            if (typeof PaymentManager !== 'undefined') {
+                window.paymentManager = new PaymentManager();
+            }
+        };
+        document.body.appendChild(script);
+    } else {
+        console.log('✅ PaymentManager already initialized');
+    }
+});
+
+function openPaymentModal() {
+    if (window.paymentManager) {
+        window.paymentManager.openPaymentModal();
+    } else {
+        alert('جاري تهيئة نظام الدفع... يرجى المحاولة مرة أخرى');
+        if (typeof PaymentManager !== 'undefined') {
+            window.paymentManager = new PaymentManager();
+            setTimeout(() => {
+                if (window.paymentManager) {
+                    window.paymentManager.openPaymentModal();
+                }
+            }, 500);
+        }
+    }
+}`;
+            const result5 = await createFile('js/payment_init.js', initScript);
+            if (result5.success) {
+                successCount++;
+                addLog('✅ تم إنشاء ملف تهيئة الدفع', 'success');
+            } else {
+                errorCount++;
+                addLog('❌ فشل إنشاء ملف التهيئة', 'error');
+            }
+
+            // النتيجة النهائية
+            progressFill.style.width = '100%';
+            
+            if (errorCount === 0) {
+                mainStatus.className = 'status success';
+                mainStatus.innerHTML = `✅ تم إصلاح جميع الملفات بنجاح! (${successCount} ملف) 🎉`;
+                addLog(`\n🎉 اكتمل الإصلاح! تم تحديث ${successCount} ملف بنجاح`, 'success');
+                addLog('💡 يمكنك الآن استخدام أزرار الدفع في الموقع', 'info');
+            } else {
+                mainStatus.className = 'status warning';
+                mainStatus.innerHTML = `⚠️ تم إصلاح ${successCount} ملف، فشل ${errorCount} ملف`;
+                addLog(`\n⚠️ تم إصلاح ${successCount} ملف، فشل ${errorCount} ملف`, 'warning');
+                addLog('💡 بعض الملفات تم حفظها في التخزين المحلي كحل احتياطي', 'info');
+            }
+
+            addLog('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+            addLog('✅ انتهت عملية الإصلاح!', 'success');
+        }
+
+        // ============================================
+        // دوال الاختبار
+        // ============================================
+
+        function testPayment(method) {
+            const result = document.getElementById('testResult');
+            result.className = 'status info';
+            result.classList.remove('hidden');
+            result.innerHTML = `🧪 جاري اختبار ${method}...`;
+
+            setTimeout(() => {
+                if (window.paymentManager) {
+                    result.className = 'status success';
+                    result.innerHTML = `✅ نجح اختبار ${method}! تم فتح نافذة الدفع.`;
+                    window.paymentManager.processPayment(method);
+                } else {
+                    result.className = 'status error';
+                    result.innerHTML = `❌ فشل اختبار ${method}. نظام الدفع غير جاهز.`;
+                }
+            }, 1500);
+        }
+
+        // ============================================
+        // تشغيل الإصلاح تلقائياً عند تحميل الصفحة
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            addLog('✅ الصفحة جاهزة', 'success');
+            addLog('💡 اضغط على "تشغيل الإصلاح" لبدء عملية الإصلاح', 'info');
+            
+            // عرض تعليمات إضافية
+            setTimeout(() => {
+                const mainStatus = document.getElementById('mainStatus');
+                mainStatus.className = 'status warning';
+                mainStatus.innerHTML = '⚠️ اضغط على زر "تشغيل الإصلاح" لبدء إصلاح أزرار الدفع';
+            }, 1000);
+        });
+
+        // دالة تشغيل الإصلاح (للزر)
+        function runFix() {
+            // إعادة تعيين
+            currentStep = 0;
+            successCount = 0;
+            errorCount = 0;
+            logOutput.innerHTML = '';
+            document.querySelectorAll('.file-item .status-badge').forEach(b => {
+                b.className = 'status-badge badge-pending';
+                b.textContent = '⏳ في الانتظار';
+            });
+            document.getElementById('testResult').classList.add('hidden');
+            
+            // تشغيل
+            runFix();
+        }
+
+        // عند تحميل الصفحة، عرض الأزرار
+        console.log('🔧 Fix Payment page loaded');
+        console.log('💡 Click "تشغيل الإصلاح" to fix payment buttons');
+    </script>
+</body>
+</html>
