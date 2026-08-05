@@ -426,7 +426,7 @@
         .language-item.active { background: rgba(102, 126, 234, 0.25); color: #fff; border-right: 3px solid #667eea; }
         .language-item .check { color: #48bb78; font-size: 1rem; }
         
-        /* ======== المربعات - محسنة للجوال ======== */
+        /* ======== المربعات ======== */
         .mini-square {
             aspect-ratio: 1;
             border-radius: 10px;
@@ -849,6 +849,50 @@
         .pinterest-btn-container .pinterest-follow { background: #000; }
         .pinterest-btn-container .pinterest-follow:hover { background: #222; }
         
+        /* ======== زر الداعمين المميز ======== */
+        .sponsor-btn-main {
+            background: linear-gradient(135deg, #f6ad55, #ed8936);
+            color: #1a202c;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(237, 137, 54, 0.3);
+        }
+        .sponsor-btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(237, 137, 54, 0.5);
+        }
+        .sponsor-btn-main i {
+            font-size: 1.1rem;
+        }
+        
+        .sponsor-btn-small {
+            background: linear-gradient(135deg, #f6ad55, #ed8936);
+            color: #1a202c;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            box-shadow: 0 3px 12px rgba(237, 137, 54, 0.25);
+        }
+        .sponsor-btn-small:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(237, 137, 54, 0.4);
+        }
+        
         /* ======== تحسينات الجوال ======== */
         @media (max-width: 768px) {
             .admin-sidebar { width: 100%; min-height: auto; max-height: 55vh; overflow-y: auto; }
@@ -879,6 +923,8 @@
             .square-card { padding: 12px !important; }
             .square-card .text-3xl { font-size: 1.5rem !important; }
             .square-card .w-14 { width: 40px !important; height: 40px !important; }
+            .sponsor-btn-main { font-size: 0.8rem; padding: 6px 16px; }
+            .sponsor-btn-small { font-size: 0.7rem; padding: 5px 12px; }
         }
         
         @media (max-width: 480px) {
@@ -922,6 +968,9 @@
             .admin-sidebar a i { font-size: 0.85rem; width: 18px; }
             .admin-table { font-size: 0.7rem; }
             .admin-table th, .admin-table td { padding: 6px 8px; }
+            .sponsor-btn-main { font-size: 0.7rem; padding: 5px 12px; }
+            .sponsor-btn-main i { font-size: 0.8rem; }
+            .sponsor-btn-small { font-size: 0.6rem; padding: 4px 10px; }
         }
         
         ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -995,6 +1044,12 @@
                     
                     <button onclick="openModal('aboutModal')" class="px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 rounded-full hover:bg-white/20 transition text-xs sm:text-sm" id="aboutBtn">عن المنصة</button>
                     <button onclick="openModal('subscriptionModal')" class="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-lg transition text-xs sm:text-sm font-bold" id="subscribeBtn">اشتراك</button>
+                    
+                    <!-- ======== زر الداعمين - بجانب زر الاشتراك ======== -->
+                    <button onclick="openModal('sponsorModal')" class="sponsor-btn-small" id="sponsorBtnHeader">
+                        <i class="fas fa-hand-holding-heart"></i> دعم
+                    </button>
+                    
                     <button onclick="openModal('suggestionModal')" class="px-3 py-1.5 sm:px-4 sm:py-2 bg-green-600/30 rounded-full hover:bg-green-600/50 transition text-xs sm:text-sm" id="suggestionBtn">💡 اقتراح</button>
                     <button onclick="openModal('adminLoginModal')" class="px-2 py-1.5 sm:px-3 sm:py-2 bg-white/5 rounded-full hover:bg-white/10 transition text-xs sm:text-sm">
                         <i class="fas fa-user-shield"></i>
@@ -1003,44 +1058,13 @@
             </div>
         </header>
         
-        <!-- ======== زر Pinterest ======== -->
-        <div class="pinterest-btn-container mb-3 sm:mb-4">
-            <a href="https://www.pinterest.com/pin/create/button/?url=https://million-squares.com&media=https://million-squares.com/og-image.jpg&description=Million%20Squares%20-%20The%20First%20Interactive%20Visual%20Platform" 
-               target="_blank" 
-               class="pinterest-save"
-               data-pin-do="buttonPin"
-               data-pin-custom="true">
-                <i class="fab fa-pinterest"></i> حفظ على Pinterest
-            </a>
-            <a href="https://www.pinterest.com/millionsquares/" 
-               target="_blank" 
-               class="pinterest-follow">
-                <i class="fab fa-pinterest"></i> متابعة
-            </a>
-        </div>
-        
-        <!-- ======== شريط المميزات ======== -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
-            <div class="feature-banner">
-                <div class="icon">🚀</div>
-                <h4 id="feature1Title">منصة تفاعلية</h4>
-                <p id="feature1Desc">أول منصة بصرية تفاعلية</p>
-            </div>
-            <div class="feature-banner">
-                <div class="icon">💎</div>
-                <h4 id="feature2Title">مربعات مميزة</h4>
-                <p id="feature2Desc">مليون مربع إعلاني</p>
-            </div>
-            <div class="feature-banner">
-                <div class="icon">🌍</div>
-                <h4 id="feature3Title">انتشار عالمي</h4>
-                <p id="feature3Desc">دعم 24 لغة</p>
-            </div>
-            <div class="feature-banner">
-                <div class="icon">🔒</div>
-                <h4 id="feature4Title">دفع آمن</h4>
-                <p id="feature4Desc">عبر PayPal والبنوك</p>
-            </div>
+        <!-- ======== زر الداعمين - فوق شريط الإعلانات ======== -->
+        <div class="flex justify-center mb-3 sm:mb-4">
+            <button onclick="openModal('sponsorModal')" class="sponsor-btn-main" id="sponsorBtnMain">
+                <i class="fas fa-hand-holding-heart"></i>
+                <span id="sponsorBtnText">🌟 ادعم المنصة واظهر في شريط الإعلانات</span>
+                <i class="fas fa-arrow-left"></i>
+            </button>
         </div>
         
         <!-- ======== شريط الإعلانات ======== -->
@@ -1229,7 +1253,7 @@
         </div>
     </div>
     
-    <!-- ======== نافذة الاشتراك - محسنة ======== -->
+    <!-- نافذة الاشتراك -->
     <div id="subscriptionModal" class="fixed inset-0 z-50 flex items-center justify-center hidden modal-overlay">
         <div class="glass-effect p-4 sm:p-8 max-w-4xl w-full mx-3 sm:mx-4 modal-content">
             <div class="flex justify-between items-center mb-4 sm:mb-6">
@@ -1237,10 +1261,8 @@
                 <button onclick="closeModal('subscriptionModal')" class="text-gray-400 hover:text-white text-2xl sm:text-3xl">&times;</button>
             </div>
             
-            <!-- خطط الاشتراك -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="subscriptionPlansContainer"></div>
             
-            <!-- نموذج بيانات المشترك -->
             <div class="glass-effect-light p-4 sm:p-6 rounded-xl mt-4 sm:mt-6">
                 <h4 class="font-bold mb-3 sm:mb-4 text-sm sm:text-base" id="subscriberFormTitle">📝 معلومات المشترك</h4>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -1375,7 +1397,7 @@
             </div>
             <div class="text-center space-y-4">
                 <div class="text-4xl sm:text-5xl">🤝</div>
-                <p class="text-sm sm:text-base" id="supportDesc">ادعم مليون مربع لتستمر المنصة وتنمو</p>
+                <p class="text-sm sm:text-base" id="supportDesc">ادعم مليون مربع لتستمر المنصة وتنمو واظهر في شريط الإعلانات</p>
                 
                 <!-- خيارات الدعم -->
                 <div class="grid grid-cols-1 gap-3">
@@ -1843,7 +1865,7 @@
                 adFormTitle: '📢 الترويج والإعلان', companyNameLabel: 'اسم الشركة',
                 websiteLabel: 'الموقع الإلكتروني', adDescLabel: 'وصف الإعلان',
                 adBudgetLabel: 'الميزانية ($)', submitAdBtn: 'إرسال طلب الإعلان',
-                supportTitle: '🌟 دعم المنصة', supportDesc: 'ادعم مليون مربع لتستمر المنصة وتنمو',
+                supportTitle: '🌟 دعم المنصة', supportDesc: 'ادعم مليون مربع لتستمر المنصة وتنمو واظهر في شريط الإعلانات',
                 supportNowBtn: 'ادعم الآن',
                 adminLoginTitle: '🔐 دخول المسؤول', adminUsername: 'اسم المستخدم',
                 adminPassword: 'كلمة المرور', adminLoginBtn: 'دخول',
@@ -1976,7 +1998,8 @@
                 supportWeekly: '🗓️ دعم أسبوعي - $100',
                 supportMonthly: '🌟 دعم شهري - $1,000',
                 supportYearly: '👑 دعم سنوي - $10,000',
-                supportSecure: '🔒 دفع آمن عبر PayPal'
+                supportSecure: '🔒 دفع آمن عبر PayPal',
+                sponsorBtnText: '🌟 ادعم المنصة واظهر في شريط الإعلانات'
             },
             en: {
                 siteTitle: 'Million Squares', siteSubtitle: '✨ The First Interactive Visual Platform in the Arab World',
@@ -2016,7 +2039,7 @@
                 adFormTitle: '📢 Advertise Here', companyNameLabel: 'Company Name',
                 websiteLabel: 'Website', adDescLabel: 'Ad Description',
                 adBudgetLabel: 'Budget ($)', submitAdBtn: 'Submit Ad Request',
-                supportTitle: '🌟 Support the Platform', supportDesc: 'Support Million Squares to keep the platform growing',
+                supportTitle: '🌟 Support the Platform', supportDesc: 'Support Million Squares to keep the platform growing and appear in the ads banner',
                 supportNowBtn: 'Support Now',
                 adminLoginTitle: '🔐 Admin Login', adminUsername: 'Username',
                 adminPassword: 'Password', adminLoginBtn: 'Login',
@@ -2145,7 +2168,8 @@
                 supportWeekly: '🗓️ Weekly Support - $100',
                 supportMonthly: '🌟 Monthly Support - $1,000',
                 supportYearly: '👑 Yearly Support - $10,000',
-                supportSecure: '🔒 Secure payment via PayPal'
+                supportSecure: '🔒 Secure payment via PayPal',
+                sponsorBtnText: '🌟 Support the platform and appear in the ad banner'
             }
         };
         
@@ -2291,7 +2315,8 @@
                 subSocialLabel: 'subSocialLabel', subNoteLabel: 'subNoteLabel',
                 supporterFormTitle: 'supporterFormTitle',
                 supportWeekly: 'supportWeekly', supportMonthly: 'supportMonthly',
-                supportYearly: 'supportYearly', supportSecure: 'supportSecure'
+                supportYearly: 'supportYearly', supportSecure: 'supportSecure',
+                sponsorBtnText: 'sponsorBtnText'
             };
             
             for (const [key, id] of Object.entries(elements)) {
@@ -3005,7 +3030,6 @@
             if (!container) return;
             container.innerHTML = '';
             
-            // استخدام PayPal Sandbox للاختبار
             if (window.paypal) {
                 try {
                     window.paypal.Buttons({
@@ -3264,7 +3288,6 @@
                 event.currentTarget.classList.add('active');
             }
             const content = document.getElementById('adminContent');
-            // ... (بقية الأكواد كما هي)
             content.innerHTML = `<div class="text-center py-8 text-gray-400"><p class="text-sm">تم تحميل ${section}</p></div>`;
         }
         
@@ -3316,6 +3339,7 @@
             console.log('🤖 مساعد الذكاء الاصطناعي مفعل');
             console.log('💳 نظام الدفع عبر PayPal مفعل');
             console.log('🤝 خيارات الدعم: أسبوعي $100، شهري $1,000، سنوي $10,000');
+            console.log('📍 زر الداعمين في مكانين: فوق الشريط وبجانب زر الاشتراك');
             console.log('🔐 دخول المسؤول: admin / admin123');
         });
     </script>
