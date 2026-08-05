@@ -14,6 +14,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons&enable-funding=venmo"></script>
+    
     <style>
         * { font-family: 'Tajawal', sans-serif; }
         body { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); min-height: 100vh; color: #fff; }
@@ -26,39 +29,19 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
-        .glass-white {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-        
         .square-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
         }
         .square-card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border-color: rgba(102, 126, 234, 0.3);
         }
-        
-        .tier-basic { background: linear-gradient(135deg, #2d3748, #4a5568); }
-        .tier-silver { background: linear-gradient(135deg, #4a5568, #a0aec0); }
-        .tier-gold { background: linear-gradient(135deg, #744210, #d69e2e); }
-        .tier-platinum { background: linear-gradient(135deg, #4a5568, #e2e8f0); }
-        
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-        .status-available { background: #10b981; color: white; }
-        .status-sold { background: #ef4444; color: white; }
-        .status-reserved { background: #f59e0b; color: white; }
         
         /* ===== أزرار الدفع ===== */
         .pay-btn {
@@ -96,11 +79,13 @@
             background: #1a1a2e;
             padding: 35px;
             border-radius: 24px;
-            max-width: 440px;
+            max-width: 480px;
             width: 92%;
             border: 1px solid rgba(255,255,255,0.08);
             position: relative;
             box-shadow: 0 25px 80px rgba(0,0,0,0.8);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .popup-close {
             position: absolute;
@@ -115,30 +100,6 @@
         .popup-close:hover { color: #fff; }
         .popup h3 { color: #ffd700; text-align: center; margin-bottom: 20px; font-size: 1.4rem; }
         .popup .price { font-size: 1.8rem; color: #ffd700; font-weight: 800; }
-        .popup .btn-confirm {
-            background: #4CAF50;
-            color: #fff;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-        .popup .btn-confirm:hover { background: #45a049; }
-        .popup .btn-cancel {
-            background: transparent;
-            color: rgba(255,255,255,0.4);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 8px;
-        }
-        .popup .btn-cancel:hover { background: rgba(255,255,255,0.05); }
         
         .toast {
             position: fixed;
@@ -171,28 +132,112 @@
         .auth-status.logged-in { background: rgba(16, 185, 129, 0.2); color: #10b981; }
         .auth-status.logged-out { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
         
-        .payment-method-detail {
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            margin: 10px 0;
-            border: 1px solid rgba(255,255,255,0.05);
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
         }
+        .status-available { background: #10b981; color: white; }
+        .status-sold { background: #ef4444; color: white; }
+        .status-reserved { background: #f59e0b; color: white; }
+        
+        .tier-basic { background: linear-gradient(135deg, #2d3748, #4a5568); }
+        .tier-silver { background: linear-gradient(135deg, #4a5568, #a0aec0); }
+        .tier-gold { background: linear-gradient(135deg, #744210, #d69e2e); }
+        .tier-platinum { background: linear-gradient(135deg, #4a5568, #e2e8f0); }
         
         .stars { color: #fbbf24; letter-spacing: 2px; }
-        .stars .empty { color: #d1d5db; }
+        
+        /* ===== نافذة تفاصيل المربع ===== */
+        .square-detail-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9998;
+            justify-content: center;
+            align-items: center;
+        }
+        .square-detail-overlay.active { display: flex; }
+        .square-detail-box {
+            background: #1a1a2e;
+            padding: 35px;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 92%;
+            border: 1px solid rgba(255,255,255,0.08);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .square-detail-box .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffd700;
+            object-fit: cover;
+        }
+        .square-detail-box .social-link {
+            color: rgba(255,255,255,0.5);
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            margin: 0 4px;
+        }
+        .square-detail-box .social-link:hover { color: #fff; transform: scale(1.2); }
+        
+        /* ===== أداة التمرير ===== */
+        .hover-popup {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px 16px;
+            min-width: 200px;
+            max-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+            text-align: center;
+        }
+        .square-card:hover .hover-popup {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+            pointer-events: auto;
+        }
+        .hover-popup .avatar-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ffd700;
+            object-fit: cover;
+            display: inline-block;
+        }
+        .hover-popup .name { font-weight: 700; font-size: 0.9rem; color: #fff; }
+        .hover-popup .desc { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+        .hover-popup .social-icons { display: flex; gap: 6px; justify-content: center; margin-top: 4px; }
+        .hover-popup .social-icons a { color: rgba(255,255,255,0.3); font-size: 0.8rem; transition: all 0.3s; }
+        .hover-popup .social-icons a:hover { color: #fff; }
         
         @media (max-width: 768px) {
             .popup-box { padding: 25px; }
             .pay-btn { font-size: 0.9rem; padding: 12px; }
+            .square-detail-box { padding: 20px; }
+            .hover-popup { min-width: 160px; max-width: 220px; padding: 10px; }
         }
     </style>
 </head>
 <body>
     <div class="container mx-auto px-4 py-8 max-w-7xl">
         
-        <!-- ===== الهيدر مع حالة التسجيل ===== -->
+        <!-- ===== الهيدر ===== -->
         <header class="glass-effect p-6 mb-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-4">
@@ -216,14 +261,10 @@
                         <i class="fas fa-user-plus"></i>
                         <span id="authBtnText">تسجيل الدخول</span>
                     </button>
-                    
-                    <button onclick="openSupport()" class="px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full hover:shadow-lg transition text-white font-bold text-sm">
-                        <i class="fas fa-hand-holding-heart"></i> دعم
-                    </button>
                 </div>
             </div>
             
-            <!-- إحصائيات سريعة -->
+            <!-- إحصائيات -->
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 pt-6 border-t border-white/10">
                 <div class="text-center">
                     <div class="text-2xl font-bold text-blue-400" id="totalSquares">1,000,000</div>
@@ -248,7 +289,7 @@
             </div>
         </header>
         
-        <!-- ===== نموذج التسجيل (يظهر عند الضغط على زر التسجيل) ===== -->
+        <!-- ===== نموذج التسجيل ===== -->
         <div id="registerSection" class="glass-effect p-6 mb-8 hidden">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-white">📝 إنشاء حساب جديد</h2>
@@ -284,7 +325,7 @@
                 </div>
             </form>
             
-            <!-- ===== أزرار الدفع الإلزامي ===== -->
+            <!-- ===== أزرار الدفع ===== -->
             <div class="mt-6 pt-6 border-t border-white/10">
                 <p class="text-center text-gray-400 text-sm mb-4">💳 أو سجل وادفع معاً (الدفع إلزامي)</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -304,7 +345,7 @@
             </div>
         </div>
         
-        <!-- ===== شريط البحث والفلاتر ===== -->
+        <!-- ===== البحث والفلاتر ===== -->
         <div class="glass-effect p-4 mb-6">
             <div class="flex flex-wrap gap-3">
                 <div class="flex-1 min-w-[200px]">
@@ -332,7 +373,6 @@
         
         <!-- ===== عرض المربعات ===== -->
         <div id="squaresContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- سيتم ملؤها بواسطة JavaScript -->
         </div>
         
         <!-- ===== الترقيم ===== -->
@@ -351,23 +391,27 @@
             <button class="popup-close" onclick="closePayment()">&times;</button>
             <h3 id="popupTitle">💳 تأكيد الدفع</h3>
             
-            <div class="payment-method-detail">
-                <span class="method-icon text-4xl block mb-2" id="methodIcon">💳</span>
-                <div class="method-name text-white font-bold" id="methodName">PayPal</div>
-                <div class="method-desc text-gray-400 text-sm" id="methodDesc">سيتم إنشاء حسابك فور الدفع</div>
-            </div>
-            
             <div class="text-center my-4">
                 <span class="price" id="popupPrice">$5.00 USD</span>
                 <p class="text-gray-500 text-sm">(رسوم التسجيل السنوية)</p>
             </div>
             
+            <!-- حاوية PayPal -->
+            <div id="paypal-button-container" class="my-4"></div>
+            
             <div id="paymentStatus" class="text-center py-2 text-sm"></div>
             
-            <button class="btn-confirm" onclick="confirmPayment()" id="confirmPayBtn">
-                ✅ تأكيد الدفع والتسجيل
-            </button>
-            <button class="btn-cancel" onclick="closePayment()">إلغاء</button>
+            <button class="btn-cancel" style="width:100%;padding:12px;background:transparent;color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:12px;cursor:pointer;margin-top:8px;" onclick="closePayment()">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- ===== نافذة تفاصيل المربع ===== -->
+    <div id="squareDetail" class="square-detail-overlay">
+        <div class="square-detail-box">
+            <button onclick="closeSquareDetail()" class="text-gray-400 hover:text-white text-2xl float-left">&times;</button>
+            <div id="squareDetailContent" class="text-center">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
         </div>
     </div>
 
@@ -384,18 +428,54 @@
         // البيانات
         // ============================================
         const sampleSquares = [
-            { id: 1, number: 1, tier: 'platinum', status: 'available', price: 100, category: 'marketing', owner: { name: 'هند القحطاني' }, location: { city: 'المنامة', country: 'قطر' }, content: { title: 'تسويق رقمي متقدم', description: 'خدمات تسويق رقمي متكاملة' }, stats: { views: 1500 }, rating: { average: 4.8, count: 23 } },
-            { id: 2, number: 2, tier: 'gold', status: 'available', price: 10, category: 'programming', owner: { name: 'نورة الحربي' }, location: { city: 'المدينة', country: 'الكويت' }, content: { title: 'برمجة تطبيقات', description: 'تطوير تطبيقات ويب وموبايل' }, stats: { views: 890 }, rating: { average: 4.5, count: 12 } },
-            { id: 3, number: 3, tier: 'gold', status: 'sold', price: 10, category: 'design', owner: { name: 'منى السبيعي' }, location: { city: 'الدوحة', country: 'السعودية' }, content: { title: 'تصميم جرافيك', description: 'تصميم هويات ومواد تسويقية' }, stats: { views: 2100 }, rating: { average: 4.9, count: 34 } },
-            { id: 4, number: 4, tier: 'silver', status: 'available', price: 5, category: 'marketing', owner: { name: 'محمد العمري' }, location: { city: 'جدة', country: 'الإمارات' }, content: { title: 'تسويق عبر التواصل', description: 'استراتيجيات تسويق فعالة' }, stats: { views: 450 }, rating: { average: 4.2, count: 8 } },
-            { id: 5, number: 5, tier: 'platinum', status: 'reserved', price: 100, category: 'programming', owner: { name: 'لمى الشهراني' }, location: { city: 'جدة', country: 'البحرين' }, content: { title: 'برمجة متقدمة', description: 'حلول برمجية مبتكرة' }, stats: { views: 3200 }, rating: { average: 4.7, count: 28 } },
-            { id: 6, number: 6, tier: 'gold', status: 'available', price: 10, category: 'design', owner: { name: 'فهد العتيبي' }, location: { city: 'الرياض', country: 'الكويت' }, content: { title: 'تصميم واجهات', description: 'تصميم واجهات مستخدم جذابة' }, stats: { views: 670 }, rating: { average: 4.3, count: 15 } },
-            { id: 7, number: 7, tier: 'silver', status: 'sold', price: 5, category: 'ai', owner: { name: 'فاطمة الزهراء' }, location: { city: 'دبي', country: 'عُمان' }, content: { title: 'ذكاء اصطناعي', description: 'حلول ذكاء اصطناعي للأعمال' }, stats: { views: 1850 }, rating: { average: 4.6, count: 19 } },
-            { id: 8, number: 8, tier: 'basic', status: 'available', price: 1, category: 'data', owner: { name: 'علي الشمري' }, location: { city: 'الدمام', country: 'البحرين' }, content: { title: 'تحليل بيانات', description: 'تحليل وتصور البيانات' }, stats: { views: 320 }, rating: { average: 4.0, count: 6 } },
-            { id: 9, number: 9, tier: 'basic', status: 'available', price: 1, category: 'webdev', owner: { name: 'سعود الحربي' }, location: { city: 'الكويت', country: 'الإمارات' }, content: { title: 'تطوير ويب', description: 'تطوير مواقع ويب متكاملة' }, stats: { views: 560 }, rating: { average: 4.1, count: 9 } },
-            { id: 10, number: 10, tier: 'gold', status: 'sold', price: 10, category: 'design', owner: { name: 'سارة الخالدي' }, location: { city: 'مكة', country: 'قطر' }, content: { title: 'تصميم جرافيك متقدم', description: 'تصاميم احترافية' }, stats: { views: 1400 }, rating: { average: 4.4, count: 17 } },
-            { id: 11, number: 11, tier: 'gold', status: 'available', price: 10, category: 'cybersecurity', owner: { name: 'خالد المالكي' }, location: { city: 'أبها', country: 'الأردن' }, content: { title: 'أمن سيبراني', description: 'استشارات وحلول أمنية' }, stats: { views: 980 }, rating: { average: 4.7, count: 21 } },
-            { id: 12, number: 12, tier: 'basic', status: 'sold', price: 1, category: 'webdev', owner: { name: 'أحمد محمد' }, location: { city: 'الرياض', country: 'السعودية' }, content: { title: 'تطوير تطبيقات', description: 'تطوير تطبيقات ويب متقدمة' }, stats: { views: 750 }, rating: { average: 4.3, count: 14 } }
+            { id: 1, number: 1, tier: 'platinum', status: 'available', price: 100, category: 'marketing', 
+              owner: { name: 'هند القحطاني', avatar: 'https://i.pravatar.cc/150?img=1', bio: 'خبيرة تسويق رقمي', specialty: 'تسويق رقمي', email: 'hind@example.com', phone: '+966 512345678' }, 
+              location: { city: 'المنامة', country: 'قطر' }, 
+              content: { title: 'تسويق رقمي متقدم', description: 'خدمات تسويق رقمي متكاملة للشركات' }, 
+              stats: { views: 1500 }, rating: { average: 4.8, count: 23 },
+              social: { twitter: '@hind_marketing', linkedin: 'hind-alqahtani', instagram: '@hind_digital' } },
+            { id: 2, number: 2, tier: 'gold', status: 'sold', price: 10, category: 'programming', 
+              owner: { name: 'نورة الحربي', avatar: 'https://i.pravatar.cc/150?img=2', bio: 'مبرمجة تطبيقات', specialty: 'برمجة', email: 'nora@example.com', phone: '+966 554433221' }, 
+              location: { city: 'المدينة', country: 'الكويت' }, 
+              content: { title: 'برمجة تطبيقات', description: 'تطوير تطبيقات ويب وموبايل احترافية' }, 
+              stats: { views: 890 }, rating: { average: 4.5, count: 12 },
+              social: { twitter: '@nora_dev', github: 'nora-codes', linkedin: 'nora-alharbi' } },
+            { id: 3, number: 3, tier: 'gold', status: 'available', price: 10, category: 'design', 
+              owner: { name: 'منى السبيعي', avatar: 'https://i.pravatar.cc/150?img=3', bio: 'مصممة جرافيك', specialty: 'تصميم', email: 'mona@example.com', phone: '+966 598765432' }, 
+              location: { city: 'الدوحة', country: 'السعودية' }, 
+              content: { title: 'تصميم جرافيك احترافي', description: 'تصميم هويات ومواد تسويقية' }, 
+              stats: { views: 2100 }, rating: { average: 4.9, count: 34 },
+              social: { instagram: '@mona_design', behance: 'mona-designs' } },
+            { id: 4, number: 4, tier: 'silver', status: 'available', price: 5, category: 'marketing', 
+              owner: { name: 'محمد العمري', avatar: 'https://i.pravatar.cc/150?img=4', bio: 'استشاري تسويق', specialty: 'تسويق', email: 'mohammed@example.com', phone: '+966 556677889' }, 
+              location: { city: 'جدة', country: 'الإمارات' }, 
+              content: { title: 'تسويق عبر التواصل', description: 'استراتيجيات تسويق فعالة' }, 
+              stats: { views: 450 }, rating: { average: 4.2, count: 8 },
+              social: { twitter: '@mo_marketing', linkedin: 'mohammed-al-omari' } },
+            { id: 5, number: 5, tier: 'platinum', status: 'reserved', price: 100, category: 'programming', 
+              owner: { name: 'لمى الشهراني', avatar: 'https://i.pravatar.cc/150?img=5', bio: 'مهندسة برمجيات', specialty: 'برمجة', email: 'lama@example.com', phone: '+966 501234567' }, 
+              location: { city: 'جدة', country: 'البحرين' }, 
+              content: { title: 'برمجة متقدمة', description: 'حلول برمجية مبتكرة للشركات' }, 
+              stats: { views: 3200 }, rating: { average: 4.7, count: 28 },
+              social: { twitter: '@lama_codes', github: 'lama-dev', linkedin: 'lama-al-shahrani' } },
+            { id: 6, number: 6, tier: 'gold', status: 'available', price: 10, category: 'design', 
+              owner: { name: 'فهد العتيبي', avatar: 'https://i.pravatar.cc/150?img=6', bio: 'مصمم واجهات', specialty: 'تصميم', email: 'fahd@example.com', phone: '+966 553322110' }, 
+              location: { city: 'الرياض', country: 'الكويت' }, 
+              content: { title: 'تصميم واجهات', description: 'تصميم واجهات مستخدم جذابة' }, 
+              stats: { views: 670 }, rating: { average: 4.3, count: 15 },
+              social: { instagram: '@fahd_ux', dribbble: 'fahd-designs' } },
+            { id: 7, number: 7, tier: 'silver', status: 'sold', price: 5, category: 'ai', 
+              owner: { name: 'فاطمة الزهراء', avatar: 'https://i.pravatar.cc/150?img=7', bio: 'خبيرة ذكاء اصطناعي', specialty: 'ذكاء اصطناعي', email: 'fatima@example.com', phone: '+966 598877665' }, 
+              location: { city: 'دبي', country: 'عُمان' }, 
+              content: { title: 'ذكاء اصطناعي', description: 'حلول ذكاء اصطناعي للأعمال' }, 
+              stats: { views: 1850 }, rating: { average: 4.6, count: 19 },
+              social: { twitter: '@fatima_ai', linkedin: 'fatima-al-zahra' } },
+            { id: 8, number: 8, tier: 'basic', status: 'available', price: 1, category: 'data', 
+              owner: { name: 'علي الشمري', avatar: 'https://i.pravatar.cc/150?img=8', bio: 'محلل بيانات', specialty: 'تحليل بيانات', email: 'ali@example.com', phone: '+966 567890123' }, 
+              location: { city: 'الدمام', country: 'البحرين' }, 
+              content: { title: 'تحليل بيانات', description: 'تحليل وتصور البيانات' }, 
+              stats: { views: 320 }, rating: { average: 4.0, count: 6 },
+              social: { twitter: '@ali_data', linkedin: 'ali-al-shamri' } }
         ];
 
         // ============================================
@@ -406,9 +486,10 @@
         let filteredSquares = [...sampleSquares];
         let isLoggedIn = false;
         let currentUser = null;
-        let selectedPaymentMethod = 'paypal';
         let userData = {};
         let isPaymentCompleted = false;
+        let selectedSquare = null;
+        let paypalRendered = false;
 
         // ============================================
         // دوال الإشعارات
@@ -432,7 +513,6 @@
             const statusText = document.getElementById('authStatusText');
             
             if (isLoggedIn) {
-                // تسجيل الخروج
                 isLoggedIn = false;
                 currentUser = null;
                 localStorage.removeItem('million_squares_session');
@@ -477,7 +557,6 @@
                 return;
             }
             
-            // حفظ بيانات المستخدم مؤقتاً
             userData = { fullName, companyName: document.getElementById('companyName').value.trim(), email, password };
             
             // فتح نافذة الدفع
@@ -525,10 +604,10 @@
         }
 
         // ============================================
-        // دوال الدفع الإلزامي
+        // دوال الدفع مع PayPal
         // ============================================
         function openPayment(method) {
-            // التحقق من وجود بيانات المستخدم
+            // التحقق من بيانات المستخدم
             if (!userData.fullName) {
                 const fullName = document.getElementById('fullName').value.trim();
                 const email = document.getElementById('email').value.trim();
@@ -548,88 +627,165 @@
                 };
             }
             
-            selectedPaymentMethod = method;
-            isPaymentCompleted = false;
-            
-            // تحديث نافذة الدفع
+            // فتح نافذة الدفع
             const popup = document.getElementById('paymentPopup');
-            const title = document.getElementById('popupTitle');
-            const icon = document.getElementById('methodIcon');
-            const name = document.getElementById('methodName');
-            const desc = document.getElementById('methodDesc');
-            const price = document.getElementById('popupPrice');
-            const confirmBtn = document.getElementById('confirmPayBtn');
-            
-            const methods = {
-                paypal: { title: '💳 الدفع عبر PayPal', icon: '💳', name: 'PayPal', desc: 'سيتم توجيهك إلى PayPal لإتمام الدفع', price: '$5.00 USD', btn: '💳 الدفع عبر PayPal' },
-                stripe: { title: '💳 الدفع عبر Stripe', icon: '💳', name: 'Stripe', desc: 'ادفع بأمان باستخدام بطاقتك الائتمانية', price: '$5.00 USD', btn: '💳 الدفع عبر Stripe' },
-                crypto: { title: '💳 الدفع بـ USDT', icon: '₿', name: 'USDT (TRC20)', desc: 'ادفع باستخدام العملات الرقمية المستقرة', price: '5 USDT', btn: '₿ الدفع بـ USDT' }
-            };
-            
-            const data = methods[method] || methods.paypal;
-            title.textContent = data.title;
-            icon.textContent = data.icon;
-            name.textContent = data.name;
-            desc.textContent = data.desc;
-            price.textContent = data.price;
-            confirmBtn.innerHTML = data.btn;
-            
+            document.getElementById('popupTitle').textContent = method === 'paypal' ? '💳 الدفع عبر PayPal' : 
+                                                              method === 'stripe' ? '💳 الدفع عبر Stripe' : '💳 الدفع بـ USDT';
+            document.getElementById('popupPrice').textContent = '$5.00 USD';
             document.getElementById('paymentStatus').textContent = '';
             popup.classList.add('active');
+            
+            // تهيئة PayPal
+            if (method === 'paypal') {
+                initPayPalButton();
+            } else {
+                // لـ Stripe و Crypto نعرض زر بديل
+                const container = document.getElementById('paypal-button-container');
+                container.innerHTML = `
+                    <button onclick="simulatePayment('${method}')" 
+                            style="background:${method === 'stripe' ? '#635bff' : '#f7931a'};color:#fff;padding:14px 30px;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:1rem;width:100%;">
+                        <i class="fas fa-check"></i> تأكيد الدفع والتسجيل
+                    </button>
+                `;
+            }
         }
 
         function closePayment() {
             document.getElementById('paymentPopup').classList.remove('active');
             document.getElementById('paymentStatus').textContent = '';
+            document.getElementById('paypal-button-container').innerHTML = '';
+            paypalRendered = false;
         }
 
-        function confirmPayment() {
-            const status = document.getElementById('paymentStatus');
-            status.textContent = '⏳ جاري معالجة الدفع...';
-            status.style.color = '#ffd700';
+        // ===== PayPal Button =====
+        function initPayPalButton() {
+            const container = document.getElementById('paypal-button-container');
+            
+            if (typeof paypal === 'undefined') {
+                container.innerHTML = '<p style="color:rgba(255,255,255,0.4);text-align:center;">⏳ جاري تحميل PayPal...</p>';
+                setTimeout(() => initPayPalButton(), 1000);
+                return;
+            }
+            
+            if (paypalRendered) return;
+            paypalRendered = true;
+            
+            try {
+                paypal.Buttons({
+                    style: {
+                        layout: 'vertical',
+                        color: 'gold',
+                        shape: 'rect',
+                        label: 'paypal',
+                        height: 48,
+                        tagline: false
+                    },
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '5.00',
+                                    currency_code: 'USD'
+                                },
+                                description: 'اشتراك مليون مربع - تسجيل جديد',
+                                custom_id: 'register_' + Date.now()
+                            }],
+                            application_context: {
+                                shipping_preference: 'NO_SHIPPING',
+                                brand_name: 'Million Squares',
+                                locale: 'ar_SA'
+                            }
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            document.getElementById('paymentStatus').innerHTML = `
+                                <span style="color:#4CAF50;font-weight:700;">
+                                    ✅ تم الدفع بنجاح!
+                                </span>
+                            `;
+                            completeRegistration(details, 'PayPal');
+                        });
+                    },
+                    onError: function(err) {
+                        console.error('PayPal Error:', err);
+                        document.getElementById('paymentStatus').innerHTML = `
+                            <span style="color:#f44336;font-weight:700;">
+                                ❌ حدث خطأ في الدفع
+                            </span>
+                        `;
+                        showToast('⚠️ حدث خطأ في الدفع، يرجى المحاولة مرة أخرى', 'error');
+                    },
+                    onCancel: function() {
+                        showToast('تم إلغاء عملية الدفع', 'warning');
+                    }
+                }).render(container);
+            } catch (e) {
+                console.error('PayPal init error:', e);
+                container.innerHTML = `
+                    <button onclick="simulatePayment('paypal')" 
+                            style="background:#4CAF50;color:#fff;padding:14px 30px;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:1rem;width:100%;">
+                        <i class="fas fa-check"></i> تأكيد الدفع (بديل)
+                    </button>
+                `;
+            }
+        }
+
+        // ===== محاكاة الدفع =====
+        function simulatePayment(method) {
+            document.getElementById('paymentStatus').innerHTML = `
+                <span style="color:#ffd700;font-weight:700;">
+                    ⏳ جاري معالجة الدفع...
+                </span>
+            `;
             
             setTimeout(() => {
-                status.textContent = '✅ تم الدفع بنجاح!';
-                status.style.color = '#4CAF50';
-                isPaymentCompleted = true;
-                
-                // إنشاء الحساب بعد الدفع
-                const user = {
-                    id: Date.now(),
-                    name: userData.fullName,
-                    email: userData.email,
-                    company: userData.companyName,
-                    password: userData.password,
-                    paymentMethod: selectedPaymentMethod,
-                    paymentId: 'pay_' + Date.now(),
-                    registeredAt: new Date().toISOString(),
-                    status: 'active'
-                };
-                
-                // حفظ في localStorage
-                let users = JSON.parse(localStorage.getItem('million_squares_users') || '[]');
-                users.push(user);
-                localStorage.setItem('million_squares_users', JSON.stringify(users));
-                
-                // تسجيل الدخول
-                loginUser(user);
-                
-                setTimeout(() => {
-                    closePayment();
-                    showToast('🎉 تم إنشاء حسابك بنجاح!', 'success');
-                }, 500);
+                document.getElementById('paymentStatus').innerHTML = `
+                    <span style="color:#4CAF50;font-weight:700;">
+                        ✅ تم الدفع بنجاح!
+                    </span>
+                `;
+                completeRegistration({ id: 'sim_' + Date.now() }, method);
             }, 1500);
         }
 
-        // ============================================
-        // الدعم
-        // ============================================
-        function openSupport() {
-            showToast('💝 شكراً لدعمك! سيتم إضافة ميزة الدعم قريباً', 'info');
+        // ===== إتمام التسجيل بعد الدفع =====
+        function completeRegistration(paymentDetails, method) {
+            const methodNames = { paypal: 'PayPal', stripe: 'Stripe', crypto: 'USDT' };
+            const methodName = methodNames[method] || method;
+            
+            showToast(`✅ تم الدفع بنجاح عبر ${methodName}! 🎉`, 'success');
+            closePayment();
+            
+            // إنشاء الحساب
+            const user = {
+                id: Date.now(),
+                name: userData.fullName,
+                email: userData.email,
+                company: userData.companyName,
+                password: userData.password,
+                paymentMethod: methodName,
+                paymentId: paymentDetails.id || 'pay_' + Date.now(),
+                registeredAt: new Date().toISOString(),
+                status: 'active',
+                avatar: `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70) + 1}`
+            };
+            
+            // حفظ في localStorage
+            let users = JSON.parse(localStorage.getItem('million_squares_users') || '[]');
+            users.push(user);
+            localStorage.setItem('million_squares_users', JSON.stringify(users));
+            
+            // تسجيل الدخول
+            loginUser(user);
+            
+            setTimeout(() => {
+                showToast('🎉 تم إنشاء حسابك بنجاح!', 'success');
+            }, 500);
         }
 
         // ============================================
-        // عرض المربعات
+        // دوال عرض المربعات مع الصور والتفاصيل
         // ============================================
         function renderSquares() {
             const container = document.getElementById('squaresContainer');
@@ -655,36 +811,60 @@
                 const statusClass = `status-${square.status}`;
                 const statusText = { available: '🟢 متاح', sold: '🔴 مباع', reserved: '🟡 محجوز' }[square.status] || square.status;
                 const stars = '★'.repeat(Math.round(square.rating.average)) + '☆'.repeat(5 - Math.round(square.rating.average));
+                const avatar = square.owner.avatar || `https://i.pravatar.cc/150?img=${square.id}`;
+                const isSold = square.status === 'sold';
 
                 return `
-                    <div class="square-card rounded-xl p-4">
+                    <div class="square-card rounded-xl p-4" onclick="showSquareDetail(${square.id})">
+                        <!-- نافذة منبثقة عند التمرير -->
+                        <div class="hover-popup">
+                            <img src="${avatar}" alt="${square.owner.name}" class="avatar-sm">
+                            <div class="name">${square.owner.name}</div>
+                            <div class="desc">${square.owner.bio || square.category}</div>
+                            <div class="social-icons">
+                                ${square.social?.twitter ? `<a href="https://twitter.com/${square.social.twitter.replace('@', '')}" target="_blank"><i class="fab fa-twitter"></i></a>` : ''}
+                                ${square.social?.linkedin ? `<a href="https://linkedin.com/in/${square.social.linkedin}" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                                ${square.social?.instagram ? `<a href="https://instagram.com/${square.social.instagram.replace('@', '')}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
+                                ${square.social?.github ? `<a href="https://github.com/${square.social.github}" target="_blank"><i class="fab fa-github"></i></a>` : ''}
+                            </div>
+                        </div>
+                        
                         <div class="flex justify-between items-start mb-3">
                             <span class="text-3xl">${tierEmojis[square.tier]}</span>
                             <span class="status-badge ${statusClass}">${statusText}</span>
                         </div>
-                        <h3 class="font-bold text-white text-lg">${square.content.title}</h3>
-                        <div class="flex items-center gap-2 text-gray-400 text-sm mt-1">
-                            <i class="fas fa-user text-blue-400"></i>
-                            <span>${square.owner.name}</span>
+                        
+                        <div class="flex items-center gap-3 mb-3">
+                            <img src="${avatar}" alt="${square.owner.name}" class="w-12 h-12 rounded-full border-2 border-yellow-500 object-cover">
+                            <div>
+                                <h3 class="font-bold text-white text-base">${square.owner.name}</h3>
+                                <p class="text-gray-400 text-xs">${square.owner.bio || square.category}</p>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2 text-gray-400 text-sm">
-                            <i class="fas fa-map-marker-alt text-red-400"></i>
-                            <span>${square.location.city}, ${square.location.country}</span>
+                        
+                        <div class="text-sm text-gray-400 space-y-1">
+                            <p><i class="fas fa-tag text-purple-400 w-5"></i> ${square.category}</p>
+                            <p><i class="fas fa-map-marker-alt text-red-400 w-5"></i> ${square.location.city}, ${square.location.country}</p>
                         </div>
-                        <div class="flex items-center gap-2 text-gray-400 text-sm">
-                            <i class="fas fa-tag text-purple-400"></i>
-                            <span>${square.category}</span>
-                        </div>
+                        
                         <div class="flex items-center gap-2 text-sm text-gray-400 mt-2">
                             <span class="stars">${stars}</span>
                             <span>(${square.rating.count})</span>
                         </div>
+                        
                         <div class="flex justify-between items-center mt-3 pt-3 border-t border-white/10">
                             <div class="flex items-center gap-3 text-sm text-gray-400">
                                 <span><i class="far fa-eye"></i> ${square.stats.views}</span>
+                                ${isLoggedIn ? `<span><i class="far fa-star text-yellow-500"></i> ${square.rating.average}</span>` : ''}
                             </div>
                             <div class="font-bold text-yellow-400">$${square.price}/سنة</div>
                         </div>
+                        
+                        ${!isLoggedIn && square.status === 'available' ? `
+                            <div class="mt-2 text-center text-xs text-gray-500">
+                                <i class="fas fa-lock"></i> سجل وادفع لشراء هذا المربع
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             }).join('');
@@ -692,6 +872,73 @@
             renderPagination();
         }
 
+        // ============================================
+        // عرض تفاصيل المربع عند الضغط
+        // ============================================
+        function showSquareDetail(id) {
+            const square = sampleSquares.find(s => s.id === id);
+            if (!square) return;
+            
+            selectedSquare = square;
+            const overlay = document.getElementById('squareDetail');
+            const content = document.getElementById('squareDetailContent');
+            const avatar = square.owner.avatar || `https://i.pravatar.cc/150?img=${square.id}`;
+            const stars = '★'.repeat(Math.round(square.rating.average)) + '☆'.repeat(5 - Math.round(square.rating.average));
+            
+            content.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <img src="${avatar}" alt="${square.owner.name}" class="avatar">
+                    <h2 class="text-2xl font-bold text-white mt-3">${square.owner.name}</h2>
+                    <p class="text-gray-400">${square.owner.bio || 'عضو في مليون مربع'}</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 w-full mt-4 text-right">
+                        <div><span class="text-gray-400">📧 البريد:</span> <span class="text-white">${square.owner.email || 'غير متاح'}</span></div>
+                        <div><span class="text-gray-400">📱 الهاتف:</span> <span class="text-white">${square.owner.phone || 'غير متاح'}</span></div>
+                        <div><span class="text-gray-400">📍 الموقع:</span> <span class="text-white">${square.location.city}, ${square.location.country}</span></div>
+                        <div><span class="text-gray-400">🏷️ الفئة:</span> <span class="text-white">${square.category}</span></div>
+                        <div><span class="text-gray-400">⭐ التقييم:</span> <span class="text-white">${stars} (${square.rating.count})</span></div>
+                        <div><span class="text-gray-400">👁️ المشاهدات:</span> <span class="text-white">${square.stats.views}</span></div>
+                        <div><span class="text-gray-400">💰 السعر:</span> <span class="text-yellow-400 font-bold">$${square.price}/سنة</span></div>
+                        <div><span class="text-gray-400">📊 الحالة:</span> <span class="status-badge ${square.status === 'available' ? 'status-available' : square.status === 'sold' ? 'status-sold' : 'status-reserved'}">${square.status === 'available' ? '🟢 متاح' : square.status === 'sold' ? '🔴 مباع' : '🟡 محجوز'}</span></div>
+                    </div>
+                    
+                    <div class="w-full mt-4 pt-4 border-t border-white/10">
+                        <p class="text-gray-400 text-sm">📝 ${square.content.description || 'لا يوجد وصف'}</p>
+                    </div>
+                    
+                    <div class="flex gap-4 mt-4 flex-wrap justify-center">
+                        ${square.social?.twitter ? `<a href="https://twitter.com/${square.social.twitter.replace('@', '')}" target="_blank" class="social-link"><i class="fab fa-twitter"></i> تويتر</a>` : ''}
+                        ${square.social?.linkedin ? `<a href="https://linkedin.com/in/${square.social.linkedin}" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i> لينكد إن</a>` : ''}
+                        ${square.social?.instagram ? `<a href="https://instagram.com/${square.social.instagram.replace('@', '')}" target="_blank" class="social-link"><i class="fab fa-instagram"></i> إنستغرام</a>` : ''}
+                        ${square.social?.github ? `<a href="https://github.com/${square.social.github}" target="_blank" class="social-link"><i class="fab fa-github"></i> جيت هاب</a>` : ''}
+                    </div>
+                    
+                    ${square.status === 'available' && !isLoggedIn ? `
+                        <button onclick="document.getElementById('squareDetail').classList.remove('active');toggleRegister()" 
+                                class="mt-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-lg transition text-white font-bold">
+                            <i class="fas fa-user-plus"></i> سجل وادفع لشراء هذا المربع
+                        </button>
+                    ` : square.status === 'available' && isLoggedIn ? `
+                        <button onclick="alert('سيتم توجيهك لصفحة الدفع لشراء المربع #${square.number}')" 
+                                class="mt-4 px-6 py-2 bg-gradient-to-r from-green-500 to-green-700 rounded-full hover:shadow-lg transition text-white font-bold">
+                            <i class="fas fa-shopping-cart"></i> شراء المربع #${square.number}
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+            
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSquareDetail() {
+            document.getElementById('squareDetail').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ============================================
+        // الترقيم والفلاتر
+        // ============================================
         function renderPagination() {
             const totalPages = Math.ceil(filteredSquares.length / itemsPerPage);
             const pagination = document.getElementById('pagination');
@@ -719,9 +966,6 @@
             window.scrollTo({ top: 400, behavior: 'smooth' });
         }
 
-        // ============================================
-        // الفلاتر
-        // ============================================
         function filterSquares() {
             const search = document.getElementById('searchInput').value.toLowerCase();
             const tier = document.getElementById('tierFilter').value;
@@ -730,7 +974,8 @@
             filteredSquares = sampleSquares.filter(square => {
                 const matchesSearch = square.content.title.toLowerCase().includes(search) ||
                                     square.content.description.toLowerCase().includes(search) ||
-                                    square.owner.name.toLowerCase().includes(search);
+                                    square.owner.name.toLowerCase().includes(search) ||
+                                    square.owner.bio?.toLowerCase().includes(search);
                 const matchesTier = tier === 'all' || square.tier === tier;
                 const matchesStatus = status === 'all' || square.status === status;
                 return matchesSearch && matchesTier && matchesStatus;
@@ -754,17 +999,17 @@
             checkSession();
             filterSquares();
             
-            // ربط الأحداث
             document.getElementById('searchInput').addEventListener('input', filterSquares);
             document.getElementById('tierFilter').addEventListener('change', filterSquares);
             document.getElementById('statusFilter').addEventListener('change', filterSquares);
             
-            // تحديث الإحصائيات
             updateUI();
             
             console.log('🏆 مليون مربع - المنصة المتكاملة مع الدفع الإلزامي');
             console.log('✅ تم تحميل الموقع مع نظام التسجيل والدفع');
             console.log('⚠️ لا يمكن التسجيل بدون دفع');
+            console.log('👤 يتم عرض صورة المشترك واسمه عند التمرير');
+            console.log('📋 يتم عرض التفاصيل عند الضغط على المربع');
         });
 
         // ============================================
@@ -774,8 +1019,10 @@
         window.handleRegister = handleRegister;
         window.openPayment = openPayment;
         window.closePayment = closePayment;
-        window.confirmPayment = confirmPayment;
-        window.openSupport = openSupport;
+        window.simulatePayment = simulatePayment;
+        window.completeRegistration = completeRegistration;
+        window.showSquareDetail = showSquareDetail;
+        window.closeSquareDetail = closeSquareDetail;
         window.goToPage = goToPage;
         window.resetFilters = resetFilters;
         window.filterSquares = filterSquares;
