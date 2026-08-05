@@ -426,7 +426,7 @@
         .language-item.active { background: rgba(102, 126, 234, 0.25); color: #fff; border-right: 3px solid #667eea; }
         .language-item .check { color: #48bb78; font-size: 1rem; }
         
-        /* ======== المربعات - محسنة للتمرير اللانهائي ======== */
+        /* ======== المربعات - محسنة للتمرير السلس ======== */
         .mini-square {
             aspect-ratio: 1;
             border-radius: 10px;
@@ -462,14 +462,17 @@
         }
         .mini-square .square-emoji { font-size: 1.6rem; }
         
-        /* ======== حاوية التمرير اللانهائي ======== */
+        /* ======== حاوية التمرير - محسنة للتمرير السلس ======== */
         .scroll-container {
             overflow-x: auto;
+            overflow-y: hidden;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
             padding: 8px 0;
             position: relative;
             cursor: grab;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.05);
         }
         .scroll-container:active {
             cursor: grabbing;
@@ -487,6 +490,14 @@
         }
         .scroll-container::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(90deg, #764ba2, #667eea);
+        }
+        
+        /* ======== الشبكة - عرض ديناميكي ======== */
+        #squaresGrid {
+            display: grid;
+            gap: 10px;
+            width: max-content;
+            min-width: 100%;
         }
         
         /* ======== باقي الأنماط ======== */
@@ -930,7 +941,8 @@
             .pinterest-btn-container a { font-size: 0.7rem; padding: 5px 12px; }
             .toast { max-width: 90vw; font-size: 0.8rem; padding: 12px 16px; }
             .scroll-indicator .bar { width: 50px; }
-            #squaresGrid { grid-template-columns: repeat(100, 70px) !important; gap: 6px !important; }
+            #squaresGrid { gap: 6px !important; }
+            .mini-square { min-width: 55px; min-height: 55px; }
             .subscription-card { padding: 16px 12px; }
             .subscription-card .tier-icon { font-size: 2rem; }
             .subscription-card .features li { font-size: 0.7rem; }
@@ -945,8 +957,8 @@
             .container { padding: 8px !important; }
             .grid-cols-2 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .grid-cols-5 { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-            #squaresGrid { grid-template-columns: repeat(100, 55px) !important; gap: 4px !important; }
-            .mini-square { min-width: 50px; min-height: 50px; font-size: 0.6rem; border-radius: 6px; }
+            #squaresGrid { gap: 4px !important; }
+            .mini-square { min-width: 45px; min-height: 45px; font-size: 0.6rem; border-radius: 6px; }
             .mini-square .square-emoji { font-size: 1rem; }
             .mini-square .square-number { font-size: 0.4rem; }
             .language-btn { min-width: 80px; font-size: 0.65rem; padding: 4px 8px; }
@@ -1145,31 +1157,31 @@
             </div>
         </div>
         
-        <!-- ======== شبكة المربعات - تمرير لانهائي ======== -->
+        <!-- ======== شبكة المربعات - تمرير سلس ومتتالي ======== -->
         <div class="glass-effect p-3 sm:p-4 mb-4 sm:mb-6">
             <div class="flex justify-between items-center mb-3 sm:mb-4">
                 <h3 class="font-bold text-sm sm:text-base" id="squaresGridTitle">🗂️ المربعات</h3>
-                <div class="flex gap-1 sm:gap-2 items-center">
-                    <span class="text-xs sm:text-sm text-gray-400" id="squarePageInfo">1 / 10000</span>
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <span class="text-xs sm:text-sm text-gray-400" id="squarePageInfo">0 / 0</span>
                 </div>
             </div>
             
-            <!-- حاوية التمرير اللانهائي -->
+            <!-- حاوية التمرير -->
             <div id="squaresScroll" class="scroll-container">
-                <div id="squaresGrid" class="grid" style="grid-template-columns: repeat(100, 110px); gap: 8px; width: 100%;">
+                <div id="squaresGrid" style="display:flex; gap:10px; padding:4px;">
                     <!-- سيتم ملؤها بـ JavaScript -->
                 </div>
             </div>
             
             <div class="flex justify-between items-center mt-3 sm:mt-4 text-xs sm:text-sm text-gray-400">
-                <span id="scrollInfo">عرض 100 من 1,000,000</span>
+                <span id="scrollInfo">جاري تحميل المربعات...</span>
                 <div class="scroll-indicator">
                     <span id="scrollPercent">0%</span>
                     <div class="bar"><div class="fill" id="scrollFill" style="width:0%"></div></div>
                 </div>
             </div>
             
-            <!-- مؤشر تحميل المزيد -->
+            <!-- مؤشر التحميل -->
             <div id="loadingMore" class="text-center py-2 text-gray-400 text-sm hidden">
                 <i class="fas fa-spinner fa-spin"></i> جاري تحميل المزيد من المربعات...
             </div>
@@ -1695,14 +1707,14 @@
         }
         
         // ============================================
-        // توليد البيانات - توليد مليون مربع بشكل افتراضي
+        // توليد المربعات - ديناميكي
         // ============================================
-        function generateSquares(count = 1000000) {
+        function generateSquares(startNumber, count) {
             const squares = [];
-            const totalToGenerate = Math.min(count, 1000000);
             const tierKeys = Object.keys(TIERS);
             
-            for (let i = 0; i < totalToGenerate; i++) {
+            for (let i = 0; i < count; i++) {
+                const number = startNumber + i;
                 const tier = tierKeys[Math.floor(Math.random() * tierKeys.length)];
                 const statuses = ['available', 'sold', 'reserved'];
                 const status = statuses[Math.floor(Math.random() * statuses.length)];
@@ -1713,17 +1725,17 @@
                 const city = CITIES[Math.floor(Math.random() * CITIES.length)];
                 
                 squares.push({
-                    id: i + 1,
-                    number: i + 1,
+                    id: number,
+                    number: number,
                     tier: tier,
                     status: status,
                     price: TIERS[tier].price,
                     category: category,
                     owner: {
                         name: `${name} ${surname}`,
-                        email: `user${i+1}@example.com`,
+                        email: `user${number}@example.com`,
                         phone: `+966 5${Math.floor(Math.random() * 10000000).toString().padStart(7, '0')}`,
-                        avatar: `https://i.pravatar.cc/100?img=${(i % 70) + 1}`
+                        avatar: `https://i.pravatar.cc/100?img=${(number % 70) + 1}`
                     },
                     location: { city, country },
                     content: {
@@ -1752,15 +1764,8 @@
         // ============================================
         // الحالة العامة
         // ============================================
-        // تحميل البيانات المخزنة أو توليد 1000 مربع فقط في البداية
-        let allSquares = loadFromStorage('squares', generateSquares(1000));
-        // إذا كان عدد المربعات أقل من 1000، نضيف المزيد
-        if (allSquares.length < 1000) {
-            const additionalSquares = generateSquares(1000 - allSquares.length);
-            allSquares = allSquares.concat(additionalSquares);
-            saveToStorage('squares', allSquares);
-        }
-        
+        // بدء بـ 2000 مربع أولاً
+        let allSquares = loadFromStorage('squares', generateSquares(1, 2000));
         let filteredSquares = [...allSquares];
         let currentPage = 1;
         const itemsPerPage = 8;
@@ -1770,12 +1775,11 @@
         let selectedSquareForPurchase = null;
         let currentContact = null;
         let currentSquarePage = 0;
-        const squaresPerPage = 100;
-        let autoScrollInterval = null;
-        let selectedSupportPlan = null;
+        const squaresPerPage = 200; // عرض 200 مربع في كل مرة
+        let totalSquaresLoaded = allSquares.length;
+        const totalSquaresTarget = 1000000;
         let isLoadingMore = false;
-        let totalSquaresLoaded = 1000; // عدد المربعات المحملة حالياً
-        const totalSquaresTarget = 1000000; // الهدف النهائي مليون مربع
+        let lastLoadedIndex = totalSquaresLoaded;
         
         // بيانات المسؤول
         let adminData = loadFromStorage('adminData', {
@@ -1904,7 +1908,7 @@
                 logoutBtn: 'تسجيل الخروج',
                 allTiers: 'جميع الفئات', allCategories: 'جميع المجالات', allStatus: 'جميع الحالات',
                 statusAvailable: '🟢 متاح', statusSold: '🔴 مباع', statusReserved: '🟡 محجوز',
-                resetBtn: '↺ إعادة', scrollInfo: 'عرض 100 من 1,000,000', scrollHint: 'اسحب للتنقل',
+                resetBtn: '↺ إعادة', scrollInfo: 'عرض {displayed} من {total} مربع',
                 catMarketing: 'تسويق', catProgramming: 'برمجة', catDesign: 'تصميم',
                 catAI: 'ذكاء اصطناعي', catData: 'تحليل بيانات', catSecurity: 'أمن سيبراني',
                 catWebDev: 'تطوير ويب', catGaming: 'ألعاب',
@@ -2025,7 +2029,8 @@
                 supportMonthly: '🌟 دعم شهري - $1,000',
                 supportYearly: '👑 دعم سنوي - $10,000',
                 supportSecure: '🔒 دفع آمن عبر PayPal',
-                sponsorBtnText: '🌟 ادعم المنصة واظهر في شريط الإعلانات'
+                sponsorBtnText: '🌟 ادعم المنصة واظهر في شريط الإعلانات',
+                loadingMore: 'جاري تحميل المزيد من المربعات...'
             },
             en: {
                 siteTitle: 'Million Squares', siteSubtitle: '✨ The First Interactive Visual Platform in the Arab World',
@@ -2078,7 +2083,7 @@
                 logoutBtn: 'Logout',
                 allTiers: 'All Tiers', allCategories: 'All Categories', allStatus: 'All Status',
                 statusAvailable: '🟢 Available', statusSold: '🔴 Sold', statusReserved: '🟡 Reserved',
-                resetBtn: '↺ Reset', scrollInfo: 'Showing 100 of 1,000,000', scrollHint: 'Drag to navigate',
+                resetBtn: '↺ Reset', scrollInfo: 'Showing {displayed} of {total} squares',
                 catMarketing: 'Marketing', catProgramming: 'Programming', catDesign: 'Design',
                 catAI: 'AI', catData: 'Data Analysis', catSecurity: 'Cybersecurity',
                 catWebDev: 'Web Development', catGaming: 'Gaming',
@@ -2195,7 +2200,8 @@
                 supportMonthly: '🌟 Monthly Support - $1,000',
                 supportYearly: '👑 Yearly Support - $10,000',
                 supportSecure: '🔒 Secure payment via PayPal',
-                sponsorBtnText: '🌟 Support the platform and appear in the ad banner'
+                sponsorBtnText: '🌟 Support the platform and appear in the ad banner',
+                loadingMore: 'Loading more squares...'
             }
         };
         
@@ -2270,7 +2276,7 @@
                 logoutBtn: 'logoutBtn',
                 allTiers: 'allTiers', allCategories: 'allCategories', allStatus: 'allStatus',
                 statusAvailable: 'statusAvailable', statusSold: 'statusSold', statusReserved: 'statusReserved',
-                resetBtn: 'resetBtn', scrollInfo: 'scrollInfo', scrollHint: 'scrollHint',
+                resetBtn: 'resetBtn', scrollInfo: 'scrollInfo',
                 catMarketing: 'catMarketing', catProgramming: 'catProgramming', catDesign: 'catDesign',
                 catAI: 'catAI', catData: 'catData', catSecurity: 'catSecurity',
                 catWebDev: 'catWebDev', catGaming: 'catGaming',
@@ -2342,7 +2348,8 @@
                 supporterFormTitle: 'supporterFormTitle',
                 supportWeekly: 'supportWeekly', supportMonthly: 'supportMonthly',
                 supportYearly: 'supportYearly', supportSecure: 'supportSecure',
-                sponsorBtnText: 'sponsorBtnText'
+                sponsorBtnText: 'sponsorBtnText',
+                loadingMore: 'loadingMore'
             };
             
             for (const [key, id] of Object.entries(elements)) {
@@ -2502,7 +2509,7 @@
         function renderAll() {
             renderSubscriptionPlans();
             renderAdSlider();
-            renderSquaresGrid();
+            renderSquaresGrid(true);
             filterSquares();
             updateStats();
             renderSupportersModal();
@@ -2510,29 +2517,22 @@
             renderSuggestions();
             renderSocialIcons();
             translateAllElements();
-            startInfiniteScroll();
+            setupInfiniteScroll();
         }
         
         // ============================================
         // دوال التمرير اللانهائي
         // ============================================
-        function startInfiniteScroll() {
+        function setupInfiniteScroll() {
             const container = document.getElementById('squaresScroll');
             if (!container) return;
             
             // إزالة المستمعين السابقين
-            container.removeEventListener('scroll', handleInfiniteScroll);
-            container.removeEventListener('wheel', handleWheelScroll);
-            
-            // إضافة المستمعين الجدد
-            container.addEventListener('scroll', handleInfiniteScroll);
-            container.addEventListener('wheel', handleWheelScroll);
-            
-            // بدء التمرير التلقائي البطيء
-            startAutoSlowScroll();
+            container.removeEventListener('scroll', handleScroll);
+            container.addEventListener('scroll', handleScroll);
         }
         
-        function handleInfiniteScroll() {
+        function handleScroll() {
             const container = document.getElementById('squaresScroll');
             if (!container) return;
             
@@ -2547,133 +2547,80 @@
                 document.getElementById('scrollFill').style.width = percent + '%';
             }
             
-            // التحقق إذا كنا قريبين من نهاية التمرير (آخر 200 بكسل)
-            if (scrollLeft + clientWidth >= scrollWidth - 200) {
+            // التحقق من الوصول للنهاية
+            if (scrollLeft + clientWidth >= scrollWidth - 300) {
                 loadMoreSquares();
             }
         }
         
-        function handleWheelScroll(e) {
-            // عند استخدام عجلة الماوس للتمرير لليمين/اليسار
-            const container = document.getElementById('squaresScroll');
-            if (!container) return;
-            
-            // التمرير العمودي للماوس يحاكي التمرير الأفقي
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.preventDefault();
-                container.scrollLeft += e.deltaY * 0.5;
-            }
-            
-            // إيقاف التمرير التلقائي عند التفاعل
-            stopAutoSlowScroll();
-            setTimeout(startAutoSlowScroll, 3000);
-        }
-        
-        let autoScrollTimer = null;
-        let autoScrollDirection = 1;
-        
-        function startAutoSlowScroll() {
-            stopAutoSlowScroll();
-            
-            autoScrollTimer = setInterval(() => {
-                const container = document.getElementById('squaresScroll');
-                if (!container) return;
-                
-                const scrollLeft = container.scrollLeft;
-                const maxScroll = container.scrollWidth - container.clientWidth;
-                
-                if (maxScroll <= 0) return;
-                
-                // تغيير الاتجاه عند الوصول للنهاية
-                if (scrollLeft >= maxScroll - 10) {
-                    autoScrollDirection = -1;
-                } else if (scrollLeft <= 0) {
-                    autoScrollDirection = 1;
-                }
-                
-                container.scrollLeft += autoScrollDirection * 1.5;
-            }, 30);
-        }
-        
-        function stopAutoSlowScroll() {
-            if (autoScrollTimer) {
-                clearInterval(autoScrollTimer);
-                autoScrollTimer = null;
-            }
-        }
-        
-        // تحميل المزيد من المربعات (وصولاً إلى مليون)
         function loadMoreSquares() {
             if (isLoadingMore) return;
             if (allSquares.length >= totalSquaresTarget) {
-                showToast('🎉 تم تحميل جميع المربعات! (1,000,000 مربع)', 'success');
                 return;
             }
             
             isLoadingMore = true;
             document.getElementById('loadingMore').classList.remove('hidden');
+            document.getElementById('loadingMore').textContent = getTranslation('loadingMore', 'جاري تحميل المزيد من المربعات...');
             
-            // محاكاة تحميل المزيد من المربعات
+            // محاكاة تحميل المزيد
             setTimeout(() => {
                 const currentCount = allSquares.length;
-                // زيادة عدد المربعات بمقدار 1000 في كل مرة
-                const additionalCount = Math.min(1000, totalSquaresTarget - currentCount);
-                const newSquares = generateSquares(additionalCount);
-                
-                // إضافة المربعات الجديدة مع ترقيم مستمر
-                newSquares.forEach((square, index) => {
-                    square.number = currentCount + index + 1;
-                    square.id = currentCount + index + 1;
-                });
+                const additionalCount = Math.min(200, totalSquaresTarget - currentCount);
+                const newSquares = generateSquares(currentCount + 1, additionalCount);
                 
                 allSquares = allSquares.concat(newSquares);
                 saveToStorage('squares', allSquares);
                 
                 // تحديث العرض
-                filteredSquares = [...allSquares];
-                renderSquaresGrid();
+                renderSquaresGrid(false);
                 updateStats();
                 
                 document.getElementById('loadingMore').classList.add('hidden');
                 isLoadingMore = false;
                 
-                // عرض إشعار بتقدم التحميل
+                // عرض إشعار التقدم
                 const progress = Math.round((allSquares.length / totalSquaresTarget) * 100);
                 if (allSquares.length < totalSquaresTarget) {
-                    showToast(`📦 تم تحميل ${allSquares.length.toLocaleString()} من ${totalSquaresTarget.toLocaleString()} مربع (${progress}%)`, 'info');
+                    showToast(`📦 ${allSquares.length.toLocaleString()} / ${totalSquaresTarget.toLocaleString()} مربع (${progress}%)`, 'info');
                 } else {
                     showToast('🎉 اكتمل تحميل مليون مربع!', 'success');
                 }
-            }, 500);
+            }, 300);
         }
         
         // ============================================
-        // دوال عرض المربعات
+        // دوال عرض المربعات - محسنة
         // ============================================
-        function renderSquaresGrid() {
+        function renderSquaresGrid(initial = false) {
             const grid = document.getElementById('squaresGrid');
-            grid.innerHTML = '';
             
-            // تحديد عدد المربعات المعروضة في الصفحة
-            const start = currentSquarePage * squaresPerPage;
-            const end = Math.min(start + squaresPerPage, allSquares.length);
-            const pageSquares = allSquares.slice(start, end);
+            // تحديث عدد الأعمدة بناءً على عرض الشاشة
+            const containerWidth = document.getElementById('squaresScroll').clientWidth || window.innerWidth;
+            let cols = 10;
+            if (containerWidth < 480) cols = 5;
+            else if (containerWidth < 768) cols = 7;
+            else if (containerWidth < 1024) cols = 10;
+            else cols = 12;
             
-            if (pageSquares.length === 0 && currentSquarePage > 0) {
-                currentSquarePage = 0;
-                renderSquaresGrid();
-                return;
-            }
+            // تحديد عدد المربعات المعروضة
+            const squaresToShow = Math.min(allSquares.length, 200);
+            const visibleSquares = allSquares.slice(0, squaresToShow);
             
             // عرض المربعات
-            for (let i = 0; i < squaresPerPage; i++) {
-                const square = pageSquares[i] || { status: 'available', number: start + i + 1 };
+            grid.innerHTML = '';
+            grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            
+            for (let i = 0; i < visibleSquares.length; i++) {
+                const square = visibleSquares[i];
                 const statusClass = square.status || 'available';
                 const tier = square.tier || 'basic';
                 const emoji = TIERS[tier]?.emoji || '⬜';
                 
                 const div = document.createElement('div');
                 div.className = `mini-square ${statusClass}`;
+                div.style.minWidth = '80px';
+                div.style.minHeight = '80px';
                 div.innerHTML = `
                     <span class="square-emoji">${emoji}</span>
                     <span class="square-number">#${square.number}</span>
@@ -2690,29 +2637,14 @@
             }
             
             // تحديث معلومات الصفحة
-            const totalPages = Math.ceil(allSquares.length / squaresPerPage);
-            document.getElementById('squarePageInfo').textContent = `${currentSquarePage + 1} / ${totalPages}`;
-            document.getElementById('scrollInfo').textContent = 
-                getTranslation('scrollInfo', 'عرض 100 من 1,000,000')
-                    .replace('100', pageSquares.length)
-                    .replace('1,000,000', allSquares.length.toLocaleString());
-        }
-        
-        function scrollSquares(direction) {
-            stopAutoSlowScroll();
-            const totalPages = Math.ceil(allSquares.length / squaresPerPage);
-            if (direction === 'left') {
-                if (currentSquarePage < totalPages - 1) {
-                    currentSquarePage++;
-                    renderSquaresGrid();
-                }
-            } else {
-                if (currentSquarePage > 0) {
-                    currentSquarePage--;
-                    renderSquaresGrid();
-                }
-            }
-            setTimeout(startAutoSlowScroll, 3000);
+            const totalPages = Math.ceil(totalSquaresTarget / squaresPerPage);
+            document.getElementById('squarePageInfo').textContent = `${visibleSquares.length} / ${totalSquaresTarget.toLocaleString()}`;
+            
+            // تحديث معلومات التمرير
+            const scrollInfo = getTranslation('scrollInfo', 'عرض {displayed} من {total} مربع')
+                .replace('{displayed}', visibleSquares.length.toLocaleString())
+                .replace('{total}', totalSquaresTarget.toLocaleString());
+            document.getElementById('scrollInfo').textContent = scrollInfo;
         }
         
         // ============================================
@@ -3011,7 +2943,7 @@
             
             updateStats();
             filterSquares();
-            renderSquaresGrid();
+            renderSquaresGrid(false);
             
             showToast(`✅ تم الاشتراك بنجاح! مرحباً بك ${name} في مليون مربع`, 'success');
             closeModal('subscriptionModal');
@@ -3079,7 +3011,7 @@
                 
                 updateStats();
                 filterSquares();
-                renderSquaresGrid();
+                renderSquaresGrid(false);
                 closeModal('purchaseModal');
                 showToast(getTranslation('purchaseSuccess', `✅ تم شراء المربع #${square.number} بنجاح!`), 'success');
             }
@@ -3430,9 +3362,7 @@
             console.log('✅ تم التحقق من Pinterest: a1e0fd10cdf3cabb0847b5c5226d9382');
             console.log(`📦 تم تحميل ${allSquares.length.toLocaleString()} مربع`);
             console.log(`🎯 الهدف: ${totalSquaresTarget.toLocaleString()} مربع`);
-            console.log(`🌍 دعم ${LANGUAGES.length} لغة`);
-            console.log('🤖 مساعد الذكاء الاصطناعي مفعل');
-            console.log('🔄 التمرير اللانهائي مفعل - سيتم تحميل المزيد تلقائياً');
+            console.log('🔄 التمرير اللانهائي مفعل - تحميل 200 مربع كل مرة');
             console.log('🔐 دخول المسؤول: admin / admin123');
         });
     </script>
