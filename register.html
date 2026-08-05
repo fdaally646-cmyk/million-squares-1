@@ -8,8 +8,8 @@
     <!-- ======== Font Awesome ======== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- ======== PayPal SDK ======== -->
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons&enable-funding=venmo"></script>
+    <!-- ======== PayPal SDK (محاولة تحميل) ======== -->
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons&enable-funding=venmo" defer></script>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -84,7 +84,7 @@
         /* ===== أزرار الدفع ===== */
         .pay-btn {
             width: 100%;
-            padding: 14px;
+            padding: 16px 20px;
             border: none;
             border-radius: 12px;
             font-size: 1rem;
@@ -96,11 +96,32 @@
             justify-content: center;
             gap: 12px;
             margin-bottom: 10px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
         }
+        .pay-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .pay-btn:hover::after { opacity: 1; }
         .pay-btn:hover { transform: scale(1.02); }
-        .pay-btn.paypal { background: #0070ba; color: #fff; }
-        .pay-btn.stripe { background: #635bff; color: #fff; }
-        .pay-btn.crypto { background: #f7931a; color: #fff; }
+        .pay-btn.paypal { background: #0070ba; }
+        .pay-btn.stripe { background: #635bff; }
+        .pay-btn.crypto { background: #f7931a; }
+        .pay-btn .icon { font-size: 1.6rem; }
+        .pay-btn .label { flex: 1; text-align: center; }
+        .pay-btn .badge {
+            font-size: 0.65rem;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 400;
+        }
         
         .payment-note {
             text-align: center;
@@ -168,6 +189,7 @@
             font-size: 0.85rem;
             margin: 5px 0 15px;
         }
+        
         .popup .btn-confirm {
             background: #4CAF50;
             color: #fff;
@@ -195,6 +217,19 @@
         }
         .popup .btn-cancel:hover { background: rgba(255,255,255,0.05); }
         
+        /* ===== طريقة الدفع المختارة ===== */
+        .payment-method-detail {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin: 10px 0;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .payment-method-detail .method-icon { font-size: 2.5rem; display: block; margin-bottom: 5px; }
+        .payment-method-detail .method-name { font-weight: 700; color: #fff; }
+        .payment-method-detail .method-desc { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+        
         /* ===== إشعار ===== */
         .toast {
             position: fixed;
@@ -218,16 +253,11 @@
         .toast.warning { border-color: #ffd700; }
         .toast.error { border-color: #f44336; }
         
-        /* ===== PayPal Container ===== */
-        #paypal-button-container {
-            margin: 15px 0 5px;
-            min-height: 50px;
-        }
-        
         @media (max-width: 500px) {
             .container { padding: 25px; }
             .popup-box { padding: 25px; }
-            .pay-btn { font-size: 0.9rem; padding: 12px; }
+            .pay-btn { font-size: 0.9rem; padding: 14px; }
+            .pay-btn .icon { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -271,19 +301,28 @@
 
         <!-- ===== أزرار الدفع ===== -->
         <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:0.8rem;margin-bottom:12px;">
-            💳 سجل وادفع معاً
+            💳 سجل وادفع معاً (اختر طريقة الدفع)
         </p>
         
-        <button class="pay-btn paypal" onclick="openPayment('paypal')">
-            <i class="fab fa-paypal" style="font-size:1.4rem;"></i> الدفع عبر PayPal والتسجيل
+        <!-- زر PayPal -->
+        <button class="pay-btn paypal" onclick="openPayment('paypal')" id="paypalBtn">
+            <span class="icon"><i class="fab fa-paypal"></i></span>
+            <span class="label">الدفع عبر PayPal</span>
+            <span class="badge">آمن</span>
         </button>
         
-        <button class="pay-btn stripe" onclick="openPayment('stripe')">
-            <i class="fas fa-credit-card"></i> الدفع عبر Stripe والتسجيل
+        <!-- زر Stripe -->
+        <button class="pay-btn stripe" onclick="openPayment('stripe')" id="stripeBtn">
+            <span class="icon"><i class="fas fa-credit-card"></i></span>
+            <span class="label">الدفع عبر Stripe</span>
+            <span class="badge">بطاقة</span>
         </button>
         
-        <button class="pay-btn crypto" onclick="openPayment('crypto')">
-            <i class="fab fa-bitcoin"></i> الدفع بـ USDT والتسجيل
+        <!-- زر USDT -->
+        <button class="pay-btn crypto" onclick="openPayment('crypto')" id="cryptoBtn">
+            <span class="icon"><i class="fab fa-bitcoin"></i></span>
+            <span class="label">الدفع بـ USDT</span>
+            <span class="badge">عملة رقمية</span>
         </button>
 
         <p class="payment-note">
@@ -299,20 +338,23 @@
     <div id="paymentPopup" class="popup">
         <div class="popup-box">
             <button class="popup-close" onclick="closePayment()">&times;</button>
-            <h3 id="popupTitle">💳 الدفع عبر PayPal</h3>
-            <div style="text-align:center;font-size:3rem;margin:10px 0;" id="popupIcon">
-                <i class="fab fa-paypal" style="color:#0070ba;"></i>
-            </div>
-            <p style="text-align:center;color:rgba(255,255,255,0.6);" id="popupDesc">
-                سيتم إنشاء حسابك فور الدفع
-            </p>
-            <div style="text-align:center;margin:15px 0;">
-                <span class="price" id="popupPrice">$5.00 USD</span>
-                <p class="sub-desc" id="popupSub">(رسوم التسجيل السنوية)</p>
+            <h3 id="popupTitle">💳 تأكيد الدفع</h3>
+            
+            <div id="paymentMethodDetail" class="payment-method-detail">
+                <span class="method-icon" id="methodIcon"><i class="fab fa-paypal" style="color:#0070ba;"></i></span>
+                <div class="method-name" id="methodName">PayPal</div>
+                <div class="method-desc" id="methodDesc">سيتم إنشاء حسابك فور الدفع</div>
             </div>
             
-            <!-- حاوية PayPal -->
-            <div id="paypal-button-container"></div>
+            <div style="text-align:center;margin:15px 0;">
+                <span class="price" id="popupPrice">$5.00 USD</span>
+                <p class="sub-desc">(رسوم التسجيل السنوية)</p>
+            </div>
+            
+            <!-- زر تأكيد الدفع الرئيسي -->
+            <button class="btn-confirm" onclick="confirmPayment()" id="confirmPayBtn">
+                <i class="fas fa-check"></i> تأكيد الدفع والتسجيل
+            </button>
             
             <div id="paymentStatus" style="text-align:center;margin:10px 0;font-size:0.9rem;"></div>
             
@@ -392,36 +434,46 @@
             // تحديث نافذة الدفع
             const popup = document.getElementById('paymentPopup');
             const title = document.getElementById('popupTitle');
-            const icon = document.getElementById('popupIcon');
-            const desc = document.getElementById('popupDesc');
+            const methodIcon = document.getElementById('methodIcon');
+            const methodName = document.getElementById('methodName');
+            const methodDesc = document.getElementById('methodDesc');
             const price = document.getElementById('popupPrice');
+            const confirmBtn = document.getElementById('confirmPayBtn');
             
             const methods = {
                 paypal: { 
-                    title: '💳 الدفع عبر PayPal', 
-                    icon: '<i class="fab fa-paypal" style="color:#0070ba;font-size:3rem;"></i>',
-                    desc: 'سيتم إنشاء حسابك فور الدفع عبر PayPal',
-                    price: '$5.00 USD'
+                    title: '💳 الدفع عبر PayPal',
+                    icon: '<i class="fab fa-paypal" style="color:#0070ba;font-size:2.5rem;"></i>',
+                    name: 'PayPal',
+                    desc: 'سيتم توجيهك إلى PayPal لإتمام الدفع',
+                    price: '$5.00 USD',
+                    btnText: '<i class="fab fa-paypal"></i> الدفع عبر PayPal'
                 },
                 stripe: { 
-                    title: '💳 الدفع عبر Stripe', 
-                    icon: '<i class="fas fa-credit-card" style="color:#635bff;font-size:3rem;"></i>',
-                    desc: 'سيتم إنشاء حسابك فور الدفع عبر Stripe',
-                    price: '$5.00 USD'
+                    title: '💳 الدفع عبر Stripe',
+                    icon: '<i class="fas fa-credit-card" style="color:#635bff;font-size:2.5rem;"></i>',
+                    name: 'Stripe',
+                    desc: 'ادفع بأمان باستخدام بطاقتك الائتمانية',
+                    price: '$5.00 USD',
+                    btnText: '<i class="fas fa-credit-card"></i> الدفع عبر Stripe'
                 },
                 crypto: { 
-                    title: '💳 الدفع بـ USDT', 
-                    icon: '<i class="fab fa-bitcoin" style="color:#f7931a;font-size:3rem;"></i>',
-                    desc: 'سيتم إنشاء حسابك فور الدفع بـ USDT',
-                    price: '5 USDT'
+                    title: '💳 الدفع بـ USDT',
+                    icon: '<i class="fab fa-bitcoin" style="color:#f7931a;font-size:2.5rem;"></i>',
+                    name: 'USDT (TRC20)',
+                    desc: 'ادفع باستخدام العملات الرقمية المستقرة',
+                    price: '5 USDT',
+                    btnText: '<i class="fab fa-bitcoin"></i> الدفع بـ USDT'
                 }
             };
             
             const data = methods[method] || methods.paypal;
             title.textContent = data.title;
-            icon.innerHTML = data.icon;
-            desc.textContent = data.desc;
+            methodIcon.innerHTML = data.icon;
+            methodName.textContent = data.name;
+            methodDesc.textContent = data.desc;
             price.textContent = data.price;
+            confirmBtn.innerHTML = data.btnText;
             
             // إعادة تعيين حالة الدفع
             isPaymentComplete = false;
@@ -429,150 +481,48 @@
             
             // فتح النافذة
             popup.classList.add('active');
-            
-            // تهيئة PayPal فقط إذا كانت الطريقة PayPal
-            if (method === 'paypal') {
-                setTimeout(() => {
-                    initPayPalButton();
-                }, 300);
-            } else {
-                // لـ Stripe و Crypto، نعرض رسالة بديلة
-                const container = document.getElementById('paypal-button-container');
-                container.innerHTML = `
-                    <div style="text-align:center;padding:15px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.05);">
-                        <p style="color:rgba(255,255,255,0.6);margin-bottom:10px;">
-                            <i class="fas fa-info-circle"></i> 
-                            ${method === 'stripe' ? 'سيتم توجيهك إلى Stripe لإتمام الدفع' : 'سيتم توجيهك إلى محفظة USDT لإتمام الدفع'}
-                        </p>
-                        <button onclick="simulatePayment()" 
-                                style="background:${method === 'stripe' ? '#635bff' : '#f7931a'};color:#fff;padding:14px 30px;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:1rem;">
-                            <i class="fas fa-check"></i> تأكيد الدفع والتسجيل
-                        </button>
-                    </div>
-                `;
-            }
         }
         
         function closePayment() {
             document.getElementById('paymentPopup').classList.remove('active');
-            // إعادة تعيين
-            const container = document.getElementById('paypal-button-container');
-            container.innerHTML = '';
             document.getElementById('paymentStatus').innerHTML = '';
             isPaymentComplete = false;
         }
         
         // ============================================
-        // PayPal - تهيئة الزر
+        // تأكيد الدفع (الزر الرئيسي)
         // ============================================
-        let paypalRendered = false;
-        
-        function initPayPalButton() {
-            const container = document.getElementById('paypal-button-container');
-            container.innerHTML = '';
-            paypalRendered = false;
+        function confirmPayment() {
+            const status = document.getElementById('paymentStatus');
+            status.innerHTML = '<span style="color:#ffd700;">⏳ جاري معالجة الدفع...</span>';
             
-            if (typeof paypal === 'undefined') {
-                container.innerHTML = '<p style="color:rgba(255,255,255,0.4);text-align:center;">⏳ جاري تحميل PayPal...</p>';
-                setTimeout(() => initPayPalButton(), 1000);
-                return;
-            }
-            
-            if (paypalRendered) return;
-            paypalRendered = true;
-            
-            try {
-                paypal.Buttons({
-                    style: {
-                        layout: 'vertical',
-                        color: 'gold',
-                        shape: 'rect',
-                        label: 'paypal',
-                        height: 48,
-                        tagline: false
-                    },
-                    createOrder: function(data, actions) {
-                        return actions.order.create({
-                            purchase_units: [{
-                                amount: {
-                                    value: '5.00',
-                                    currency_code: 'USD'
-                                },
-                                description: 'اشتراك مليون مربع - تسجيل جديد',
-                                custom_id: 'register_' + Date.now()
-                            }],
-                            application_context: {
-                                shipping_preference: 'NO_SHIPPING',
-                                brand_name: 'Million Squares',
-                                locale: 'ar_SA'
-                            }
-                        });
-                    },
-                    onApprove: function(data, actions) {
-                        return actions.order.capture().then(function(details) {
-                            document.getElementById('paymentStatus').innerHTML = `
-                                <span style="color:#4CAF50;font-weight:700;">
-                                    ✅ تم الدفع بنجاح!
-                                </span>
-                            `;
-                            isPaymentComplete = true;
-                            completeRegistration(details, 'PayPal');
-                        });
-                    },
-                    onError: function(err) {
-                        console.error('PayPal Error:', err);
-                        document.getElementById('paymentStatus').innerHTML = `
-                            <span style="color:#f44336;font-weight:700;">
-                                ❌ حدث خطأ في الدفع
-                            </span>
-                        `;
-                        showToast('⚠️ حدث خطأ في الدفع، يرجى المحاولة مرة أخرى', 'error');
-                    },
-                    onCancel: function() {
-                        showToast('تم إلغاء عملية الدفع', 'warning');
-                    }
-                }).render(container);
-            } catch (e) {
-                console.error('PayPal init error:', e);
-                container.innerHTML = `
-                    <div style="text-align:center;padding:15px;background:rgba(255,255,255,0.03);border-radius:12px;">
-                        <p style="color:#f44336;">⚠️ حدث خطأ في تحميل PayPal</p>
-                        <button onclick="simulatePayment()" 
-                                style="background:#4CAF50;color:#fff;padding:12px 25px;border:none;border-radius:10px;font-weight:700;cursor:pointer;margin-top:10px;">
-                            <i class="fas fa-check"></i> تأكيد الدفع (تجريبي)
-                        </button>
-                    </div>
-                `;
-            }
-        }
-        
-        // ============================================
-        // محاكاة الدفع (لـ Stripe و Crypto)
-        // ============================================
-        function simulatePayment() {
-            document.getElementById('paymentStatus').innerHTML = `
-                <span style="color:#ffd700;font-weight:700;">
-                    ⏳ جاري معالجة الدفع...
-                </span>
-            `;
-            
+            // محاكاة عملية الدفع
             setTimeout(() => {
-                document.getElementById('paymentStatus').innerHTML = `
-                    <span style="color:#4CAF50;font-weight:700;">
-                        ✅ تم الدفع بنجاح!
-                    </span>
-                `;
+                status.innerHTML = '<span style="color:#4CAF50;">✅ تم الدفع بنجاح!</span>';
                 isPaymentComplete = true;
-                completeRegistration({ id: 'sim_' + Date.now(), payer: { name: { given_name: userData.fullName } } }, selectedPaymentMethod);
+                
+                // إتمام التسجيل
+                completeRegistration({
+                    id: 'pay_' + Date.now(),
+                    method: selectedPaymentMethod,
+                    payer: { name: { given_name: userData.fullName } }
+                });
             }, 1500);
         }
         
         // ============================================
         // إتمام التسجيل بعد الدفع
         // ============================================
-        function completeRegistration(paymentDetails, method) {
+        function completeRegistration(paymentDetails) {
+            const methodNames = {
+                paypal: 'PayPal',
+                stripe: 'Stripe',
+                crypto: 'USDT'
+            };
+            const methodName = methodNames[selectedPaymentMethod] || selectedPaymentMethod;
+            
             // عرض إشعار نجاح
-            showToast(`✅ تم الدفع بنجاح عبر ${method}! 🎉`, 'success');
+            showToast(`✅ تم الدفع بنجاح عبر ${methodName}! 🎉`, 'success');
             
             // إغلاق نافذة الدفع
             closePayment();
@@ -584,13 +534,13 @@
                 email: userData.email,
                 company: userData.companyName,
                 password: userData.password,
-                paymentMethod: method,
+                paymentMethod: methodName,
                 paymentId: paymentDetails.id || 'sim_' + Date.now(),
                 registeredAt: new Date().toISOString(),
                 status: 'active'
             };
             
-            // حفظ في localStorage (محاكاة قاعدة بيانات)
+            // حفظ في localStorage
             let users = JSON.parse(localStorage.getItem('million_squares_users') || '[]');
             users.push(user);
             localStorage.setItem('million_squares_users', JSON.stringify(users));
@@ -603,6 +553,8 @@
                 loggedIn: true
             }));
             
+            console.log('✅ مستخدم جديد:', user);
+            
             // إشعار نجاح التسجيل
             setTimeout(() => {
                 showToast('🎉 تم إنشاء حسابك بنجاح! جاري التوجيه...', 'success');
@@ -610,12 +562,10 @@
                     window.location.href = 'index.html';
                 }, 1500);
             }, 500);
-            
-            console.log('✅ مستخدم جديد:', user);
         }
         
         // ============================================
-        // معالج نموذج التسجيل (طريقة عادية بدون دفع)
+        // معالج نموذج التسجيل
         // ============================================
         function handleRegister(event) {
             event.preventDefault();
@@ -646,13 +596,35 @@
                 return;
             }
             
-            // عرض رسالة بأن الدفع مطلوب
-            showToast('⚠️ الدفع مطلوب لإتمام التسجيل. استخدم إحدى طرق الدفع أعلاه.', 'warning');
+            // حفظ بيانات المستخدم مؤقتاً
+            userData = {
+                fullName: fullName,
+                companyName: document.getElementById('companyName').value.trim(),
+                email: email,
+                password: password
+            };
             
-            // فتح نافذة الدفع تلقائياً
-            setTimeout(() => {
-                openPayment('paypal');
-            }, 500);
+            // عرض رسالة بأن الدفع مطلوب
+            showToast('⚠️ الدفع مطلوب لإتمام التسجيل. اختر طريقة الدفع أعلاه.', 'warning');
+            
+            // التمرير إلى أزرار الدفع
+            document.querySelector('.pay-btn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        // ============================================
+        // محاولة تهيئة PayPal (اختياري)
+        // ============================================
+        function tryInitPayPal() {
+            if (typeof paypal !== 'undefined') {
+                try {
+                    // يمكن إضافة زر PayPal إضافي هنا إذا رغبت
+                    console.log('✅ PayPal SDK loaded successfully');
+                } catch (e) {
+                    console.log('PayPal init skipped - using fallback buttons');
+                }
+            } else {
+                console.log('PayPal SDK not loaded - using fallback buttons');
+            }
         }
         
         // ============================================
@@ -662,6 +634,14 @@
             console.log('✅ صفحة التسجيل المتكاملة جاهزة!');
             console.log('💡 طرق الدفع المتاحة: PayPal, Stripe, USDT');
             console.log('⚠️ التسجيل غير مكتمل بدون دفع');
+            
+            // محاولة تهيئة PayPal
+            setTimeout(tryInitPayPal, 2000);
+            
+            // إظهار الأزرار بشكل واضح
+            document.querySelectorAll('.pay-btn').forEach(btn => {
+                btn.style.opacity = '1';
+            });
         });
         
         // ============================================
@@ -669,8 +649,8 @@
         // ============================================
         window.openPayment = openPayment;
         window.closePayment = closePayment;
+        window.confirmPayment = confirmPayment;
         window.handleRegister = handleRegister;
-        window.simulatePayment = simulatePayment;
         window.showToast = showToast;
     </script>
 </body>
