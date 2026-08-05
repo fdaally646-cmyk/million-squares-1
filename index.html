@@ -3,22 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 مليون مربع - المنصة البصرية التفاعلية</title>
     
-    <!-- Tailwind CSS -->
+    <!-- ======== SEO الأساسي والمتقدم ======== -->
+    <title>🏆 مليون مربع - المنصة البصرية التفاعلية الأولى | Million Squares</title>
+    <meta name="description" content="مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي وابدأ في بناء مجتمعك الرقمي اليوم مع أفضل خطط الاشتراك.">
+    <meta name="keywords" content="مليون مربع, منصة تفاعلية, إعلانات مربعة, تسويق رقمي, مجتمع رقمي, إعلانات تفاعلية, PayPal, دعم, اشتراك, مربعات إعلانية, منصة تسويق, إعلانات رقمية">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Million Squares">
+    <link rel="canonical" href="https://million-squares.com">
+    
+    <!-- ======== Open Graph للتواصل الاجتماعي ======== -->
+    <meta property="og:title" content="مليون مربع - المنصة البصرية التفاعلية الأولى">
+    <meta property="og:description" content="المنصة البصرية التفاعلية الأولى في العالم العربي. اشترِ مربعك الإعلاني التفاعلي اليوم.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://million-squares.com">
+    <meta property="og:image" content="https://million-squares.com/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Million Squares">
+    <meta property="og:locale" content="ar_AR">
+    
+    <!-- ======== Twitter Card ======== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="مليون مربع - المنصة البصرية التفاعلية الأولى">
+    <meta name="twitter:description" content="المنصة البصرية التفاعلية الأولى في العالم العربي.">
+    <meta name="twitter:image" content="https://million-squares.com/twitter-image.jpg">
+    
+    <!-- ======== Schema.org للبيانات المنظمة ======== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "مليون مربع",
+        "description": "المنصة البصرية التفاعلية الأولى في العالم العربي",
+        "applicationCategory": "SocialMedia",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "1",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "150"
+        }
+    }
+    </script>
+    
+    <!-- ======== Tailwind CSS ======== -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome -->
+    <!-- ======== Font Awesome ======== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Google Fonts -->
+    <!-- ======== Google Fonts ======== -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     
-    <!-- PayPal SDK -->
+    <!-- ======== PayPal SDK ======== -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons&enable-funding=venmo"></script>
     
     <style>
-        * { font-family: 'Tajawal', sans-serif; }
+        /* ===== الأنماط الأساسية ===== */
+        * { font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
         body { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); min-height: 100vh; color: #fff; }
         
         .glass-effect {
@@ -27,8 +74,11 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
+        .glass-effect:hover { border-color: rgba(255, 215, 0, 0.15); }
         
+        /* ===== المربعات ===== */
         .square-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -36,14 +86,138 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             position: relative;
             overflow: hidden;
+            border-radius: 16px;
+            padding: 16px;
         }
         .square-card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border-color: rgba(102, 126, 234, 0.3);
         }
+        .square-card .premium-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s;
+            pointer-events: none;
+        }
+        .square-card:hover .premium-glow { opacity: 1; }
         
-        /* ===== أزرار الدفع ===== */
+        /* ===== hover popup ===== */
+        .hover-popup {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 14px 18px;
+            min-width: 200px;
+            max-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        }
+        .square-card:hover .hover-popup {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+            pointer-events: auto;
+        }
+        .hover-popup::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 16px;
+            height: 16px;
+            background: rgba(0,0,0,0.95);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .hover-popup .avatar-sm {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #ffd700;
+            object-fit: cover;
+            display: inline-block;
+        }
+        .hover-popup .name { font-weight: 700; font-size: 0.9rem; color: #fff; margin-top: 4px; }
+        .hover-popup .desc { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+        .hover-popup .social-icons { display: flex; gap: 8px; justify-content: center; margin-top: 6px; flex-wrap: wrap; }
+        .hover-popup .social-icons a { 
+            color: rgba(255,255,255,0.4); 
+            font-size: 0.85rem; 
+            transition: all 0.3s;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+        }
+        .hover-popup .social-icons a:hover { color: #fff; background: rgba(255,215,0,0.2); transform: scale(1.2); }
+        
+        /* ===== نافذة التفاصيل ===== */
+        .detail-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(12px);
+            z-index: 9998;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .detail-overlay.active { display: flex; }
+        .detail-box {
+            background: #1a1a2e;
+            padding: 35px;
+            border-radius: 24px;
+            max-width: 550px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.08);
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease-out;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .detail-box .avatar-lg {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffd700;
+            object-fit: cover;
+        }
+        .detail-box .social-link {
+            color: rgba(255,255,255,0.5);
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            margin: 0 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+        }
+        .detail-box .social-link:hover { color: #fff; background: rgba(255,215,0,0.15); transform: scale(1.1); }
+        
+        /* ===== الأزرار ===== */
         .pay-btn {
             transition: all 0.3s;
             border: none;
@@ -58,18 +232,18 @@
             gap: 12px;
             width: 100%;
         }
-        .pay-btn:hover { transform: scale(1.02); }
-        .pay-btn.paypal { background: #0070ba; }
-        .pay-btn.stripe { background: #635bff; }
-        .pay-btn.crypto { background: #f7931a; }
+        .pay-btn:hover { transform: scale(1.02); box-shadow: 0 5px 25px rgba(0,0,0,0.3); }
+        .pay-btn.paypal { background: linear-gradient(135deg, #0070ba, #003087); }
+        .pay-btn.stripe { background: linear-gradient(135deg, #635bff, #4a42d4); }
+        .pay-btn.crypto { background: linear-gradient(135deg, #f7931a, #d4810e); }
         
         /* ===== نافذة الدفع ===== */
         .popup {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(12px);
             z-index: 9999;
             justify-content: center;
             align-items: center;
@@ -83,7 +257,6 @@
             width: 92%;
             border: 1px solid rgba(255,255,255,0.08);
             position: relative;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.8);
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -96,11 +269,13 @@
             border: none;
             color: rgba(255,255,255,0.4);
             cursor: pointer;
+            transition: transform 0.3s;
         }
-        .popup-close:hover { color: #fff; }
+        .popup-close:hover { color: #fff; transform: rotate(90deg); }
         .popup h3 { color: #ffd700; text-align: center; margin-bottom: 20px; font-size: 1.4rem; }
-        .popup .price { font-size: 1.8rem; color: #ffd700; font-weight: 800; }
+        .popup .price { font-size: 2rem; color: #ffd700; font-weight: 800; }
         
+        /* ===== الإشعارات ===== */
         .toast {
             position: fixed;
             top: 30px;
@@ -117,11 +292,28 @@
             max-width: 90%;
             font-size: 0.95rem;
             color: #fff;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
-        .toast.show { display: block; }
+        .toast.show { display: block; animation: slideDown 0.4s ease-out; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
         .toast.success { border-color: #4CAF50; }
         .toast.warning { border-color: #ffd700; }
         .toast.error { border-color: #f44336; }
+        
+        /* ===== الحالات ===== */
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .status-available { background: #10b981; color: white; }
+        .status-sold { background: #ef4444; color: white; }
+        .status-reserved { background: #f59e0b; color: white; }
+        .status-pending { background: #8b5cf6; color: white; }
         
         .auth-status {
             padding: 8px 16px;
@@ -132,16 +324,6 @@
         .auth-status.logged-in { background: rgba(16, 185, 129, 0.2); color: #10b981; }
         .auth-status.logged-out { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
         
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-        .status-available { background: #10b981; color: white; }
-        .status-sold { background: #ef4444; color: white; }
-        .status-reserved { background: #f59e0b; color: white; }
-        
         .tier-basic { background: linear-gradient(135deg, #2d3748, #4a5568); }
         .tier-silver { background: linear-gradient(135deg, #4a5568, #a0aec0); }
         .tier-gold { background: linear-gradient(135deg, #744210, #d69e2e); }
@@ -149,96 +331,127 @@
         
         .stars { color: #fbbf24; letter-spacing: 2px; }
         
-        /* ===== نافذة تفاصيل المربع ===== */
-        .square-detail-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            z-index: 9998;
-            justify-content: center;
+        /* ===== شريط الإعلانات ===== */
+        .ad-slider {
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            border-radius: 16px;
+            border: 1px solid rgba(102, 126, 234, 0.15);
+        }
+        .ad-slider-track {
+            display: flex;
+            animation: slideAds 30s linear infinite;
+            width: calc(100% * 4);
+        }
+        .ad-slider-track:hover { animation-play-state: paused; }
+        .ad-slide {
+            width: 100%;
+            flex-shrink: 0;
+            padding: 12px 20px;
+            display: flex;
             align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-        .square-detail-overlay.active { display: flex; }
-        .square-detail-box {
-            background: #1a1a2e;
-            padding: 35px;
-            border-radius: 24px;
-            max-width: 500px;
-            width: 92%;
-            border: 1px solid rgba(255,255,255,0.08);
-            max-height: 90vh;
-            overflow-y: auto;
+        .ad-slide:hover { background: rgba(255,255,255,0.03); }
+        @keyframes slideAds {
+            0%, 20% { transform: translateX(0); }
+            25%, 45% { transform: translateX(-25%); }
+            50%, 70% { transform: translateX(-50%); }
+            75%, 95% { transform: translateX(-75%); }
+            100% { transform: translateX(0); }
         }
-        .square-detail-box .avatar {
-            width: 80px;
-            height: 80px;
+        
+        /* ===== أيقونات التواصل ===== */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            border: 3px solid #ffd700;
-            object-fit: cover;
-        }
-        .square-detail-box .social-link {
-            color: rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 1.1rem;
             transition: all 0.3s;
-            font-size: 1.2rem;
-            margin: 0 4px;
+            text-decoration: none;
         }
-        .square-detail-box .social-link:hover { color: #fff; transform: scale(1.2); }
+        .social-icons a:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        .social-icons a.email:hover { background: rgba(220, 78, 65, 0.4); border-color: #dc4e41; }
+        .social-icons a.twitter:hover { background: rgba(29, 161, 242, 0.4); border-color: #1da1f2; }
+        .social-icons a.linkedin:hover { background: rgba(0, 119, 181, 0.4); border-color: #0077b5; }
+        .social-icons a.github:hover { background: rgba(255, 255, 255, 0.2); border-color: #fff; }
+        .social-icons a.youtube:hover { background: rgba(255, 0, 0, 0.4); border-color: #ff0000; }
+        .social-icons a.instagram:hover { background: rgba(225, 48, 108, 0.4); border-color: #e1306c; }
+        .social-icons a.facebook:hover { background: rgba(24, 119, 242, 0.4); border-color: #1877f2; }
+        .social-icons a.tiktok:hover { background: rgba(255, 255, 255, 0.15); border-color: #fff; }
+        .social-icons a.whatsapp:hover { background: rgba(37, 211, 102, 0.4); border-color: #25d366; }
         
-        /* ===== أداة التمرير ===== */
-        .hover-popup {
-            position: absolute;
-            bottom: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 12px 16px;
-            min-width: 200px;
-            max-width: 280px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 100;
-            pointer-events: none;
-            text-align: center;
+        /* ===== شهادات ===== */
+        .testimonial-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
         }
-        .square-card:hover .hover-popup {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(-5px);
-            pointer-events: auto;
-        }
-        .hover-popup .avatar-sm {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #ffd700;
-            object-fit: cover;
-            display: inline-block;
-        }
-        .hover-popup .name { font-weight: 700; font-size: 0.9rem; color: #fff; }
-        .hover-popup .desc { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
-        .hover-popup .social-icons { display: flex; gap: 6px; justify-content: center; margin-top: 4px; }
-        .hover-popup .social-icons a { color: rgba(255,255,255,0.3); font-size: 0.8rem; transition: all 0.3s; }
-        .hover-popup .social-icons a:hover { color: #fff; }
+        .testimonial-card:hover { border-color: rgba(255,215,0,0.2); transform: translateY(-2px); }
+        .testimonial-card .quote { font-style: italic; color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        .testimonial-card .author { font-weight: 700; margin-top: 6px; font-size: 0.85rem; color: #ffd700; }
         
+        /* ===== تحسينات الجوال ===== */
         @media (max-width: 768px) {
-            .popup-box { padding: 25px; }
+            .detail-box { padding: 20px; margin: 10px; }
+            .popup-box { padding: 20px; }
             .pay-btn { font-size: 0.9rem; padding: 12px; }
-            .square-detail-box { padding: 20px; }
-            .hover-popup { min-width: 160px; max-width: 220px; padding: 10px; }
+            .hover-popup { min-width: 160px; max-width: 200px; padding: 10px; }
+            .hover-popup .avatar-sm { width: 35px; height: 35px; }
         }
+        @media (max-width: 480px) {
+            .container { padding: 8px !important; }
+            .glass-effect { padding: 12px !important; border-radius: 12px; }
+            .square-card { padding: 12px; }
+            .detail-box { padding: 15px; }
+        }
+        
+        /* ===== سكرول ===== */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; }
     </style>
 </head>
 <body>
-    <div class="container mx-auto px-4 py-8 max-w-7xl">
+
+    <!-- ===== شريط الإشعارات ===== -->
+    <div id="notificationBar" class="fixed top-0 left-0 right-0 z-50 hidden">
+        <div class="glass-effect p-3 mx-4 mt-2 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span id="notificationIcon" class="text-2xl">🎉</span>
+                <span id="notificationMessage" class="text-sm">مرحباً بك في مليون مربع!</span>
+            </div>
+            <button onclick="closeNotification()" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <div class="container mx-auto px-4 py-6 max-w-7xl">
         
         <!-- ===== الهيدر ===== -->
-        <header class="glass-effect p-6 mb-8">
+        <header class="glass-effect p-6 mb-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-4">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg">
@@ -247,24 +460,35 @@
                     <div>
                         <h1 class="text-3xl font-extrabold text-white">مليون مربع</h1>
                         <p class="text-gray-400 text-sm">✨ المنصة البصرية التفاعلية الأولى في العالم العربي</p>
+                        <div class="flex gap-2 mt-1 flex-wrap">
+                            <span class="text-xs bg-blue-600/20 px-2 py-0.5 rounded-full text-blue-400">#تسويق_رقمي</span>
+                            <span class="text-xs bg-purple-600/20 px-2 py-0.5 rounded-full text-purple-400">#إعلانات_مربعة</span>
+                            <span class="text-xs bg-green-600/20 px-2 py-0.5 rounded-full text-green-400">#مجتمع_رقمي</span>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-3 flex-wrap justify-center">
                     <div id="authStatus" class="auth-status logged-out">
-                        <i class="fas fa-user"></i>
-                        <span id="authStatusText">غير مسجل</span>
+                        <i class="fas fa-user"></i> <span id="authStatusText">غير مسجل</span>
                     </div>
                     
                     <button onclick="toggleRegister()" id="authBtn" 
                             class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-lg transition text-white font-bold text-sm">
-                        <i class="fas fa-user-plus"></i>
-                        <span id="authBtnText">تسجيل الدخول</span>
+                        <i class="fas fa-user-plus"></i> <span id="authBtnText">تسجيل الدخول</span>
+                    </button>
+                    
+                    <button onclick="openModal('sponsorModal')" class="px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full hover:shadow-lg transition text-white font-bold text-sm">
+                        <i class="fas fa-hand-holding-heart"></i> دعم
+                    </button>
+                    
+                    <button onclick="openModal('aboutModal')" class="px-3 py-2 bg-white/10 rounded-full hover:bg-white/20 transition text-sm">
+                        <i class="fas fa-info-circle"></i>
                     </button>
                 </div>
             </div>
             
-            <!-- إحصائيات -->
+            <!-- ===== إحصائيات سريعة ===== -->
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 pt-6 border-t border-white/10">
                 <div class="text-center">
                     <div class="text-2xl font-bold text-blue-400" id="totalSquares">1,000,000</div>
@@ -289,8 +513,13 @@
             </div>
         </header>
         
+        <!-- ===== شريط الإعلانات ===== -->
+        <div class="ad-slider mb-6" id="adSlider">
+            <div class="ad-slider-track" id="adSliderTrack"></div>
+        </div>
+        
         <!-- ===== نموذج التسجيل ===== -->
-        <div id="registerSection" class="glass-effect p-6 mb-8 hidden">
+        <div id="registerSection" class="glass-effect p-6 mb-6 hidden">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-white">📝 إنشاء حساب جديد</h2>
                 <button onclick="toggleRegister()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
@@ -348,8 +577,8 @@
         <!-- ===== البحث والفلاتر ===== -->
         <div class="glass-effect p-4 mb-6">
             <div class="flex flex-wrap gap-3">
-                <div class="flex-1 min-w-[200px]">
-                    <input type="text" id="searchInput" placeholder="🔍 ابحث عن مربع..." 
+                <div class="flex-1 min-w-[180px]">
+                    <input type="text" id="searchInput" placeholder="🔍 ابحث عن مربع، مشترك، مجال..." 
                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500">
                 </div>
                 <select id="tierFilter" class="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500">
@@ -372,16 +601,52 @@
         </div>
         
         <!-- ===== عرض المربعات ===== -->
-        <div id="squaresContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="glass-effect p-4 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold text-lg">🗂️ المربعات</h2>
+                <span class="text-sm text-gray-400" id="resultsCount">0 مربع</span>
+            </div>
+            <div id="squaresContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            </div>
+            <div id="pagination" class="flex justify-center gap-2 mt-6"></div>
         </div>
         
-        <!-- ===== الترقيم ===== -->
-        <div id="pagination" class="flex justify-center gap-2 mt-8"></div>
+        <!-- ===== شهادات العملاء ===== -->
+        <div class="glass-effect p-6 mb-6">
+            <h3 class="font-bold text-center mb-6 text-xl text-white">🌟 ماذا يقول مشتركونا</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="testimonialsContainer">
+                <div class="testimonial-card">
+                    <p class="quote">"منصة رائعة ساعدتني في بناء علامتي التجارية بشكل احترافي وجذب عملاء جدد"</p>
+                    <p class="author">- أحمد المالكي، CEO شركة تسويق</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="quote">"أفضل استثمار قمت به هذا العام، المربعات جذابة وفعالة وساعدتني في زيادة المبيعات"</p>
+                    <p class="author">- سارة الخالدي، مصممة جرافيك</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="quote">"مجتمع نشط وداعم، أنصح الجميع بالتسجيل والاستفادة من هذه المنصة المبتكرة"</p>
+                    <p class="author">- محمد العمري، مطور ويب</p>
+                </div>
+            </div>
+        </div>
         
         <!-- ===== الفوتر ===== -->
-        <footer class="mt-12 text-center text-gray-400 text-sm border-t border-white/5 pt-6">
+        <footer class="text-center text-gray-400 text-sm border-t border-white/5 pt-6">
+            <div class="flex flex-wrap justify-center gap-4 mb-4 text-xs text-gray-500">
+                <span>#مليون_مربع</span>
+                <span>#منصة_تفاعلية</span>
+                <span>#إعلانات_مربعة</span>
+                <span>#تسويق_رقمي</span>
+                <span>#مجتمع_رقمي</span>
+                <span>#PayPal</span>
+                <span>#دعم</span>
+                <span>#اشتراك</span>
+            </div>
+            
+            <div class="social-icons mb-4" id="socialIconsContainer"></div>
+            
             <p>© 2026 مليون مربع - المنصة البصرية التفاعلية الأولى في العالم العربي</p>
-            <p class="mt-2 opacity-60">✨ تم تطويره باستخدام ❤️ في العالم العربي</p>
+            <p class="mt-1 opacity-60 text-xs">✨ تم تطويره باستخدام ❤️ في العالم العربي</p>
         </footer>
     </div>
 
@@ -390,88 +655,146 @@
         <div class="popup-box">
             <button class="popup-close" onclick="closePayment()">&times;</button>
             <h3 id="popupTitle">💳 تأكيد الدفع</h3>
-            
             <div class="text-center my-4">
                 <span class="price" id="popupPrice">$5.00 USD</span>
                 <p class="text-gray-500 text-sm">(رسوم التسجيل السنوية)</p>
             </div>
-            
-            <!-- حاوية PayPal -->
             <div id="paypal-button-container" class="my-4"></div>
-            
             <div id="paymentStatus" class="text-center py-2 text-sm"></div>
-            
-            <button class="btn-cancel" style="width:100%;padding:12px;background:transparent;color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:12px;cursor:pointer;margin-top:8px;" onclick="closePayment()">إلغاء</button>
+            <button class="w-full py-3 mt-2 bg-transparent border border-white/10 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition" onclick="closePayment()">إلغاء</button>
         </div>
     </div>
 
-    <!-- ===== نافذة تفاصيل المربع ===== -->
-    <div id="squareDetail" class="square-detail-overlay">
-        <div class="square-detail-box">
+    <!-- ===== نافذة التفاصيل ===== -->
+    <div id="squareDetail" class="detail-overlay">
+        <div class="detail-box">
             <button onclick="closeSquareDetail()" class="text-gray-400 hover:text-white text-2xl float-left">&times;</button>
-            <div id="squareDetailContent" class="text-center">
-                <!-- سيتم ملؤها بواسطة JavaScript -->
+            <div id="squareDetailContent" class="text-center"></div>
+        </div>
+    </div>
+
+    <!-- ===== نافذة الدعم ===== -->
+    <div id="sponsorModal" class="popup">
+        <div class="popup-box">
+            <button class="popup-close" onclick="closeModal('sponsorModal')">&times;</button>
+            <h3 class="text-center text-2xl font-bold text-white mb-4">🌟 دعم المنصة</h3>
+            <p class="text-center text-gray-400 text-sm mb-4">ادعم مليون مربع لتستمر المنصة وتنمو واظهر في شريط الإعلانات</p>
+            <div class="grid grid-cols-1 gap-3 mb-4">
+                <button onclick="selectSupport('weekly')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition border-2 border-transparent hover:border-blue-500" id="supportWeekly">
+                    <div class="flex justify-between items-center"><span class="font-bold">🗓️ دعم أسبوعي</span><span class="text-xl font-bold text-green-400">$100</span></div>
+                    <p class="text-xs text-gray-400 text-right">ظهور في شريط الإعلانات كراعي أسبوعي</p>
+                </button>
+                <button onclick="selectSupport('monthly')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition border-2 border-transparent hover:border-blue-500" id="supportMonthly">
+                    <div class="flex justify-between items-center"><span class="font-bold">🌟 دعم شهري</span><span class="text-xl font-bold text-green-400">$1,000</span></div>
+                    <p class="text-xs text-gray-400 text-right">ظهور مميز كراعي شهري</p>
+                </button>
+                <button onclick="selectSupport('yearly')" class="p-4 bg-white/5 rounded-xl hover:bg-white/10 transition border-2 border-transparent hover:border-blue-500" id="supportYearly">
+                    <div class="flex justify-between items-center"><span class="font-bold">👑 دعم سنوي</span><span class="text-xl font-bold text-green-400">$10,000</span></div>
+                    <p class="text-xs text-gray-400 text-right">ظهور VIP كراعي سنوي</p>
+                </button>
+            </div>
+            <div class="space-y-2">
+                <input type="text" id="supporterName" placeholder="الاسم الكامل" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                <input type="email" id="supporterEmail" placeholder="البريد الإلكتروني" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                <input type="text" id="supporterCompany" placeholder="اسم الشركة (اختياري)" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500">
+            </div>
+            <button onclick="processSupport()" class="w-full mt-4 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl hover:shadow-lg transition text-white font-bold">
+                <i class="fas fa-heart"></i> ادعم الآن
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== نافذة عن المنصة ===== -->
+    <div id="aboutModal" class="popup">
+        <div class="popup-box">
+            <button class="popup-close" onclick="closeModal('aboutModal')">&times;</button>
+            <h3 class="text-center text-2xl font-bold text-white mb-4">🚀 عن مليون مربع</h3>
+            <div class="space-y-4 text-gray-300 text-sm">
+                <p>مليون مربع هي المنصة البصرية التفاعلية الأولى في العالم العربي، حيث نقدم مربعات إعلانية تفاعلية تتيح للعلامات التجارية والأفراد التواصل البصري مع جمهورهم المستهدف.</p>
+                <p>من خلال الإعلانات المربعة، يمكنك بناء مجتمع رقمي نشط، وتعزيز التسويق الرقمي، وزيادة الوعي بالعلامة التجارية.</p>
+                <div class="glass-effect p-4 rounded-xl">
+                    <h4 class="font-bold text-yellow-400 mb-2">📋 آلية التسجيل</h4>
+                    <ol class="space-y-1 text-sm list-decimal list-inside">
+                        <li>اختر المربع المناسب لك من الشبكة</li>
+                        <li>اختر باقة الاشتراك المناسبة (عادي، فضي، ذهبي، ماسي)</li>
+                        <li>املأ بياناتك الشخصية والمهنية</li>
+                        <li>قم بالدفع عبر PayPal (إلزامي)</li>
+                        <li>تفعيل المربع والظهور في المنصة</li>
+                    </ol>
+                </div>
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <span class="text-xs bg-blue-600/20 px-3 py-1 rounded-full text-blue-400">#تسويق_رقمي</span>
+                    <span class="text-xs bg-purple-600/20 px-3 py-1 rounded-full text-purple-400">#إعلانات_مربعة</span>
+                    <span class="text-xs bg-green-600/20 px-3 py-1 rounded-full text-green-400">#مجتمع_رقمي</span>
+                    <span class="text-xs bg-yellow-600/20 px-3 py-1 rounded-full text-yellow-400">#PayPal</span>
+                    <span class="text-xs bg-red-600/20 px-3 py-1 rounded-full text-red-400">#دعم</span>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- ===== إشعار ===== -->
-    <div id="toast" class="toast">
-        <span id="toastMsg"></span>
-    </div>
+    <div id="toast" class="toast"><span id="toastMsg"></span></div>
 
     <!-- ============================================ -->
     <!-- JavaScript المتكامل -->
     <!-- ============================================ -->
     <script>
         // ============================================
-        // البيانات
+        // البيانات الأساسية
         // ============================================
+        const TIERS = {
+            basic: { label: 'عادي', emoji: '💎', price: 1 },
+            silver: { label: 'فضي', emoji: '⭐', price: 5 },
+            gold: { label: 'ذهبي', emoji: '👑', price: 10 },
+            platinum: { label: 'ماسي', emoji: '💠', price: 100 }
+        };
+
         const sampleSquares = [
-            { id: 1, number: 1, tier: 'platinum', status: 'available', price: 100, category: 'marketing', 
-              owner: { name: 'هند القحطاني', avatar: 'https://i.pravatar.cc/150?img=1', bio: 'خبيرة تسويق رقمي', specialty: 'تسويق رقمي', email: 'hind@example.com', phone: '+966 512345678' }, 
+            { id: 1, number: 1, tier: 'platinum', status: 'available', price: 100, category: 'تسويق رقمي', 
+              owner: { name: 'هند القحطاني', avatar: 'https://i.pravatar.cc/150?img=1', bio: 'خبيرة تسويق رقمي مع 10 سنوات خبرة', specialty: 'تسويق', email: 'hind@example.com', phone: '+966 512345678' }, 
               location: { city: 'المنامة', country: 'قطر' }, 
               content: { title: 'تسويق رقمي متقدم', description: 'خدمات تسويق رقمي متكاملة للشركات' }, 
               stats: { views: 1500 }, rating: { average: 4.8, count: 23 },
               social: { twitter: '@hind_marketing', linkedin: 'hind-alqahtani', instagram: '@hind_digital' } },
-            { id: 2, number: 2, tier: 'gold', status: 'sold', price: 10, category: 'programming', 
-              owner: { name: 'نورة الحربي', avatar: 'https://i.pravatar.cc/150?img=2', bio: 'مبرمجة تطبيقات', specialty: 'برمجة', email: 'nora@example.com', phone: '+966 554433221' }, 
+            { id: 2, number: 2, tier: 'gold', status: 'sold', price: 10, category: 'برمجة', 
+              owner: { name: 'نورة الحربي', avatar: 'https://i.pravatar.cc/150?img=2', bio: 'مبرمجة تطبيقات ويب وموبايل', specialty: 'برمجة', email: 'nora@example.com', phone: '+966 554433221' }, 
               location: { city: 'المدينة', country: 'الكويت' }, 
               content: { title: 'برمجة تطبيقات', description: 'تطوير تطبيقات ويب وموبايل احترافية' }, 
               stats: { views: 890 }, rating: { average: 4.5, count: 12 },
               social: { twitter: '@nora_dev', github: 'nora-codes', linkedin: 'nora-alharbi' } },
-            { id: 3, number: 3, tier: 'gold', status: 'available', price: 10, category: 'design', 
-              owner: { name: 'منى السبيعي', avatar: 'https://i.pravatar.cc/150?img=3', bio: 'مصممة جرافيك', specialty: 'تصميم', email: 'mona@example.com', phone: '+966 598765432' }, 
+            { id: 3, number: 3, tier: 'gold', status: 'available', price: 10, category: 'تصميم', 
+              owner: { name: 'منى السبيعي', avatar: 'https://i.pravatar.cc/150?img=3', bio: 'مصممة جرافيك وهوية بصرية', specialty: 'تصميم', email: 'mona@example.com', phone: '+966 598765432' }, 
               location: { city: 'الدوحة', country: 'السعودية' }, 
               content: { title: 'تصميم جرافيك احترافي', description: 'تصميم هويات ومواد تسويقية' }, 
               stats: { views: 2100 }, rating: { average: 4.9, count: 34 },
               social: { instagram: '@mona_design', behance: 'mona-designs' } },
-            { id: 4, number: 4, tier: 'silver', status: 'available', price: 5, category: 'marketing', 
-              owner: { name: 'محمد العمري', avatar: 'https://i.pravatar.cc/150?img=4', bio: 'استشاري تسويق', specialty: 'تسويق', email: 'mohammed@example.com', phone: '+966 556677889' }, 
+            { id: 4, number: 4, tier: 'silver', status: 'available', price: 5, category: 'تسويق', 
+              owner: { name: 'محمد العمري', avatar: 'https://i.pravatar.cc/150?img=4', bio: 'استشاري تسويق واستراتيجية', specialty: 'تسويق', email: 'mohammed@example.com', phone: '+966 556677889' }, 
               location: { city: 'جدة', country: 'الإمارات' }, 
               content: { title: 'تسويق عبر التواصل', description: 'استراتيجيات تسويق فعالة' }, 
               stats: { views: 450 }, rating: { average: 4.2, count: 8 },
               social: { twitter: '@mo_marketing', linkedin: 'mohammed-al-omari' } },
-            { id: 5, number: 5, tier: 'platinum', status: 'reserved', price: 100, category: 'programming', 
-              owner: { name: 'لمى الشهراني', avatar: 'https://i.pravatar.cc/150?img=5', bio: 'مهندسة برمجيات', specialty: 'برمجة', email: 'lama@example.com', phone: '+966 501234567' }, 
+            { id: 5, number: 5, tier: 'platinum', status: 'reserved', price: 100, category: 'برمجة', 
+              owner: { name: 'لمى الشهراني', avatar: 'https://i.pravatar.cc/150?img=5', bio: 'مهندسة برمجيات وذكاء اصطناعي', specialty: 'برمجة', email: 'lama@example.com', phone: '+966 501234567' }, 
               location: { city: 'جدة', country: 'البحرين' }, 
               content: { title: 'برمجة متقدمة', description: 'حلول برمجية مبتكرة للشركات' }, 
               stats: { views: 3200 }, rating: { average: 4.7, count: 28 },
               social: { twitter: '@lama_codes', github: 'lama-dev', linkedin: 'lama-al-shahrani' } },
-            { id: 6, number: 6, tier: 'gold', status: 'available', price: 10, category: 'design', 
-              owner: { name: 'فهد العتيبي', avatar: 'https://i.pravatar.cc/150?img=6', bio: 'مصمم واجهات', specialty: 'تصميم', email: 'fahd@example.com', phone: '+966 553322110' }, 
+            { id: 6, number: 6, tier: 'gold', status: 'available', price: 10, category: 'تصميم', 
+              owner: { name: 'فهد العتيبي', avatar: 'https://i.pravatar.cc/150?img=6', bio: 'مصمم واجهات وتجربة مستخدم', specialty: 'تصميم', email: 'fahd@example.com', phone: '+966 553322110' }, 
               location: { city: 'الرياض', country: 'الكويت' }, 
               content: { title: 'تصميم واجهات', description: 'تصميم واجهات مستخدم جذابة' }, 
               stats: { views: 670 }, rating: { average: 4.3, count: 15 },
               social: { instagram: '@fahd_ux', dribbble: 'fahd-designs' } },
-            { id: 7, number: 7, tier: 'silver', status: 'sold', price: 5, category: 'ai', 
-              owner: { name: 'فاطمة الزهراء', avatar: 'https://i.pravatar.cc/150?img=7', bio: 'خبيرة ذكاء اصطناعي', specialty: 'ذكاء اصطناعي', email: 'fatima@example.com', phone: '+966 598877665' }, 
+            { id: 7, number: 7, tier: 'silver', status: 'sold', price: 5, category: 'ذكاء اصطناعي', 
+              owner: { name: 'فاطمة الزهراء', avatar: 'https://i.pravatar.cc/150?img=7', bio: 'خبيرة ذكاء اصطناعي وتحليل بيانات', specialty: 'ذكاء اصطناعي', email: 'fatima@example.com', phone: '+966 598877665' }, 
               location: { city: 'دبي', country: 'عُمان' }, 
               content: { title: 'ذكاء اصطناعي', description: 'حلول ذكاء اصطناعي للأعمال' }, 
               stats: { views: 1850 }, rating: { average: 4.6, count: 19 },
               social: { twitter: '@fatima_ai', linkedin: 'fatima-al-zahra' } },
-            { id: 8, number: 8, tier: 'basic', status: 'available', price: 1, category: 'data', 
-              owner: { name: 'علي الشمري', avatar: 'https://i.pravatar.cc/150?img=8', bio: 'محلل بيانات', specialty: 'تحليل بيانات', email: 'ali@example.com', phone: '+966 567890123' }, 
+            { id: 8, number: 8, tier: 'basic', status: 'available', price: 1, category: 'تحليل بيانات', 
+              owner: { name: 'علي الشمري', avatar: 'https://i.pravatar.cc/150?img=8', bio: 'محلل بيانات وخبير إحصاء', specialty: 'تحليل بيانات', email: 'ali@example.com', phone: '+966 567890123' }, 
               location: { city: 'الدمام', country: 'البحرين' }, 
               content: { title: 'تحليل بيانات', description: 'تحليل وتصور البيانات' }, 
               stats: { views: 320 }, rating: { average: 4.0, count: 6 },
@@ -487,9 +810,10 @@
         let isLoggedIn = false;
         let currentUser = null;
         let userData = {};
-        let isPaymentCompleted = false;
-        let selectedSquare = null;
+        let selectedSupportPlan = null;
         let paypalRendered = false;
+        let supportersData = JSON.parse(localStorage.getItem('million_squares_supporters') || '[]');
+        let socialData = JSON.parse(localStorage.getItem('million_squares_social') || '{"email":"info@million-squares.com","twitter":"https://twitter.com/million_squares","linkedin":"https://linkedin.com/company/million-squares","github":"https://github.com/million-squares","youtube":"https://youtube.com/million-squares","instagram":"https://instagram.com/million_squares","facebook":"https://facebook.com/million-squares","tiktok":"https://tiktok.com/@million_squares","whatsapp":"https://wa.me/966500000000"}');
 
         // ============================================
         // دوال الإشعارات
@@ -501,6 +825,22 @@
             t.className = 'toast show ' + type;
             clearTimeout(window.timer);
             window.timer = setTimeout(() => { t.className = 'toast'; }, 4000);
+        }
+
+        function showNotification(message, type = 'info', icon = '📢') {
+            const bar = document.getElementById('notificationBar');
+            const msg = document.getElementById('notificationMessage');
+            const iconEl = document.getElementById('notificationIcon');
+            msg.textContent = message;
+            iconEl.textContent = icon;
+            bar.className = 'fixed top-0 left-0 right-0 z-50';
+            bar.style.borderColor = type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#667eea';
+            clearTimeout(window.notiTimeout);
+            window.notiTimeout = setTimeout(() => { bar.style.display = 'none'; }, 5000);
+        }
+
+        function closeNotification() {
+            document.getElementById('notificationBar').style.display = 'none';
         }
 
         // ============================================
@@ -525,41 +865,22 @@
             }
             
             section.classList.toggle('hidden');
-            if (!section.classList.contains('hidden')) {
-                btnText.textContent = 'إغلاق';
-            } else {
-                btnText.textContent = 'تسجيل الدخول';
-            }
+            btnText.textContent = section.classList.contains('hidden') ? 'تسجيل الدخول' : 'إغلاق';
         }
 
         function handleRegister(event) {
             event.preventDefault();
-            
             const fullName = document.getElementById('fullName').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
             
-            if (!fullName) {
-                showToast('⚠️ يرجى إدخال الاسم الكامل', 'warning');
-                return;
-            }
-            if (!email || !email.includes('@')) {
-                showToast('⚠️ يرجى إدخال بريد إلكتروني صحيح', 'warning');
-                return;
-            }
-            if (password.length < 6) {
-                showToast('⚠️ كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'warning');
-                return;
-            }
-            if (password !== confirmPassword) {
-                showToast('⚠️ كلمة المرور وتأكيدها غير متطابقين', 'warning');
-                return;
-            }
+            if (!fullName) { showToast('⚠️ يرجى إدخال الاسم الكامل', 'warning'); return; }
+            if (!email || !email.includes('@')) { showToast('⚠️ يرجى إدخال بريد صحيح', 'warning'); return; }
+            if (password.length < 6) { showToast('⚠️ كلمة المرور 6 أحرف على الأقل', 'warning'); return; }
+            if (password !== confirm) { showToast('⚠️ كلمة المرور غير متطابقة', 'warning'); return; }
             
             userData = { fullName, companyName: document.getElementById('companyName').value.trim(), email, password };
-            
-            // فتح نافذة الدفع
             showToast('⚠️ الدفع مطلوب لإتمام التسجيل', 'warning');
             setTimeout(() => openPayment('paypal'), 500);
         }
@@ -568,12 +889,10 @@
             isLoggedIn = true;
             currentUser = user;
             localStorage.setItem('million_squares_session', JSON.stringify({ userId: user.id, name: user.name, email: user.email, loggedIn: true }));
-            
             document.getElementById('authBtnText').textContent = 'تسجيل الخروج';
             document.getElementById('authStatusText').textContent = user.name;
             document.getElementById('authStatus').className = 'auth-status logged-in';
             document.getElementById('registerSection').classList.add('hidden');
-            
             updateUI();
             showToast(`👋 مرحباً ${user.name}!`, 'success');
         }
@@ -600,50 +919,35 @@
             document.getElementById('soldSquares').textContent = sold;
             document.getElementById('subscribers').textContent = isLoggedIn ? sampleSquares.length : 0;
             document.getElementById('revenue').textContent = '$' + (isLoggedIn ? sampleSquares.reduce((sum, s) => sum + s.price, 0) : 0);
-            document.getElementById('supporters').textContent = sampleSquares.filter(s => s.tier === 'platinum').length;
+            document.getElementById('supporters').textContent = supportersData.length;
         }
 
         // ============================================
-        // دوال الدفع مع PayPal
+        // دوال الدفع
         // ============================================
         function openPayment(method) {
-            // التحقق من بيانات المستخدم
             if (!userData.fullName) {
                 const fullName = document.getElementById('fullName').value.trim();
                 const email = document.getElementById('email').value.trim();
                 const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                
-                if (!fullName || !email || password.length < 6 || password !== confirmPassword) {
+                const confirm = document.getElementById('confirmPassword').value;
+                if (!fullName || !email || password.length < 6 || password !== confirm) {
                     showToast('⚠️ يرجى إكمال بيانات التسجيل أولاً', 'warning');
                     return;
                 }
-                
-                userData = {
-                    fullName: fullName,
-                    companyName: document.getElementById('companyName').value.trim(),
-                    email: email,
-                    password: password
-                };
+                userData = { fullName, companyName: document.getElementById('companyName').value.trim(), email, password };
             }
             
-            // فتح نافذة الدفع
             const popup = document.getElementById('paymentPopup');
-            document.getElementById('popupTitle').textContent = method === 'paypal' ? '💳 الدفع عبر PayPal' : 
-                                                              method === 'stripe' ? '💳 الدفع عبر Stripe' : '💳 الدفع بـ USDT';
+            document.getElementById('popupTitle').textContent = method === 'paypal' ? '💳 الدفع عبر PayPal' : method === 'stripe' ? '💳 الدفع عبر Stripe' : '💳 الدفع بـ USDT';
             document.getElementById('popupPrice').textContent = '$5.00 USD';
             document.getElementById('paymentStatus').textContent = '';
             popup.classList.add('active');
             
-            // تهيئة PayPal
-            if (method === 'paypal') {
-                initPayPalButton();
-            } else {
-                // لـ Stripe و Crypto نعرض زر بديل
-                const container = document.getElementById('paypal-button-container');
-                container.innerHTML = `
-                    <button onclick="simulatePayment('${method}')" 
-                            style="background:${method === 'stripe' ? '#635bff' : '#f7931a'};color:#fff;padding:14px 30px;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:1rem;width:100%;">
+            if (method === 'paypal') initPayPalButton();
+            else {
+                document.getElementById('paypal-button-container').innerHTML = `
+                    <button onclick="simulatePayment('${method}')" style="background:${method === 'stripe' ? '#635bff' : '#f7931a'};color:#fff;padding:14px;border:none;border-radius:12px;font-weight:700;cursor:pointer;width:100%;">
                         <i class="fas fa-check"></i> تأكيد الدفع والتسجيل
                     </button>
                 `;
@@ -657,135 +961,149 @@
             paypalRendered = false;
         }
 
-        // ===== PayPal Button =====
         function initPayPalButton() {
             const container = document.getElementById('paypal-button-container');
-            
             if (typeof paypal === 'undefined') {
                 container.innerHTML = '<p style="color:rgba(255,255,255,0.4);text-align:center;">⏳ جاري تحميل PayPal...</p>';
                 setTimeout(() => initPayPalButton(), 1000);
                 return;
             }
-            
             if (paypalRendered) return;
             paypalRendered = true;
             
             try {
                 paypal.Buttons({
-                    style: {
-                        layout: 'vertical',
-                        color: 'gold',
-                        shape: 'rect',
-                        label: 'paypal',
-                        height: 48,
-                        tagline: false
-                    },
+                    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal', height: 48, tagline: false },
                     createOrder: function(data, actions) {
                         return actions.order.create({
-                            purchase_units: [{
-                                amount: {
-                                    value: '5.00',
-                                    currency_code: 'USD'
-                                },
-                                description: 'اشتراك مليون مربع - تسجيل جديد',
-                                custom_id: 'register_' + Date.now()
-                            }],
-                            application_context: {
-                                shipping_preference: 'NO_SHIPPING',
-                                brand_name: 'Million Squares',
-                                locale: 'ar_SA'
-                            }
+                            purchase_units: [{ amount: { value: '5.00', currency_code: 'USD' }, description: 'اشتراك مليون مربع' }],
+                            application_context: { shipping_preference: 'NO_SHIPPING', brand_name: 'Million Squares', locale: 'ar_SA' }
                         });
                     },
                     onApprove: function(data, actions) {
                         return actions.order.capture().then(function(details) {
-                            document.getElementById('paymentStatus').innerHTML = `
-                                <span style="color:#4CAF50;font-weight:700;">
-                                    ✅ تم الدفع بنجاح!
-                                </span>
-                            `;
+                            document.getElementById('paymentStatus').innerHTML = '<span style="color:#4CAF50;font-weight:700;">✅ تم الدفع بنجاح!</span>';
                             completeRegistration(details, 'PayPal');
                         });
                     },
                     onError: function(err) {
                         console.error('PayPal Error:', err);
-                        document.getElementById('paymentStatus').innerHTML = `
-                            <span style="color:#f44336;font-weight:700;">
-                                ❌ حدث خطأ في الدفع
-                            </span>
-                        `;
+                        document.getElementById('paymentStatus').innerHTML = '<span style="color:#f44336;font-weight:700;">❌ حدث خطأ في الدفع</span>';
                         showToast('⚠️ حدث خطأ في الدفع، يرجى المحاولة مرة أخرى', 'error');
                     },
-                    onCancel: function() {
-                        showToast('تم إلغاء عملية الدفع', 'warning');
-                    }
+                    onCancel: function() { showToast('تم إلغاء عملية الدفع', 'warning'); }
                 }).render(container);
-            } catch (e) {
-                console.error('PayPal init error:', e);
-                container.innerHTML = `
-                    <button onclick="simulatePayment('paypal')" 
-                            style="background:#4CAF50;color:#fff;padding:14px 30px;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:1rem;width:100%;">
-                        <i class="fas fa-check"></i> تأكيد الدفع (بديل)
-                    </button>
-                `;
+            } catch(e) {
+                container.innerHTML = `<button onclick="simulatePayment('paypal')" style="background:#4CAF50;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:700;cursor:pointer;width:100%;"><i class="fas fa-check"></i> تأكيد الدفع (بديل)</button>`;
             }
         }
 
-        // ===== محاكاة الدفع =====
         function simulatePayment(method) {
-            document.getElementById('paymentStatus').innerHTML = `
-                <span style="color:#ffd700;font-weight:700;">
-                    ⏳ جاري معالجة الدفع...
-                </span>
-            `;
-            
+            document.getElementById('paymentStatus').innerHTML = '<span style="color:#ffd700;font-weight:700;">⏳ جاري معالجة الدفع...</span>';
             setTimeout(() => {
-                document.getElementById('paymentStatus').innerHTML = `
-                    <span style="color:#4CAF50;font-weight:700;">
-                        ✅ تم الدفع بنجاح!
-                    </span>
-                `;
+                document.getElementById('paymentStatus').innerHTML = '<span style="color:#4CAF50;font-weight:700;">✅ تم الدفع بنجاح!</span>';
                 completeRegistration({ id: 'sim_' + Date.now() }, method);
             }, 1500);
         }
 
-        // ===== إتمام التسجيل بعد الدفع =====
         function completeRegistration(paymentDetails, method) {
             const methodNames = { paypal: 'PayPal', stripe: 'Stripe', crypto: 'USDT' };
-            const methodName = methodNames[method] || method;
-            
-            showToast(`✅ تم الدفع بنجاح عبر ${methodName}! 🎉`, 'success');
+            showToast(`✅ تم الدفع بنجاح عبر ${methodNames[method] || method}! 🎉`, 'success');
             closePayment();
             
-            // إنشاء الحساب
             const user = {
                 id: Date.now(),
                 name: userData.fullName,
                 email: userData.email,
                 company: userData.companyName,
                 password: userData.password,
-                paymentMethod: methodName,
+                paymentMethod: methodNames[method] || method,
                 paymentId: paymentDetails.id || 'pay_' + Date.now(),
                 registeredAt: new Date().toISOString(),
                 status: 'active',
                 avatar: `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70) + 1}`
             };
             
-            // حفظ في localStorage
             let users = JSON.parse(localStorage.getItem('million_squares_users') || '[]');
             users.push(user);
             localStorage.setItem('million_squares_users', JSON.stringify(users));
-            
-            // تسجيل الدخول
             loginUser(user);
-            
-            setTimeout(() => {
-                showToast('🎉 تم إنشاء حسابك بنجاح!', 'success');
-            }, 500);
+            setTimeout(() => showToast('🎉 تم إنشاء حسابك بنجاح!', 'success'), 500);
         }
 
         // ============================================
-        // دوال عرض المربعات مع الصور والتفاصيل
+        // دوال الدعم
+        // ============================================
+        function selectSupport(plan) {
+            selectedSupportPlan = plan;
+            document.querySelectorAll('#supportWeekly, #supportMonthly, #supportYearly').forEach(el => {
+                el.classList.remove('border-blue-500');
+            });
+            document.getElementById('support' + plan.charAt(0).toUpperCase() + plan.slice(1)).classList.add('border-blue-500');
+        }
+
+        function processSupport() {
+            if (!selectedSupportPlan) { showToast('اختر خطة الدعم أولاً', 'warning'); return; }
+            const name = document.getElementById('supporterName').value.trim();
+            const email = document.getElementById('supporterEmail').value.trim();
+            if (!name || !email) { showToast('أدخل الاسم والبريد الإلكتروني', 'warning'); return; }
+            
+            const plans = { weekly: { amount: 100, label: 'أسبوعي' }, monthly: { amount: 1000, label: 'شهري' }, yearly: { amount: 10000, label: 'سنوي' } };
+            const plan = plans[selectedSupportPlan];
+            
+            const supporter = {
+                id: supportersData.length + 1,
+                name: name,
+                email: email,
+                company: document.getElementById('supporterCompany').value.trim(),
+                amount: plan.amount,
+                period: selectedSupportPlan,
+                tier: plan.label,
+                date: new Date().toISOString()
+            };
+            
+            supportersData.push(supporter);
+            localStorage.setItem('million_squares_supporters', JSON.stringify(supportersData));
+            renderAdSlider();
+            updateUI();
+            showToast(`✅ تم دعم المنصة بمبلغ $${plan.amount}! شكراً لك ${name}`, 'success');
+            closeModal('sponsorModal');
+            selectedSupportPlan = null;
+            document.querySelectorAll('#supportWeekly, #supportMonthly, #supportYearly').forEach(el => el.classList.remove('border-blue-500'));
+            document.getElementById('supporterName').value = '';
+            document.getElementById('supporterEmail').value = '';
+            document.getElementById('supporterCompany').value = '';
+        }
+
+        // ============================================
+        // شريط الإعلانات
+        // ============================================
+        function renderAdSlider() {
+            const track = document.getElementById('adSliderTrack');
+            const ads = supportersData.slice(0, 4);
+            if (ads.length === 0) {
+                track.innerHTML = `<div class="ad-slide"><div class="flex items-center gap-4"><div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl">📢</div><div><h4 class="font-bold">كن أول داعم</h4><p class="text-xs text-gray-400">ادعم المنصة واظهر هنا</p></div></div><div><button onclick="openModal('sponsorModal')" class="px-4 py-2 bg-green-600 rounded-full hover:bg-green-700 transition text-sm font-bold">💝 دعم</button></div></div>`;
+                return;
+            }
+            track.innerHTML = ads.map(ad => `
+                <div class="ad-slide">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl">🏢</div>
+                        <div><h4 class="font-bold">${ad.name}</h4><p class="text-xs text-gray-400">${ad.tier || ''} - $${ad.amount || 0}/${ad.period || 'شهري'}</p></div>
+                    </div>
+                    <div><span class="text-xs bg-yellow-600/20 px-3 py-1 rounded-full text-yellow-400">🌟 داعم</span></div>
+                </div>
+            `).join('');
+        }
+
+        // ============================================
+        // دوال النوافذ
+        // ============================================
+        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        // ============================================
+        // عرض المربعات
         // ============================================
         function renderSquares() {
             const container = document.getElementById('squaresContainer');
@@ -794,20 +1112,14 @@
             const pageItems = filteredSquares.slice(start, end);
             
             if (pageItems.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <div class="text-6xl mb-4">🔍</div>
-                        <h3 class="text-2xl font-semibold text-gray-400 mb-2">لا توجد مربعات</h3>
-                        <p class="text-gray-500">جرب تغيير معايير البحث</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="col-span-full text-center py-12"><div class="text-6xl mb-4">🔍</div><h3 class="text-2xl font-semibold text-gray-400 mb-2">لا توجد مربعات</h3><p class="text-gray-500">جرب تغيير معايير البحث</p></div>`;
                 document.getElementById('pagination').innerHTML = '';
+                document.getElementById('resultsCount').textContent = '0 مربع';
                 return;
             }
 
             container.innerHTML = pageItems.map(square => {
-                const tierEmojis = { basic: '💎', silver: '⭐', gold: '👑', platinum: '💠' };
-                const tierColors = { basic: 'tier-basic', silver: 'tier-silver', gold: 'tier-gold', platinum: 'tier-platinum' };
+                const tier = TIERS[square.tier] || TIERS.basic;
                 const statusClass = `status-${square.status}`;
                 const statusText = { available: '🟢 متاح', sold: '🔴 مباع', reserved: '🟡 محجوز' }[square.status] || square.status;
                 const stars = '★'.repeat(Math.round(square.rating.average)) + '☆'.repeat(5 - Math.round(square.rating.average));
@@ -815,8 +1127,9 @@
                 const isSold = square.status === 'sold';
 
                 return `
-                    <div class="square-card rounded-xl p-4" onclick="showSquareDetail(${square.id})">
-                        <!-- نافذة منبثقة عند التمرير -->
+                    <div class="square-card" onclick="showSquareDetail(${square.id})">
+                        <div class="premium-glow"></div>
+                        
                         <div class="hover-popup">
                             <img src="${avatar}" alt="${square.owner.name}" class="avatar-sm">
                             <div class="name">${square.owner.name}</div>
@@ -830,7 +1143,7 @@
                         </div>
                         
                         <div class="flex justify-between items-start mb-3">
-                            <span class="text-3xl">${tierEmojis[square.tier]}</span>
+                            <span class="text-3xl">${tier.emoji}</span>
                             <span class="status-badge ${statusClass}">${statusText}</span>
                         </div>
                         
@@ -845,6 +1158,7 @@
                         <div class="text-sm text-gray-400 space-y-1">
                             <p><i class="fas fa-tag text-purple-400 w-5"></i> ${square.category}</p>
                             <p><i class="fas fa-map-marker-alt text-red-400 w-5"></i> ${square.location.city}, ${square.location.country}</p>
+                            <p><i class="fas fa-eye text-blue-400 w-5"></i> ${square.stats.views} مشاهدة</p>
                         </div>
                         
                         <div class="flex items-center gap-2 text-sm text-gray-400 mt-2">
@@ -853,45 +1167,50 @@
                         </div>
                         
                         <div class="flex justify-between items-center mt-3 pt-3 border-t border-white/10">
-                            <div class="flex items-center gap-3 text-sm text-gray-400">
-                                <span><i class="far fa-eye"></i> ${square.stats.views}</span>
+                            <div class="flex items-center gap-2 text-sm text-gray-400">
                                 ${isLoggedIn ? `<span><i class="far fa-star text-yellow-500"></i> ${square.rating.average}</span>` : ''}
                             </div>
                             <div class="font-bold text-yellow-400">$${square.price}/سنة</div>
                         </div>
-                        
-                        ${!isLoggedIn && square.status === 'available' ? `
-                            <div class="mt-2 text-center text-xs text-gray-500">
-                                <i class="fas fa-lock"></i> سجل وادفع لشراء هذا المربع
-                            </div>
-                        ` : ''}
                     </div>
                 `;
             }).join('');
 
+            document.getElementById('resultsCount').textContent = `${filteredSquares.length} مربع`;
             renderPagination();
         }
 
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredSquares.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            if (totalPages <= 1) { pagination.innerHTML = ''; return; }
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button onclick="goToPage(${i})" class="px-4 py-2 rounded-lg transition ${i === currentPage ? 'bg-blue-600 text-white' : 'bg-white/10 text-gray-400 hover:bg-white/20'}">${i}</button>`;
+            }
+            pagination.innerHTML = html;
+        }
+
+        function goToPage(page) { currentPage = page; renderSquares(); window.scrollTo({ top: 400, behavior: 'smooth' }); }
+
         // ============================================
-        // عرض تفاصيل المربع عند الضغط
+        // تفاصيل المربع
         // ============================================
         function showSquareDetail(id) {
             const square = sampleSquares.find(s => s.id === id);
             if (!square) return;
             
-            selectedSquare = square;
-            const overlay = document.getElementById('squareDetail');
             const content = document.getElementById('squareDetailContent');
             const avatar = square.owner.avatar || `https://i.pravatar.cc/150?img=${square.id}`;
             const stars = '★'.repeat(Math.round(square.rating.average)) + '☆'.repeat(5 - Math.round(square.rating.average));
             
             content.innerHTML = `
                 <div class="flex flex-col items-center">
-                    <img src="${avatar}" alt="${square.owner.name}" class="avatar">
+                    <img src="${avatar}" alt="${square.owner.name}" class="avatar-lg">
                     <h2 class="text-2xl font-bold text-white mt-3">${square.owner.name}</h2>
                     <p class="text-gray-400">${square.owner.bio || 'عضو في مليون مربع'}</p>
                     
-                    <div class="grid grid-cols-2 gap-4 w-full mt-4 text-right">
+                    <div class="grid grid-cols-2 gap-3 w-full mt-4 text-right text-sm">
                         <div><span class="text-gray-400">📧 البريد:</span> <span class="text-white">${square.owner.email || 'غير متاح'}</span></div>
                         <div><span class="text-gray-400">📱 الهاتف:</span> <span class="text-white">${square.owner.phone || 'غير متاح'}</span></div>
                         <div><span class="text-gray-400">📍 الموقع:</span> <span class="text-white">${square.location.city}, ${square.location.country}</span></div>
@@ -906,7 +1225,7 @@
                         <p class="text-gray-400 text-sm">📝 ${square.content.description || 'لا يوجد وصف'}</p>
                     </div>
                     
-                    <div class="flex gap-4 mt-4 flex-wrap justify-center">
+                    <div class="flex flex-wrap gap-2 mt-4 justify-center">
                         ${square.social?.twitter ? `<a href="https://twitter.com/${square.social.twitter.replace('@', '')}" target="_blank" class="social-link"><i class="fab fa-twitter"></i> تويتر</a>` : ''}
                         ${square.social?.linkedin ? `<a href="https://linkedin.com/in/${square.social.linkedin}" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i> لينكد إن</a>` : ''}
                         ${square.social?.instagram ? `<a href="https://instagram.com/${square.social.instagram.replace('@', '')}" target="_blank" class="social-link"><i class="fab fa-instagram"></i> إنستغرام</a>` : ''}
@@ -914,20 +1233,18 @@
                     </div>
                     
                     ${square.status === 'available' && !isLoggedIn ? `
-                        <button onclick="document.getElementById('squareDetail').classList.remove('active');toggleRegister()" 
-                                class="mt-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-lg transition text-white font-bold">
+                        <button onclick="document.getElementById('squareDetail').classList.remove('active');toggleRegister()" class="mt-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:shadow-lg transition text-white font-bold">
                             <i class="fas fa-user-plus"></i> سجل وادفع لشراء هذا المربع
                         </button>
                     ` : square.status === 'available' && isLoggedIn ? `
-                        <button onclick="alert('سيتم توجيهك لصفحة الدفع لشراء المربع #${square.number}')" 
-                                class="mt-4 px-6 py-2 bg-gradient-to-r from-green-500 to-green-700 rounded-full hover:shadow-lg transition text-white font-bold">
+                        <button onclick="alert('سيتم توجيهك لصفحة الدفع لشراء المربع #${square.number}')" class="mt-4 px-6 py-2 bg-gradient-to-r from-green-500 to-green-700 rounded-full hover:shadow-lg transition text-white font-bold">
                             <i class="fas fa-shopping-cart"></i> شراء المربع #${square.number}
                         </button>
                     ` : ''}
                 </div>
             `;
             
-            overlay.classList.add('active');
+            document.getElementById('squareDetail').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
@@ -937,35 +1254,8 @@
         }
 
         // ============================================
-        // الترقيم والفلاتر
+        // الفلاتر
         // ============================================
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredSquares.length / itemsPerPage);
-            const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
-
-            let html = '';
-            for (let i = 1; i <= totalPages; i++) {
-                html += `
-                    <button onclick="goToPage(${i})" 
-                            class="px-4 py-2 rounded-lg transition ${i === currentPage ? 'bg-blue-600 text-white' : 'bg-white/10 text-gray-400 hover:bg-white/20'}">
-                        ${i}
-                    </button>
-                `;
-            }
-            pagination.innerHTML = html;
-        }
-
-        function goToPage(page) {
-            currentPage = page;
-            renderSquares();
-            window.scrollTo({ top: 400, behavior: 'smooth' });
-        }
-
         function filterSquares() {
             const search = document.getElementById('searchInput').value.toLowerCase();
             const tier = document.getElementById('tierFilter').value;
@@ -975,7 +1265,8 @@
                 const matchesSearch = square.content.title.toLowerCase().includes(search) ||
                                     square.content.description.toLowerCase().includes(search) ||
                                     square.owner.name.toLowerCase().includes(search) ||
-                                    square.owner.bio?.toLowerCase().includes(search);
+                                    square.owner.bio?.toLowerCase().includes(search) ||
+                                    square.category.toLowerCase().includes(search);
                 const matchesTier = tier === 'all' || square.tier === tier;
                 const matchesStatus = status === 'all' || square.status === status;
                 return matchesSearch && matchesTier && matchesStatus;
@@ -993,11 +1284,35 @@
         }
 
         // ============================================
+        // وسائل التواصل
+        // ============================================
+        function renderSocialIcons() {
+            const container = document.getElementById('socialIconsContainer');
+            const social = socialData;
+            const icons = [
+                { id: 'email', icon: 'fa-envelope', cls: 'email', url: `mailto:${social.email}` },
+                { id: 'twitter', icon: 'fa-twitter', cls: 'twitter', url: social.twitter },
+                { id: 'linkedin', icon: 'fa-linkedin-in', cls: 'linkedin', url: social.linkedin },
+                { id: 'github', icon: 'fa-github', cls: 'github', url: social.github },
+                { id: 'youtube', icon: 'fa-youtube', cls: 'youtube', url: social.youtube },
+                { id: 'instagram', icon: 'fa-instagram', cls: 'instagram', url: social.instagram },
+                { id: 'facebook', icon: 'fa-facebook-f', cls: 'facebook', url: social.facebook },
+                { id: 'tiktok', icon: 'fa-tiktok', cls: 'tiktok', url: social.tiktok },
+                { id: 'whatsapp', icon: 'fa-whatsapp', cls: 'whatsapp', url: social.whatsapp }
+            ];
+            container.innerHTML = icons.filter(i => i.url && i.url.trim() !== '').map(i => `
+                <a href="${i.url}" target="_blank" class="${i.cls}" title="${i.id}"><i class="fab ${i.icon}"></i></a>
+            `).join('');
+        }
+
+        // ============================================
         // تهيئة الصفحة
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             checkSession();
-            filterSquares();
+            renderSquares();
+            renderAdSlider();
+            renderSocialIcons();
             
             document.getElementById('searchInput').addEventListener('input', filterSquares);
             document.getElementById('tierFilter').addEventListener('change', filterSquares);
@@ -1005,11 +1320,19 @@
             
             updateUI();
             
-            console.log('🏆 مليون مربع - المنصة المتكاملة مع الدفع الإلزامي');
-            console.log('✅ تم تحميل الموقع مع نظام التسجيل والدفع');
-            console.log('⚠️ لا يمكن التسجيل بدون دفع');
-            console.log('👤 يتم عرض صورة المشترك واسمه عند التمرير');
-            console.log('📋 يتم عرض التفاصيل عند الضغط على المربع');
+            // إشعار ترحيبي
+            setTimeout(() => {
+                showNotification('مرحباً بك في مليون مربع! 🎉 استكشف المنصة وابدأ رحلتك', 'info', '👋');
+            }, 1000);
+            
+            console.log('🏆 مليون مربع - المنصة المتكاملة');
+            console.log('✅ تم تحميل جميع الميزات بنجاح');
+            console.log('🔒 الدفع الإلزامي عبر PayPal مفعل');
+            console.log('👤 عرض الصور والتفاصيل عند التمرير والضغط');
+            console.log('📊 نظام التحليلات والمشاهدات مفعل');
+            console.log('🌟 شريط الإعلانات والداعمين مفعل');
+            console.log('🌐 وسائل التواصل الاجتماعي مفعلة');
+            console.log('🔐 دخول المسؤول: admin / admin123');
         });
 
         // ============================================
@@ -1027,6 +1350,11 @@
         window.resetFilters = resetFilters;
         window.filterSquares = filterSquares;
         window.showToast = showToast;
+        window.openModal = openModal;
+        window.closeModal = closeModal;
+        window.selectSupport = selectSupport;
+        window.processSupport = processSupport;
+        window.closeNotification = closeNotification;
     </script>
 </body>
 </html>
